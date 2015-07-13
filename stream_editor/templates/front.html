@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <link href="favicon.ico" rel="icon" type="image/x-icon" />
+        <title>Online Stream Editor | run sed, grep, and awk interactively on the web</title>
+        <meta name="description" content="Run sed, grep, and awk Linux commands interactively online in real time with visual diff." />
+
+        <!-- Open Graph -->
+        <meta property="og:title" content="Online Stream Editor | run sed, grep, and awk interactively on the web" />
+        <meta property="og:site_name" content="Online Stream Editor" />
+        <meta property="og:url" content="http://onlinestreameditor.com/" />
+
+        <!-- CSS -->
+        <link href='//fonts.googleapis.com/css?family=Inconsolata:400,700' rel='stylesheet' type='text/css'>
+        <link href="/static/app.css" rel="stylesheet" type="text/css" />
+
+        <!-- JavaScript -->
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src="/static/app.js"></script>
+    </head>
+    <body>
+        <header>
+            <h1>Online Stream Editor</h1>
+        </header>
+        <main>
+            <section class="operation">
+                <select class="command">
+                    <option selected value="sed">sed</option>
+                    <option value="grep">grep</option>
+                    <option value="awk">awk</option>
+                </select>
+                <input type="text" class="arguments"/>
+                <textarea class="input"></textarea>
+            </section>
+            <section class="operation">
+                <select class="command">
+                    <option selected value="sed">sed</option>
+                    <option value="grep">grep</option>
+                    <option value="awk">awk</option>
+                </select>
+                <input type="text" class="arguments"/>
+                <textarea class="output"></textarea>
+            </section>
+        </main>
+        <footer></footer>
+    </body>
+</html>
