@@ -5,7 +5,6 @@ from flask import request, jsonify, render_template
 from stream_editor import app
 from stream_editor.settings import MAX_INPUT_LENGTH, SUPPORTED_COMMANDS
 from stream_editor.utils import format_output
-from stream_editor.models import Command, Resource
 
 
 @app.route('/')
@@ -24,6 +23,7 @@ def list_commands():
 def execute():
     """Execute a list of stream commands and return the resulting output."""
 
+    supported_command_names = [command.name for command in SUPPORTED_COMMANDS]
     request_dict = request.get_json()
     text = request_dict['input']
     operations = request_dict['operations']
@@ -40,7 +40,7 @@ def execute():
 
         # check if the command is supported/allowed
         # IMPORTANT: prevents arbitrary command execution
-        if command not in SUPPORTED_COMMANDS:
+        if command not in supported_command_names:
             error_msg = "Command \"%s\" is not supported." % command
             return (jsonify(error=True, error_pos=index, error_msg=error_msg),
                     413) # "Request Entity Too Large" client error
