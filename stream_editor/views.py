@@ -23,11 +23,11 @@ def list_commands():
 def execute():
     """Execute a list of stream commands and return the resulting output."""
 
-    supported_command_names = [command.name for command in SUPPORTED_COMMANDS]
+    supported_command_names = [command['name'] for command in SUPPORTED_COMMANDS]
     request_dict = request.get_json()
     text = request_dict['input']
     operations = request_dict['operations']
-    output = [] # contains output after each command
+    outputs = [] # contains output after each command
 
     if len(text) > MAX_INPUT_LENGTH:
         error_msg = "Sorry, input may not be longer than %d characters."\
@@ -36,7 +36,7 @@ def execute():
 
     for index, operation in enumerate(operations):
         command = operation['command']
-        arguments = operation['arguments']
+        arguments = operation['args']
 
         # check if the command is supported/allowed
         # IMPORTANT: prevents arbitrary command execution
@@ -55,6 +55,6 @@ def execute():
                            error_msg=format_output(stderr))
 
         text = format_output(stdout)
-        output.append(text)
+        outputs.append(text)
 
-    return jsonify(error=False, output=output)
+    return jsonify(error=False, outputs=outputs)

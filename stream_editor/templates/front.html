@@ -13,38 +13,11 @@
         <meta property="og:site_name" content="Online Stream Editor" />
         <meta property="og:url" content="http://onlinestreameditor.com/" />
 
-        <!-- CSS -->
-        <link href='//fonts.googleapis.com/css?family=Inconsolata:400,700' rel='stylesheet' type='text/css'>
-        <link href="/static/app.css" rel="stylesheet" type="text/css" />
-
-        <!-- JavaScript -->
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-        <script src="/static/app.js"></script>
+        <!-- <link href='//fonts.googleapis.com/css?family=Inconsolata:400,700' rel='stylesheet' type='text/css'> -->
     </head>
     <body>
-        <header>
-            <h1>Online Stream Editor</h1>
-        </header>
-        <main>
-            <section class="operation">
-                <select class="command">
-                    <option selected value="sed">sed</option>
-                    <option value="grep">grep</option>
-                    <option value="awk">awk</option>
-                </select>
-                <input type="text" class="arguments"/>
-                <textarea class="input"></textarea>
-            </section>
-            <section class="operation">
-                <select class="command">
-                    <option selected value="sed">sed</option>
-                    <option value="grep">grep</option>
-                    <option value="awk">awk</option>
-                </select>
-                <input type="text" class="arguments"/>
-                <textarea class="output"></textarea>
-            </section>
-        </main>
-        <footer></footer>
+
     </body>
+
+    <script src="/static/dist/bundle.js"></script>
 </html>
