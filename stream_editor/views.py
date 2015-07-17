@@ -42,8 +42,7 @@ def execute():
         # IMPORTANT: prevents arbitrary command execution
         if command not in supported_command_names:
             error_msg = "Command \"%s\" is not supported." % command
-            return (jsonify(error=True, error_pos=index, error_msg=error_msg),
-                    413) # "Request Entity Too Large" client error
+            return jsonify(error=True, error_pos=index, error_msg=error_msg)
 
         # cf. http://stackoverflow.com/a/8475367
         p = Popen([command, arguments], stdout=PIPE, stdin=PIPE, stderr=PIPE)
