@@ -1,6 +1,7 @@
 var request = require('superagent');
 var React = require('react');
 
+var utils = require('../utils.js');
 var Input = require('./Input.jsx');
 var Operation = require('./Operation.jsx');
 var Output = require('./Output.jsx');
@@ -18,7 +19,8 @@ var Editor = React.createClass({
         cmd: 'sed',
         args: '',
         error: ''
-      }
+      },
+      inputDelay: 250 // milliseconds between input ending and API call
     };
   },
 
@@ -38,10 +40,16 @@ var Editor = React.createClass({
     request
     .get(API_ROOT + 'commands/')
     .end(function(err, res){
-      this.setState({
-        cmds: res.body.commands
-      });
+      this.setState({cmds: res.body.commands}, this.updateOperationsFromUrl);
     }.bind(this));
+  },
+
+  updateOperationsFromUrl: function() {
+    var operationsFromUrl = utils.decodeUrl(document.location.search);
+    if (operationsFromUrl.length) {
+      operationsFromUrl.push(this.newOperation());
+      this.setState({operations: operationsFromUrl});
+    }
   },
 
   newOperation: function() {
@@ -56,6 +64,8 @@ var Editor = React.createClass({
     var input = event.target;
     var operations = this.state.operations;
     operations[position].cmd = input.value;
+    utils.updateDocumentUrl(operations);
+    this.pushOperationIfLast(position);
     this.setState({operations: operations}, this.executeOperations);
   },
 
@@ -63,6 +73,7 @@ var Editor = React.createClass({
     var input = event.target;
     var operations = this.state.operations;
     operations[position].args = input.value;
+    utils.updateDocumentUrl(operations);
     this.setState({operations: operations}, this.handleKeypress);
   },
 
@@ -72,13 +83,19 @@ var Editor = React.createClass({
       window.clearTimeout(this.timeoutId);
     this.timeoutId = window.setTimeout(function(){
       this.executeOperations();
-    }.bind(this), 200);
+    }.bind(this), this.props.inputDelay);
   },
 
   pushOperation: function() {
     var operations = this.state.operations;
     operations.push(this.newOperation());
+    utils.updateDocumentUrl(operations);
     this.setState({operations: operations});
+  },
+
+  pushOperationIfLast: function(position) {
+    if (position === this.state.operations.length - 1)
+      this.pushOperation();
   },
 
   removeOperation: function(index) {
@@ -111,7 +128,6 @@ var Editor = React.createClass({
       else {
         this.setState({outputs: res.body.outputs});
       }
-      console.log(this.state.outputs);
     }.bind(this));
   },
 
@@ -122,13 +138,12 @@ var Editor = React.createClass({
   },
 
   render: function() {
-    console.log(this.state.operations);
     var operations = this.state.operations.map(function(operation, index){
       return (
         <Operation cmds={this.state.cmds}
                    operations={this.state.operations}
                    operation={operation}
-                   pushOperation={this.pushOperation}
+                   pushOperationIfLast={this.pushOperationIfLast}
                    canRemoveOperation={this.canRemoveOperation}
                    removeOperation={this.removeOperation}
                    position={index}

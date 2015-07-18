@@ -1,6 +1,7 @@
-var Utils = function() {
+module.exports = {
 
-  var encodeUrl = function(operations) {
+  encodeUrl: function(operations) {
+    console.log('encoding url', operations);
 
     var urlComponents = {};
     operations.forEach(function(operation, index){
@@ -18,10 +19,10 @@ var Utils = function() {
 
     var querystring = "?" + encodedPairs.join('&');
     return querystring;
-  };
+  },
 
 
-  var decodeUrl = function(querystring) {
+  decodeUrl: function(querystring) {
 
     var encodedPairs = querystring.slice(1).split('&');
 
@@ -47,9 +48,11 @@ var Utils = function() {
     }
 
     return operations;
-  };
-
-}
+  },
 
 
-module.exports = Utils;
+  updateDocumentUrl: function(operations) {
+    window.history.replaceState({}, '', this.encodeUrl(operations.slice(0, operations.length-1)));
+  }
+
+};

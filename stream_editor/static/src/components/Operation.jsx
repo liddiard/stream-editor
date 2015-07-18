@@ -7,17 +7,12 @@ var Operation = React.createClass({
     cmds: React.PropTypes.array.isRequired,
     operations: React.PropTypes.array.isRequired,
     operation: React.PropTypes.object.isRequired,
-    pushOperation: React.PropTypes.func.isRequired,
+    pushOperationIfLast: React.PropTypes.func.isRequired,
     canRemoveOperation: React.PropTypes.func.isRequired,
     removeOperation: React.PropTypes.func.isRequired,
     position: React.PropTypes.number.isRequired,
     onCmdChange: React.PropTypes.func.isRequired,
     onArgsChange: React.PropTypes.func.isRequired
-  },
-
-  pushOperationIfLast: function() {
-    if (this.props.position === this.props.operations.length - 1)
-      this.props.pushOperation();
   },
 
   render: function() {
@@ -47,7 +42,7 @@ var Operation = React.createClass({
         <div className="input">
           <input type="text" name="args" value={this.props.operation.args}
                  onChange={this.props.onArgsChange.bind(null, this.props.position)}
-                 onFocus={this.pushOperationIfLast} />
+                 onFocus={this.props.pushOperationIfLast.bind(null, this.props.position)} />
            <div className="error">{this.props.operation.error}</div>
         </div>
         {removeButton}
