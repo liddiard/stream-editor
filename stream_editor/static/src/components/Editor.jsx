@@ -116,9 +116,9 @@ var Editor = React.createClass({
   },
 
   clearOperationErrors: function() {
-    for (var i = 0; i < this.state.operations.length; i++) {
-      this.state.operations[i].error = "";
-    }
+    this.state.operations.forEach(function(operation){
+      operation.error = "";
+    });
   },
 
   render: function() {
