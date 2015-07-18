@@ -28,7 +28,7 @@ var Operation = React.createClass({
     }.bind(this));
     return (
       <div className="operation">
-        <select value={this.props.selected} name="command"
+        <select name="command"
                 onChange={this.props.onOperationChange.bind(null, this.props.position)}>
           {options}
         </select>
