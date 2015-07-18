@@ -44,8 +44,15 @@ def execute():
             error_msg = "Command \"%s\" is not supported." % command
             return jsonify(error=True, error_pos=index, error_msg=error_msg)
 
+        # some commands (like sort) don't expect arguments and will try to
+        # open a file with the name [empty string] if called with an empty
+        # string argument
+        operation = [command]
+        if arguments:
+            operation.append(arguments)
+
         # cf. http://stackoverflow.com/a/8475367
-        p = Popen([command, arguments], stdout=PIPE, stdin=PIPE, stderr=PIPE)
+        p = Popen(operation, stdout=PIPE, stdin=PIPE, stderr=PIPE)
         stdout, stderr = p.communicate(input=text)
 
         # stop processing if we ran into an error
