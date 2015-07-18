@@ -35,7 +35,7 @@ def execute():
         return jsonify(error=True, error_pos=-1, error_msg=error_msg)
 
     for index, operation in enumerate(operations):
-        command = operation['command']
+        command = operation['cmd']
         arguments = operation['args']
 
         # check if the command is supported/allowed

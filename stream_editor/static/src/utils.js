@@ -4,7 +4,7 @@ var Utils = function() {
 
     var urlComponents = {};
     operations.forEach(function(operation, index){
-      urlComponents['command-'+index] = operation.command;
+      urlComponents['cmd-'+index] = operation.cmd;
       urlComponents['args-'+index] = operation.args;
     });
 
@@ -34,10 +34,10 @@ var Utils = function() {
     var operations = [];
     var index = 0;
     while(1) {
-      if (urlComponents.hasOwnProperty('command-'+index) &&
+      if (urlComponents.hasOwnProperty('cmd-'+index) &&
           urlComponents.hasOwnProperty('args-'+index)) {
         operations.push({
-          command: urlComponents['command-'+index],
+          cmd: urlComponents['cmd-'+index],
           args: urlComponents['args-'+index],
           error: ''
         });

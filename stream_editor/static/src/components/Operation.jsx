@@ -4,14 +4,14 @@ var React = require('react');
 var Operation = React.createClass({
 
   propTypes: {
-    commands: React.PropTypes.array.isRequired,
+    cmds: React.PropTypes.array.isRequired,
     operations: React.PropTypes.array.isRequired,
     operation: React.PropTypes.object.isRequired,
     pushOperation: React.PropTypes.func.isRequired,
     canRemoveOperation: React.PropTypes.func.isRequired,
     removeOperation: React.PropTypes.func.isRequired,
     position: React.PropTypes.number.isRequired,
-    onCommandChange: React.PropTypes.func.isRequired,
+    onCmdChange: React.PropTypes.func.isRequired,
     onArgsChange: React.PropTypes.func.isRequired
   },
 
@@ -21,10 +21,10 @@ var Operation = React.createClass({
   },
 
   render: function() {
-    var options = this.props.commands.map(function(command, index){
+    var options = this.props.cmds.map(function(cmd, index){
       return (
-        <option key={command.name} value={command.name}>
-          {command.name}
+        <option key={cmd.name} value={cmd.name}>
+          {cmd.name}
         </option>
       );
     }.bind(this));
@@ -40,8 +40,8 @@ var Operation = React.createClass({
     }
     return (
       <div className="operation">
-        <select name="command" value={this.props.operation.command}
-                onChange={this.props.onCommandChange.bind(null, this.props.position)}>
+        <select name="cmd" value={this.props.operation.cmd}
+                onChange={this.props.onCmdChange.bind(null, this.props.position)}>
           {options}
         </select>
         <div className="input">

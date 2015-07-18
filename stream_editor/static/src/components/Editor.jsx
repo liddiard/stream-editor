@@ -15,7 +15,7 @@ var Editor = React.createClass({
     return {
       defaultOperation: {
         // sed w/o arguments, returns the input unmodified
-        command: 'sed',
+        cmd: 'sed',
         args: '',
         error: ''
       }
@@ -24,9 +24,9 @@ var Editor = React.createClass({
 
   getInitialState: function() {
     return {
-      commands: [], // supported commands and associated descriptions/resources
+      cmds: [], // supported cmds and associated descriptions/resources
       input: '',    // user's text input
-      operations: [ // user's commands + arguments
+      operations: [ // user's cmds + arguments
         this.newOperation(),
         this.newOperation()
       ],
@@ -39,7 +39,7 @@ var Editor = React.createClass({
     .get(API_ROOT + 'commands/')
     .end(function(err, res){
       this.setState({
-        commands: res.body.commands
+        cmds: res.body.commands
       });
     }.bind(this));
   },
@@ -52,10 +52,10 @@ var Editor = React.createClass({
     this.setState({input: event.target.value}, this.handleKeypress);
   },
 
-  handleCommandChange: function(position, event) {
+  handleCmdChange: function(position, event) {
     var input = event.target;
     var operations = this.state.operations;
-    operations[position].command = input.value;
+    operations[position].cmd = input.value;
     this.setState({operations: operations}, this.executeOperations);
   },
 
@@ -125,14 +125,14 @@ var Editor = React.createClass({
     console.log(this.state.operations);
     var operations = this.state.operations.map(function(operation, index){
       return (
-        <Operation commands={this.state.commands}
+        <Operation cmds={this.state.cmds}
                    operations={this.state.operations}
                    operation={operation}
                    pushOperation={this.pushOperation}
                    canRemoveOperation={this.canRemoveOperation}
                    removeOperation={this.removeOperation}
                    position={index}
-                   onCommandChange={this.handleCommandChange}
+                   onCmdChange={this.handleCmdChange}
                    onArgsChange={this.handleArgsChange}
                    key={index} />
       );
