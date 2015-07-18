@@ -10,7 +10,9 @@ var Output = React.createClass({
   render: function() {
     return (
       <output>
-        {this.props.text}
+        <pre>
+          {this.props.text}
+        </pre>
       </output>
     );
   }
