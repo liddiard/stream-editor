@@ -8,10 +8,17 @@ var Input = React.createClass({
     onInputChange: React.PropTypes.func.isRequired
   },
 
+  getDefaultProps: function() {
+    return {
+      maxLength: 1048576 // 2**20
+    };
+  },
+
   render: function() {
     return (
       <textarea value={this.props.text}
-                onChange={this.props.onInputChange} />
+                onChange={this.props.onInputChange}
+                maxLength={this.props.maxLength} />
     );
   }
 
