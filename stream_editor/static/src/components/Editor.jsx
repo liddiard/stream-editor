@@ -49,7 +49,6 @@ var Editor = React.createClass({
   },
 
   handleOperationChange: function(position, event) {
-    console.log(this.state);
     var input = event.target;
     var operations = this.state.operations;
     operations[position][input.name] = input.value;
