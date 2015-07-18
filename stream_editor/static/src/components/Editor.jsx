@@ -53,6 +53,8 @@ var Editor = React.createClass({
   },
 
   newOperation: function() {
+    // makes a unique copy of the defaultOperation object (as opposed to
+    // pointing a reference to it)
     return JSON.parse(JSON.stringify(this.props.defaultOperation));
   },
 
@@ -87,6 +89,7 @@ var Editor = React.createClass({
   },
 
   pushOperation: function() {
+    // add a new default operation to the end of this state's operations array
     var operations = this.state.operations;
     operations.push(this.newOperation());
     utils.updateDocumentUrl(operations);
@@ -108,6 +111,10 @@ var Editor = React.createClass({
 
   canRemoveOperation: function() {
     // must have at least two operations in memory at all times
+    // the first operation is the one being applied to the input (this would
+    // be a pointless tool without any operations), and the second is a
+    // placeholder. If the user interacts with it, we make it into a "real"
+    // operation and append another placeholder.
     return (this.state.operations.length > 2);
   },
 
@@ -119,7 +126,7 @@ var Editor = React.createClass({
     .post(API_ROOT + 'execute/')
     .send({input: this.state.input, operations: operationsUsed})
     .end(function(err, res){
-      this.clearOperationErrors();
+      this.clearOperationErrors(); // clear out any existing error messages
       if (res.body.error) {
         var operations = this.state.operations;
         operations[res.body.error_pos].error = res.body.error_msg;

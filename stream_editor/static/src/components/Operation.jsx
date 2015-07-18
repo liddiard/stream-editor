@@ -16,6 +16,7 @@ var Operation = React.createClass({
   },
 
   render: function() {
+    // construct an array of command options to go in the command <select>
     var options = this.props.cmds.map(function(cmd, index){
       return (
         <option key={cmd.name} value={cmd.name}>
@@ -23,6 +24,9 @@ var Operation = React.createClass({
         </option>
       );
     }.bind(this));
+
+    // add an operation remove button if operations can be removed in the
+    // current state and this operation is not the last, placeholder operation
     var removeButton;
     if (this.props.canRemoveOperation() &&
         this.props.position != this.props.operations.length - 1) {
@@ -33,6 +37,7 @@ var Operation = React.createClass({
         </button>
       );
     }
+    
     return (
       <div className="operation">
         <select name="cmd" value={this.props.operation.cmd}
