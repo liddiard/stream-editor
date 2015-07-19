@@ -15,6 +15,7 @@ var Output = React.createClass({
     if (this.props.showDiff) {
       var diff = new Diff();
       var diffText = diff.main(this.props.prevText, this.props.text);
+      diff.cleanupSemantic(diffText);
       function createMarkup() { return {__html: diff.prettyHtml(diffText)}; };
       text = <pre dangerouslySetInnerHTML={createMarkup()} />;
     }
