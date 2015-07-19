@@ -34,6 +34,7 @@
   },
   "dependencies": {
     "react": "^0.13.3",
-    "superagent": "^1.2.0"
+    "superagent": "^1.2.0",
+    "text-diff": "^1.0.1"
   }
 }

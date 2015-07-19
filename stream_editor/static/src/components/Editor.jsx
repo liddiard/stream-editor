@@ -32,7 +32,8 @@ var Editor = React.createClass({
         this.newOperation(),
         this.newOperation()
       ],
-      outputs: [''] // list of output after each operation is performed
+      outputs: [''], // list of output after each operation is performed
+      showDiff: true
     }
   },
 
@@ -86,6 +87,10 @@ var Editor = React.createClass({
     this.timeoutId = window.setTimeout(function(){
       this.executeOperations();
     }.bind(this), this.props.inputDelay);
+  },
+
+  handleShowDiffChange: function() {
+    this.setState({showDiff: !this.state.showDiff});
   },
 
   pushOperation: function() {
@@ -160,12 +165,17 @@ var Editor = React.createClass({
       );
     }.bind(this));
     var outputs = this.state.outputs.map(function(output, index){
+      var prevText = index === 0 ? this.state.input : this.state.outputs[index-1];
       return (
-        <Output text={this.state.outputs[index]} key={index} />
+        <Output text={this.state.outputs[index]} prevText={prevText}
+                showDiff={this.state.showDiff} key={index} />
       );
     }.bind(this));
     return (
       <main>
+        <input type="checkbox" name="show-diff" checked={this.state.showDiff}
+               id="show-diff" onChange={this.handleShowDiffChange} />
+        <label htmlFor="show-diff">Show diff</label>
         {operations}
         <Input text={this.state.input} onInputChange={this.handleInputChange} />
         {outputs}
