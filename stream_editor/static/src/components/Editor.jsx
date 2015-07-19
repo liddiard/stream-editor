@@ -111,6 +111,7 @@ var Editor = React.createClass({
       return;
     var operations = this.state.operations;
     operations.splice(index, 1);
+    utils.updateDocumentUrl(operations);
     this.setState({operations: operations}, this.executeOperations);
   },
 
