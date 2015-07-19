@@ -1,10 +1,8 @@
-from subprocess import Popen, PIPE, STDOUT
-
 from flask import request, jsonify, render_template
 
 from stream_editor import app
 from stream_editor.settings import MAX_INPUT_LENGTH, SUPPORTED_COMMANDS
-from stream_editor.utils import format_output
+from stream_editor.utils import format_output, execute_command
 
 
 @app.route('/')
@@ -44,16 +42,7 @@ def execute():
             error_msg = "Command \"%s\" is not supported." % command
             return jsonify(error=True, error_pos=index, error_msg=error_msg)
 
-        # some commands (like sort) don't expect arguments and will try to
-        # open a file with the name [empty string] if called with an empty
-        # string argument
-        operation = [command]
-        if arguments:
-            operation.append(arguments)
-
-        # cf. http://stackoverflow.com/a/8475367
-        p = Popen(operation, stdout=PIPE, stdin=PIPE, stderr=PIPE)
-        stdout, stderr = p.communicate(input=text)
+        stdout, stderr = execute_command(command, arguments, stdin=text)
 
         # stop processing if we ran into an error
         if stderr:
