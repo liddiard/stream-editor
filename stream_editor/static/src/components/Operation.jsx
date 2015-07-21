@@ -37,12 +37,14 @@ var Operation = React.createClass({
         </button>
       );
     }
-    
+
     return (
       <div className="operation">
         <select name="cmd" value={this.props.operation.cmd}
                 onChange={this.props.onCmdChange.bind(null, this.props.position)}>
-          {options}
+          <optgroup>
+            {options}
+          </optgroup>
         </select>
         <div className="input">
           <input type="text" name="args" value={this.props.operation.args}

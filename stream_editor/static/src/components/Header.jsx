@@ -6,7 +6,7 @@ var Header = React.createClass({
   render: function() {
     return (
       <header>
-        <p>Text Stream Editor</p>
+        <p>Stream Editor</p>
       </header>
     )
   }

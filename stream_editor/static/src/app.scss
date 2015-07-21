@@ -4,8 +4,10 @@ $HEADER_HEIGHT: 80px;
 html, body {
     margin: 0;
     padding: 0;
-    border: 0;
     font-family: $MONOSPACE;
+}
+
+html, body, #app {
     height: 100%;
 }
 
@@ -15,37 +17,45 @@ body {
 }
 
 header {
-    height: $HEADER_HEIGHT;
-}
-
-h1 {
-    margin: 0;
-}
-
-section.operation {
-    box-sizing: border-box;
     float: left;
-    margin: 0;
-    padding: 0;
+    width: 100%;
+}
+
+main {
+    height: 100%;
+}
+
+textarea {
+    height: 100%;
     width: 50%;
-    height: calc(100vh - #{$HEADER_HEIGHT});
+    border: 0;
+    padding: 1em;
+    box-sizing: border-box;
+    font-size: 1.1em;
+    line-height: 1.35;
+    font-family: $MONOSPACE;
+    resize: none;
+    outline: none;
+    background-color: rgba(255,255,255, 0.5);
 
-    textarea {
-        border: 0;
-        padding: 1em;
-        font-size: 1.1em;
-        line-height: 1.35;
-        font-family: $MONOSPACE;
-        resize: none;
-        outline: none;
-        background-color: rgba(255,255,255, 0.5);
-        transition: background-color 0.2s;
-        border-top: 1px solid lightgray;
-        border-right: 2px solid lightgray;
+    &:focus {
+        background-color: white;
+    }
+}
 
+.operations {
+    overflow: hidden;
+}
 
-        &:focus {
-            background-color: white;
-        }
+.operation {
+    float: left;
+    width: 50%;
+
+    & > * {
+        float: left;
+    }
+
+    & select, & input {
+        font-size: 1.5em;
     }
 }

@@ -177,7 +177,9 @@ var Editor = React.createClass({
         <input type="checkbox" name="show-diff" checked={this.state.showDiff}
                id="show-diff" onChange={this.handleShowDiffChange} />
         <label htmlFor="show-diff">Show diff</label>
-        {operations}
+        <div className="operations">
+          {operations}
+        </div>
         <Input text={this.state.input} onInputChange={this.handleInputChange} />
         {outputs}
       </main>
