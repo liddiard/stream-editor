@@ -30,7 +30,7 @@ def execute_command(command, arguments, stdin=None):
     if arguments:
         # split arguments into array elements which subprocess expects, taking
         # into account quotes and backslashes
-        arguments_list = combine_args(shlex.split(arguments))
+        arguments_list = combine_args(shlex.split(arguments.encode('utf-8')))
         operation += arguments_list
 
     # cf. http://stackoverflow.com/a/8475367
