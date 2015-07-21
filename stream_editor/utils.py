@@ -1,4 +1,5 @@
 import re
+import shlex
 from subprocess import Popen, PIPE, STDOUT
 
 
@@ -24,11 +25,27 @@ def execute_command(command, arguments, stdin=None):
     # string argument, so we only append arguments if they are NOT an empty
     # string.
     if arguments:
-        # split arguments into array elements where a space is not preceded
-        # by a backslash (\). This allows arguments with a space, like
-        # `grep happy\ bunny`
-        operation += re.compile(r'(?<!\\) ').split(arguments)
+        # split arguments into array elements which subprocess expects, taking
+        # into account quotes and backslashes
+        arguments_list = combine_args(shlex.split(arguments))
+        operation += arguments_list
 
     # cf. http://stackoverflow.com/a/8475367
     p = Popen(operation, stdout=PIPE, stdin=PIPE, stderr=PIPE)
     return p.communicate(input=stdin) # returns a tuple of (stdout, stderr)
+
+
+def combine_args(arguments):
+    """Combines a list of arguments into a single argument if the list does
+    not contain any flags.
+
+    This has the effect of "auto-quoting" input so input which does not
+    contain any flag options need not be surrounded by quotes.
+    """
+
+    for argument in arguments:
+        # if an argument starts with a hyphen, we assume it is a flag
+        if argument[0] == "-":
+            return arguments
+
+    return [' '.join(arguments)]
