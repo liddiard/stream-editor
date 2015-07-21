@@ -6,10 +6,13 @@ from subprocess import Popen, PIPE, STDOUT
 def format_output(text):
     """Format terminal output for return to client."""
 
-    # Terminal commands' output always contains a trailing carriage return
+    # Terminal commands' output usually contains a trailing carriage return
     # so the terminal prompt moves to the next line. We don't want this in
     # output sent back to the client.
-    return text[:-1]
+    if text and text[-1] == '\n':
+        return text[:-1]
+    else:
+        return text
 
 
 def execute_command(command, arguments, stdin=None):
@@ -32,7 +35,7 @@ def execute_command(command, arguments, stdin=None):
 
     # cf. http://stackoverflow.com/a/8475367
     p = Popen(operation, stdout=PIPE, stdin=PIPE, stderr=PIPE)
-    return p.communicate(input=stdin) # returns a tuple of (stdout, stderr)
+    return p.communicate(input=stdin.encode('utf-8')) # returns a tuple of (stdout, stderr)
 
 
 def combine_args(arguments):
