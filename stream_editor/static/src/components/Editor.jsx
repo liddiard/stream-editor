@@ -33,6 +33,9 @@ var Editor = React.createClass({
         this.newOperation()
       ],
       outputs: [''], // list of output after each operation is performed
+      inputFromApi: '', // input from which the outputs were generated.
+                        // needed for diff b/c there's a delay between input
+                        // and receiving API resoponse.
       showDiff: true
     }
   },
@@ -139,6 +142,7 @@ var Editor = React.createClass({
         this.setState({operations: operations});
       }
       else {
+        this.setState({inputFromApi: res.body.input});
         this.setState({outputs: res.body.outputs});
       }
     }.bind(this));
@@ -166,7 +170,7 @@ var Editor = React.createClass({
       );
     }.bind(this));
     var outputs = this.state.outputs.map(function(output, index){
-      var prevText = index === 0 ? this.state.input : this.state.outputs[index-1];
+      var prevText = index === 0 ? this.state.inputFromApi : this.state.outputs[index-1];
       return (
         <Output text={this.state.outputs[index]} prevText={prevText}
                 showDiff={this.state.showDiff} key={index} />

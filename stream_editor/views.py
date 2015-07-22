@@ -52,4 +52,4 @@ def execute():
         text = format_output(stdout)
         outputs.append(text)
 
-    return jsonify(error=False, outputs=outputs)
+    return jsonify(error=False, input=request_dict['input'], outputs=outputs)
