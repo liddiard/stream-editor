@@ -42,11 +42,9 @@ var Operation = React.createClass({
       <div className="operation">
         <select name="cmd" value={this.props.operation.cmd}
                 onChange={this.props.onCmdChange.bind(null, this.props.position)}>
-          <optgroup>
-            {options}
-          </optgroup>
+          {options}
         </select>
-        <div className="input">
+        <div className="args">
           <input type="text" name="args" value={this.props.operation.args}
                  onChange={this.props.onArgsChange.bind(null, this.props.position)}
                  onFocus={this.props.pushOperationIfLast.bind(null, this.props.position)} />

@@ -13,7 +13,7 @@ html, body, #app {
 
 body {
     overflow-x: scroll;
-    background-color: #eee;
+    background-color: #f8f8f8;
 }
 
 header {
@@ -25,37 +25,98 @@ main {
     height: 100%;
 }
 
-textarea {
-    height: 100%;
-    width: 50%;
-    border: 0;
-    padding: 1em;
-    box-sizing: border-box;
-    font-size: 1.1em;
-    line-height: 1.35;
-    font-family: $MONOSPACE;
-    resize: none;
+textarea, select, input, output {
     outline: none;
+    border: 0;
+    border-radius: 0;
     background-color: rgba(255,255,255, 0.5);
+    transition: background-color 0.2s;
+    box-sizing: border-box;
 
     &:focus {
         background-color: white;
     }
 }
 
+textarea, output {
+    display: block;
+    height: 100%;
+    width: 50%;
+    padding: 1em;
+    font-size: 1.1em;
+    line-height: 1.35;
+    font-family: $MONOSPACE;
+    resize: none;
+    float: left;
+}
+
+output {
+    border-left: 2px solid lightgray;
+
+    pre {
+        font-family: $MONOSPACE;
+        margin: 0;
+        white-space: pre-wrap;
+    }
+}
+
+ins {
+    text-decoration: none;
+    background-color: rgba(0, 255, 0, 0.3);
+}
+
+del {
+    text-decoration: none;
+    background-color: rgba(255, 0, 0, 0.3);
+}
+
 .operations {
     overflow: hidden;
+    $border: 1px solid lightgray;
+    border-top: $border;
+    border-bottom: $border;
 }
 
 .operation {
     float: left;
     width: 50%;
+    display: flex;
+    display: -webkit-flex;
 
-    & > * {
-        float: left;
+    select {
+        -webkit-appearance: none;
+        -moz-appearance: none;
     }
 
     & select, & input {
+        height: 100%;
+    }
+
+    & select, & input, & button {
+        font-family: $MONOSPACE;
         font-size: 1.5em;
+        padding: 0.25em 0.5em;
+        margin: 0;
+    }
+
+    button.remove-operation {
+        padding: 0 1em;
+        background-color: red - #555;
+        border: 0;
+        color: white;
+        cursor: pointer;
+
+        &:hover {
+            background-color: red - #222;
+        }
+    }
+
+    .args {
+        width: 100%;
+
+        input {
+            width: 100%;
+            box-sizing: border-box;
+        }
     }
 }
