@@ -184,8 +184,10 @@ var Editor = React.createClass({
         <div className="operations">
           {operations}
         </div>
-        <Input text={this.state.input} onInputChange={this.handleInputChange} />
-        {outputs}
+        <div className="io">
+          <Input text={this.state.input} onInputChange={this.handleInputChange} />
+          {outputs}
+        </div>
       </main>
     );
   }

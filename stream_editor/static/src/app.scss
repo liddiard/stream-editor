@@ -39,7 +39,6 @@ textarea, select, input, output {
 }
 
 textarea, output {
-    display: block;
     height: 100%;
     width: 50%;
     padding: 1em;
@@ -47,7 +46,7 @@ textarea, output {
     line-height: 1.35;
     font-family: $MONOSPACE;
     resize: none;
-    float: left;
+    overflow-y: auto;
 }
 
 output {
@@ -71,6 +70,7 @@ del {
 }
 
 .operations {
+    display: flex;
     overflow: hidden;
     $border: 1px solid lightgray;
     border-top: $border;
@@ -78,7 +78,6 @@ del {
 }
 
 .operation {
-    float: left;
     width: 50%;
     display: flex;
     display: -webkit-flex;
@@ -119,4 +118,9 @@ del {
             box-sizing: border-box;
         }
     }
+}
+
+.io {
+    display: flex;
+    height: 100%;
 }
