@@ -63,6 +63,13 @@ module.exports = {
     // update the current document url with a url-encoded querystring from
     // `operations`, omitting the last, placeholder operation
     window.history.replaceState({}, '', this.encodeUrl(operations.slice(0, operations.length-1)));
+  },
+
+  dropDownCommandSelect: function(position) {
+    var commandSelects = document.querySelectorAll('.operation select');
+    var event = document.createEvent('MouseEvents');
+    event.initMouseEvent('mousedown', true, true, window);
+    commandSelects[position].dispatchEvent(event);
   }
 
 };

@@ -1,5 +1,16 @@
 $MONOSPACE: 'Inconsolata', monospace;
 $HEADER_HEIGHT: 80px;
+$MIN_COL_WIDTH: 33%; // minimum width an operation column can shrink to
+
+
+// https://css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice/
+html {
+    box-sizing: border-box;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
 
 html, body {
     margin: 0;
@@ -19,19 +30,26 @@ body {
 header {
     float: left;
     width: 100%;
+
+    h1 {
+        font-size: 2em;
+        margin: 0.1em 0 0 0.2em;
+    }
 }
 
 main {
     height: 100%;
 }
 
-textarea, select, input, output {
+textarea, select, input, output, .dropdown-arrow {
     outline: none;
     border: 0;
     border-radius: 0;
     background-color: rgba(255,255,255, 0.5);
+}
+
+textarea, input, output {
     transition: background-color 0.2s;
-    box-sizing: border-box;
 
     &:focus {
         background-color: white;
@@ -39,6 +57,7 @@ textarea, select, input, output {
 }
 
 textarea, output {
+    min-width: $MIN_COL_WIDTH;
     height: 100%;
     width: 50%;
     padding: 1em;
@@ -71,16 +90,18 @@ del {
 
 .operations {
     display: flex;
-    overflow: hidden;
-    $border: 1px solid lightgray;
-    border-top: $border;
-    border-bottom: $border;
+    clear: right;
 }
 
 .operation {
+    min-width: $MIN_COL_WIDTH;
     width: 50%;
     display: flex;
     display: -webkit-flex;
+    $border-thin: 1px solid lightgray;
+    border-top: $border-thin;
+    border-bottom: $border-thin;
+    border-left: 2px solid lightgray;
 
     select {
         -webkit-appearance: none;
@@ -99,7 +120,9 @@ del {
     }
 
     button.remove-operation {
-        padding: 0 1em;
+        // the 'x' is not centered in the button for some reason, so we use
+        // padding to compensate
+        padding: 0 1em 0 0.85em;
         background-color: red - #555;
         border: 0;
         color: white;
@@ -110,14 +133,25 @@ del {
         }
     }
 
+    .dropdown-arrow {
+        font-size: 1.5em;
+        padding: 0.15em 0.5em 0 0;
+        border-right: 1px solid lightgray;
+        cursor: default;
+    }
+
     .args {
         width: 100%;
 
         input {
             width: 100%;
-            box-sizing: border-box;
         }
     }
+}
+
+.editor-options {
+    float: right;
+    margin: 0 0.5em 0.25em;
 }
 
 .io {

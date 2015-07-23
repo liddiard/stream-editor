@@ -1,5 +1,7 @@
 var React = require('react');
 
+var utils = require('../utils.js');
+
 
 var Operation = React.createClass({
 
@@ -44,6 +46,10 @@ var Operation = React.createClass({
                 onChange={this.props.onCmdChange.bind(null, this.props.position)}>
           {options}
         </select>
+        <div className="dropdown-arrow"
+             onClick={utils.dropDownCommandSelect.bind(null, this.props.position)}>
+          ▾
+        </div>
         <div className="args">
           <input type="text" name="args" value={this.props.operation.args}
                  onChange={this.props.onArgsChange.bind(null, this.props.position)}

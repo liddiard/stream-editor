@@ -52,7 +52,7 @@ var Editor = React.createClass({
     var operationsFromUrl = utils.decodeUrl(document.location.search);
     if (operationsFromUrl.length) {
       operationsFromUrl.push(this.newOperation());
-      this.setState({operations: operationsFromUrl});
+      this.setState({operations: operationsFromUrl}, this.executeOperations);
     }
   },
 
@@ -101,7 +101,7 @@ var Editor = React.createClass({
     var operations = this.state.operations;
     operations.push(this.newOperation());
     utils.updateDocumentUrl(operations);
-    this.setState({operations: operations});
+    this.setState({operations: operations}, this.executeOperations);
   },
 
   pushOperationIfLast: function(position) {
@@ -178,9 +178,11 @@ var Editor = React.createClass({
     }.bind(this));
     return (
       <main>
-        <input type="checkbox" name="show-diff" checked={this.state.showDiff}
-               id="show-diff" onChange={this.handleShowDiffChange} />
-        <label htmlFor="show-diff">Show diff</label>
+        <div className="editor-options">
+          <input type="checkbox" name="show-diff" checked={this.state.showDiff}
+                 id="show-diff" onChange={this.handleShowDiffChange} />
+          <label htmlFor="show-diff">Show diff</label>
+        </div>
         <div className="operations">
           {operations}
         </div>
