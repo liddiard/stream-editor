@@ -66,6 +66,11 @@ module.exports = {
   },
 
   dropDownCommandSelect: function(position) {
+    // initialize a mouse click event on the dropdown menu in specified
+    // position. `initMouseEvent` is deprecated, but I couldn't get the
+    // MouseEvent constructor method to work on <select> elements (worked fine
+    // on checkboxes though).
+    // cf. https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/initMouseEvent
     var commandSelects = document.querySelectorAll('.operation select');
     var event = document.createEvent('MouseEvents');
     event.initMouseEvent('mousedown', true, true, window);
