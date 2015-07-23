@@ -1,4 +1,3 @@
-import re
 import shlex
 from subprocess import Popen, PIPE, STDOUT
 
@@ -29,13 +28,17 @@ def execute_command(command, arguments, stdin=None):
     # string.
     if arguments:
         # split arguments into array elements which subprocess expects, taking
-        # into account quotes and backslashes
-        arguments_list = combine_args(shlex.split(arguments.encode('utf-8')))
+        # into account quotes and backslashes using shlex
+        arguments_list = combine_args(shlex.split(arguments))
         operation += arguments_list
 
     # cf. http://stackoverflow.com/a/8475367
     p = Popen(operation, stdout=PIPE, stdin=PIPE, stderr=PIPE)
-    return p.communicate(input=stdin.encode('utf-8')) # returns a tuple of (stdout, stderr)
+    # `stdin` appears to be of type "bytes" and "str". For some reason, we
+    # have to coerce it to string explicitly, then encode it as bytes in
+    # UTF-8. Then we decode the output back into a string.
+    stdout, stderr = p.communicate(input=str(stdin).encode('utf-8'))
+    return stdout.decode('utf-8'), stderr.decode('utf-8')
 
 
 def combine_args(arguments):
