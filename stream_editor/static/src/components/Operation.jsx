@@ -17,6 +17,10 @@ var Operation = React.createClass({
     onArgsChange: React.PropTypes.func.isRequired
   },
 
+  componentDidUpdate: function() {
+
+  },
+
   render: function() {
     // construct an array of command options to go in the command <select>
     var options = this.props.cmds.map(function(cmd, index){
@@ -54,7 +58,9 @@ var Operation = React.createClass({
           <input type="text" name="args" value={this.props.operation.args}
                  onChange={this.props.onArgsChange.bind(null, this.props.position)}
                  onFocus={this.props.pushOperationIfLast.bind(null, this.props.position)} />
-           <div className="error">{this.props.operation.error}</div>
+          <div className="error" data-tooltip={this.props.operation.error}>
+            !
+          </div>
         </div>
         {removeButton}
       </div>
