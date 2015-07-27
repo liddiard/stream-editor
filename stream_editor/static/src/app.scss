@@ -3,6 +3,7 @@
 $MONOSPACE: 'Inconsolata', monospace;
 $HEADER_HEIGHT: 45px;
 $MIN_COL_WIDTH: 32%; // minimum width an operation column can shrink to
+$BORDER_THIN: 1px solid lightgray;
 
 
 // https://css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice/
@@ -43,6 +44,9 @@ header {
 main {
     padding-top: $HEADER_HEIGHT;
     height: 100%;
+    display: -webkit-flex;
+    display: flex;
+    flex-direction: column;
 }
 
 textarea, select, input, .dropdown-arrow {
@@ -62,7 +66,6 @@ textarea, input {
 
 textarea, output {
     min-width: $MIN_COL_WIDTH;
-    height: 100%;
     width: 50%;
     padding: 1em;
     font-size: 1.1em;
@@ -94,9 +97,9 @@ del {
 }
 
 .operations {
+    flex: 0 1 auto;
     display: -webkit-flex;
     display: flex;
-    clear: right;
 }
 
 .operation {
@@ -104,9 +107,8 @@ del {
     width: 50%;
     display: -webkit-flex;
     display: flex;
-    $border-thin: 1px solid lightgray;
-    border-top: $border-thin;
-    border-bottom: $border-thin;
+    border-top: $BORDER_THIN;
+    border-bottom: $BORDER_THIN;
     border-left: 2px solid black;
 
     select {
@@ -204,7 +206,9 @@ del {
 }
 
 .io {
+    flex: 1 1 auto;
     display: -webkit-flex;
     display: flex;
-    height: 100%;
+    border-top: $BORDER_THIN;
+    height: 0; // http://stackoverflow.com/a/14964944
 }

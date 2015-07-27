@@ -183,12 +183,12 @@ var Editor = React.createClass({
                  id="show-diff" onChange={this.handleShowDiffChange} />
           <label htmlFor="show-diff">Show diff</label>
         </div>
-        <div className="operations">
-          {operations}
-        </div>
         <div className="io">
           <Input text={this.state.input} onInputChange={this.handleInputChange} />
           {outputs}
+        </div>
+        <div className="operations">
+          {operations}
         </div>
       </main>
     );
