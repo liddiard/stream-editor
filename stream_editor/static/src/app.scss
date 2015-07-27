@@ -73,6 +73,7 @@ textarea, output {
     font-family: $MONOSPACE;
     resize: none;
     overflow-y: auto;
+    border-top: $BORDER_THIN;
 }
 
 output {
@@ -209,6 +210,5 @@ del {
     flex: 1 1 auto;
     display: -webkit-flex;
     display: flex;
-    border-top: $BORDER_THIN;
     height: 0; // http://stackoverflow.com/a/14964944
 }
