@@ -36,7 +36,8 @@ var Editor = React.createClass({
       inputFromApi: '', // input from which the outputs were generated.
                         // needed for diff b/c there's a delay between input
                         // and receiving API resoponse.
-      showDiff: true
+      showDiff: true,     // show visual diff of changes
+      syncScrolling: true // scroll all input/output panes together
     }
   },
 
@@ -154,6 +155,16 @@ var Editor = React.createClass({
     });
   },
 
+  handleFeedbackClick: function(event) {
+    event.preventDefault();
+    var proceed = confirm(
+      'I’m using GitHub issues to track all bug reports and feature ' +
+      'requests for Stream Editor. Your feedback is appreciated!\n\n' +
+      'Proceed to GitHub issues for this project?'
+    );
+    if (proceed) window.location = event.target.href;
+  },
+
   render: function() {
     var operations = this.state.operations.map(function(operation, index){
       return (
@@ -179,9 +190,16 @@ var Editor = React.createClass({
     return (
       <main>
         <div className="editor-options">
-          <input type="checkbox" name="show-diff" checked={this.state.showDiff}
-                 id="show-diff" onChange={this.handleShowDiffChange} />
+          <input type="checkbox" id="show-diff" checked={this.state.showDiff}
+                 onChange={this.handleShowDiffChange} />
           <label htmlFor="show-diff">Show diff</label>
+          <input type="checkbox" id="sync-scrolling" checked={this.state.syncScrolling}
+                 onChange={this.handleShowDiffChange} />
+          <label htmlFor="sync-scrolling">Sync scrolling</label>
+          <a href="https://github.com/liddiard/stream-editor/issues/"
+             onClick={this.handleFeedbackClick}>
+            Give feedback
+          </a>
         </div>
         <div className="io">
           <Input text={this.state.input} onInputChange={this.handleInputChange} />
