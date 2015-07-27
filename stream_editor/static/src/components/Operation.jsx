@@ -43,6 +43,17 @@ var Operation = React.createClass({
         </button>
       );
     }
+    var error;
+    // only display error if there is an error message and args isn't empty
+    // because some commands will output to stderr with "usage" info if you
+    // don't provide args
+    if (this.props.operation.error.length && this.props.operation.args.length) {
+      error = (
+        <div className="error" data-tooltip={this.props.operation.error}>
+          !
+        </div>
+      );
+    }
 
     return (
       <div className="operation">
@@ -58,9 +69,7 @@ var Operation = React.createClass({
           <input type="text" name="args" value={this.props.operation.args}
                  onChange={this.props.onArgsChange.bind(null, this.props.position)}
                  onFocus={this.props.pushOperationIfLast.bind(null, this.props.position)} />
-          <div className="error" data-tooltip={this.props.operation.error}>
-            !
-          </div>
+        {error}
         </div>
         {removeButton}
       </div>
