@@ -46,6 +46,7 @@ main {
     height: 100%;
     display: -webkit-flex;
     display: flex;
+    -webkit-flex-direction: column;
     flex-direction: column;
 }
 
@@ -74,6 +75,7 @@ textarea, output {
     resize: none;
     overflow-y: auto;
     border-top: $BORDER_THIN;
+    margin-top: 0; // remove the margin Safari adds above textareas
 }
 
 output {
@@ -98,6 +100,7 @@ del {
 }
 
 .operations {
+    -webkit-flex: 0 1 auto;
     flex: 0 1 auto;
     display: -webkit-flex;
     display: flex;
@@ -174,8 +177,8 @@ del {
         &:hover:before {
             border: solid;
             border-color: #333 transparent;
-            border-width: 0 6px 6px 6px;
-            top: 1em;
+            border-width: 6px 6px 0 6px;
+            bottom: 1em;
             right: 0.2em;
             content: "";
             position: absolute;
@@ -186,7 +189,7 @@ del {
             background: rgba(0,0,0,0.8);
             border-radius: 3px;
             content: attr(data-tooltip);
-            top: 2em;
+            bottom: 1.95em;
             right: 0;
             padding: 0.5em 0.75em;
             position: absolute;
@@ -207,6 +210,7 @@ del {
 }
 
 .io {
+    -webkit-flex: 1 1 auto;
     flex: 1 1 auto;
     display: -webkit-flex;
     display: flex;
