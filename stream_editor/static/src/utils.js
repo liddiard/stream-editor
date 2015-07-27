@@ -66,6 +66,7 @@ module.exports = {
     // `operations`, omitting the last, placeholder operation
     window.history.replaceState({}, '', this.encodeUrl(operations.slice(0, operations.length-1)));
   },
+  
 
   dropDownCommandSelect: function(position) {
     // initialize a mouse click event on the dropdown menu in specified
