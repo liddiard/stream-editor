@@ -27,6 +27,8 @@ module.exports = {
 
 
   decodeUrl: function(querystring) {
+    // takes a querystring encoded with the encodeUrl function and returns an
+    // array of operations
 
     // remove the leading question mark and split the parameters into an array
     var encodedPairs = querystring.slice(1).split('&');
@@ -41,7 +43,7 @@ module.exports = {
     var operations = [];
     var index = 0;
     // look for keys in the format we expect until we run out or hit a snag
-    // and complie them into an array of operation objects
+    // and compile them into an array of operation objects
     while(1) {
       if (urlComponents.hasOwnProperty('cmd-'+index) &&
           urlComponents.hasOwnProperty('args-'+index)) {
