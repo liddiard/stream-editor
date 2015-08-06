@@ -37,7 +37,9 @@ var Editor = React.createClass({
                         // needed for diff b/c there's a delay between input
                         // and receiving API resoponse.
       showDiff: true,     // show visual diff of changes
-      syncScrolling: true // scroll all input/output panes together
+      syncScrolling: true, // scroll all input/output panes together
+      editorOptionsDropdownVisible: false // editor options currently visible
+                                          // on smaller screens
     }
   },
 
@@ -47,6 +49,11 @@ var Editor = React.createClass({
     .end(function(err, res){
       this.setState({cmds: res.body.commands}, this.updateOperationsFromUrl);
     }.bind(this));
+  },
+
+  componentDidUpdate: function(prevProps, prevState) {
+    if (prevState.outputs !== this.state.outputs)
+      utils.rebindSyncScrolling();
   },
 
   updateOperationsFromUrl: function() {
@@ -94,7 +101,18 @@ var Editor = React.createClass({
   },
 
   handleShowDiffChange: function() {
+    // toggles showing visual diff
     this.setState({showDiff: !this.state.showDiff});
+  },
+
+  handleSyncScrollingChange: function() {
+    // toggles synced scroll
+    utils.toggleSyncScrolling(this.state.syncScrolling);
+    this.setState({syncScrolling: !this.state.syncScrolling});
+  },
+
+  handleEditorOptionsDropdownVisibleChange: function() {
+    this.setState({editorOptionsDropdownVisible: !this.state.editorOptionsDropdownVisible});
   },
 
   pushOperation: function() {
@@ -158,8 +176,8 @@ var Editor = React.createClass({
   handleFeedbackClick: function(event) {
     event.preventDefault();
     var proceed = confirm(
-      'I’m using GitHub issues to track all bug reports and feature ' +
-      'requests for Stream Editor. Your feedback is appreciated!\n\n' +
+      'Stream Edior is using GitHub issues to track all bug reports and ' +
+      'feature requests. Your feedback is appreciated!\n\n' +
       'Proceed to GitHub issues for this project?'
     );
     if (proceed) window.location = event.target.href;
@@ -187,19 +205,26 @@ var Editor = React.createClass({
                 showDiff={this.state.showDiff} key={index} />
       );
     }.bind(this));
+    var editorOptionsClassName = "editor-options editor-options-options";
+    if (!this.state.editorOptionsDropdownVisible)
+      editorOptionsClassName += " hidden-mobile"
     return (
       <main>
-        <div className="editor-options">
+        <div className={editorOptionsClassName}>
           <input type="checkbox" id="show-diff" checked={this.state.showDiff}
                  onChange={this.handleShowDiffChange} />
           <label htmlFor="show-diff">Show diff</label>
           <input type="checkbox" id="sync-scrolling" checked={this.state.syncScrolling}
-                 onChange={this.handleShowDiffChange} />
+                 onChange={this.handleSyncScrollingChange} />
           <label htmlFor="sync-scrolling">Sync scrolling</label>
           <a href="https://github.com/liddiard/stream-editor/issues/"
              onClick={this.handleFeedbackClick}>
             Give feedback
           </a>
+        </div>
+        <div className="editor-options editor-options-gear"
+             onClick={this.handleEditorOptionsDropdownVisibleChange}>
+          ⚙
         </div>
         <div className="io">
           <Input text={this.state.input} onInputChange={this.handleInputChange} />
