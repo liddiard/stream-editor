@@ -176,8 +176,8 @@ var Editor = React.createClass({
   handleFeedbackClick: function(event) {
     event.preventDefault();
     var proceed = confirm(
-      'Stream Edior is using GitHub issues to track all bug reports and ' +
-      'feature requests. Your feedback is appreciated!\n\n' +
+      'Stream Edior uses GitHub issues to track all bug reports and feature ' +
+      'requests. Your feedback is appreciated!\n\n' +
       'Proceed to GitHub issues for this project?'
     );
     if (proceed) window.location = event.target.href;
