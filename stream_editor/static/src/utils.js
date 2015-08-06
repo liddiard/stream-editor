@@ -66,7 +66,7 @@ module.exports = {
     // `operations`, omitting the last, placeholder operation
     window.history.replaceState({}, '', this.encodeUrl(operations.slice(0, operations.length-1)));
   },
-  
+
 
   dropDownCommandSelect: function(position) {
     // initialize a mouse click event on the dropdown menu in specified
@@ -78,6 +78,50 @@ module.exports = {
     var event = document.createEvent('MouseEvents');
     event.initMouseEvent('mousedown', true, true, window);
     commandSelects[position].dispatchEvent(event);
+  },
+
+
+  getScrollElements: function() {
+    // get an array of the elements upon which synced scrolling should operate
+    return document.querySelectorAll('.io textarea, .io output');
+  },
+
+
+  syncScrolling: function(scrollElements, event) {
+    // scroll all scrollElements to the scrollTop specified on event.target
+    // with the exception of event.target (to prevent an infinite set/get)
+    [].forEach.call(scrollElements, function(el){
+      if (el === event.target) return;
+      el.scrollTop = event.target.scrollTop;
+    });
+  },
+
+
+  toggleSyncScrolling: function(currentlyEnabled) {
+    // enables synced scrolling on scrollElements if currentlyEnabled is true,
+    // else disables
+    var scrollElements = this.getScrollElements();
+    var syncScrolling = this.syncScrolling.bind(this, scrollElements);
+    if (currentlyEnabled) {
+      [].forEach.call(scrollElements, function(el){
+        // clear the scroll handler function. setting the event property
+        // directly overwrites any previous event handler
+        el.onscroll = null;
+      });
+    }
+    else {
+      [].forEach.call(scrollElements, function(el){
+        el.onscroll = syncScrolling;
+      });
+    }
+  },
+
+
+  rebindSyncScrolling: function() {
+    // disable and reenable scrolling on all scroll elements. call when the
+    // list of elements to which synced scrolling should be applied changes
+    this.toggleSyncScrolling(true);
+    this.toggleSyncScrolling(false);
   }
 
 };
