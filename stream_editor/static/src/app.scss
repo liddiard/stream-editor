@@ -1,6 +1,7 @@
 // @import '../node_modules/tether-tooltip/dist/css/tooltip-theme-arrows';
 
 $MONOSPACE: 'Inconsolata', monospace;
+$HELVETICA: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 $HEADER_HEIGHT: 45px;
 $MIN_COL_WIDTH: 32%; // minimum width an operation column can shrink to
 $BORDER_THIN: 1px solid lightgray;
@@ -34,10 +35,20 @@ header {
     position: fixed;
     width: 100%;
     height: $HEADER_HEIGHT;
+    padding: 0 0.5em;
 
     h1 {
         font-size: 2em;
-        margin: 0.2em;
+        margin: 0.2em 0;
+        float: left;
+    }
+
+    .tagline {
+        font-weight: normal;
+        color: gray;
+        font-size: 0.9em;
+        float: left;
+        margin: 1.1em 0.9em;
     }
 }
 
@@ -74,6 +85,7 @@ textarea, output {
     font-family: $MONOSPACE;
     resize: none;
     overflow-y: auto;
+    overflow-x: hidden;
     border-top: $BORDER_THIN;
     margin-top: 0; // remove the margin Safari adds above textareas
 }
@@ -174,6 +186,10 @@ del {
         margin: 0.45em 0.2em;
         cursor: default;
 
+        &:hover {
+            background-color: rgba(255,0,0,0.7);
+        }
+
         &:hover:before {
             border: solid;
             border-color: #333 transparent;
@@ -194,10 +210,9 @@ del {
             padding: 0.5em 0.75em;
             position: absolute;
             z-index: 100;
-            max-width: 400px;
-            font-family: Helvetica;
+            font-family: $HELVETICA;
             font-size: 0.8rem;
-            width: 400px;
+            width: 320px;
             text-align: left;
         }
     }
@@ -206,7 +221,31 @@ del {
 .editor-options {
     position: fixed;
     top: 0; right: 0;
-    margin: 0 0.5em 0.25em;
+    margin: 0.85rem 0.5rem;
+
+    label {
+        margin-right: 0.75em;
+        font-weight: bold;
+        white-space: nowrap;
+    }
+
+    a {
+        color: gray;
+        font-size: 0.9em;
+        margin-left: 0.25em;
+        white-space: nowrap;
+
+        &:hover {
+            color: black;
+        }
+    }
+
+    &.editor-options-gear {
+        font-size: 2.3em;
+        margin-top: 0;
+        cursor: pointer;
+        display: none;
+    }
 }
 
 .io {
@@ -216,3 +255,5 @@ del {
     display: flex;
     height: 0; // http://stackoverflow.com/a/14964944
 }
+
+@import 'responsive';
