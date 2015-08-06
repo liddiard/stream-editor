@@ -18,7 +18,8 @@ var Input = React.createClass({
     return (
       <textarea value={this.props.text}
                 onChange={this.props.onInputChange}
-                maxLength={this.props.maxLength} />
+                maxLength={this.props.maxLength}
+                placeholder="input text..." />
     );
   }
 
