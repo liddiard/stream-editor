@@ -122,6 +122,36 @@ module.exports = {
     // list of elements to which synced scrolling should be applied changes
     this.toggleSyncScrolling(true);
     this.toggleSyncScrolling(false);
+  },
+
+
+  selectText: function(element) {
+    // select all text in "element"
+    // source: http://stackoverflow.com/a/987376/2487925
+    var doc = document
+      , text = doc.getElementById(element)
+      , range, selection
+    ;
+    if (doc.body.createTextRange) {
+      range = document.body.createTextRange();
+      range.moveToElementText(text);
+      range.select();
+    } else if (window.getSelection) {
+      selection = window.getSelection();
+      range = document.createRange();
+      range.selectNodeContents(text);
+      selection.removeAllRanges();
+      selection.addRange(range);
+    }
+  },
+
+
+  selectOutputText() {
+    var selectAllButton = event.target;
+    var outputContainer = selectAllButton.parentNode;
+    var output = outputContainer.querySelector('output');
+    console.log(this);
+    this.selectText(output);
   }
 
 };

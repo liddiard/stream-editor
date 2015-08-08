@@ -5,6 +5,7 @@ $HELVETICA: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 $HEADER_HEIGHT: 45px;
 $MIN_COL_WIDTH: 32%; // minimum width an operation column can shrink to
 $BORDER_THIN: 1px solid lightgray;
+$BLUE_COLOR: #0080FF;
 
 
 // https://css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice/
@@ -76,9 +77,12 @@ textarea, input {
     }
 }
 
-textarea, output {
+textarea, .output-container {
     min-width: $MIN_COL_WIDTH;
     width: 50%;
+}
+
+textarea, output {
     padding: 1em;
     font-size: 1.1em;
     line-height: 1.35;
@@ -93,6 +97,9 @@ textarea, output {
 output {
     border-left: 2px solid black;
     background-color: rgba(255,255,255, 0.7);
+    position: relative;
+    display: block;
+    width: 100%;
 
     pre {
         font-family: $MONOSPACE;
@@ -108,7 +115,30 @@ ins {
 
 del {
     text-decoration: none;
-    background-color: rgba(255, 0, 0, 0.3);
+    background-color: rgba(255, 0, 0, 0.25);
+}
+
+.output-container {
+    display: flex;
+    position: relative;
+
+    .select-all {
+        z-index: 100;
+        font-family: $HELVETICA;
+        text-transform: uppercase;
+        font-size: 0.7em;
+        position: absolute;
+        right: 0;
+        top: 0;
+        padding: 0.4em 0.8em;
+        cursor: pointer;
+        color: white;
+        background-color: $BLUE_COLOR;
+
+        &:hover {
+            background-color: $BLUE_COLOR - #222;
+        }
+    }
 }
 
 .operations {

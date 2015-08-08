@@ -1,6 +1,8 @@
 var React = require('react');
 var Diff = require('text-diff');
 
+var utils = require('../utils.js');
+
 
 var Output = React.createClass({
 
@@ -23,9 +25,15 @@ var Output = React.createClass({
       text = <pre>{this.props.text}</pre>;
     }
     return (
-      <output>
-        {text}
-      </output>
+      <div className="output-container">
+        <div className="select-all"
+             onClick={utils.selectOutputText}>
+          Select all
+        </div>
+        <output>
+          {text}
+        </output>
+      </div>
     );
   }
 
