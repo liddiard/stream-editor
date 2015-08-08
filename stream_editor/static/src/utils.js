@@ -146,11 +146,11 @@ module.exports = {
   },
 
 
-  selectOutputText() {
+  selectOutputText: function(event) {
+    console.log(this);
     var selectAllButton = event.target;
     var outputContainer = selectAllButton.parentNode;
     var output = outputContainer.querySelector('output');
-    console.log(this);
     this.selectText(output);
   }
 
