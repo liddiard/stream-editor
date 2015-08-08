@@ -29,7 +29,7 @@ def execute_command(command, arguments, stdin=None):
     if arguments:
         # split arguments into array elements which subprocess expects, taking
         # into account quotes and backslashes using shlex
-        arguments_list = combine_args(shlex.split(arguments))
+        arguments_list = shlex.split(arguments)
         operation += arguments_list
 
     # cf. http://stackoverflow.com/a/8475367
@@ -39,19 +39,3 @@ def execute_command(command, arguments, stdin=None):
     # UTF-8. Then we decode the output back into a string.
     stdout, stderr = p.communicate(input=str(stdin).encode('utf-8'))
     return stdout.decode('utf-8'), stderr.decode('utf-8')
-
-
-def combine_args(arguments):
-    """Combines a list of arguments into a single argument if the list does
-    not contain any flags.
-
-    This has the effect of "auto-quoting" input so input which does not
-    contain any flag options need not be surrounded by quotes.
-    """
-
-    for argument in arguments:
-        # if an argument starts with a hyphen, we assume it is a flag
-        if argument[0] == "-":
-            return arguments
-
-    return [' '.join(arguments)]
