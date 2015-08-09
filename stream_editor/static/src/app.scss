@@ -96,6 +96,7 @@ textarea, output {
     overflow-x: hidden;
     border-top: $BORDER_THIN;
     margin-top: 0; // remove the margin Safari adds above textareas
+    height: 100%; // Firefox needs this in addtion to the `top:0` / `bottom:0`
 }
 
 output {
