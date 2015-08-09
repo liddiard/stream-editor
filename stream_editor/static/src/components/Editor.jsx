@@ -210,8 +210,8 @@ var Editor = React.createClass({
     var commandsInfo = this.state.cmds.map(function(cmd, index){
       return (
         <div className="cmd" key={index}>
-          <span className="name">{cmd.name}</span>
-          <span className="description">: {cmd.description}</span>
+          <span className="name">{cmd.name} </span>
+          <span className="description">{cmd.description}</span>
           <a target="_blank" href={cmd.docs}>docs</a>
           <a target="_blank" href={cmd.examples}>examples</a>
         </div>
@@ -233,20 +233,25 @@ var Editor = React.createClass({
               {commandsInfo}
             </div>
           </div>
-          <input type="checkbox" id="show-diff" checked={this.state.showDiff}
-                 onChange={this.handleShowDiffChange} />
-          <label htmlFor="show-diff">Show diff</label>
-          <input type="checkbox" id="sync-scrolling" checked={this.state.syncScrolling}
-                 onChange={this.handleSyncScrollingChange} />
-          <label htmlFor="sync-scrolling">Sync scrolling</label>
+          <div className="option">
+            <input type="checkbox" id="show-diff" checked={this.state.showDiff}
+                   onChange={this.handleShowDiffChange} />
+            <label htmlFor="show-diff">Show diff</label>
+          </div>
+          <div className="option">
+            <input type="checkbox" id="sync-scrolling" checked={this.state.syncScrolling}
+                   onChange={this.handleSyncScrollingChange} />
+            <label htmlFor="sync-scrolling">Sync scrolling</label>
+          </div>
           <a href="https://github.com/liddiard/stream-editor/issues/"
              onClick={this.handleFeedbackClick}>
             Give feedback
           </a>
         </div>
-        <div className="editor-options editor-options-gear"
+        <div className="editor-options open-btn"
              onClick={this.handleEditorOptionsDropdownVisibleChange}>
-          ⚙
+          <span className="label">Settings</span>
+          <span className="gear">⚙</span>
         </div>
         <div className="io">
           <Input text={this.state.input} onInputChange={this.handleInputChange} />

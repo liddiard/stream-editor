@@ -131,17 +131,18 @@ del {
         text-transform: uppercase;
         font-size: 0.7em;
         position: absolute;
-        top: 1px;
         padding: 0.4em 0.8em;
 
         &.btn {
+            top: 0;
             right: 0;
             cursor: pointer;
-            color: white;
-            background-color: $BLUE_COLOR;
+            color: $BLUE_COLOR;
+            background-color: white;
+            border: 1px solid lightgray;
 
             &.zeroclipboard-is-hover {
-                background-color: $BLUE_COLOR - #222;
+                background-color: #eee;
             }
 
             img {
@@ -152,10 +153,11 @@ del {
         }
 
         &.success-msg {
+            top: 1px;
+            right: 65px;
             display: none;
             color: #0c0;
             cursor: default;
-            right: 65px;
             background-color: white;
             -webkit-transition: opacity 3s ease-in-out;
             -moz-transition: opacity 3s ease-in-out;
@@ -275,8 +277,9 @@ del {
 .editor-options {
     position: fixed;
     top: 0; right: 0;
-    margin: 0.6rem 0.5rem;
+    margin: 0.45rem 0.5rem;
     z-index: 200;
+    line-height: 2;
 
     label {
         margin-right: 0.75em;
@@ -295,11 +298,27 @@ del {
         }
     }
 
-    &.editor-options-gear {
-        font-size: 2.3em;
-        margin-top: 0;
+    &.open-btn {
+        margin-top: -1.3em;
         cursor: pointer;
         display: none;
+        text-transform: uppercase;
+        font-family: $HELVETICA;
+        font-size: 0.8em;
+        z-index: 0;
+
+        .label {
+            vertical-align: text-bottom;
+        }
+
+        .gear {
+            font-size: 3em;
+            margin-left: 0.2em;
+        }
+    }
+
+    .option {
+        display: inline-block;
     }
 
     .command-reference {
@@ -319,7 +338,9 @@ del {
             cursor: default;
             font-weight: bold;
             border: 1px solid lightgray;
-            padding: 0.25em 0.5em;
+            padding: 0 0.6em;
+            vertical-align: top; // fixes space rendering issue in some browsers
+            line-height: 1.8;
         }
 
         .contents {
@@ -332,6 +353,7 @@ del {
             font-size: 0.9em;
             width: 400px;
             display: none;
+            line-height: 1.2;
 
             .cmd {
                 margin: 0.2em 0;
