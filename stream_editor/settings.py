@@ -28,7 +28,7 @@ SUPPORTED_COMMANDS = [
     },
     {
         'name': 'cut',
-        'description': 'cut out fields of each line',
+        'description': 'cut out fields on each line',
         'docs': 'http://man.cx/cut',
         'examples': 'http://www.computerhope.com/unix/ucut.htm'
     },
@@ -64,7 +64,7 @@ SUPPORTED_COMMANDS = [
     },
     {
         'name': 'fold',
-        'description': 'filter for folding lines',
+        'description': 'wrap lines at words or characters',
         'docs': 'http://man.cx/fold',
         'examples': 'http://www.cyberciti.biz/tips/linux-unix-word-wrap-command.html'
     },
