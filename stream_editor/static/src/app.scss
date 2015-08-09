@@ -83,6 +83,10 @@ textarea, .input-container, .output-container {
 }
 
 textarea, output {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
     padding: 1em;
     font-size: 1.1em;
     line-height: 1.35;
@@ -97,9 +101,7 @@ textarea, output {
 output {
     border-left: 2px solid black;
     background-color: rgba(255,255,255, 0.7);
-    position: relative;
     display: block;
-    width: 100%;
 
     pre {
         font-family: $MONOSPACE;
@@ -119,14 +121,7 @@ del {
 }
 
 .input-container, .output-container {
-    display: flex;
     position: relative;
-}
-
-.input-container {
-    textarea {
-        width: 100%;
-    }
 }
 
 .output-container {
