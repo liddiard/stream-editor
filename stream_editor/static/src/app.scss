@@ -313,7 +313,7 @@ del {
 
         .gear {
             font-size: 3em;
-            margin-left: 0.2em;
+            margin-left: 0.15em;
         }
     }
 
@@ -377,6 +377,27 @@ del {
     display: -webkit-flex;
     display: flex;
     height: 0; // http://stackoverflow.com/a/14964944
+}
+
+#logo {
+    font-family: $MONOSPACE;
+    font-size: 1.5em;
+    float: left;
+    margin: 0.2em 0.4em 0.2em 0;
+    color: gray;
+    background-color: #222;
+    position: relative;
+    padding: 0.15em 1.2em 0.15em 0.25em;
+    border-radius: 0.2em;
+    border: 1px solid gray;
+    cursor: default;
+
+    img {
+        width: 25px;
+        position: absolute;
+        right: 0.14em;
+        top: 0.17em;
+    }
 }
 
 @import 'responsive';
