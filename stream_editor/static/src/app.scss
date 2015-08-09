@@ -384,7 +384,7 @@ del {
     font-size: 1.5em;
     float: left;
     margin: 0.2em 0.4em 0.2em 0;
-    color: gray;
+    color: lightgray;
     background-color: #222;
     position: relative;
     padding: 0.15em 1.2em 0.15em 0.25em;
@@ -393,10 +393,10 @@ del {
     cursor: default;
 
     img {
-        width: 25px;
+        width: 22px;
         position: absolute;
         right: 0.14em;
-        top: 0.17em;
+        top: 0.24em;
     }
 }
 
