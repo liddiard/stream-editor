@@ -1,5 +1,6 @@
 var React = require('react');
 var Diff = require('text-diff');
+var ReactZeroClipboard = require('react-zeroclipboard');
 
 var utils = require('../utils.js');
 
@@ -26,10 +27,15 @@ var Output = React.createClass({
     }
     return (
       <div className="output-container">
-        <div className="select-all"
-             onClick={utils.selectOutputText}>
-          Select all
+        <div className="copy success-msg">
+          ✓ Copied to clipboard
         </div>
+        <ReactZeroClipboard text={this.props.text} onAfterCopy={utils.displayCopySuccess}>
+          <div className="copy btn">
+            <img src="/static/img/clipboard-icon.svg"/>
+            Copy
+          </div>
+        </ReactZeroClipboard>
         <output>
           {text}
         </output>

@@ -16,10 +16,12 @@ var Input = React.createClass({
 
   render: function() {
     return (
-      <textarea value={this.props.text}
-                onChange={this.props.onInputChange}
-                maxLength={this.props.maxLength}
-                placeholder="input text..." />
+      <div className="input-container">
+        <textarea value={this.props.text}
+                  onChange={this.props.onInputChange}
+                  maxLength={this.props.maxLength}
+                  placeholder="input text..." />
+      </div>
     );
   }
 

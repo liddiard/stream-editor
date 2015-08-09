@@ -125,33 +125,25 @@ module.exports = {
   },
 
 
-  selectText: function(element) {
-    // select all text in "element"
-    // source: http://stackoverflow.com/a/987376/2487925
-    var doc = document
-      , text = doc.getElementById(element)
-      , range, selection
-    ;
-    if (doc.body.createTextRange) {
-      range = document.body.createTextRange();
-      range.moveToElementText(text);
-      range.select();
-    } else if (window.getSelection) {
-      selection = window.getSelection();
-      range = document.createRange();
-      range.selectNodeContents(text);
-      selection.removeAllRanges();
-      selection.addRange(range);
-    }
-  },
+  displayCopySuccess: function(event) {
+    // display success message of a copy given an event from ReactZeroClipboard
+    // whose target is a copy button inside an Output component
+    var successMsg = event.target.parentNode.querySelector('.copy.success-msg');
 
+    // make the error message appear and do nothing for 0.5s
+    successMsg.style.display = "block";
+    setTimeout(function(){
+      successMsg.style.opacity = 0;
+    }, 500);
 
-  selectOutputText: function(event) {
-    console.log(this);
-    var selectAllButton = event.target;
-    var outputContainer = selectAllButton.parentNode;
-    var output = outputContainer.querySelector('output');
-    this.selectText(output);
+    // fade out the error message and set its display back to none and opacity
+    // to 1 after fade out is complete so it is ready for the next time the
+    // message may need to be displayed
+    setTimeout(function(){
+      successMsg.style.display = "none";
+      successMsg.style.opacity = 1;
+    }, 3000);
+
   }
 
 };
