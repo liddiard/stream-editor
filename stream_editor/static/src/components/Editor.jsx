@@ -198,6 +198,7 @@ var Editor = React.createClass({
                    key={index} />
       );
     }.bind(this));
+
     var outputs = this.state.outputs.map(function(output, index){
       var prevText = index === 0 ? this.state.inputFromApi : this.state.outputs[index-1];
       return (
@@ -205,12 +206,33 @@ var Editor = React.createClass({
                 showDiff={this.state.showDiff} key={index} />
       );
     }.bind(this));
+
+    var commandsInfo = this.state.cmds.map(function(cmd, index){
+      return (
+        <div className="cmd" key={index}>
+          <span className="name">{cmd.name}</span>
+          <span className="description">: {cmd.description}</span>
+          <a target="_blank" href={cmd.docs}>docs</a>
+          <a target="_blank" href={cmd.examples}>examples</a>
+        </div>
+      );
+    });
+
     var editorOptionsClassName = "editor-options editor-options-options";
     if (!this.state.editorOptionsDropdownVisible)
-      editorOptionsClassName += " hidden-mobile"
+      editorOptionsClassName += " hidden-mobile";
+
     return (
       <main>
         <div className={editorOptionsClassName}>
+          <div className="command-reference">
+            <div className="dropdown">
+              Command reference ▾
+            </div>
+            <div className="contents">
+              {commandsInfo}
+            </div>
+          </div>
           <input type="checkbox" id="show-diff" checked={this.state.showDiff}
                  onChange={this.handleShowDiffChange} />
           <label htmlFor="show-diff">Show diff</label>

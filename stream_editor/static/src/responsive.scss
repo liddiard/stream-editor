@@ -1,4 +1,4 @@
-@media (max-width: 1024px) {
+@media (max-width: 1210px) {
     header .tagline {
         display: none;
     }
@@ -6,20 +6,15 @@
 
 
 @media (max-width: 960px) {
-    textarea, output, .operation {
+    .input-container, .output-container, .operation {
         min-width: 45%;
     }
 }
 
 
-@media (max-width: 640px) {
-    textarea, output, .operation {
-        min-width: 60%;
-    }
-
+@media (max-width: 760px) {
     .editor-options {
         &.editor-options-options {
-            z-index: 100;
             background-color: white;
             padding: 0.75em 1em;
             box-shadow: 2px 2px;
@@ -38,8 +33,23 @@
 }
 
 
+@media (max-width: 640px) {
+    .input-container, .output-container, .operation {
+        min-width: 60%;
+    }
+}
+
+
 @media (max-width: 480px) {
-    textarea, output, .operation {
+    .input-container, .output-container, .operation {
         min-width: 90%;
+    }
+
+    .editor-options {
+        .command-reference {
+            .contents {
+                width: 100%;
+            }
+        }
     }
 }

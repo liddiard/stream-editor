@@ -77,7 +77,7 @@ textarea, input {
     }
 }
 
-textarea, .input-container, .output-container {
+.input-container, .output-container {
     min-width: $MIN_COL_WIDTH;
     width: 50%;
 }
@@ -275,7 +275,8 @@ del {
 .editor-options {
     position: fixed;
     top: 0; right: 0;
-    margin: 0.85rem 0.5rem;
+    margin: 0.6rem 0.5rem;
+    z-index: 200;
 
     label {
         margin-right: 0.75em;
@@ -299,6 +300,52 @@ del {
         margin-top: 0;
         cursor: pointer;
         display: none;
+    }
+
+    .command-reference {
+        margin-right: 0.75em;
+        position: relative;
+        display: inline-block;
+
+        &:hover {
+            background-color: rgba(0,0,0, 0.1);
+
+            .contents {
+                display: block;
+            }
+        }
+
+        .dropdown {
+            cursor: default;
+            font-weight: bold;
+            border: 1px solid lightgray;
+            padding: 0.25em 0.5em;
+        }
+
+        .contents {
+            color: white;
+            position: absolute;
+            background-color: rgba(0,0,0,0.8);
+            z-index: 300;
+            color: white;
+            padding: 0.5em 1em;
+            font-size: 0.9em;
+            width: 400px;
+            display: none;
+
+            .cmd {
+                margin: 0.2em 0;
+
+                a {
+                    color: #B5DAFF;
+                    margin-left: 0.5em;
+                }
+
+                .name {
+                    font-weight: bold;
+                }
+            }
+        }
     }
 }
 
