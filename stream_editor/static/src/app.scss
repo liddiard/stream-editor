@@ -113,7 +113,7 @@ output {
 
 ins {
     text-decoration: none;
-    background-color: rgba(0, 255, 0, 0.3);
+    background-color: rgba(0, 255, 0, 0.25);
 }
 
 del {
@@ -352,9 +352,9 @@ del {
             color: white;
             padding: 0.5em 1em;
             font-size: 0.9em;
-            width: 400px;
+            width: 420px;
             display: none;
-            line-height: 1.2;
+            line-height: 1.25;
 
             .cmd {
                 margin: 0.2em 0;
@@ -362,10 +362,15 @@ del {
                 a {
                     color: #B5DAFF;
                     margin-left: 0.5em;
+                    font-size: 1em;
                 }
 
                 .name {
                     font-weight: bold;
+                }
+
+                .description {
+                    margin: 0.2em;
                 }
             }
         }
