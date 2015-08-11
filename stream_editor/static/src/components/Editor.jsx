@@ -193,10 +193,10 @@ var Editor = React.createClass({
     event.preventDefault();
     var proceed = confirm(
       'Stream Edior uses GitHub issues to track all bug reports and feature ' +
-      'requests. Your feedback is appreciated.\n\n' +
-      'Proceed to GitHub issues for this project?'
+      'requests. Your feedback is greatly appreciated.\n\n' +
+      'Open GitHub issues for this project?'
     );
-    if (proceed) window.location = event.target.href;
+    if (proceed) window.open(event.target.href, '_blank');
   },
 
   render: function() {
