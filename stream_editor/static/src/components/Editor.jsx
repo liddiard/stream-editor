@@ -192,7 +192,7 @@ var Editor = React.createClass({
   handleFeedbackClick: function(event) {
     event.preventDefault();
     var proceed = confirm(
-      'Stream Edior uses GitHub issues to track all bug reports and feature ' +
+      'Stream Editor uses GitHub issues to track bug reports and feature ' +
       'requests. Your feedback is greatly appreciated.\n\n' +
       'Open GitHub issues for this project?'
     );
