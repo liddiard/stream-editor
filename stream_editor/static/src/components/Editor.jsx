@@ -57,10 +57,20 @@ var Editor = React.createClass({
   },
 
   updateOperationsFromUrl: function() {
+    // update the operations in the Editor's state with the operations
+    // encoded in the document's URL with corresponding blank outputs
     var operationsFromUrl = utils.decodeUrl(document.location.search);
     if (operationsFromUrl.length) {
-      operationsFromUrl.push(this.newOperation());
-      this.setState({operations: operationsFromUrl}, this.executeOperations);
+      operationsFromUrl.push(this.newOperation()); // add the placeholder operation
+      var outputs = [];
+      operationsFromUrl.forEach(function(operation, index){
+        if (index === 0) return;
+        outputs.push(''); // add corresponding empty outputs
+      });
+      this.setState(
+        {operations: operationsFromUrl, outputs: outputs},
+        this.executeOperations
+      );
     }
   },
 
@@ -117,10 +127,16 @@ var Editor = React.createClass({
 
   pushOperation: function() {
     // add a new default operation to the end of this state's operations array
+    // and a new empty output to the end of this state's output array
     var operations = this.state.operations;
     operations.push(this.newOperation());
     utils.updateDocumentUrl(operations);
-    this.setState({operations: operations}, this.executeOperations);
+    var outputs = this.state.outputs;
+    outputs.push('');
+    this.setState(
+      {operations: operations, outputs: outputs},
+      this.executeOperations
+    );
   },
 
   pushOperationIfLast: function(position) {
