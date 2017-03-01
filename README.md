@@ -10,11 +10,17 @@ Read more [on my website](https://harrisonliddiard.com/project/stream-editor/).
 
 ## Screenshots
 
-![Stream Editor screenshot](https://harrisonliddiard.com/img/projects/stream-editor/2.png)
+![Stream Editor screenshot](https://harrisonliddiard.com/media/stream-editor/2.png)
 
-![Stream Editor screenshot](https://harrisonliddiard.com/img/projects/stream-editor/3.png)
+Using sed to remove the citation notes from a Wikipedia article. Removals shown in red.
 
-![Stream Editor screenshot](https://harrisonliddiard.com/img/projects/stream-editor/5.png)
+![Stream Editor screenshot](https://harrisonliddiard.com/media/stream-editor/3.png)
+
+Full Unicode support. 很好。
+
+![Stream Editor screenshot](https://harrisonliddiard.com/media/stream-editor/5.png)
+
+Examine the effect of chaining multiple operations together at every step.
 
 ## Installation
 
