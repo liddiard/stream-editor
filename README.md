@@ -1,6 +1,6 @@
 # stream-editor
 
-Use Linux text stream editing commands like sed, grep, and awk interactively online.
+An interactive web UI for building and debugging Linux text stream editing commands like sed, grep, and awk.
 
 Idea: Linux text manipulations are really powerful for pattern extraction and data formatting, but the shell can be a diffcult interface for tinkering with them and inspecting the output as you pipe it from one command to another.
 
@@ -21,6 +21,11 @@ Full Unicode support. 很好。
 ![Stream Editor screenshot](https://harrisonliddiard.com/media/stream-editor/5.png)
 
 Examine the effect of chaining multiple operations together at every step.
+
+## Requirements
+
+- MacOS or Linux (sorry, these commands are not all available on Windows)
+- Python 2.7
 
 ## Installation
 
