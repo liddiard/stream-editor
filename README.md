@@ -25,12 +25,14 @@ Examine the effect of chaining multiple operations together at every step.
 ## Requirements
 
 - MacOS or Linux (sorry, these commands are not all available on Windows)
-- Python 2.7
+- Python 3
 
 ## Installation
 
 1. clone the repo
 2. (optional but recommended) [set up a virtual environment](http://docs.python-guide.org/en/latest/dev/virtualenvs/) for the project, and activate it
-3. `pip install -r requirements.txt`
-4. `python runserver.py`
-5. navigate to [http://localhost:5000](http://localhost:5000)
+3. `pip3 install -r requirements.txt`
+4. `python3 runserver.py`
+5. `cd stream_editor/static`
+6. `npm install && npm start`
+7. navigate to [http://localhost:5000](http://localhost:5000)
