@@ -23,7 +23,7 @@ html, body {
     font-family: $MONOSPACE;
 }
 
-html, body, #app {
+html, body, #root {
     height: 100%;
 }
 
@@ -176,6 +176,7 @@ del {
 }
 
 .operation {
+    position: relative;
     min-width: $MIN_COL_WIDTH;
     width: 50%;
     display: -webkit-flex;
@@ -231,47 +232,11 @@ del {
 
     .error {
         position: absolute;
-        background-color: rgba(255,0,0,0.5);
-        border-radius: 50%;
-        color: white;
-        height: 1em;
-        width: 1em;
-        text-align: center;
-        right: 0;
-        top: 0;
-        font-size: 1.2em;
-        margin: 0.45em 0.2em;
-        cursor: default;
-
-        &:hover {
-            background-color: rgba(255,0,0,0.7);
-        }
-
-        &:hover:before {
-            border: solid;
-            border-color: #333 transparent;
-            border-width: 6px 6px 0 6px;
-            bottom: 1em;
-            right: 0.2em;
-            content: "";
-            position: absolute;
-            z-index: 99;
-        }
-
-        &:hover:after {
-            background: rgba(0,0,0,0.8);
-            border-radius: 3px;
-            content: attr(data-tooltip);
-            bottom: 1.95em;
-            right: 0;
-            padding: 0.5em 0.75em;
-            position: absolute;
-            z-index: 100;
-            font-family: $HELVETICA;
-            font-size: 0.8rem;
-            width: 320px;
-            text-align: left;
-        }
+        padding: 0.5em;
+        transform: translateY(-100%);
+        width: 100%;
+        background-color: white;
+        color: red;
     }
 }
 
@@ -356,7 +321,7 @@ del {
             display: none;
             line-height: 1;
 
-            .cmd {
+            .command {
                 margin: 0.4em 0;
 
                 a {
