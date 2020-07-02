@@ -1,7 +1,7 @@
 # commands which users are allowed to execute. for security reasons, it is
 # important that this list does not contain any potentially
 # destructive/exploitable commands
-SUPPORTED_COMMANDS = [
+SUPPORTED_COMMANDS = sorted([
     {
         'name': 'sed',
         'description': 'multipurpose stream editor',
@@ -87,7 +87,7 @@ SUPPORTED_COMMANDS = [
         'docs': 'http://man.cx/cat',
         'examples': 'http://www.cyberciti.biz/faq/linux-unix-appleosx-bsd-cat-command-examples/'
     },
-]
+], key=lambda x: x['name']) # sort alphabetically by command name
 
 # maximum size of input we will process
 MAX_INPUT_LENGTH = 1048576 # 2**20

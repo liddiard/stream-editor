@@ -1,8 +1,8 @@
 from flask import request, jsonify, render_template
 
-from stream_editor import app
-from stream_editor.settings import MAX_INPUT_LENGTH, SUPPORTED_COMMANDS
-from stream_editor.utils import format_output, execute_command
+from . import app
+from .settings import MAX_INPUT_LENGTH, SUPPORTED_COMMANDS
+from .utils import format_output, execute_command
 
 
 @app.route('/')
@@ -12,12 +12,12 @@ def front_page():
     return render_template('front.html')
 
 
-@app.route('/api/commands/')
+@app.route('/api/v1/commands/')
 def list_commands():
     return jsonify(commands=SUPPORTED_COMMANDS)
 
 
-@app.route('/api/execute/', methods=['POST'])
+@app.route('/api/v1/execute/', methods=['POST'])
 def execute():
     """Execute a list of stream commands and return the resulting output."""
 
@@ -28,28 +28,30 @@ def execute():
     outputs = [] # contains output after each command
 
     if len(text) > MAX_INPUT_LENGTH:
-        error_msg = "Sorry, input may not be longer than %d characters."\
-                                                            % MAX_INPUT_LENGTH
+        error_msg = f"Sorry, input may not be longer than {MAX_INPUT_LENGTH} "\
+            "characters."
         return jsonify(error=True, error_pos=-1, error_msg=error_msg)
 
     for index, operation in enumerate(operations):
-        command = operation['cmd']
-        arguments = operation['args']
+        command = operation.get('command')
+        arguments = operation.get('args')
 
         # check if the command is supported/allowed
         # IMPORTANT: prevents arbitrary command execution
         if command not in supported_command_names:
-            error_msg = "Command \"%s\" is not supported." % command
-            return jsonify(error=True, error_pos=index, error_msg=error_msg)
+            error_msg = f"Command \"{command}\" is not supported."
+            return jsonify(error={'index': index, 'message': error_msg}), 400
 
         stdout, stderr = execute_command(command, arguments, stdin=text)
 
         # stop processing if we ran into an error
         if stderr:
-            return jsonify(error=True, error_pos=index,
-                           error_msg=format_output(stderr))
+            return jsonify(error={
+                'index': index,
+                'message': format_output(stderr)
+            }), 400
 
         text = format_output(stdout)
         outputs.append(text)
 
-    return jsonify(error=False, input=request_dict['input'], outputs=outputs)
+    return jsonify(input=request_dict['input'], outputs=outputs)
