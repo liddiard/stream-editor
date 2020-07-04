@@ -1,0 +1,101 @@
+@import 'constants';
+
+html {
+    box-sizing: border-box;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+html, body, #root {
+    margin: 0;
+    padding: 0;
+    font-family: $MONOSPACE;
+    height: 100%;
+}
+
+body {
+    background-color: #fafafa;
+}
+
+a {
+    text-decoration: none;
+}
+
+main {
+    height: calc(100% - #{$HEADER_HEIGHT});
+    display: flex;
+    flex-direction: column;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+}
+
+textarea, input {
+    border: 0;
+    border-radius: 0;
+    background-color: white;
+    transition: background-color 0.25s;
+
+    &:focus {
+        background-color: #fbfdff;
+    }
+}
+
+textarea, output {
+    width: 100%;
+    padding: 1rem;
+    line-height: 1.35;
+    resize: none;
+    overflow-y: auto;
+    border-top: $BORDER_MINOR;
+    margin-top: 0; // remove the margin Safari adds above textareas
+    height: 100%; // Firefox needs this in addtion to the `top:0` / `bottom:0`
+}
+
+.io.labels {
+    font-size: 0.85em;
+    position: absolute;
+    top: 8px;
+    right: 8px;
+
+    label {
+        display: inline-block;
+        text-transform: uppercase;
+        border: $BORDER_MINOR;
+        padding: 0.1em 0.2em;
+        background-color: white;
+        color: gray;
+        border-radius: 0.2em;
+        margin-left: 0.5em;
+    }
+}
+
+.sans {
+    font-family: $SANS;
+}
+
+.mono {
+    font-family: $MONOSPACE;
+}
+
+.io-container {
+    -webkit-flex: 1 1 auto;
+    flex: 1 1 auto;
+    display: -webkit-flex;
+    display: flex;
+    height: 0; // http://stackoverflow.com/a/14964944
+}
+
+.input-container, .output-container {
+    width: 50%;
+    position: relative;
+    transition: min-width 0.5s;
+}
+
+.operations {
+    flex: 0 1 auto;
+    display: flex;
+}
+
+@import 'responsive';

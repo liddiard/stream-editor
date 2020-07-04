@@ -1,0 +1,79 @@
+@import 'constants';
+
+.command-select {
+  width: 240px;
+  position: relative;
+  cursor: pointer;
+  border-right: $BORDER_MINOR;
+  
+  dl {
+      position: absolute;
+      width: 100vw;
+      max-width: 450px;
+      bottom: 24px;
+      background-color: white;
+      border: 1px solid black;
+      padding: 1em;
+      column-count: 2;
+      column-gap: 1em;
+      line-height: 1.4;
+      color: black;
+      z-index: 10000;
+
+      dt {
+          display: inline;
+          font-weight: bold;
+      }
+
+      dd {
+          margin-left: 1.25rem;
+          opacity: 0.75;
+          font-size: 0.8em;
+
+          .description {
+              margin-right: 0.25em;
+          }
+
+          .separator {
+              opacity: 0.5;
+              margin: 0 0.25em;
+          }
+      }
+
+      label {
+        display: block;
+        padding: 0.25em 0;
+      }
+    
+      input {
+          margin-right: 0.25em;
+          vertical-align: middle;
+      }
+  }
+
+  .selected {
+      font-size: 1.5em;
+      margin: 0.25em 0 0.25em 0.35em;
+      font-weight: bold;
+
+      .arrow {
+          float: right;
+          padding: 0.05em 0.25em;
+
+          &.open {
+              transform: rotate(180deg);
+          }
+      }
+  }
+
+  .backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0,0,0, 0.25);
+      z-index: 1000;
+      cursor: pointer;
+  }
+}

@@ -12,6 +12,7 @@ import {
   SET_OPERATION_ARGS,
   SET_API_INPUT,
   SET_OUTPUTS,
+  SET_OPTIONS,
   SET_OPTION
 } from './constants'
 
@@ -31,12 +32,12 @@ export const initialState = {
     index: null // index of `operations` where the error occurred, if applicable
   },
   options: {
-    darkMode: true,
-    minWidth: 512,
-    fontSize: 14,
-    fontStyle: 'mono',   // 'mono' or 'sans'
     showDiff: true,      // show visual diff of changes
-    syncScrolling: true, // scroll all input/output panes together
+    syncScroll: true, // scroll all input/output panes together
+    darkMode: true,
+    fontSize: 12,
+    fontStyle: 'mono',   // 'mono' or 'sans'
+    panesInViewport: 3,  // max number of input/output panes in view
   }
 }
 
@@ -51,6 +52,7 @@ export default (state, action) => {
     args,
     index,
     outputs,
+    options,
     key,
     value
   } = action
@@ -58,7 +60,6 @@ export default (state, action) => {
     case SET_LOADING:
       return { ...state, loading }
     case SET_ERROR:
-      console.log('error:', { ...state, error })
       return { ...state, error }
     case SET_COMMANDS:
       return { ...state, commands }
@@ -95,7 +96,7 @@ export default (state, action) => {
         ...state,
         operations: [
           ...state.operations.slice(0, index),
-          { ...state.operations[index], command },
+          { ...(state.operations[index] || DEFAULT_OPERATION), command },
           ...state.operations.slice(index+1)
         ]
       }
@@ -104,7 +105,7 @@ export default (state, action) => {
         ...state,
         operations: [
           ...state.operations.slice(0, index),
-          { ...state.operations[index], args },
+          { ...(state.operations[index] || DEFAULT_OPERATION), args },
           ...state.operations.slice(index+1)
         ]
       }
@@ -112,6 +113,11 @@ export default (state, action) => {
       return { ...state, apiInput: input }
     case SET_OUTPUTS:
       return { ...state, outputs }
+    case SET_OPTIONS:
+      return {
+        ...state,
+        options: { ...state.options, ...options }
+      }
     case SET_OPTION:
       return {
         ...state,

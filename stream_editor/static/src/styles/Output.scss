@@ -1,0 +1,49 @@
+@import 'constants';
+
+output {
+  border-left: 2px solid black;
+  background-color: rgba(255,255,255, 0.7);
+  display: block;
+
+  pre {
+      margin: 0;
+      white-space: pre-wrap;
+  }
+}
+
+ins, del {
+  text-decoration: none;
+}
+
+ins {
+  background-color: rgba(0, 255, 0, 0.25);
+}
+
+del {
+  background-color: rgba(255, 0, 0, 0.25);
+}
+
+.output-container {
+  .copy {
+      z-index: 100;
+      font-family: $SANS;
+      white-space: nowrap;
+      padding: 0.25em 0.5em;
+      font-size: 0.9em;
+      cursor: pointer;
+      color: $BLUE_COLOR;
+      background-color: white;
+      border: $BORDER_MINOR;
+      border-radius: 0.2em;
+
+      img {
+          height: 14px;
+          vertical-align: text-bottom;
+          margin-right: 0.25em;
+      }
+
+      &.copied {
+          color: green;
+      }
+  }
+}

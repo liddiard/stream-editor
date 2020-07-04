@@ -6,21 +6,15 @@ import {
   SET_OPERATION_ARGS,
   REMOVE_OPERATION
 } from '../constants'
-import {} from '../actions'
-import utils from '../utils'
+import { optionsData } from '../context'
+import { getMinWidth } from '../utils'
+import CommandSelect from './CommandSelect'
+
+import '../styles/Operation.scss'
 
 
-const Operation = ({ dispatch, index, commands, operations, operation, error }) => {
-  // construct an array of command options to go in the command <select>
-  const options = commands.map(command =>
-    <option key={command.name} value={command.name}>
-      {command.name}
-    </option>
-  )
-
-  // add an operation remove button if operations can be removed in the
-  // current state and this operation is not the last, placeholder operation
-  const removeButton = (operations.length > 1 && index !== operations.length - 1) ? (
+const Operation = ({ dispatch, index, commands, operations, operation, error, panesInViewport }) => {
+  const removeButton = index !== operations.length && operations.length > 1 ? (
     <button className="remove-operation"
             onClick={() => dispatch({ type: REMOVE_OPERATION, index })}>
       ✕
@@ -34,16 +28,16 @@ const Operation = ({ dispatch, index, commands, operations, operation, error }) 
   ) : null
 
   return (
-    <div className="operation">
+    <div
+      className={`operation ${error ? 'error' : ''}`}
+      style={{ minWidth: getMinWidth(panesInViewport) }}
+    >
       {_error}
-      <select
-        name="command"
-        value={operation.command}
+      <CommandSelect
+        commands={commands}
+        command={operation.command}
         onChange={ev => dispatch({ type: SET_OPERATION_COMMAND, index, command: ev.target.value })}
-      >
-        {options}
-      </select>
-      <div className="dropdown-arrow">▾</div>
+      />
       <div className="args">
         <input
           type="text"
@@ -51,7 +45,6 @@ const Operation = ({ dispatch, index, commands, operations, operation, error }) 
           value={operation.args}
           placeholder="arguments"
           onChange={ev => dispatch({ type: SET_OPERATION_ARGS, index, args: ev.target.value })}
-          onFocus={() => { /* props.pushOperationIfLast.bind(null, index) */}}
         />
       </div>
       {removeButton}
@@ -66,4 +59,4 @@ Operation.propTypes = {
   index: PropTypes.number.isRequired
 }
 
-export default Operation
+export default optionsData(Operation)

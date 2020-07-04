@@ -5,6 +5,7 @@ import {
   API_ROOT,
   INPUT_DELAY,
   ERROR_GENERIC,
+  ERROR_NULL,
   SET_LOADING,
   SET_ERROR,
   SET_COMMANDS,
@@ -23,7 +24,7 @@ const startLoading = (dispatch) =>
 const endLoading = (dispatch) =>
   dispatch({ type: SET_LOADING, loading: false })
 
-const execute = async (dispatch, input, operations) => {
+export const execute = async (dispatch, input, operations) => {
   startLoading(dispatch)
   try {
     const response = await request({
@@ -38,6 +39,7 @@ const execute = async (dispatch, input, operations) => {
       const { input, outputs } = response.data
       dispatch({ type: SET_API_INPUT, input })
       dispatch({ type: SET_OUTPUTS, outputs })
+      dispatch({ type: SET_ERROR, error: ERROR_NULL })
     }
   }
   catch (error) {
@@ -65,15 +67,3 @@ export const getCommands = async (dispatch) => {
     endLoading(dispatch)
   }
 }
-
-let timeoutId
-export const setInput = (dispatch, input, operations) => {
-  dispatch({ type: SET_INPUT, input })
-  if (timeoutId) {
-    window.clearTimeout(timeoutId)
-  }
-  timeoutId = window.setTimeout(() =>
-    execute(dispatch, input, operations),
-  INPUT_DELAY)
-}
-  

@@ -1,0 +1,72 @@
+@import 'constants';
+
+.editor-options {
+  height: $HEADER_HEIGHT;
+  font-family: $SANS;
+  font-size: 0.9em;
+  line-height: 2.9;
+  padding: 0 1em;
+
+  button {
+    margin-right: 1em;
+    color: $BLUE_COLOR;
+    background-color: white;
+    border: 1px solid $BLUE_COLOR;
+    padding: 0.25em 0.5em;
+    border-radius: 0.25em;
+    cursor: pointer;
+
+    &.copied {
+      color: $GREEN_COLOR;
+      border-color: $GREEN_COLOR;
+    }
+
+    &.clear {
+      color: $RED_COLOR;
+      border-color: $RED_COLOR;
+
+      &:hover {
+        background-color: $RED_COLOR;
+        color: white;
+      }
+    }
+
+    img {
+      height: 1em;
+      margin-right: 0.25em;
+      vertical-align: text-bottom;
+    }
+  }
+
+  input {
+    margin: 0 4px 0 0;
+
+    &[type=range] {
+        margin: 3px 6px;
+        vertical-align: sub;
+        max-width: 80px;
+    }
+  }
+
+  .option {
+      height: 100%;
+      white-space: nowrap;
+      display: inline-block;
+      border-left: $BORDER_MINOR;
+      padding: 0 0.5em;
+      cursor: default;
+
+      label {
+          margin: 0 0.25em;
+      }
+  }
+
+  .radio-group-label {
+    margin-right: 0.25em;
+  }
+
+  .font-icon {
+    vertical-align: middle;
+    margin-bottom: 0.4em;
+  }
+}

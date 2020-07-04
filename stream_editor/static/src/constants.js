@@ -13,6 +13,11 @@ export const ERROR_GENERIC = {
   index: 0
 }
 
+export const ERROR_NULL = {
+  message: null,
+  index: null
+}
+
 export const SET_LOADING = 'SET_LOADING'
 export const SET_ERROR = 'SET_ERROR'
 export const SET_COMMANDS = 'SET_COMMANDS'
@@ -28,4 +33,5 @@ export const SET_OPERATION_ARGS = 'SET_OPERATION_ARGS'
 export const SET_API_INPUT = 'SET_API_INPUT'
 export const SET_OUTPUTS = 'SET_OUTPUTS'
 
+export const SET_OPTIONS = 'SET_OPTIONS'
 export const SET_OPTION = 'SET_OPTION'
