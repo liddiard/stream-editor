@@ -1,56 +1,64 @@
-@import 'constants';
+@import "constants";
 
 .operation {
   position: relative;
   width: 50%;
   display: flex;
-  border-top: $BORDER_MINOR;
-  border-bottom: $BORDER_MINOR;
-  border-left: 2px solid black;
-  transition: min-width 0.5s;
+  border-top: 1px solid;
+  @include theme-aware("border-top-color", "divider-secondary");
+  border-bottom: 1px solid;
+  @include theme-aware("border-bottom-color", "divider-secondary");
+  border-left: 2px solid;
+  @include theme-aware("border-left-color", "divider-primary");
 
   &.error {
-      color: $RED_COLOR;
+    @include theme-aware("color", "error-destructive");
 
-      input {
-          color: $RED_COLOR;
-      }
+    input {
+      @include theme-aware("color", "error-destructive");
+    }
   }
 
-  & input, & button {
-      font-family: $MONOSPACE;
-      font-size: 1.5em;
-      padding: 0.25em 0 0.25em 0.35em;
-      margin: 0;
+  & input,
+  & button {
+    font-family: $MONOSPACE;
+    font-size: 1.5em;
+    padding: 0.25em 0 0.25em 0.35em;
+    margin: 0;
   }
 
   button.remove-operation {
-      // the 'x' is not centered in the button for some reason, so we use
-      // padding to compensate
-      padding: 0 0.6em 0 0.3em;
-      background-color: white;
-      border: 0;
-      cursor: pointer;
+    // the 'x' is not centered in the button for some reason, so we use
+    // padding to compensate
+    padding: 0 0.6em 0 0.3em;
+    @include theme-aware("background-color", "background-primary");
+    @include theme-aware("color", "foreground-primary");
+    border: 0;
+    cursor: pointer;
 
-      &:hover {
-          color: $RED_COLOR;
-      }
+    &:hover {
+      @include theme-aware("color", "error-destructive");
+    }
   }
 
   .args {
-      width: 100%;
+    width: 100%;
 
-      input {
-          width: 100%;
-      }
+    input {
+      width: 100%;
+    }
   }
 
   .error {
-      position: absolute;
-      padding: 0.5em;
-      transform: translateY(-100%);
-      width: 100%;
-      background-color: white;
-      border-bottom: $BORDER_MINOR;
+    position: absolute;
+    padding: 0.5em;
+    transform: translateY(-100%);
+    width: 100%;
+    @include theme-aware("background-color", "background-primary");
+    border-bottom: 1px solid;
+    @include theme-aware("border-bottom-color", "divider-secondary");
+    border-top: 1px solid;
+    @include theme-aware("border-top-color", "divider-secondary");
+    line-height: 1.25;
   }
 }

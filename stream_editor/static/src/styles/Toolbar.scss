@@ -1,0 +1,76 @@
+@import "constants";
+
+.editor-options {
+  font-family: $SANS;
+  font-size: 0.9em;
+  padding: 0 0.5em;
+  display: flex;
+  flex-wrap: wrap;
+  line-height: 1.5;
+
+  button {
+    margin: 0.4em 0.5em 0 0;
+    @include theme-aware("color", "link-default");
+    @include theme-aware("background-color", "background-primary");
+    border: 1px solid;
+    @include theme-aware("border-color", "link-default");
+    padding: 0.25em 0.5em;
+    border-radius: 0.25em;
+    height: 1.75em;
+    cursor: pointer;
+
+    &.copied {
+      @include theme-aware("color", "success");
+      @include theme-aware("border-color", "success");
+    }
+
+    &.clear {
+      @include theme-aware("color", "error-destructive");
+      @include theme-aware("border-color", "error-destructive");
+
+      &:hover {
+        @include theme-aware("background-color", "error-destructive");
+        color: white;
+      }
+    }
+
+    img {
+      height: 1em;
+      margin-right: 0.25em;
+      vertical-align: text-bottom;
+    }
+  }
+
+  input {
+    margin: 0 4px 0 0;
+
+    &[type="range"] {
+      margin: 3px 6px;
+      vertical-align: sub;
+      max-width: 80px;
+    }
+  }
+
+  .option {
+    white-space: nowrap;
+    display: inline-block;
+    border-left: 1px solid;
+    @include theme-aware("border-left-color", "divider-secondary");
+    padding: 0.5em;
+    cursor: default;
+    max-height: 35px;
+
+    label {
+      margin: 0 0.25em;
+    }
+  }
+
+  .radio-group-label {
+    margin-right: 0.25em;
+  }
+
+  .font-icon {
+    vertical-align: middle;
+    margin-bottom: 0.4em;
+  }
+}

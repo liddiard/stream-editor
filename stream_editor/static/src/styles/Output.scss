@@ -1,49 +1,87 @@
-@import 'constants';
+@import "constants";
 
 output {
-  border-left: 2px solid black;
-  background-color: rgba(255,255,255, 0.7);
+  @include theme-aware("background-color", "background-primary");
+  border-left: 2px solid;
+  @include theme-aware("border-color", "divider-primary");
   display: block;
 
   pre {
-      margin: 0;
-      white-space: pre-wrap;
+    margin: 0;
+    white-space: pre-wrap;
   }
 }
 
-ins, del {
+ins,
+del {
   text-decoration: none;
 }
 
 ins {
-  background-color: rgba(0, 255, 0, 0.25);
+  @include theme-aware("background-color", "insert-highlight");
 }
 
 del {
-  background-color: rgba(255, 0, 0, 0.25);
+  @include theme-aware("background-color", "delete-highlight");
 }
 
 .output-container {
+  &.error {
+    opacity: 0.5;
+  }
+
   .copy {
-      z-index: 100;
-      font-family: $SANS;
-      white-space: nowrap;
-      padding: 0.25em 0.5em;
-      font-size: 0.9em;
+    z-index: 100;
+    font-family: $SANS;
+    white-space: nowrap;
+    padding: 0.25em 0.5em;
+    font-size: 0.9em;
+    cursor: pointer;
+    @include theme-aware("color", "link-default");
+    @include theme-aware("background-color", "background-primary");
+    border: 1px solid;
+    @include theme-aware("border-color", "link-default");
+    border-radius: 0.2em;
+
+    img {
+      height: 14px;
+      vertical-align: text-bottom;
+      margin-right: 0.25em;
+    }
+
+    &.copied {
+      @include theme-aware("color", "success");
+      @include theme-aware("border-color", "success");
+    }
+  }
+
+  .insert-operation {
+    position: absolute;
+    height: 100%;
+    width: 2em;
+    left: -1em;
+
+    &:hover {
+      button {
+        display: block;
+      }
+    }
+
+    button {
+      font-size: 1.5em;
+      top: 50%;
+      left: 50%;
+      position: absolute;
+      transform: translate(-50%, -50%);
+      display: none;
+      border-radius: 50%;
+      width: 1.5em;
+      height: 1.5em;
+      border: 2px solid;
+      @include theme-aware("border-color", "link-default");
+      @include theme-aware("background-color", "background-primary");
+      @include theme-aware("color", "link-default");
       cursor: pointer;
-      color: $BLUE_COLOR;
-      background-color: white;
-      border: $BORDER_MINOR;
-      border-radius: 0.2em;
-
-      img {
-          height: 14px;
-          vertical-align: text-bottom;
-          margin-right: 0.25em;
-      }
-
-      &.copied {
-          color: green;
-      }
+    }
   }
 }

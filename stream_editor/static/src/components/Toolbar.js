@@ -4,39 +4,44 @@ import { SET_OPTION, SET_OPERATIONS, DEFAULT_OPERATION } from '../constants'
 import { optionsData } from '../context'
 import { getBashString } from '../utils'
 
-import '../styles/Settings.scss'
+import '../styles/Toolbar.scss'
 
 
-const Settings = ({ dispatch, operations, showDiff, syncScroll, darkMode, fontStyle, fontSize, panesInViewport }) => {
+const Toolbar = ({ dispatch, operations, showDiff, syncScroll, darkMode, fontStyle, fontSize, panesInViewport }) => {
   const [copied, setCopied] = useState(false)
 
   useEffect(() => {
     setCopied(false)
   }, [operations])
 
+  const iconVariant = darkMode ? 'dark' : 'light'
+
   return (<div className="editor-options">
     <button
       className={copied ? 'copied' : ''}
+      data-tip="Copy current commands to clipboard as a series of pipes suitable for pasting in a shell"
       onClick={() => {
         navigator.clipboard.writeText(getBashString(operations))
         setCopied(true)
       }}>
       {copied ?
-        <><img src="/img/icon-check.svg"/>Copied as Bash</> :
-        <><img src="/img/icon-copy.svg"/>Copy as Bash</>
+        <><img src={`/img/check-${iconVariant}.svg`} alt="" />Commands Copied</> :
+        <><img src={`/img/copy-${iconVariant}.svg`} alt="" />Copy Commands</>
       }
     </button>
     <button
       className="clear"
+      data-tip="Clear the current commands"
       onClick={() => {
-        const yes = window.confirm('Are you sure you want to clear all commands?');
+        const commands = operations.map(op => op.command).join(', ');
+        const yes = window.confirm(`Are you sure you want to clear all your commands (${commands})?`);
         if (yes) {
           dispatch({ type: SET_OPERATIONS, operations: [{ ...DEFAULT_OPERATION }] })
         }
       }}>
       ✕ Clear All
     </button>
-    <label className="option" title="Show added/removed text with green/red highlights">
+    <label className="option" data-tip="Show added/removed text with green/red highlights">
       <input
         type="checkbox"
         checked={showDiff}
@@ -46,7 +51,7 @@ const Settings = ({ dispatch, operations, showDiff, syncScroll, darkMode, fontSt
       />
       Show diff
     </label>
-    <label className="option" title="Synchronize scrolling among input and output panes">
+    <label className="option" data-tip="Synchronize vertical scroll position among input and output panes">
       <input
         type="checkbox"
         checked={syncScroll}
@@ -56,17 +61,7 @@ const Settings = ({ dispatch, operations, showDiff, syncScroll, darkMode, fontSt
       />
       Sync scrolling
     </label>
-    <label className="option" title="Toggle dark/light theme">
-      <input
-        type="checkbox"
-        checked={darkMode}
-        onChange={(ev) =>
-          dispatch({ type: SET_OPTION, key: 'darkMode', value: ev.target.checked })
-        }
-      />
-      Dark mode
-    </label>
-    <div className="option" title="Maximum number of panes to show in the viewport">
+    <div className="option" data-tip="Max number of panes to show in the viewport before introducing horizontal scroll">
       Max panes in view
       <input
         type="range"
@@ -82,17 +77,18 @@ const Settings = ({ dispatch, operations, showDiff, syncScroll, darkMode, fontSt
     <div className="option" title="Font size on input and output panes">
       <span className="radio-group-label">Font size</span>
       {[10, 12, 14].map(size => (
-        <label>
+        <label key={size}>
           <input
             type="radio"
-            name="fontSize" 
+            name="fontSize"
             checked={fontSize === size}
             onChange={() =>
               dispatch({ type: SET_OPTION, key: 'fontSize', value: size })
             }
           />
           <img 
-            src="/img/icon-font.svg"
+            src={`/img/font-${iconVariant}.svg`}
+            alt={`${size}-point font`}
             className="font-icon"
             style={{ height: Math.pow(size, 2)/10 }}
           />
@@ -124,8 +120,18 @@ const Settings = ({ dispatch, operations, showDiff, syncScroll, darkMode, fontSt
         Sans-serif
       </label>
     </div>
+    <label className="option">
+      <input
+        type="checkbox"
+        checked={darkMode}
+        onChange={(ev) =>
+          dispatch({ type: SET_OPTION, key: 'darkMode', value: ev.target.checked })
+        }
+      />
+      Dark mode
+    </label>
   </div>)
 }
 
 
-export default optionsData(Settings)
+export default optionsData(Toolbar)

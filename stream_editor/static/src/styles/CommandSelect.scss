@@ -1,79 +1,86 @@
-@import 'constants';
+@import "constants";
 
 .command-select {
-  width: 240px;
+  width: 220px;
   position: relative;
   cursor: pointer;
-  border-right: $BORDER_MINOR;
-  
+  border-right: 1px solid;
+  @include theme-aware("border-right-color", "divider-secondary");
+
   dl {
-      position: absolute;
-      width: 100vw;
-      max-width: 450px;
-      bottom: 24px;
-      background-color: white;
-      border: 1px solid black;
-      padding: 1em;
-      column-count: 2;
-      column-gap: 1em;
-      line-height: 1.4;
-      color: black;
-      z-index: 10000;
+    position: absolute;
+    width: 100vw;
+    max-width: 450px;
+    bottom: 24px;
+    @include theme-aware("background-color", "background-secondary");
+    border: 1px solid;
+    @include theme-aware("border-color", "divider-secondary");
+    padding: 1em;
+    column-count: 2;
+    column-gap: 1em;
+    line-height: 1.4;
+    @include theme-aware("color", "foreground-primary");
+    z-index: 10000;
 
-      dt {
-          display: inline;
-          font-weight: bold;
+    dt {
+      display: inline;
+      font-weight: bold;
+    }
+
+    dd {
+      margin-left: 1.25rem;
+      opacity: 0.75;
+      font-size: 0.8em;
+
+      .description {
+        margin-right: 0.25em;
       }
 
-      dd {
-          margin-left: 1.25rem;
-          opacity: 0.75;
-          font-size: 0.8em;
-
-          .description {
-              margin-right: 0.25em;
-          }
-
-          .separator {
-              opacity: 0.5;
-              margin: 0 0.25em;
-          }
+      .separator {
+        opacity: 0.5;
+        margin: 0 0.25em;
       }
+    }
 
-      label {
-        display: block;
-        padding: 0.25em 0;
-      }
-    
-      input {
-          margin-right: 0.25em;
-          vertical-align: middle;
-      }
+    label {
+      display: block;
+      padding: 0.25em 0;
+    }
+
+    input {
+      margin-right: 0.25em;
+      vertical-align: middle;
+    }
   }
 
   .selected {
-      font-size: 1.5em;
-      margin: 0.25em 0 0.25em 0.35em;
-      font-weight: bold;
+    font-size: 1.5em;
+    margin: 0;
+    font-weight: bold;
+    color: inherit;
+    background-color: inherit;
+    border: 0;
+    width: 100%;
+    padding: 0.2em 0.2em 0.2em 0;
+    display: block;
 
-      .arrow {
-          float: right;
-          padding: 0.05em 0.25em;
+    .arrow {
+      float: right;
+      padding: 0.05em 0.25em;
 
-          &.open {
-              transform: rotate(180deg);
-          }
+      &.open {
+        transform: rotate(180deg);
       }
+    }
   }
 
   .backdrop {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background-color: rgba(0,0,0, 0.25);
-      z-index: 1000;
-      cursor: pointer;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 1000;
   }
 }

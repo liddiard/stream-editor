@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import Diff from 'text-diff'
 
+import { INSERT_OPERATION } from '../constants'
 import { optionsData } from '../context'
 import { getMinWidth } from '../utils'
 
 import '../styles/Output.scss'
 
 
-const Output = ({ showDiff, text, prevText, isLast, fontSize, fontStyle, panesInViewport }) => {
+const Output = ({ dispatch, index, showDiff, text, prevText, isError, isLast, fontSize, fontStyle, darkMode, panesInViewport }) => {
   const [copied, setCopied] = useState(false)
 
   useEffect(() => {
@@ -30,11 +31,21 @@ const Output = ({ showDiff, text, prevText, isLast, fontSize, fontStyle, panesIn
     output = <pre className={fontStyle}>{text}</pre>
   }
 
+  const iconVariant = darkMode ? 'dark' : 'light'
+
   return (
     <div
-      className="output-container"
+      className={`output-container ${isError ? 'error' : ''}`}
       style={{ minWidth: getMinWidth(panesInViewport) }}
     >
+      <div className="insert-operation">
+        <button
+          data-tip="Insert a command"
+          onClick={() => dispatch({ type: INSERT_OPERATION, index: index+1 })}
+        >
+          +
+      </button>
+      </div>
       <div className="io labels">
         <button 
           className={`copy ${copied ? 'copied' : ''}`}
@@ -44,8 +55,8 @@ const Output = ({ showDiff, text, prevText, isLast, fontSize, fontStyle, panesIn
           }}
         >
           {copied ?
-            <><img src="/img/icon-check.svg"/>Copied</> :
-            <><img src="/img/icon-copy.svg"/>Copy</>
+            <><img src={`/img/check-${iconVariant}.svg`} alt="" />Copied</> :
+            <><img src={`/img/copy-${iconVariant}.svg`} alt="" />Copy</>
           }
         </button>
         {isLast ? <label>Output</label> : null}

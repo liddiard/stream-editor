@@ -76,4 +76,5 @@ export const updateOptionsFromLocalStorage = (dispatch) => {
 export const getMinWidth = (panesInViewport) => `calc(${100/panesInViewport}% - 25px)`
 
 export const getBashString = (operations) =>
-  operations.map(op => `${op.command} ${op.args}`).join(' | ')
+  operations.map(op =>
+    [op.command].concat(op.args ? [op.args] : []).join(' ')).join(' | ')

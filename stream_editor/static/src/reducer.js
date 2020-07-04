@@ -33,11 +33,12 @@ export const initialState = {
   },
   options: {
     showDiff: true,      // show visual diff of changes
-    syncScroll: true, // scroll all input/output panes together
-    darkMode: true,
-    fontSize: 12,
+    syncScroll: true,    // scroll all input/output panes together
+    fontSize: 12,        // font size in `pt`
     fontStyle: 'mono',   // 'mono' or 'sans'
     panesInViewport: 3,  // max number of input/output panes in view
+    // https://stackoverflow.com/a/57795495
+    darkMode: window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches,
   }
 }
 
@@ -66,12 +67,19 @@ export default (state, action) => {
     case SET_INPUT:
       return { ...state, input }
     case SET_OPERATIONS:
-      return { ...state, operations }
+      return {
+        ...state,
+        operations,
+        outputs: Array(operations.length).fill('')
+      }
     case PUSH_OPERATION:
       return {
         ...state,
         operations: [
           ...state.operations, { ...DEFAULT_OPERATION }
+        ],
+        outputs: [
+          ...state.outputs, ''
         ]
       }
     case INSERT_OPERATION:
@@ -81,7 +89,12 @@ export default (state, action) => {
           ...state.operations.slice(0, index),
           { ...DEFAULT_OPERATION },
           ...state.operations.slice(index)
-        ]
+        ],
+        outputs: [
+          ...state.outputs.slice(0, index-1),
+          state.outputs[index-1],
+          ...state.outputs.slice(index-1)
+        ],
       }
     case REMOVE_OPERATION:
       return { 
@@ -89,6 +102,10 @@ export default (state, action) => {
         operations: [
           ...state.operations.slice(0, index),
           ...state.operations.slice(index+1)
+        ],
+        outputs: [
+          ...state.outputs.slice(0, Math.max(index-1, 0)),
+          ...state.outputs.slice(Math.max(index, 1))
         ]
       }
     case SET_OPERATION_COMMAND:
@@ -98,6 +115,9 @@ export default (state, action) => {
           ...state.operations.slice(0, index),
           { ...(state.operations[index] || DEFAULT_OPERATION), command },
           ...state.operations.slice(index+1)
+        ],
+        outputs: state.operations[index] ? state.outputs : [
+          ...state.outputs, ''
         ]
       }
     case SET_OPERATION_ARGS:
@@ -107,6 +127,9 @@ export default (state, action) => {
           ...state.operations.slice(0, index),
           { ...(state.operations[index] || DEFAULT_OPERATION), args },
           ...state.operations.slice(index+1)
+        ],
+        outputs: state.operations[index] ? state.outputs : [
+          ...state.outputs, ''
         ]
       }
     case SET_API_INPUT:

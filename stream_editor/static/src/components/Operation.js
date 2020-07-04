@@ -15,8 +15,11 @@ import '../styles/Operation.scss'
 
 const Operation = ({ dispatch, index, commands, operations, operation, error, panesInViewport }) => {
   const removeButton = index !== operations.length && operations.length > 1 ? (
-    <button className="remove-operation"
-            onClick={() => dispatch({ type: REMOVE_OPERATION, index })}>
+    <button
+      className="remove-operation"
+      data-tip="Remove command"
+      onClick={() => dispatch({ type: REMOVE_OPERATION, index })}
+    >
       ✕
     </button>
   ) : null
@@ -36,6 +39,7 @@ const Operation = ({ dispatch, index, commands, operations, operation, error, pa
       <CommandSelect
         commands={commands}
         command={operation.command}
+        index={index}
         onChange={ev => dispatch({ type: SET_OPERATION_COMMAND, index, command: ev.target.value })}
       />
       <div className="args">
@@ -44,6 +48,7 @@ const Operation = ({ dispatch, index, commands, operations, operation, error, pa
           name="args"
           value={operation.args}
           placeholder="arguments"
+          tabIndex={(index*2) + 3}
           onChange={ev => dispatch({ type: SET_OPERATION_ARGS, index, args: ev.target.value })}
         />
       </div>

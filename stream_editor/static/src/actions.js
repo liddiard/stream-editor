@@ -3,19 +3,13 @@ import request from 'axios'
 
 import {
   API_ROOT,
-  INPUT_DELAY,
   ERROR_GENERIC,
   ERROR_NULL,
   SET_LOADING,
   SET_ERROR,
   SET_COMMANDS,
-  SET_INPUT,
-  PUSH_OPERATION,
-  INSERT_OPERATION,
-  REMOVE_OPERATION,
   SET_API_INPUT,
   SET_OUTPUTS,
-  SET_OPTION
 } from './constants'
 
 const startLoading = (dispatch) =>

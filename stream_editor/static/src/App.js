@@ -1,20 +1,17 @@
 import React, { useReducer, useRef, useEffect } from 'react'
-import PropTypes from 'prop-types'
+import ReactTooltip from 'react-tooltip';
 
 import {
   INPUT_DELAY,
   SET_INPUT,
-  SET_OPERATIONS,
   DEFAULT_OPERATION
 } from './constants'
 import { OptionsContext } from './context'
 import reducer, { initialState } from './reducer'
 import {
   getCommands,
-  setInput,
   execute
 } from './actions'
-
 import {
   updateOperationsFromQuerystring,
   writeOperationsToQuerystring,
@@ -23,8 +20,7 @@ import {
   toggleSyncScrolling,
   rebindSyncScrolling
 } from './utils'
-import Header from './components/Header'
-import Settings from './components/Settings'
+import Toolbar from './components/Toolbar'
 import Input from './components/Input'
 import Operation from './components/Operation'
 import Output from './components/Output'
@@ -36,6 +32,7 @@ const App = () => {
   const [state, dispatch] = useReducer(reducer, initialState)
   const timeoutId = useRef()
   const {
+    loading,
     commands,
     input,
     operations,
@@ -53,6 +50,7 @@ const App = () => {
 
   useEffect(() => {
     writeOperationsToQuerystring(operations)
+    ReactTooltip.rebuild()
   }, [operations])
 
   useEffect(() => {
@@ -71,21 +69,30 @@ const App = () => {
   useEffect(() => rebindSyncScrolling, [outputs.length])
 
   useEffect(() => {
-    const operation = options.darkMode ? 'add' : 'remove'
-    document.body.classList[operation]('dark')
+    const { classList } = document.documentElement
+    classList.remove('theme-dark')
+    classList.remove('theme-light')
+    classList.add(options.darkMode ? 'theme-dark' : 'theme-light')
   }, [options.darkMode])
+
+  useEffect(() => {
+    const action = loading ? 'add' : 'remove'
+    document.body.classList[action]('loading')
+  }, [loading])
 
   useEffect(() => {
     writeOptionsToLocalStorage(options)
   }, [options])
 
   const _outputs = outputs
-  .concat(outputs.length < operations.length ? [''] : [])
   .map((output, index) =>
     <Output
       key={index}
+      index={index}
+      dispatch={dispatch}
       text={output}
       prevText={index === 0 ? apiInput : outputs[index-1]}
+      isError={!!error.message}
       isLast={index === outputs.length - 1}
     />
   )
@@ -93,7 +100,7 @@ const App = () => {
   return (
     <OptionsContext.Provider value={options}>
       <>
-        <Settings
+        <Toolbar
           dispatch={dispatch}
           operations={operations}
         />
@@ -119,6 +126,11 @@ const App = () => {
             )}
           </div>
         </main>
+        <ReactTooltip
+          effect="solid"
+          className="sans"
+          type={options.darkMode ? 'light' : 'dark'} 
+        />
       </>
     </OptionsContext.Provider>
   )

@@ -18,7 +18,9 @@ const Input = ({ text, onChange, maxLength, fontSize, fontStyle, panesInViewport
               maxLength={maxLength}
               placeholder="Enter your text here."
               className={fontStyle}
-              style={{ fontSize: `${fontSize}pt` }} />
+              style={{ fontSize: `${fontSize}pt` }}
+              autoFocus
+              tabIndex={1} />
   </div>
 )
 
