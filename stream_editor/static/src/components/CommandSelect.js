@@ -8,7 +8,6 @@ const CommandSelect = ({ commands, command, index, onChange }) => {
 
   const _onChange = (ev) => {
     onChange(ev)
-    console.log(ev.target)
     setTimeout(() => setIsOpen(false), 250)
   }
 
@@ -24,8 +23,8 @@ const CommandSelect = ({ commands, command, index, onChange }) => {
         tabIndex={(index*2) + 2}>
         {command}
         <span className={`arrow ${isOpen ? 'open' : 'closed'}`}>▾</span>
-      </button      >
-        {isOpen ? 
+      </button>
+      {isOpen ? 
         <dl onClick={(ev) => ev.stopPropagation()} role="dialog">
           {commands.map((_command, index) => 
             <label key={_command.name}>

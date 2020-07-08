@@ -5,8 +5,8 @@ import { initialState } from './reducer'
 
 export const OptionsContext = React.createContext(initialState.options);
 
-export const optionsData = (Component) => (props) => (
+export const OptionsConsumer = (Component) => (props) => (
   <OptionsContext.Consumer>
-    {value => <Component {...props} {...value} />}
+    {value => <Component {...props} options={value} />}
   </OptionsContext.Consumer>
 )

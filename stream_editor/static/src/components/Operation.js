@@ -4,16 +4,20 @@ import PropTypes from 'prop-types'
 import {
   SET_OPERATION_COMMAND,
   SET_OPERATION_ARGS,
+  PUSH_OPERATION,
   REMOVE_OPERATION
-} from '../constants'
-import { optionsData } from '../context'
+} from '../context/constants'
+import { OptionsConsumer } from '../context'
 import { getMinWidth } from '../utils'
 import CommandSelect from './CommandSelect'
 
 import '../styles/Operation.scss'
 
 
-const Operation = ({ dispatch, index, commands, operations, operation, error, panesInViewport }) => {
+const Operation = ({ dispatch, index, commands, operations, operation, error, options }) => {
+  const { panesInViewport } = options
+  const placeholder = index === operations.length ? '+ Add a command' : 'arguments'
+
   const removeButton = index !== operations.length && operations.length > 1 ? (
     <button
       className="remove-operation"
@@ -40,28 +44,35 @@ const Operation = ({ dispatch, index, commands, operations, operation, error, pa
         commands={commands}
         command={operation.command}
         index={index}
-        onChange={ev => dispatch({ type: SET_OPERATION_COMMAND, index, command: ev.target.value })}
+        onChange={ev =>
+          dispatch({ type: SET_OPERATION_COMMAND, index, command: ev.target.value })}
       />
-      <div className="args">
+      {/* <div className="args"> */}
         <input
           type="text"
           name="args"
           value={operation.args}
-          placeholder="arguments"
+          placeholder={placeholder}
           tabIndex={(index*2) + 3}
-          onChange={ev => dispatch({ type: SET_OPERATION_ARGS, index, args: ev.target.value })}
+          onFocus={() =>
+            index === operations.length ? dispatch({ type: PUSH_OPERATION }) : null}
+          onChange={ev =>
+            dispatch({ type: SET_OPERATION_ARGS, index, args: ev.target.value })}
         />
-      </div>
+      {/* </div> */}
       {removeButton}
     </div>
   )
 }
 
 Operation.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  index: PropTypes.number.isRequired,
   commands: PropTypes.array.isRequired,
   operations: PropTypes.array.isRequired,
   operation: PropTypes.object.isRequired,
-  index: PropTypes.number.isRequired
+  error: PropTypes.string,
+  options: PropTypes.object.isRequired
 }
 
-export default optionsData(Operation)
+export default OptionsConsumer(Operation)

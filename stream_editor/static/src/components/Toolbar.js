@@ -1,20 +1,22 @@
 import React, { useState, useEffect } from 'react'
+import PropTypes from 'prop-types'
 
-import { SET_OPTION, SET_OPERATIONS, DEFAULT_OPERATION } from '../constants'
-import { optionsData } from '../context'
+import { SET_OPTION, SET_OPERATIONS, DEFAULT_OPERATION } from '../context/constants'
+import { OptionsConsumer } from '../context'
 import { getBashString } from '../utils'
 
 import '../styles/Toolbar.scss'
 
 
-const Toolbar = ({ dispatch, operations, showDiff, syncScroll, darkMode, fontStyle, fontSize, panesInViewport }) => {
+const Toolbar = ({ dispatch, operations, options }) => {
+  const { showDiff, syncScroll, darkMode, fontStyle, fontSize, panesInViewport } = options
+  const iconVariant = darkMode ? 'dark' : 'light'
+
   const [copied, setCopied] = useState(false)
 
   useEffect(() => {
     setCopied(false)
   }, [operations])
-
-  const iconVariant = darkMode ? 'dark' : 'light'
 
   return (<div className="editor-options">
     <button
@@ -34,7 +36,7 @@ const Toolbar = ({ dispatch, operations, showDiff, syncScroll, darkMode, fontSty
       data-tip="Clear the current commands"
       onClick={() => {
         const commands = operations.map(op => op.command).join(', ');
-        const yes = window.confirm(`Are you sure you want to clear all your commands (${commands})?`);
+        const yes = window.confirm(`Clear all commands (${commands})?`);
         if (yes) {
           dispatch({ type: SET_OPERATIONS, operations: [{ ...DEFAULT_OPERATION }] })
         }
@@ -49,7 +51,7 @@ const Toolbar = ({ dispatch, operations, showDiff, syncScroll, darkMode, fontSty
           dispatch({ type: SET_OPTION, key: 'showDiff', value: ev.target.checked })
         }
       />
-      Show diff
+      Show diffs
     </label>
     <label className="option" data-tip="Synchronize vertical scroll position among input and output panes">
       <input
@@ -61,7 +63,7 @@ const Toolbar = ({ dispatch, operations, showDiff, syncScroll, darkMode, fontSty
       />
       Sync scrolling
     </label>
-    <div className="option" data-tip="Max number of panes to show in the viewport before introducing horizontal scroll">
+    <div className="option" data-tip="Maximum number of panes to show in the viewport before horizontal scroll">
       Max panes in view
       <input
         type="range"
@@ -74,7 +76,7 @@ const Toolbar = ({ dispatch, operations, showDiff, syncScroll, darkMode, fontSty
       />
       {panesInViewport}
     </div>
-    <div className="option" title="Font size on input and output panes">
+    <div className="option">
       <span className="radio-group-label">Font size</span>
       {[10, 12, 14].map(size => (
         <label key={size}>
@@ -95,7 +97,7 @@ const Toolbar = ({ dispatch, operations, showDiff, syncScroll, darkMode, fontSty
         </label>
       ))}
     </div>
-    <div className="option" title="Font style on input and output panes">
+    <div className="option">
       <span className="radio-group-label">Font style</span>
       <label className="mono">
         <input
@@ -133,5 +135,10 @@ const Toolbar = ({ dispatch, operations, showDiff, syncScroll, darkMode, fontSty
   </div>)
 }
 
+Toolbar.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  operations: PropTypes.array.isRequired,
+  options: PropTypes.object.isRequired
+}
 
-export default optionsData(Toolbar)
+export default OptionsConsumer(Toolbar)

@@ -31,24 +31,6 @@ del {
   }
 
   .copy {
-    z-index: 100;
-    font-family: $SANS;
-    white-space: nowrap;
-    padding: 0.25em 0.5em;
-    font-size: 0.9em;
-    cursor: pointer;
-    @include theme-aware("color", "link-default");
-    @include theme-aware("background-color", "background-primary");
-    border: 1px solid;
-    @include theme-aware("border-color", "link-default");
-    border-radius: 0.2em;
-
-    img {
-      height: 14px;
-      vertical-align: text-bottom;
-      margin-right: 0.25em;
-    }
-
     &.copied {
       @include theme-aware("color", "success");
       @include theme-aware("border-color", "success");

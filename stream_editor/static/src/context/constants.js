@@ -1,6 +1,8 @@
 export const API_ROOT = 'http://localhost:5000/api/v1/'
 
 export const INPUT_DELAY = 250
+export const MAX_INPUT_LENGTH = 1048576 // 2**20; should match server-side constant of the same name
+export const MAX_OPERATIONS = 16 // should match server-side constant of the same name
 
 export const DEFAULT_OPERATION = {
   // sed w/o arguments, returns the input unmodified
@@ -19,9 +21,11 @@ export const ERROR_NULL = {
 }
 
 export const SET_LOADING = 'SET_LOADING'
-export const SET_ERROR = 'SET_ERROR'
 export const SET_COMMANDS = 'SET_COMMANDS'
 export const SET_INPUT = 'SET_INPUT'
+
+export const SET_UPLOAD_ERROR = 'SET_UPLOAD_ERROR'
+export const SET_OPERATION_ERROR = 'SET_OPERATION_ERROR'
 
 export const SET_OPERATIONS = 'SET_OPERATIONS'
 export const PUSH_OPERATION = 'PUSH_OPERATION'

@@ -1,6 +1,8 @@
 import shlex
 from subprocess import Popen, PIPE, STDOUT
 
+from .settings import COMMAND_TIMEOUT
+
 
 def format_output(text):
     """Format terminal output for return to client."""
@@ -37,5 +39,6 @@ def execute_command(command, arguments, stdin=None):
     # `stdin` appears to be of type "bytes" and "str". For some reason, we
     # have to coerce it to string explicitly, then encode it as bytes in
     # UTF-8. Then we decode the output back into a string.
-    stdout, stderr = p.communicate(input=str(stdin).encode('utf-8'))
+    stdout, stderr = p.communicate(input=str(stdin).encode('utf-8'),
+        timeout=COMMAND_TIMEOUT)
     return stdout.decode('utf-8'), stderr.decode('utf-8')

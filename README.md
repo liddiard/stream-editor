@@ -25,7 +25,7 @@ Examine the effect of chaining multiple operations together at every step.
 ## Requirements
 
 - MacOS or Linux (sorry, these commands are not all available on Windows)
-- Python 3
+- Python 3.7+
 
 ## Installation
 

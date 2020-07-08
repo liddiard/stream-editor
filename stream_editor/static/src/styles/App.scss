@@ -60,7 +60,7 @@ input {
 textarea,
 output {
   width: 100%;
-  padding: 1rem;
+  padding: 2.5rem 1em 1em;
   line-height: 1.35;
   resize: none;
   overflow-y: auto;
@@ -84,8 +84,15 @@ button {
 .io.labels {
   font-size: 0.85em;
   position: absolute;
-  top: 8px;
-  right: 8px;
+  top: 0.75em;
+  right: 0.75em;
+  display: flex;
+  align-items: center;
+
+  label, button {
+    height: 2em;
+    margin-left: 0.5em;
+  }
 
   label {
     display: inline-block;
@@ -97,6 +104,35 @@ button {
     @include theme-aware("color", "foreground-secondary");
     border-radius: 0.2em;
     margin-left: 0.5em;
+    height: 1.5em;
+  }
+
+  button {
+    z-index: 100;
+    font-family: $SANS;
+    white-space: nowrap;
+    padding: 0.25em 0.5em;
+    font-size: 0.9em;
+    cursor: pointer;
+    @include theme-aware("color", "link-default");
+    @include theme-aware("background-color", "background-primary");
+    border: 1px solid;
+    @include theme-aware("border-color", "link-default");
+    border-radius: 0.2em;
+
+    img {
+      height: 14px;
+      vertical-align: text-bottom;
+      margin-right: 0.25em;
+    }
+  }
+
+  .upload.error {
+    @include theme-aware("color", "error-destructive");
+    @include theme-aware("background-color", "background-primary");
+    text-align: right;
+    margin-right: 1em;
+    font-size: 0.9em;
   }
 }
 

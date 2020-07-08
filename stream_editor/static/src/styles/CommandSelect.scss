@@ -1,9 +1,7 @@
 @import "constants";
 
 .command-select {
-  width: 220px;
   position: relative;
-  cursor: pointer;
   border-right: 1px solid;
   @include theme-aware("border-right-color", "divider-secondary");
 
@@ -45,6 +43,7 @@
     label {
       display: block;
       padding: 0.25em 0;
+      break-inside: avoid;
     }
 
     input {
@@ -61,12 +60,14 @@
     background-color: inherit;
     border: 0;
     width: 100%;
-    padding: 0.2em 0.2em 0.2em 0;
+    height: 100%;
+    padding: 0 0.5em;
     display: block;
+    line-height: 1.5;
 
     .arrow {
       float: right;
-      padding: 0.05em 0.25em;
+      margin-left: 0.5em;
 
       &.open {
         transform: rotate(180deg);

@@ -1,4 +1,4 @@
-import { SET_OPERATIONS, SET_OPTIONS } from './constants'
+import { SET_OPERATIONS, SET_OPTIONS } from './context/constants'
 
 
 // get an array of the elements upon which synced scrolling should operate
@@ -75,6 +75,19 @@ export const updateOptionsFromLocalStorage = (dispatch) => {
 // get the minimum width of a pane based on the `panesInViewport` setting
 export const getMinWidth = (panesInViewport) => `calc(${100/panesInViewport}% - 25px)`
 
+// get operations as a string of piped-together commands
 export const getBashString = (operations) =>
   operations.map(op =>
     [op.command].concat(op.args ? [op.args] : []).join(' ')).join(' | ')
+
+// open a download dialog for a file with the provided filename and text
+// https://stackoverflow.com/a/18197341
+export const downloadFile = (filename, text) => {
+  const el = document.createElement('a');
+  el.setAttribute('href', `data:text/plain;charset=utf-8,${encodeURIComponent(text)}`);
+  el.setAttribute('download', filename);
+  el.style.display = 'none';
+  document.body.appendChild(el);
+  el.click();
+  document.body.removeChild(el);
+}

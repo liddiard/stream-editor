@@ -1,7 +1,8 @@
 import {
   DEFAULT_OPERATION,
   SET_LOADING,
-  SET_ERROR,
+  SET_UPLOAD_ERROR,
+  SET_OPERATION_ERROR,
   SET_COMMANDS,
   SET_INPUT,
   SET_OPERATIONS,
@@ -27,9 +28,14 @@ export const initialState = {
                 // needed for diff b/c there's a delay between input
                 // and receiving API resoponse.
   outputs: [''], // list of output after each operation is performed
-  error: {
-    message: null,
-    index: null // index of `operations` where the error occurred, if applicable
+  errors: {
+    upload: {
+      message: null
+    },
+    operation: {
+      message: null,
+      index: null // index of `operations` where the error occurred, if applicable
+    }
   },
   options: {
     showDiff: true,      // show visual diff of changes
@@ -37,6 +43,7 @@ export const initialState = {
     fontSize: 12,        // font size in `pt`
     fontStyle: 'mono',   // 'mono' or 'sans'
     panesInViewport: 3,  // max number of input/output panes in view
+    // default to user's preference for dark mode
     // https://stackoverflow.com/a/57795495
     darkMode: window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches,
   }
@@ -60,8 +67,22 @@ export default (state, action) => {
   switch (action.type) {
     case SET_LOADING:
       return { ...state, loading }
-    case SET_ERROR:
-      return { ...state, error }
+    case SET_UPLOAD_ERROR:
+      return {
+        ...state,
+        errors: {
+          ...state.errors,
+          upload: { message: error } 
+        }
+      }
+    case SET_OPERATION_ERROR:
+      return {
+        ...state,
+        errors: {
+          ...state.errors,
+          operation: error 
+        }
+      }
     case SET_COMMANDS:
       return { ...state, commands }
     case SET_INPUT:

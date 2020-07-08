@@ -1,27 +1,39 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import PropTypes from 'prop-types'
-import Diff from 'text-diff'
 
-import { INSERT_OPERATION } from '../constants'
-import { optionsData } from '../context'
-import { getMinWidth } from '../utils'
+import { OptionsConsumer } from '../context'
+import { INSERT_OPERATION } from '../context/constants'
+// eslint-disable-next-line import/no-webpack-loader-syntax
+import worker from 'workerize-loader!../context/worker'
+import { getMinWidth, downloadFile } from '../utils'
 
 import '../styles/Output.scss'
 
 
-const Output = ({ dispatch, index, showDiff, text, prevText, isError, isLast, fontSize, fontStyle, darkMode, panesInViewport }) => {
+const instance = worker()
+
+const Output = ({ dispatch, index, text, prevText, isError, isLast, options }) => {
+  const { showDiff, fontSize, fontStyle, darkMode, panesInViewport } = options
+  const iconVariant = darkMode ? 'dark' : 'light'
+
   const [copied, setCopied] = useState(false)
+  const [diffOutput, setDiffOutput] = useState(null)
 
   useEffect(() => {
     setCopied(false)
   }, [text, setCopied])
 
+  useMemo(async () => {
+    if (!showDiff) {
+      return
+    }
+    const html = await instance.generateDiff(prevText, text)
+    setDiffOutput(html)
+  }, [prevText, text, showDiff]);
+
   let output
   if (showDiff) {
-    const diff = new Diff()
-    const diffText = diff.main(prevText, text)
-    diff.cleanupSemantic(diffText)
-    const createMarkup = () => ({ __html: diff.prettyHtml(diffText) })
+    const createMarkup = () => ({ __html: diffOutput })
     output = <pre
       className={fontStyle}
       dangerouslySetInnerHTML={createMarkup()}
@@ -31,8 +43,6 @@ const Output = ({ dispatch, index, showDiff, text, prevText, isError, isLast, fo
     output = <pre className={fontStyle}>{text}</pre>
   }
 
-  const iconVariant = darkMode ? 'dark' : 'light'
-
   return (
     <div
       className={`output-container ${isError ? 'error' : ''}`}
@@ -40,7 +50,7 @@ const Output = ({ dispatch, index, showDiff, text, prevText, isError, isLast, fo
     >
       <div className="insert-operation">
         <button
-          data-tip="Insert a command"
+          data-tip="Add a command"
           onClick={() => dispatch({ type: INSERT_OPERATION, index: index+1 })}
         >
           +
@@ -55,11 +65,19 @@ const Output = ({ dispatch, index, showDiff, text, prevText, isError, isLast, fo
           }}
         >
           {copied ?
-            <><img src={`/img/check-${iconVariant}.svg`} alt="" />Copied</> :
-            <><img src={`/img/copy-${iconVariant}.svg`} alt="" />Copy</>
+            <><img src={`/img/check-${iconVariant}.svg`} alt="" />Copied to Clipboard</> :
+            <><img src={`/img/copy-${iconVariant}.svg`} alt="" />Copy to Clipboard</>
           }
         </button>
-        {isLast ? <label>Output</label> : null}
+        {isLast ?
+          <>
+            <button onClick={() => downloadFile('output.txt', text)}>
+              <img src={`/img/download-${iconVariant}.svg`} alt="" />
+              Download
+            </button>
+            <label>Output</label>
+          </>
+          : null}
       </div>
       <output style={{ fontSize: `${fontSize}pt` }}>
         {output}
@@ -69,9 +87,13 @@ const Output = ({ dispatch, index, showDiff, text, prevText, isError, isLast, fo
 }
 
 Output.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  index: PropTypes.number.isRequired,
   text: PropTypes.string.isRequired,
   prevText: PropTypes.string.isRequired,
-  showDiff: PropTypes.bool.isRequired
+  isError: PropTypes.bool.isRequired,
+  isLast: PropTypes.bool.isRequired,
+  options: PropTypes.object.isRequired
 }
 
-export default optionsData(Output)
+export default OptionsConsumer(Output)

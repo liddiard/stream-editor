@@ -5,13 +5,13 @@ import {
   INPUT_DELAY,
   SET_INPUT,
   DEFAULT_OPERATION
-} from './constants'
+} from './context/constants'
 import { OptionsContext } from './context'
-import reducer, { initialState } from './reducer'
+import reducer, { initialState } from './context/reducer'
 import {
   getCommands,
   execute
-} from './actions'
+} from './context/actions'
 import {
   updateOperationsFromQuerystring,
   writeOperationsToQuerystring,
@@ -38,7 +38,7 @@ const App = () => {
     operations,
     outputs,
     apiInput,
-    error,
+    errors,
     options
   } = state
 
@@ -92,7 +92,7 @@ const App = () => {
       dispatch={dispatch}
       text={output}
       prevText={index === 0 ? apiInput : outputs[index-1]}
-      isError={!!error.message}
+      isError={!!errors.operation.message}
       isLast={index === outputs.length - 1}
     />
   )
@@ -107,7 +107,9 @@ const App = () => {
         <main>
           <div className="io-container">
             <Input 
+              dispatch={dispatch}
               text={input}
+              error={errors.upload}
               onChange={ev => dispatch({ type: SET_INPUT, input: ev.target.value })}
             />
             {_outputs}
@@ -121,7 +123,11 @@ const App = () => {
                 commands={commands}
                 operations={operations}
                 operation={operation}
-                error={error.index === index ? error.message : null}
+                error={
+                  errors.operation.index === index ?
+                  errors.operation.message :
+                  null
+                }
               />
             )}
           </div>

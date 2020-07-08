@@ -52,8 +52,9 @@
   }
 
   .option {
+    display: flex;
+    align-items: center;
     white-space: nowrap;
-    display: inline-block;
     border-left: 1px solid;
     @include theme-aware("border-left-color", "divider-secondary");
     padding: 0.5em;
@@ -71,6 +72,6 @@
 
   .font-icon {
     vertical-align: middle;
-    margin-bottom: 0.4em;
+    margin-bottom: 0.25em;
   }
 }

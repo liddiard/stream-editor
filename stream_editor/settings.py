@@ -1,3 +1,15 @@
+# maximum size of input we will process
+# 2**20; should match client-side constant of the same name
+MAX_INPUT_LENGTH = 1048576
+
+# maximum number of operations that are allowed
+# should match client-side constant of the same name
+MAX_OPERATIONS = 16
+
+# maximum time in seconds that an operation may run before we throw a timeout
+# error
+COMMAND_TIMEOUT = 2
+
 # commands which users are allowed to execute. for security reasons, it is
 # important that this list does not contain any potentially
 # destructive/exploitable commands
@@ -88,6 +100,3 @@ SUPPORTED_COMMANDS = sorted([
         'examples': 'http://www.cyberciti.biz/faq/linux-unix-appleosx-bsd-cat-command-examples/'
     },
 ], key=lambda x: x['name']) # sort alphabetically by command name
-
-# maximum size of input we will process
-MAX_INPUT_LENGTH = 1048576 # 2**20
