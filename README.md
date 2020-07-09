@@ -33,6 +33,5 @@ Examine the effect of chaining multiple operations together at every step.
 2. (optional but recommended) [set up a virtual environment](http://docs.python-guide.org/en/latest/dev/virtualenvs/) for the project, and activate it
 3. `pip3 install -r requirements.txt`
 4. `python3 runserver.py`
-5. `cd stream_editor/static`
+5. `cd client`
 6. `npm install && npm start`
-7. navigate to [http://localhost:5000](http://localhost:5000)
