@@ -5,8 +5,8 @@ MAX_INPUT_LENGTH = 1048576
 # maximum number of operations (commands) that are allowed
 MAX_OPERATIONS = 16
 
-# maximum time in seconds that an operation may run before we throw a timeout
-# error
+# maximum time in seconds that an individual operation may run before we throw
+# a timeout error
 COMMAND_TIMEOUT = 2
 
 # commands which users are allowed to execute. for security reasons, it is

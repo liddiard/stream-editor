@@ -10,6 +10,11 @@ from .command import (
 )
 
 
+def request_error(message, index=-1):
+    """Helper to create a 400 Bad Request error"""
+    return jsonify(error={'message': message, 'index': index}), 400
+
+
 @app.route('/v1/commands/')
 def list_commands():
     """Return the list of supported Unix commands"""
@@ -22,14 +27,14 @@ def execute():
     try:
         _input, operations = parse_execute_request(request)
     except (KeyError, TypeError, ValueError) as error:
-        return jsonify(error={'index': -1, 'message': f"Error: {error}"}), 400
+        return request_error(f"Error: {error}")
 
     # execute commands
-    outputs = [] # output after each command
+    outputs = [] # output after running each command
     for index, operation in enumerate(operations):
         if type(operation) is not dict:
-            error_msg = f"Malformed operation in `operations` array."
-            return jsonify(error={'index': index, 'message': error_msg}), 400
+            return request_error(f"Malformed operation in `operations` array.",
+                index)
 
         # input for this command will be the output from the previous command,
         # if any, otherwise the supplied input from the request
@@ -46,17 +51,11 @@ def execute():
             if isinstance(error, TimeoutExpired):
                 error_msg = f"Command \"{command}\" timed out after "\
                     f"{COMMAND_TIMEOUT} seconds."
-            return jsonify(error={
-                'index': index,
-                'message': error_msg
-            }), 400
+            return request_error(error_msg, index)
 
         # stop processing if a command output something to stderr
         if stderr:
-            return jsonify(error={
-                'index': index,
-                'message': stderr
-            }), 400
+            return request_error(stderr, index)
 
         outputs.append(stdout)
 
