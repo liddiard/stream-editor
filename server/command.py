@@ -1,7 +1,31 @@
 import shlex
 from subprocess import Popen, PIPE, STDOUT
 
-from .settings import MAX_INPUT_LENGTH, MAX_OPERATIONS, COMMAND_TIMEOUT
+from .settings import (
+    SUPPORTED_COMMANDS,
+    MAX_INPUT_LENGTH,
+    MAX_OPERATIONS,
+    COMMAND_TIMEOUT
+)
+
+
+supported_command_names = [command['name'] for command in SUPPORTED_COMMANDS]
+
+
+class CommandDisallowedError(ValueError):
+    """Custom exception class for commands that aren't allowed"""
+    pass
+
+
+def format_output(text):
+    """Format terminal output for return to client."""
+    # Terminal commands' output usually contains a trailing carriage return
+    # so the terminal prompt moves to the next line. We don't want this in
+    # output sent back to the client.
+    if text and text[-1] == '\n':
+        return text[:-1]
+    else:
+        return text
 
 
 def parse_execute_request(request):
@@ -16,10 +40,10 @@ def parse_execute_request(request):
             "request body.")
 
     if type(_input) is not str:
-        raise ValueError(f"`input` value is not a string.")
+        raise TypeError(f"`input` value is not a string.")
     
     if type(operations) is not list:
-        raise ValueError(f"`operations` value is not an array.")
+        raise TypeError(f"`operations` value is not an array.")
 
     if len(_input) > MAX_INPUT_LENGTH:
         raise ValueError(f"Maximum input length ({MAX_INPUT_LENGTH} "
@@ -32,20 +56,14 @@ def parse_execute_request(request):
     return _input, operations
 
 
-def format_output(text):
-    """Format terminal output for return to client."""
-    # Terminal commands' output usually contains a trailing carriage return
-    # so the terminal prompt moves to the next line. We don't want this in
-    # output sent back to the client.
-    if text and text[-1] == '\n':
-        return text[:-1]
-    else:
-        return text
-
-
 def execute_command(command, arguments, stdin=None):
     """Execute the given command with arguments and an optional stdin"""
-    # start building a the list of arguments `subprocess` expects
+    # check if the command is supported/allowed
+    # IMPORTANT: prevents arbitrary command execution
+    if command not in supported_command_names:
+        raise CommandDisallowedError(f"Command \"{command}\" is not allowed.")
+    
+    # start building the list of arguments `subprocess` expects
     # (https://docs.python.org/2/library/subprocess.html#using-the-subprocess-module),
     # starting with the command to run.
     operation = [command]

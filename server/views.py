@@ -2,14 +2,12 @@ from subprocess import TimeoutExpired
 from flask import request, jsonify, current_app
 
 from . import app
-from .settings import (
-    SUPPORTED_COMMANDS,
-    COMMAND_TIMEOUT
+from .settings import SUPPORTED_COMMANDS, COMMAND_TIMEOUT
+from .command import (
+    CommandDisallowedError,
+    parse_execute_request,
+    execute_command
 )
-from .command import parse_execute_request, execute_command
-
-
-supported_command_names = [command['name'] for command in SUPPORTED_COMMANDS]
 
 
 @app.route('/v1/commands/')
@@ -23,7 +21,7 @@ def execute():
     """Execute a list of stream commands and return the resulting output."""
     try:
         _input, operations = parse_execute_request(request)
-    except (KeyError, ValueError) as error:
+    except (KeyError, TypeError, ValueError) as error:
         return jsonify(error={'index': -1, 'message': f"Error: {error}"}), 400
 
     # execute commands
@@ -39,12 +37,6 @@ def execute():
         else:       stdin = _input
         command = operation.get('command')
         arguments = operation.get('args')
-
-        # check if the command is supported/allowed
-        # IMPORTANT: prevents arbitrary command execution
-        if command not in supported_command_names:
-            error_msg = f"Command \"{command}\" is not supported."
-            return jsonify(error={'index': index, 'message': error_msg}), 400
 
         try:
             stdout, stderr = execute_command(command, arguments, stdin=stdin)
