@@ -1,4 +1,6 @@
-export const API_ROOT = 'http://localhost:5000/api/v1/'
+export const API_ROOT = process.env.NODE_ENV === 'development' ?
+  'http://localhost:5000/v1/' :
+  'https://api.tbd-url.com/v1/'
 
 export const INPUT_DELAY = 250
 export const MAX_INPUT_LENGTH = 1048576 // 2**20; should match server-side constant of the same name

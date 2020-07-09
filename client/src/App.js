@@ -90,6 +90,7 @@ const App = () => {
       key={index}
       index={index}
       dispatch={dispatch}
+      input={input}
       text={output}
       prevText={index === 0 ? apiInput : outputs[index-1]}
       isError={!!errors.operation.message}

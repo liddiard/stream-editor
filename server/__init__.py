@@ -8,4 +8,4 @@ app = Flask(__name__)
 CORS(app)
 
 
-import stream_editor.views
+import server.views

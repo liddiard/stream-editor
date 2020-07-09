@@ -16,9 +16,10 @@
     padding: 1em;
     column-count: 2;
     column-gap: 1em;
-    line-height: 1.4;
+    line-height: 1.35;
     @include theme-aware("color", "foreground-primary");
     z-index: 10000;
+    font-size: 0.9em;
 
     dt {
       display: inline;
@@ -27,11 +28,11 @@
 
     dd {
       margin-left: 1.25rem;
-      opacity: 0.75;
       font-size: 0.8em;
 
       .description {
         margin-right: 0.25em;
+        @include theme-aware("color", "foreground-secondary");
       }
 
       .separator {

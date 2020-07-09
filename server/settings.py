@@ -2,8 +2,7 @@
 # 2**20; should match client-side constant of the same name
 MAX_INPUT_LENGTH = 1048576
 
-# maximum number of operations that are allowed
-# should match client-side constant of the same name
+# maximum number of operations (commands) that are allowed
 MAX_OPERATIONS = 16
 
 # maximum time in seconds that an operation may run before we throw a timeout
@@ -34,13 +33,13 @@ SUPPORTED_COMMANDS = sorted([
     },
     {
         'name': 'tr',
-        'description': 'translate characters',
+        'description': 'replace characters',
         'docs': 'http://man.cx/tr',
         'examples': 'http://www.thegeekstuff.com/2012/12/linux-tr-command/'
     },
     {
         'name': 'cut',
-        'description': 'cut out fields on each line',
+        'description': 'remove fields on each line',
         'docs': 'http://man.cx/cut',
         'examples': 'http://www.computerhope.com/unix/ucut.htm'
     },
@@ -58,7 +57,7 @@ SUPPORTED_COMMANDS = sorted([
     },
     {
         'name': 'uniq',
-        'description': 'report or filter repeated lines',
+        'description': 'report and filter repeated lines',
         'docs': 'http://man.cx/uniq',
         'examples': 'http://www.thegeekstuff.com/2013/05/uniq-command-examples/'
     },
@@ -82,13 +81,13 @@ SUPPORTED_COMMANDS = sorted([
     },
     {
         'name': 'head',
-        'description': 'copy the first part',
+        'description': 'retain the first part',
         'docs': 'http://man.cx/head',
         'examples': 'http://www.linfo.org/head.html'
     },
     {
         'name': 'tail',
-        'description': 'copy the last part',
+        'description': 'retain the last part',
         'docs': 'http://man.he.net/?topic=tail&section=all',
             # for some reason, man.cx links the wrong page for this entry
         'examples': 'http://www.thegeekstuff.com/2009/08/10-awesome-examples-for-viewing-huge-log-files-in-unix/'
@@ -98,5 +97,17 @@ SUPPORTED_COMMANDS = sorted([
         'description': 'concatenate, format, and print',
         'docs': 'http://man.cx/cat',
         'examples': 'http://www.cyberciti.biz/faq/linux-unix-appleosx-bsd-cat-command-examples/'
+    },
+    {
+        'name': 'wc',
+        'description': 'count characters, words, and lines',
+        'docs': 'http://man.cx/wc',
+        'examples': 'https://www.geeksforgeeks.org/wc-command-linux-examples/'
+    },
+    {
+        'name': 'bc',
+        'description': 'basic calculator',
+        'docs': 'http://man.cx/bc',
+        'examples': 'https://www.geeksforgeeks.org/bc-command-linux-examples/'
     },
 ], key=lambda x: x['name']) # sort alphabetically by command name

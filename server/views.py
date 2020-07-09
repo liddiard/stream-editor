@@ -1,5 +1,5 @@
 from subprocess import TimeoutExpired
-from flask import request, jsonify, render_template
+from flask import request, jsonify, current_app
 
 from . import app
 from .settings import (
@@ -11,19 +11,13 @@ from .settings import (
 from .utils import format_output, execute_command
 
 
-@app.route('/')
-def front_page():
-    """Render the front page of the application."""
-    return render_template('front.html')
-
-
-@app.route('/api/v1/commands/')
+@app.route('/v1/commands/')
 def list_commands():
     """Return the list of supported Unix commands"""
     return jsonify(commands=SUPPORTED_COMMANDS)
 
 
-@app.route('/api/v1/execute/', methods=['POST'])
+@app.route('/v1/execute/', methods=['POST'])
 def execute():
     """Execute a list of stream commands and return the resulting output."""
 
@@ -46,7 +40,10 @@ def execute():
 
     if len(operations) > MAX_OPERATIONS:
         error_msg = f"Maximum number of commands ({MAX_OPERATIONS}) exceeded."
-        return jsonify(error={'index': -1, 'message': error_msg}), 400
+        return jsonify(error={
+            'index': len(operations) - 1,
+            'message': error_msg
+        }), 400
 
     # execute commands
     for index, operation in enumerate(operations):

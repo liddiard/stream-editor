@@ -34,6 +34,7 @@ const Toolbar = ({ dispatch, operations, options }) => {
     <button
       className="clear"
       data-tip="Clear the current commands"
+      data-place="bottom"
       onClick={() => {
         const commands = operations.map(op => op.command).join(', ');
         const yes = window.confirm(`Clear all commands (${commands})?`);

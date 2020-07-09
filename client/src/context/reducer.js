@@ -38,7 +38,7 @@ export const initialState = {
     }
   },
   options: {
-    showDiff: true,      // show visual diff of changes
+    showDiff: false,     // show visual diff of changes
     syncScroll: true,    // scroll all input/output panes together
     fontSize: 12,        // font size in `pt`
     fontStyle: 'mono',   // 'mono' or 'sans'

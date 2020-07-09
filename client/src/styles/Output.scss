@@ -30,6 +30,13 @@ del {
     opacity: 0.5;
   }
 
+  .placeholder {
+    // note: we want to mimic the color of the input placeholder which does
+    // not currently change based on light/dark theming
+    color: gray;
+    cursor: default;
+  }
+
   .copy {
     &.copied {
       @include theme-aware("color", "success");

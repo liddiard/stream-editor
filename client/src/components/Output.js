@@ -12,7 +12,7 @@ import '../styles/Output.scss'
 
 const instance = worker()
 
-const Output = ({ dispatch, index, text, prevText, isError, isLast, options }) => {
+const Output = ({ dispatch, index, input, text, prevText, isError, isLast, options }) => {
   const { showDiff, fontSize, fontStyle, darkMode, panesInViewport } = options
   const iconVariant = darkMode ? 'dark' : 'light'
 
@@ -32,7 +32,12 @@ const Output = ({ dispatch, index, text, prevText, isError, isLast, options }) =
   }, [prevText, text, showDiff]);
 
   let output
-  if (showDiff) {
+  if (!input && !text && isLast) {
+    output = <pre className={`${fontStyle} placeholder`}>
+      Output will appear here
+    </pre>
+  }
+  else if (showDiff) {
     const createMarkup = () => ({ __html: diffOutput })
     output = <pre
       className={fontStyle}
@@ -89,6 +94,7 @@ const Output = ({ dispatch, index, text, prevText, isError, isLast, options }) =
 Output.propTypes = {
   dispatch: PropTypes.func.isRequired,
   index: PropTypes.number.isRequired,
+  input: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
   prevText: PropTypes.string.isRequired,
   isError: PropTypes.bool.isRequired,

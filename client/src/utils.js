@@ -91,3 +91,8 @@ export const downloadFile = (filename, text) => {
   el.click();
   document.body.removeChild(el);
 }
+
+// add a newline to the end of input if it doesn't end with one
+// some commands like `bc` require stdin to terminate with a newline
+export const formatInput = (input) => 
+  input[input.length - 1] === '\n' ? input : input + '\n'
