@@ -56,9 +56,8 @@ export const updateOperationsFromQuerystring = (dispatch) => {
   }
 }
 
-export const writeOptionsToLocalStorage = (options) => {
+export const writeOptionsToLocalStorage = (options) =>
   localStorage.setItem('options', JSON.stringify(options))
-}
 
 export const updateOptionsFromLocalStorage = (dispatch) => {
   let options = localStorage.getItem('options')

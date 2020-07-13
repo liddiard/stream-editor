@@ -1,6 +1,6 @@
 // fonts
-$MONOSPACE: "Inconsolata", monospace;
-$SANS: "Helvetica Neue", Helvetica, Arial, sans-serif;
+$MONOSPACE: "SFMono-Regular", Consolas, Menlo, Courier, "Courier New", monospace;
+$SANS: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 
 // dividers
 $BORDER_MINOR: 1px solid lightgray;
@@ -9,16 +9,17 @@ $BORDER_MAJOR: 2px solid black;
 $BLUE_COLOR: #0075ff;
 $GREEN_COLOR: #008c65;
 $RED_COLOR: #d50500;
+$GRAY_COLOR: #757575; // matches color of input placeholder on Chrome
 
 $THEMES: (
   light: (
     background-primary: white,
     background-secondary: #fafafa,
     background-input-focus: lighten($BLUE_COLOR, 48%),
-    insert-highlight: rgba(lighten($GREEN_COLOR, 25%), 0.45),
-    delete-highlight: rgba(lighten($RED_COLOR, 35%), 0.45),
+    insert-highlight: rgba(lighten($GREEN_COLOR, 25%), 0.5),
+    delete-highlight: rgba(lighten($RED_COLOR, 35%), 0.5),
     foreground-primary: #222,
-    foreground-secondary: gray,
+    foreground-secondary: $GRAY_COLOR,
     divider-primary: #222,
     divider-secondary: lightgray,
     link-default: darken($BLUE_COLOR, 15%),
@@ -30,8 +31,8 @@ $THEMES: (
     background-primary: #151a20,
     background-secondary: lighten(#151a20, 10%),
     background-input-focus: darken($BLUE_COLOR, 45%),
-    insert-highlight: rgba(lighten($GREEN_COLOR, 15%), 0.45),
-    delete-highlight: rgba(lighten($RED_COLOR, 10%), 0.45),
+    insert-highlight: rgba(lighten($GREEN_COLOR, 15%), 0.5),
+    delete-highlight: rgba(lighten($RED_COLOR, 10%), 0.5),
     foreground-primary: white,
     foreground-secondary: lighten(#151a20, 60%),
     divider-primary: lighten(#151a20, 50%),

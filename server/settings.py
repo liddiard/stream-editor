@@ -1,6 +1,6 @@
 # maximum size of input we will process
-# 2**20; should match client-side constant of the same name
-MAX_INPUT_LENGTH = 1048576
+# should match client-side constant of the same name
+MAX_INPUT_LENGTH = 2**20
 
 # maximum number of operations (commands) that are allowed
 MAX_OPERATIONS = 16
@@ -104,10 +104,10 @@ SUPPORTED_COMMANDS = sorted([
         'docs': 'http://man.cx/wc',
         'examples': 'https://www.geeksforgeeks.org/wc-command-linux-examples/'
     },
-    {
-        'name': 'bc',
-        'description': 'basic calculator',
-        'docs': 'http://man.cx/bc',
-        'examples': 'https://www.geeksforgeeks.org/bc-command-linux-examples/'
-    },
+    # {
+    #     'name': 'bc',
+    #     'description': 'basic calculator',
+    #     'docs': 'http://man.cx/bc',
+    #     'examples': 'https://www.geeksforgeeks.org/bc-command-linux-examples/'
+    # },
 ], key=lambda x: x['name']) # sort alphabetically by command name

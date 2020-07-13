@@ -8,12 +8,12 @@ from flask_limiter.util import get_remote_address
 
 app = Flask(__name__)
 
-# https://flask-cors.readthedocs.io/en/latest/
+# https://flask-cors.readthedocs.io/
 CORS(app, origins=[
   'http://localhost:3000'
 ])
 
-# https://flask-limiter.readthedocs.io/en/stable/
+# https://flask-limiter.readthedocs.io/
 limiter = Limiter(
     app,
     key_func=get_remote_address,

@@ -3,8 +3,17 @@ export const API_ROOT = process.env.NODE_ENV === 'development' ?
   'https://api.tbd-url.com/v1/'
 
 export const INPUT_DELAY = 250 // time to wait between keystrokes before sending API request to execute commands
-export const MAX_INPUT_LENGTH = 1048576 // 2**20; should match server-side constant of the same name
+export const MAX_INPUT_LENGTH = Math.pow(2, 20) // should match server-side constant of the same name
 export const MAX_OPERATIONS = 16 // should match server-side constant of the same name
+
+export const INITIAL_INPUT = `Welcome to Stream Editor, a tool for interactively writing and chaining command-line text manipulation utilities.
+
+This pane contains input. Modify it with the command below, and see its output change to the right.`
+
+export const INITIAL_OPERATION = {
+  command: 'sed',
+  args: '\'s/input/output/; s/ it/& further/; s/change/appear/\''
+}
 
 export const DEFAULT_OPERATION = {
   // sed w/o arguments, returns the input unmodified

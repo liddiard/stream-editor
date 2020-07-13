@@ -20,6 +20,7 @@ import {
   toggleSyncScrolling,
   rebindSyncScrolling
 } from './utils'
+import Header from './components/Header'
 import Toolbar from './components/Toolbar'
 import Input from './components/Input'
 import Operation from './components/Operation'
@@ -52,6 +53,10 @@ const App = () => {
     writeOperationsToQuerystring(operations)
     ReactTooltip.rebuild()
   }, [operations])
+
+  useEffect(() => {
+    sessionStorage.setItem('input', input)
+  }, [input])
 
   useEffect(() => {
     if (timeoutId.current) {
@@ -101,6 +106,7 @@ const App = () => {
   return (
     <OptionsContext.Provider value={options}>
       <>
+        {/* <Header /> */}
         <Toolbar
           dispatch={dispatch}
           operations={operations}

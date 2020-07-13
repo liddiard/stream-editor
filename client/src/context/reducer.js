@@ -1,4 +1,6 @@
 import {
+  INITIAL_INPUT,
+  INITIAL_OPERATION,
   DEFAULT_OPERATION,
   SET_LOADING,
   SET_UPLOAD_ERROR,
@@ -14,15 +16,18 @@ import {
   SET_API_INPUT,
   SET_OUTPUTS,
   SET_OPTIONS,
-  SET_OPTION
+  SET_OPTION,
 } from './constants'
+
+
+const inputFromSessionStorage = sessionStorage.getItem('input')
 
 export const initialState = {
   loading: false,
   commands: [], // supported commands and associated descriptions/resources
-  input: '',    // user's text input
+  input: inputFromSessionStorage || INITIAL_INPUT, // user's text input
   operations: [ // user's commands + arguments
-    { ...DEFAULT_OPERATION }
+    inputFromSessionStorage ? DEFAULT_OPERATION : INITIAL_OPERATION
   ],
   apiInput: '', // input from which the outputs were generated.
                 // needed for diff b/c there's a delay between input

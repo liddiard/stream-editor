@@ -1,14 +1,14 @@
 import React from 'react'
 
+import '../styles/Header.scss'
+
 
 const Header = () => (
   <header>
-    <div id="logo">
-      &gt;<img src="/img/pencil-icon.svg"/>
-    </div>
-    <h1>Stream Editor</h1>
+    {/* <img id="logo" src="/img/logo.svg"/> */}
+    <h1>Stream Editor.</h1>
     <h2 className="tagline">
-      Interactively manipulate text with Linux commands.
+      Interactively chain Unix text processing commands.
     </h2>
   </header>
 )

@@ -22,6 +22,7 @@ const Toolbar = ({ dispatch, operations, options }) => {
     <button
       className={copied ? 'copied' : ''}
       data-tip="Copy current commands to clipboard as a series of pipes suitable for pasting in a shell"
+      data-place="right"
       onClick={() => {
         navigator.clipboard.writeText(getBashString(operations))
         setCopied(true)

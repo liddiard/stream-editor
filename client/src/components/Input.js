@@ -21,7 +21,7 @@ const Input = ({ dispatch, text, onChange, maxLength, error, options }) => {
       return // user cancelled file upload dialog
     }
     if (text) { // if existing input, confirm before replacing
-      const yes = window.confirm(`Replace current input text with contents of “${file.name}”?`)
+      const yes = window.confirm(`Replace current input with the contents of “${file.name}”?`)
       if (!yes) {
         return
       }
@@ -58,6 +58,7 @@ const Input = ({ dispatch, text, onChange, maxLength, error, options }) => {
       style={{ fontSize: `${fontSize}pt` }}
       autoFocus
       tabIndex={1}
+      spellCheck={false}
     />
   </div>)
 }

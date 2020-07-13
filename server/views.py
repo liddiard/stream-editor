@@ -46,14 +46,13 @@ def execute():
         try:
             stdout, stderr = execute_command(command, arguments, stdin=stdin)
         # stop processing if attempting to execute the command threw an error
+        except TimeoutExpired:
+            return request_error("Command \"{command}\" timed out after "\
+                f"{COMMAND_TIMEOUT} seconds.", index)
         except Exception as error:
-            error_msg = f"Error: {error}"
-            if isinstance(error, TimeoutExpired):
-                error_msg = f"Command \"{command}\" timed out after "\
-                    f"{COMMAND_TIMEOUT} seconds."
-            return request_error(error_msg, index)
+            return request_error(f"Error: {error}", index)
 
-        # stop processing if a command output something to stderr
+        # stop processing if the command output something to stderr
         if stderr:
             return request_error(stderr, index)
 

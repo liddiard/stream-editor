@@ -70,7 +70,7 @@ output {
   height: 100%; // Firefox needs this in addtion to the `top:0` / `bottom:0`
 }
 
-button {
+button {  
   &:hover {
     filter: brightness(110%) contrast(150%);
   }
@@ -109,7 +109,6 @@ button {
 
   button {
     z-index: 100;
-    font-family: $SANS;
     white-space: nowrap;
     padding: 0.25em 0.5em;
     font-size: 0.9em;

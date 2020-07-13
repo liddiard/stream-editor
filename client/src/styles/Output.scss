@@ -12,11 +12,6 @@ output {
   }
 }
 
-ins,
-del {
-  text-decoration: none;
-}
-
 ins {
   @include theme-aware("background-color", "insert-highlight");
 }
@@ -33,7 +28,7 @@ del {
   .placeholder {
     // note: we want to mimic the color of the input placeholder which does
     // not currently change based on light/dark theming
-    color: gray;
+    color: $GRAY_COLOR;
     cursor: default;
   }
 
