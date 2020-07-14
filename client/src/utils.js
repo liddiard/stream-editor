@@ -1,6 +1,3 @@
-import { SET_OPERATIONS, SET_OPTIONS } from './context/constants'
-
-
 // get an array of the elements upon which synced scrolling should operate
 const getScrollElements = () =>
   document.querySelectorAll('.io-container textarea, .io-container output')
@@ -42,14 +39,13 @@ export const writeOperationsToQuerystring = (operations) => {
   window.history.replaceState({}, '', `?${params.toString()}`)
 }
 
-// read the operations encoded in the URL and update the app's state
-export const updateOperationsFromQuerystring = (dispatch) => {
+// return operations encoded in the URL
+export const getOperationsFromQuerystring = () => {
   const urlParams = new URLSearchParams(window.location.search)
-  let operations = urlParams.get('operations')
+  const operations = urlParams.get('operations')
   if (operations) {
     try {
-      operations = JSON.parse(operations)
-      dispatch({ type: SET_OPERATIONS, operations })
+      return JSON.parse(operations)
     } catch (ex) {
       console.warn(`Failed to parse operations from querystring: ${operations}\nError: ${ex}`)
     }
@@ -59,12 +55,11 @@ export const updateOperationsFromQuerystring = (dispatch) => {
 export const writeOptionsToLocalStorage = (options) =>
   localStorage.setItem('options', JSON.stringify(options))
 
-export const updateOptionsFromLocalStorage = (dispatch) => {
-  let options = localStorage.getItem('options')
+export const getOptionsFromLocalStorage = () => {
+  const options = localStorage.getItem('options')
   if (options) {
     try {
-      options = JSON.parse(options)
-      dispatch({ type: SET_OPTIONS, options })
+      return JSON.parse(options)
     } catch (ex) {
       console.warn(`Failed to parse options from local storage: ${options}\nError: ${ex}`)
     }

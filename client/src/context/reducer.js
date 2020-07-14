@@ -18,17 +18,23 @@ import {
   SET_OPTIONS,
   SET_OPTION,
 } from './constants'
+import {
+  getOperationsFromQuerystring,
+  getOptionsFromLocalStorage
+} from '../utils'
 
 
-const inputFromSessionStorage = sessionStorage.getItem('input')
+export const inputFromSessionStorage = sessionStorage.getItem('input')
 
 export const initialState = {
   loading: false,
   commands: [], // supported commands and associated descriptions/resources
-  input: inputFromSessionStorage || INITIAL_INPUT, // user's text input
-  operations: [ // user's commands + arguments
-    inputFromSessionStorage ? DEFAULT_OPERATION : INITIAL_OPERATION
-  ],
+  input: inputFromSessionStorage !== null ? // user's text input
+    inputFromSessionStorage :
+    INITIAL_INPUT,
+  operations: inputFromSessionStorage !== null ? // user's commands + arguments
+    (getOperationsFromQuerystring() || [DEFAULT_OPERATION]) :
+    [INITIAL_OPERATION],
   apiInput: '', // input from which the outputs were generated.
                 // needed for diff b/c there's a delay between input
                 // and receiving API resoponse.
@@ -43,7 +49,6 @@ export const initialState = {
     }
   },
   options: {
-    showDiff: false,     // show visual diff of changes
     syncScroll: true,    // scroll all input/output panes together
     fontSize: 12,        // font size in `pt`
     fontStyle: 'mono',   // 'mono' or 'sans'
@@ -51,6 +56,7 @@ export const initialState = {
     // default to user's preference for dark mode
     // https://stackoverflow.com/a/57795495
     darkMode: window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches,
+    ...getOptionsFromLocalStorage()
   }
 }
 

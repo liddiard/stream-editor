@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 
 import { OptionsConsumer } from '../context'
 import { INSERT_OPERATION } from '../context/constants'
+import { inputFromSessionStorage } from '../context/reducer'
 // eslint-disable-next-line import/no-webpack-loader-syntax
 import worker from 'workerize-loader!../context/worker'
 import { getMinWidth, downloadFile } from '../utils'
@@ -13,15 +14,33 @@ import '../styles/Output.scss'
 const instance = worker()
 
 const Output = ({ dispatch, index, input, text, prevText, isError, isLast, options }) => {
-  const { showDiff, fontSize, fontStyle, darkMode, panesInViewport } = options
+  const { fontSize, fontStyle, darkMode, panesInViewport } = options
   const iconVariant = darkMode ? 'dark' : 'light'
+  // sessionStorage key to store the `showDiff` preference for this output
+  const showDiffStorageKey = `output.showDiff.${index}`
 
   const [copied, setCopied] = useState(false)
+  // Show visual diff of changes if:
+  // There is no input in session storage, indicating that this is the first
+  // time the app has been opened this session and the "instructional" input
+  // will be shown, which should be shown with a diff; OR the session storage
+  // key from a previous load of this page is set to show diff.
+  const [showDiff, setShowDiff] = useState(
+    inputFromSessionStorage === null || 
+    !!sessionStorage.getItem(showDiffStorageKey)
+  )
+  // cached diff output
   const [diffOutput, setDiffOutput] = useState(null)
 
   useEffect(() => {
     setCopied(false)
   }, [text, setCopied])
+
+  useEffect(() => {
+    showDiff ?
+      sessionStorage.setItem(showDiffStorageKey, true) :
+      sessionStorage.removeItem(showDiffStorageKey)
+  }, [showDiff, index])
 
   useMemo(async () => {
     if (!showDiff) {
@@ -61,7 +80,15 @@ const Output = ({ dispatch, index, input, text, prevText, isError, isLast, optio
           +
       </button>
       </div>
-      <div className="io labels">
+      <div className="io actions">
+        <label className="sans show-diff">
+          <input
+            type="checkbox"
+            checked={showDiff}
+            onChange={() => setShowDiff(!showDiff)}
+          />
+          Show diff
+        </label>
         <button 
           className={`copy ${copied ? 'copied' : ''}`}
           onClick={() => {
@@ -80,7 +107,7 @@ const Output = ({ dispatch, index, input, text, prevText, isError, isLast, optio
               <img src={`/img/download-${iconVariant}.svg`} alt="" />
               Download
             </button>
-            <label>Output</label>
+            <label className="output">Output</label>
           </>
           : null}
       </div>

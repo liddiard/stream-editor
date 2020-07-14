@@ -3,7 +3,6 @@ import ReactTooltip from 'react-tooltip';
 
 import {
   INPUT_DELAY,
-  SET_INPUT,
   DEFAULT_OPERATION
 } from './context/constants'
 import { OptionsContext } from './context'
@@ -13,9 +12,7 @@ import {
   execute
 } from './context/actions'
 import {
-  updateOperationsFromQuerystring,
   writeOperationsToQuerystring,
-  updateOptionsFromLocalStorage,
   writeOptionsToLocalStorage,
   toggleSyncScrolling,
   rebindSyncScrolling
@@ -30,8 +27,9 @@ import './styles/App.scss'
 
 
 const App = () => {
-  const [state, dispatch] = useReducer(reducer, initialState)
   const timeoutId = useRef()
+  const [state, dispatch] = useReducer(reducer, initialState)
+
   const {
     loading,
     commands,
@@ -42,11 +40,10 @@ const App = () => {
     errors,
     options
   } = state
+  const { syncScroll, darkMode } = options
 
   useEffect(() => {
     getCommands(dispatch)
-    updateOptionsFromLocalStorage(dispatch)
-    updateOperationsFromQuerystring(dispatch)
   }, [])
 
   useEffect(() => {
@@ -68,8 +65,8 @@ const App = () => {
   }, [dispatch, input, operations])
 
   useEffect(() => {
-    toggleSyncScrolling(options.syncScroll)
-  }, [options.syncScroll])
+    toggleSyncScrolling(syncScroll)
+  }, [syncScroll])
 
   useEffect(() => rebindSyncScrolling, [outputs.length])
 
@@ -77,8 +74,8 @@ const App = () => {
     const { classList } = document.documentElement
     classList.remove('theme-dark')
     classList.remove('theme-light')
-    classList.add(options.darkMode ? 'theme-dark' : 'theme-light')
-  }, [options.darkMode])
+    classList.add(darkMode ? 'theme-dark' : 'theme-light')
+  }, [darkMode])
 
   useEffect(() => {
     const action = loading ? 'add' : 'remove'
@@ -117,7 +114,6 @@ const App = () => {
               dispatch={dispatch}
               text={input}
               error={errors.upload}
-              onChange={ev => dispatch({ type: SET_INPUT, input: ev.target.value })}
             />
             {_outputs}
           </div>
@@ -142,7 +138,7 @@ const App = () => {
         <ReactTooltip
           effect="solid"
           className="sans"
-          type={options.darkMode ? 'light' : 'dark'} 
+          type={darkMode ? 'light' : 'dark'} 
         />
       </>
     </OptionsContext.Provider>

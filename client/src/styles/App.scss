@@ -60,7 +60,7 @@ input {
 textarea,
 output {
   width: 100%;
-  padding: 2.5rem 1em 1em;
+  padding: 3rem 1em 1em;
   line-height: 1.35;
   resize: none;
   overflow-y: auto;
@@ -81,7 +81,9 @@ button {
   flex-direction: column;
 }
 
-.io.labels {
+.io.actions {
+  $overlay-border-radius: 0.2em;
+
   font-size: 0.85em;
   position: absolute;
   top: 0.75em;
@@ -89,22 +91,8 @@ button {
   display: flex;
   align-items: center;
 
-  label, button {
-    height: 2em;
+  & > * {
     margin-left: 0.5em;
-  }
-
-  label {
-    display: inline-block;
-    text-transform: uppercase;
-    border: 1px solid;
-    @include theme-aware("border-color", "divider-secondary");
-    padding: 0.1em 0.2em;
-    @include theme-aware("background-color", "background-primary");
-    @include theme-aware("color", "foreground-secondary");
-    border-radius: 0.2em;
-    margin-left: 0.5em;
-    height: 1.5em;
   }
 
   button {
@@ -118,6 +106,7 @@ button {
     border: 1px solid;
     @include theme-aware("border-color", "link-default");
     border-radius: 0.2em;
+    height: 2em;
 
     img {
       height: 14px;
@@ -126,12 +115,39 @@ button {
     }
   }
 
+  .input, .output {
+    display: inline-block;
+    text-transform: uppercase;
+    border: 1px solid;
+    @include theme-aware("border-color", "divider-secondary");
+    padding: 0.1em 0.2em;
+    @include theme-aware("background-color", "background-primary");
+    @include theme-aware("color", "foreground-secondary");
+    border-radius: $overlay-border-radius;
+    height: 1.5em;
+    margin-left: 0.75em;
+  }
+
+  .show-diff {
+    display: flex;
+    align-items: center;
+    padding: 0 0.25em;
+    @include theme-aware("background-color", "background-primary");
+    border-radius: 0.2em;
+
+    input[type=checkbox] {
+      margin-left: 0;
+    }
+  }
+
   .upload.error {
     @include theme-aware("color", "error-destructive");
     @include theme-aware("background-color", "background-primary");
+    border-radius: $overlay-border-radius;
     text-align: right;
-    margin-right: 1em;
+    margin-right: 0.5em;
     font-size: 0.9em;
+    padding: 0.2em;
   }
 }
 

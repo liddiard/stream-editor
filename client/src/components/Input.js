@@ -2,7 +2,7 @@ import React, { useRef } from 'react'
 import PropTypes from 'prop-types'
 
 import { OptionsConsumer } from '../context'
-import { MAX_INPUT_LENGTH } from '../context/constants'
+import { MAX_INPUT_LENGTH, SET_INPUT } from '../context/constants'
 import { uploadFile } from '../context/actions'
 import { getMinWidth } from '../utils'
 
@@ -33,7 +33,7 @@ const Input = ({ dispatch, text, onChange, maxLength, error, options }) => {
     className="input-container"
     style={{ minWidth: getMinWidth(panesInViewport) }}
   >
-    <div className="io labels">
+    <div className="io actions">
       <span className="upload error">
         {error.message}
       </span>
@@ -46,12 +46,13 @@ const Input = ({ dispatch, text, onChange, maxLength, error, options }) => {
         ref={fileInput}
         onChange={handleFileUploadChange}
       />
-      <label>Input</label>
+      <label className="input">Input</label>
     </div>
     <textarea
       name="input"
       value={text}
-      onChange={onChange}
+      onChange={(ev) =>
+        dispatch({ type: SET_INPUT, input: ev.target.value })}
       maxLength={maxLength}
       placeholder="Enter input text"
       className={fontStyle}
@@ -66,7 +67,6 @@ const Input = ({ dispatch, text, onChange, maxLength, error, options }) => {
 Input.propTypes = {
   dispatch: PropTypes.func.isRequired,
   text: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
   maxLength: PropTypes.number.isRequired,
   error: PropTypes.object.isRequired,
   options: PropTypes.object.isRequired

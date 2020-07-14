@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 
-import { SET_OPTION, SET_OPERATIONS, DEFAULT_OPERATION } from '../context/constants'
+import {
+  SET_INPUT,
+  SET_OPTION,
+  SET_OPERATIONS,
+  DEFAULT_OPERATION
+} from '../context/constants'
 import { OptionsConsumer } from '../context'
 import { getBashString } from '../utils'
 
@@ -9,7 +14,7 @@ import '../styles/Toolbar.scss'
 
 
 const Toolbar = ({ dispatch, operations, options }) => {
-  const { showDiff, syncScroll, darkMode, fontStyle, fontSize, panesInViewport } = options
+  const { syncScroll, darkMode, fontStyle, fontSize, panesInViewport } = options
   const iconVariant = darkMode ? 'dark' : 'light'
 
   const [copied, setCopied] = useState(false)
@@ -34,27 +39,18 @@ const Toolbar = ({ dispatch, operations, options }) => {
     </button>
     <button
       className="clear"
-      data-tip="Clear the current commands"
+      data-tip="Clear current input and commands"
       data-place="bottom"
       onClick={() => {
         const commands = operations.map(op => op.command).join(', ');
-        const yes = window.confirm(`Clear all commands (${commands})?`);
+        const yes = window.confirm(`Clear input and commands (${commands})?`);
         if (yes) {
+          dispatch({ type: SET_INPUT, input: '' })
           dispatch({ type: SET_OPERATIONS, operations: [{ ...DEFAULT_OPERATION }] })
         }
       }}>
       ✕ Clear All
     </button>
-    <label className="option" data-tip="Show added/removed text with green/red highlights">
-      <input
-        type="checkbox"
-        checked={showDiff}
-        onChange={(ev) =>
-          dispatch({ type: SET_OPTION, key: 'showDiff', value: ev.target.checked })
-        }
-      />
-      Show diffs
-    </label>
     <label className="option" data-tip="Synchronize vertical scroll position among input and output panes">
       <input
         type="checkbox"
@@ -78,6 +74,16 @@ const Toolbar = ({ dispatch, operations, options }) => {
       />
       {panesInViewport}
     </div>
+    <label className="option">
+      <input
+        type="checkbox"
+        checked={darkMode}
+        onChange={(ev) =>
+          dispatch({ type: SET_OPTION, key: 'darkMode', value: ev.target.checked })
+        }
+      />
+      Dark mode
+    </label>
     <div className="option">
       <span className="radio-group-label">Font size</span>
       {[10, 12, 14].map(size => (
@@ -124,16 +130,6 @@ const Toolbar = ({ dispatch, operations, options }) => {
         Sans-serif
       </label>
     </div>
-    <label className="option">
-      <input
-        type="checkbox"
-        checked={darkMode}
-        onChange={(ev) =>
-          dispatch({ type: SET_OPTION, key: 'darkMode', value: ev.target.checked })
-        }
-      />
-      Dark mode
-    </label>
   </div>)
 }
 

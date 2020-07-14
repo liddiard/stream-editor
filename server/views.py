@@ -10,7 +10,7 @@ from .command import (
 )
 
 
-def request_error(message, index=-1):
+def request_error(message, index=0):
     """Helper to create a 400 Bad Request error"""
     return jsonify(error={'message': message, 'index': index}), 400
 
