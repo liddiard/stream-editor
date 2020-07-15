@@ -34,9 +34,11 @@ const Input = ({ dispatch, text, onChange, maxLength, error, options }) => {
     style={{ minWidth: getMinWidth(panesInViewport) }}
   >
     <div className="io actions">
-      <span className="upload error">
-        {error.message}
-      </span>
+      {error.message ? (
+        <span className="upload error">
+          {error.message}
+        </span>
+      ) : null}
       <button onClick={() => fileInput.current.click()}>
         <img src={`/img/upload-${iconVariant}.svg`} alt="" />
         Upload File

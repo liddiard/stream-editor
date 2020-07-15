@@ -24,33 +24,40 @@ const Toolbar = ({ dispatch, operations, options }) => {
   }, [operations])
 
   return (<div className="editor-options">
-    <button
-      className={copied ? 'copied' : ''}
-      data-tip="Copy current commands to clipboard as a series of pipes suitable for pasting in a shell"
-      data-place="right"
-      onClick={() => {
-        navigator.clipboard.writeText(getBashString(operations))
-        setCopied(true)
-      }}>
-      {copied ?
-        <><img src={`/img/check-${iconVariant}.svg`} alt="" />Commands Copied</> :
-        <><img src={`/img/copy-${iconVariant}.svg`} alt="" />Copy Commands</>
-      }
-    </button>
-    <button
-      className="clear"
-      data-tip="Clear current input and commands"
-      data-place="bottom"
-      onClick={() => {
-        const commands = operations.map(op => op.command).join(', ');
-        const yes = window.confirm(`Clear input and commands (${commands})?`);
-        if (yes) {
-          dispatch({ type: SET_INPUT, input: '' })
-          dispatch({ type: SET_OPERATIONS, operations: [{ ...DEFAULT_OPERATION }] })
+    <img
+      id="logo"
+      src={`/img/logo-${iconVariant}.svg`}
+      title="Stream Editor" 
+    />
+    <div className="buttons">
+      <button
+        className={copied ? 'copied' : ''}
+        data-tip="Copy current commands to clipboard as a series of pipes suitable for pasting in a shell"
+        data-place="right"
+        onClick={() => {
+          navigator.clipboard.writeText(getBashString(operations))
+          setCopied(true)
+        }}>
+        {copied ?
+          <><img src={`/img/check-${iconVariant}.svg`} alt="" />Commands Copied</> :
+          <><img src={`/img/copy-${iconVariant}.svg`} alt="" />Copy Commands</>
         }
-      }}>
-      ✕ Clear All
-    </button>
+      </button>
+      <button
+        className="clear"
+        data-tip="Clear current input and commands"
+        data-place="bottom"
+        onClick={() => {
+          const commands = operations.map(op => op.command).join(', ');
+          const yes = window.confirm(`Clear input and commands (${commands})?`);
+          if (yes) {
+            dispatch({ type: SET_INPUT, input: '' })
+            dispatch({ type: SET_OPERATIONS, operations: [{ ...DEFAULT_OPERATION }] })
+          }
+        }}>
+        ✕ Clear All
+      </button>
+    </div>
     <label className="option" data-tip="Synchronize vertical scroll position among input and output panes">
       <input
         type="checkbox"

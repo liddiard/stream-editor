@@ -1,17 +1,24 @@
 @import "constants";
 
-$horizontal_spacing: 0.6em;
-
 .editor-options {
   font-family: $SANS;
   font-size: 0.9em;
-  padding: 0 $horizontal_spacing;
+  padding: 0 0.35em;
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   line-height: 1.5;
 
+  & > * {
+    margin: 0 0.5em;
+  }
+
+  #logo {
+    height: 2.5em;
+    margin: 0;
+  }
+
   button {
-    margin: 0.4em $horizontal_spacing 0 0;
     @include theme-aware("color", "link-default");
     @include theme-aware("background-color", "background-primary");
     border: 1px solid;
@@ -29,6 +36,10 @@ $horizontal_spacing: 0.6em;
     &.clear {
       @include theme-aware("color", "error-destructive");
       @include theme-aware("border-color", "error-destructive");
+    }
+
+    & + button {
+      margin-left: 0.5em;
     }
 
     img {
@@ -52,9 +63,6 @@ $horizontal_spacing: 0.6em;
     display: flex;
     align-items: center;
     white-space: nowrap;
-    // border-left: 1px solid;
-    // @include theme-aware("border-left-color", "divider-secondary");
-    padding: $horizontal_spacing;
     cursor: default;
     max-height: 35px;
 
