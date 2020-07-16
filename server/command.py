@@ -60,12 +60,7 @@ def parse_execute_request(request):
 def execute_command(command, arguments, stdin=None):
     """Execute the given command with arguments and an optional stdin from 
     inside a chroot unless FLASK_ENV is 'development' which is NOT secure"""
-    # enter into chroot
-    # IMPORTANT: both the below lines should raise an Error and terminate
-    # execution of the function if they are not successful as written
-    if not os.environ.get('FLASK_ENV') == 'development':
-        os.chroot(os.environ['JAIL_PATH'])
-    
+
     # check if the command is supported/allowed
     # IMPORTANT: prevents arbitrary command execution
     if command not in supported_command_names:
