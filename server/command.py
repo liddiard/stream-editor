@@ -74,6 +74,8 @@ def execute_command(command, arguments, stdin=None):
         # IMPORTANT: the below line should raise an Error and terminate
         # execution of the function if it is not successful as written
         os.chroot(JAIL_PATH)
+        os.setuid(1000)
+        os.setgid(1000)
 
     try:
         # check if the command is supported/allowed
@@ -109,5 +111,7 @@ def execute_command(command, arguments, stdin=None):
     finally:
         if not IS_DEV:
             # IMPORTANT: regardless of whether or not the above code throws,
-            # we need to swtich back to the 
+            # we need to swtich back to the
+            os.setgid(0)
+            os.setuid(0)
             os.chroot(ROOT_FROM_JAIL_PATH)
