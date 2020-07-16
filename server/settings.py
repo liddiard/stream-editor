@@ -1,3 +1,24 @@
+import os
+
+
+IS_DEV = os.environ.get('FLASK_ENV') == 'development'
+
+JAIL_PATH = None
+ROOT_FROM_JAIL_PATH = None
+if not IS_DEV:
+    try:
+        JAIL_PATH = os.environ['JAIL_PATH']
+    except KeyError:
+        raise RuntimeError("Your FLASK_ENV environment variable is not set"
+        "to 'development' (and it should not be for security reasons unless "
+        "you are truly running on a local machine that is inaccessible from "
+        "the public internet) and you don't have a JAIL_PATH environment "
+        "variable set, which should point to a secure chroot in which you're "
+        "ok with anyone from the public internet running commands from the "
+        "command line.")
+    ROOT_FROM_JAIL_PATH = '/'.join(['..' for path in os.path.split(JAIL_PATH)])
+    
+
 # maximum size of input we will process
 # should match client-side constant of the same name
 MAX_INPUT_LENGTH = 2**20
