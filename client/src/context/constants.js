@@ -1,6 +1,6 @@
 export const API_ROOT = process.env.NODE_ENV === 'development' ?
   'http://localhost:5000/v1/' :
-  'https://api.tbd-url.com/v1/'
+  'https://api.streameditor.io/v1/'
 
 export const INPUT_DELAY = 250 // time to wait between keystrokes before sending API request to execute commands
 export const MAX_INPUT_LENGTH = Math.pow(2, 20) // should match server-side constant of the same name

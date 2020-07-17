@@ -32,7 +32,8 @@ if not IS_DEV:
 
 # origins which are allowed for CORS
 ALLOWED_ORIGINS = [
-    'http://localhost:3000'
+    'http://localhost:3000',
+    'https://streameditor.io'
 ]
 
 # https://flask-limiter.readthedocs.io/
