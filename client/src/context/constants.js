@@ -16,8 +16,8 @@ export const INITIAL_OPERATION = {
 }
 
 export const DEFAULT_OPERATION = {
-  // sed w/o arguments, returns the input unmodified
-  command: 'sed',
+  // cat w/o arguments, returns the input unmodified
+  command: 'cat',
   args: ''
 }
 
