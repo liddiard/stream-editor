@@ -14,7 +14,6 @@ import {
   SET_INPUT,
   SET_OUTPUTS,
 } from './constants'
-import { formatInput } from '../utils'
 
 export const startLoading = (dispatch) =>
   dispatch({ type: SET_LOADING, loading: true })
@@ -29,7 +28,7 @@ export const execute = async (dispatch, input, operations) => {
       method: 'POST',
       url: `${API_ROOT}execute/`,
       data: {
-        input: formatInput(input),
+        input,
         operations
       }
     })
