@@ -19,13 +19,13 @@
   }
 
   button {
+    font-size: 0.95em;
     @include theme-aware("color", "link-default");
     @include theme-aware("background-color", "background-primary");
     border: 1px solid;
     @include theme-aware("border-color", "link-default");
     padding: 0.25em 0.5em;
     border-radius: 0.25em;
-    height: 1.75em;
     cursor: pointer;
 
     &.copied {
