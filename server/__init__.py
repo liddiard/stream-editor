@@ -5,19 +5,19 @@ from flask_cors import CORS
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 
+from .settings import ALLOWED_ORIGINS, RATELIMIT_RULES
+
 
 app = Flask(__name__)
 
 # https://flask-cors.readthedocs.io/
-CORS(app, origins=[
-  'http://localhost:3000'
-])
+CORS(app, origins=ALLOWED_ORIGINS)
 
 # https://flask-limiter.readthedocs.io/
 limiter = Limiter(
     app,
     key_func=get_remote_address,
-    default_limits=["600 per day", "200 per hour"]
+    default_limits=RATELIMIT_RULES
 )
 
 @app.errorhandler(429)

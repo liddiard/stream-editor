@@ -1,10 +1,18 @@
 import os
 
 
+# ENVIRONMENT
+
 IS_DEV = os.environ.get('FLASK_ENV') == 'development'
 
+
+# JAIL
+
+# Unix user ID of the chroot jailed user
+JAIL_UID = 1000
+# PATH to the chroot jail
 JAIL_PATH = None
-ROOT_FROM_JAIL_PATH = None
+
 if not IS_DEV:
     try:
         JAIL_PATH = os.environ['JAIL_PATH']
@@ -16,8 +24,21 @@ if not IS_DEV:
         "variable set, which should point to a secure chroot in which you're "
         "ok with anyone from the public internet running commands from the "
         "command line.")
-    ROOT_FROM_JAIL_PATH = '/'.join(['..' for path in os.path.split(JAIL_PATH)])
-    
+
+
+# APPLICATION
+
+## CONFIG
+
+# origins which are allowed for CORS
+ALLOWED_ORIGINS = [
+    'http://localhost:3000'
+]
+
+# https://flask-limiter.readthedocs.io/
+RATELIMIT_RULES = ['1000 per day', '500 per hour']
+
+## COMMAND EXECUTION
 
 # maximum size of input we will process
 # should match client-side constant of the same name
