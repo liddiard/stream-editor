@@ -69,6 +69,16 @@ const Toolbar = ({ dispatch, operations, options }) => {
       />
       Sync scrolling
     </label>
+    <label className="option" data-tip="Toggle light/dark theme">
+      <input
+        type="checkbox"
+        checked={darkMode}
+        onChange={(ev) =>
+          dispatch({ type: SET_OPTION, key: 'darkMode', value: ev.target.checked })
+        }
+      />
+      Dark mode
+    </label>
     <div className="option" data-tip="Maximum number of panes to show in the viewport before horizontal scroll">
       Max panes in view
       <input
@@ -82,16 +92,6 @@ const Toolbar = ({ dispatch, operations, options }) => {
       />
       {panesInViewport}
     </div>
-    <label className="option">
-      <input
-        type="checkbox"
-        checked={darkMode}
-        onChange={(ev) =>
-          dispatch({ type: SET_OPTION, key: 'darkMode', value: ev.target.checked })
-        }
-      />
-      Dark mode
-    </label>
     <div className="option">
       <span className="radio-group-label">Font size</span>
       {[10, 12, 14].map(size => (
@@ -138,6 +138,15 @@ const Toolbar = ({ dispatch, operations, options }) => {
         Sans-serif
       </label>
     </div>
+    <a
+      className="github-link"
+      href="https://github.com/liddiard/stream-editor"
+      target="_blank"
+      rel="noopener noreferrer"
+      data-tip="GitHub repo"
+    >
+      <img src={`/img/github-${iconVariant}.svg`} alt="GitHub icon" />
+    </a>
   </div>)
 }
 
