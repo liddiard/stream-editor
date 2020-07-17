@@ -26,8 +26,9 @@ const Toolbar = ({ dispatch, operations, options }) => {
   return (<div className="editor-options">
     <img
       id="logo"
+      alt="Stream Editor logo"
       src={`/img/logo-${iconVariant}.svg`}
-      title="Stream Editor" 
+      title="Stream Editor"
     />
     <div className="buttons">
       <button
