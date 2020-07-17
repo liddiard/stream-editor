@@ -30,11 +30,11 @@ if not IS_DEV:
 
 ## CONFIG
 
-# origins which are allowed for CORS
-ALLOWED_ORIGINS = [
-    'http://localhost:3000',
-    'https://streameditor.io'
-]
+# origin that is allowed for CORS
+if IS_DEV:
+    ALLOWED_ORIGIN = 'http://localhost:3000'
+else:
+    ALLOWED_ORIGIN = 'https://streameditor.io'
 
 # https://flask-limiter.readthedocs.io/
 RATELIMIT_RULES = ['1000 per day', '500 per hour']

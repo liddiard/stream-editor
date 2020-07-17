@@ -5,13 +5,13 @@ from flask_cors import CORS
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 
-from .settings import ALLOWED_ORIGINS, RATELIMIT_RULES
+from .settings import ALLOWED_ORIGIN, RATELIMIT_RULES
 
 
 app = Flask(__name__)
 
 # https://flask-cors.readthedocs.io/
-CORS(app, origins=ALLOWED_ORIGINS)
+CORS(app, origins=ALLOWED_ORIGIN)
 
 # https://flask-limiter.readthedocs.io/
 limiter = Limiter(
