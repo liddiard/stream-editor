@@ -145,11 +145,5 @@ SUPPORTED_COMMANDS = sorted([
         'description': 'count characters, words, and lines',
         'docs': 'http://man.cx/wc',
         'examples': 'https://www.geeksforgeeks.org/wc-command-linux-examples/'
-    },
-    # {
-    #     'name': 'bc',
-    #     'description': 'basic calculator',
-    #     'docs': 'http://man.cx/bc',
-    #     'examples': 'https://www.geeksforgeeks.org/bc-command-linux-examples/'
-    # },
+    }
 ], key=lambda x: x['name']) # sort alphabetically by command name
