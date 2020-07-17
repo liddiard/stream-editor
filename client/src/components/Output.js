@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 
 import { OptionsConsumer } from '../context'
 import { INSERT_OPERATION } from '../context/constants'
-import { inputFromSessionStorage } from '../context/reducer'
 // eslint-disable-next-line import/no-webpack-loader-syntax
 import worker from 'workerize-loader!../context/worker'
 import { getMinWidth, downloadFile } from '../utils'
@@ -16,6 +15,7 @@ const instance = worker()
 const Output = ({ dispatch, index, input, text, prevText, isError, isLast, options }) => {
   const { fontSize, fontStyle, darkMode, panesInViewport } = options
   const iconVariant = darkMode ? 'dark' : 'light'
+  const inputFromSessionStorage = sessionStorage.getItem('input')
   // sessionStorage key to store the `showDiff` preference for this output
   const showDiffStorageKey = `output.showDiff.${index}`
 

@@ -24,7 +24,7 @@ import {
 } from '../utils'
 
 
-export const inputFromSessionStorage = sessionStorage.getItem('input')
+const inputFromSessionStorage = sessionStorage.getItem('input')
 
 export const initialState = {
   loading: false,
