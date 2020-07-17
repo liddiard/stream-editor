@@ -26,7 +26,7 @@ const CommandSelect = ({ commands, command, index, onChange }) => {
       </button>
       {isOpen ? 
         <dl onClick={(ev) => ev.stopPropagation()} role="dialog">
-          {commands.map((_command, index) => 
+          {commands.map((_command) =>
             <label key={_command.name}>
               <input
                 type="radio"
