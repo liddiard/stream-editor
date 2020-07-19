@@ -17,13 +17,14 @@ const Toolbar = ({ dispatch, operations, options }) => {
   const { syncScroll, darkMode, fontStyle, fontSize, panesInViewport } = options
   const iconVariant = darkMode ? 'dark' : 'light'
 
+  const [expanded, setExpanded] = useState(false)
   const [copied, setCopied] = useState(false)
 
   useEffect(() => {
     setCopied(false)
   }, [operations])
 
-  return (<div className="editor-options">
+  return (<div className={`toolbar ${expanded ? 'expanded' : ''}`}>
     <img
       id="logo"
       alt="Stream Editor logo"
@@ -147,6 +148,13 @@ const Toolbar = ({ dispatch, operations, options }) => {
     >
       <img src={`/img/github-${iconVariant}.svg`} alt="GitHub icon" />
     </a>
+    <button
+      className="expand-arrow"
+      data-tip={expanded ? 'Collapse toolbar' : 'More options'}
+      onClick={() => setExpanded(!expanded)}
+    >
+      {expanded ? '«' : '»'}
+    </button>
   </div>)
 }
 

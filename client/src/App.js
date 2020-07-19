@@ -6,7 +6,8 @@ import {
   DEFAULT_OPERATION
 } from './context/constants'
 import { OptionsContext } from './context'
-import reducer, { initialState } from './context/reducer'
+import initialState from './context/initialState'
+import reducer from './context/reducer'
 import {
   getCommands,
   execute
@@ -17,7 +18,6 @@ import {
   toggleSyncScrolling,
   rebindSyncScrolling
 } from './utils'
-import Header from './components/Header'
 import Toolbar from './components/Toolbar'
 import Input from './components/Input'
 import Operation from './components/Operation'

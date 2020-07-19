@@ -1,16 +1,24 @@
 @import "constants";
 
-.editor-options {
+.toolbar {
+  $padding: 0.35em;
+  position: relative;
   font-family: $SANS;
   font-size: 0.9em;
-  padding: 0 0.35em;
+  padding: 0 $padding;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   line-height: 1.5;
+  height: 36px;
+
+  &.expanded {
+    height: auto;
+    padding-bottom: $padding;
+  }
 
   & > * {
-    margin: 0 0.5em;
+    margin: 0 0.45em;
   }
 
   #logo {
@@ -83,6 +91,24 @@
   .github-link {
     img {
       vertical-align: middle;
+    }
+  }
+
+  .expand-arrow {
+    display: none;
+    font-size: 1.4em;
+    padding: 0 0.25em 0.05em; // bottom padding to vertically center the arrow
+    position: absolute;
+    right: 0;
+  }
+}
+
+@media (max-width: 1260px) { // magic number, based on when toolbar items start wrapping to a second line
+  .toolbar {
+    padding-right: 2em;
+
+    .expand-arrow {
+      display: block;
     }
   }
 }
