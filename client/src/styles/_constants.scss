@@ -1,16 +1,17 @@
+// dimensions
+$TOOLBAR_HEIGHT: 36px;
+
 // fonts
 $MONOSPACE: "SFMono-Regular", Consolas, Menlo, Courier, "Courier New", monospace;
 $SANS: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 
-// dividers
-$BORDER_MINOR: 1px solid lightgray;
-$BORDER_MAJOR: 2px solid black;
-
+// base colors
 $BLUE_COLOR: #0075ff;
 $GREEN_COLOR: #008c65;
 $RED_COLOR: #d50500;
 $GRAY_COLOR: #757575; // matches color of input placeholder on Chrome
 
+// theme-specific colors
 $THEMES: (
   light: (
     background-primary: white,

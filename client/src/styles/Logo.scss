@@ -1,0 +1,36 @@
+@import "constants";
+
+#logo {
+  color: $BLUE_COLOR;
+  height: $TOOLBAR_HEIGHT;
+  display: flex;
+  align-items: center;
+  text-shadow: 0 0 6px rgba(lighten($BLUE_COLOR, 10%), 0.6);
+  font-family: $MONOSPACE;
+  font-weight: normal;
+  font-size: 1.4em;
+  position: relative;
+  letter-spacing: -0.06em;
+  margin: 0 0.5em 0 0.15em;
+  cursor: default;
+
+  .gt, .underscore {
+    font-size: 0.75em;
+  }
+
+  .gt, .slash {
+    opacity: 0.67;
+  }
+
+  .gt {
+    margin: 0.2em 0.15em 0 0;
+    transform: scaleX(0.8)
+  }
+
+  .underscore {
+    position: absolute;
+    bottom: 0.3em;
+    left: 3.4em;
+    animation: cursor-blink 1.5s infinite cubic-bezier(1,0,0,1);
+  }
+}

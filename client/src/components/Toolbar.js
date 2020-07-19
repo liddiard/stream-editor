@@ -9,6 +9,7 @@ import {
 } from '../context/constants'
 import { OptionsConsumer } from '../context'
 import { getBashString } from '../utils'
+import Logo from './Logo'
 
 import '../styles/Toolbar.scss'
 
@@ -25,12 +26,7 @@ const Toolbar = ({ dispatch, operations, options }) => {
   }, [operations])
 
   return (<div className={`toolbar ${expanded ? 'expanded' : ''}`}>
-    <img
-      id="logo"
-      alt="Stream Editor logo"
-      src={`/img/logo-${iconVariant}.svg`}
-      title="Stream Editor"
-    />
+    <Logo />
     <div className="buttons">
       <button
         className={copied ? 'copied' : ''}

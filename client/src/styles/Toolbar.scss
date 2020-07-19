@@ -1,7 +1,20 @@
 @import "constants";
 
+@keyframes cursor-blink {
+  0% {
+      opacity: 0;
+  }
+  33%, 67% {
+      opacity: 1;
+  }
+  100% {
+      opacity: 0;
+  }
+}
+
+$padding: 0.35em;
+
 .toolbar {
-  $padding: 0.35em;
   position: relative;
   font-family: $SANS;
   font-size: 0.9em;
@@ -10,20 +23,14 @@
   flex-wrap: wrap;
   align-items: center;
   line-height: 1.5;
-  height: 36px;
+  height: $TOOLBAR_HEIGHT;
 
   &.expanded {
     height: auto;
-    padding-bottom: $padding;
   }
 
   & > * {
-    margin: 0 0.45em;
-  }
-
-  #logo {
-    height: 2.5em;
-    margin: 0;
+    margin: 0 0.4em;
   }
 
   button {
@@ -97,15 +104,19 @@
   .expand-arrow {
     display: none;
     font-size: 1.4em;
-    padding: 0 0.25em 0.05em; // bottom padding to vertically center the arrow
+    padding: 0 0.35em 0.05em; // bottom padding to vertically center the arrow
     position: absolute;
     right: 0;
   }
 }
 
-@media (max-width: 1260px) { // magic number, based on when toolbar items start wrapping to a second line
+@media (max-width: 1275px) { // magic number, based on when toolbar items start wrapping to a second line
   .toolbar {
     padding-right: 2em;
+
+    &.expanded {
+      padding-bottom: $padding;
+    }
 
     .expand-arrow {
       display: block;
