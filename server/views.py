@@ -10,6 +10,9 @@ from .command import (
 )
 
 
+logger = app.logger
+
+
 def request_error(message, index=0):
     """Helper to create a 400 Bad Request error"""
     return jsonify(error={'message': message, 'index': index}), 400
@@ -27,12 +30,15 @@ def execute():
     try:
         _input, operations = parse_execute_request(request)
     except (KeyError, TypeError, ValueError) as error:
+        logger.warn(f"Malformed request: {error}")
         return request_error(f"Error: {error}")
 
+    logger.info(f"Executing with operations: {operations}")
     # execute commands
     outputs = [] # output after running each command
     for index, operation in enumerate(operations):
         if type(operation) is not dict:
+            logger.warn(f"Malformed operation: {operation}")
             return request_error(f"Malformed operation in `operations` array.",
                 index)
 
@@ -47,13 +53,17 @@ def execute():
             stdout, stderr = execute_command(command, arguments, stdin=stdin)
         # stop processing if attempting to execute the command threw an error
         except TimeoutExpired:
-            return request_error("Command \"{command}\" timed out after "\
+            logger.warn(f"Operation timed out: {operation}")
+            return request_error(f"Command \"{command}\" timed out after "\
                 f"{COMMAND_TIMEOUT} seconds.", index)
         except Exception as error:
+            logger.warn(f"Execution error. Operation: {operation}, Error: "
+                f"{error}")
             return request_error(f"Error: {error}", index)
 
         # stop processing if the command output something to stderr
         if stderr:
+            logger.info(f"Returning stderr: {stderr}")
             return request_error(stderr, index)
 
         outputs.append(stdout)
