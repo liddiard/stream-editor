@@ -1,8 +1,10 @@
 import os
+import sys
 
 
 # ENVIRONMENT
 
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 IS_DEV = os.environ.get('FLASK_ENV') == 'development'
 
 
@@ -29,6 +31,36 @@ if not IS_DEV:
 # APPLICATION
 
 ## CONFIG
+
+LOGGING_CONFIG = {
+    'version': 1,
+    'formatters': {
+        'simple': {
+            'style': '{',
+            'format': '{levelname} [{asctime}] {message}',
+        },
+        'verbose': {
+            'style': '{',
+            'format': '{levelname} [{asctime}] {module} {process:d} {thread:d} {message}',
+        }
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'stream': sys.stdout,
+            'formatter': 'simple'
+        },
+        'file': {
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR, 'app.log'),
+            'formatter': 'verbose'
+        },
+    },
+    'root': {
+        'handlers': ['console', 'file'],
+        'level': 'INFO'
+    }
+}
 
 # origin that is allowed for CORS
 if IS_DEV:

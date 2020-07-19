@@ -1,12 +1,15 @@
 import os
+from logging.config import dictConfig
 
 from flask import Flask, jsonify
 from flask_cors import CORS
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 
-from .settings import IS_DEV, ALLOWED_ORIGIN, RATELIMIT_RULES
+from .settings import LOGGING_CONFIG, IS_DEV, ALLOWED_ORIGIN, RATELIMIT_RULES
 
+
+dictConfig(LOGGING_CONFIG)
 
 app = Flask(__name__)
 
