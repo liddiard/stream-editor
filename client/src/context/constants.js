@@ -8,7 +8,7 @@ export const MAX_OPERATIONS = 16 // should match server-side constant of the sam
 
 export const INITIAL_INPUT = `Welcome to Stream Editor, a tool for interactively writing and chaining command-line text manipulation utilities.
 
-This pane contains input. Modify it with the command below, and see its output change to the right.`
+This pane contains your input. Modify it with the command below, and see its output change to the right.`
 
 export const INITIAL_OPERATION = {
   command: 'sed',
