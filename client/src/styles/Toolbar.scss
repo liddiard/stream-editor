@@ -27,6 +27,10 @@ $padding: 0.35em;
 
   &.expanded {
     height: auto;
+
+    .expand-arrow {
+      position: relative;
+    }
   }
 
   & > * {
