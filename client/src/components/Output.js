@@ -40,7 +40,7 @@ const Output = ({ dispatch, index, input, text, prevText, isError, isLast, optio
     showDiff ?
       sessionStorage.setItem(showDiffStorageKey, true) :
       sessionStorage.removeItem(showDiffStorageKey)
-  }, [showDiff, index])
+  }, [showDiff, index, showDiffStorageKey])
 
   useMemo(async () => {
     if (!showDiff) {
