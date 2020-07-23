@@ -10,6 +10,7 @@ $BLUE_COLOR: #0075ff;
 $GREEN_COLOR: #008c65;
 $RED_COLOR: #d50500;
 $GRAY_COLOR: #757575; // matches color of input placeholder on Chrome
+$DARK_BG_COLOR: #151a20;
 
 // theme-specific colors
 $THEMES: (
@@ -29,14 +30,14 @@ $THEMES: (
     error-destructive: $RED_COLOR,
   ),
   dark: (
-    background-primary: #151a20,
-    background-secondary: lighten(#151a20, 10%),
+    background-primary: $DARK_BG_COLOR,
+    background-secondary: lighten($DARK_BG_COLOR, 10%),
     background-input-focus: darken($BLUE_COLOR, 45%),
     insert-highlight: rgba(lighten($GREEN_COLOR, 15%), 0.5),
     delete-highlight: rgba(lighten($RED_COLOR, 10%), 0.5),
     foreground-primary: white,
-    foreground-secondary: lighten(#151a20, 60%),
-    divider-primary: lighten(#151a20, 50%),
+    foreground-secondary: lighten($DARK_BG_COLOR, 60%),
+    divider-primary: lighten($DARK_BG_COLOR, 50%),
     divider-secondary: #55667a,
     link-default: lighten($BLUE_COLOR, 20%),
     success: lighten($GREEN_COLOR, 20%),
