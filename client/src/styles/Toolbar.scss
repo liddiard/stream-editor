@@ -71,10 +71,11 @@ $padding: 0.35em;
   input {
     margin: 0 4px 0 0;
 
-    &[type="range"] {
-      margin: 3px 6px;
-      vertical-align: sub;
-      max-width: 80px;
+    &[type=number] {
+      padding: 0.25em 0.5em;
+      margin-left: 0.5em;
+      border: 1px solid;
+      @include theme-aware("border-color", "divider-secondary");
     }
   }
 

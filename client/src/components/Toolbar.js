@@ -79,15 +79,20 @@ const Toolbar = ({ dispatch, operations, options }) => {
     <div className="option" data-tip="Maximum number of panes to show in the viewport before horizontal scroll">
       Max panes in view
       <input
-        type="range"
+        type="number"
         min={1}
         max={9}
         value={panesInViewport}
-        onChange={(ev) =>
-          dispatch({ type: SET_OPTION, key: 'panesInViewport', value: parseInt(ev.target.value) })
-        }
+        onFocus={(ev) => ev.target.select()}
+        onChange={(ev) => {
+          dispatch({
+            type: SET_OPTION,
+            key: 'panesInViewport',
+            value: parseInt(ev.target.value) || panesInViewport
+          })
+          ev.target.select()
+        }}
       />
-      {panesInViewport}
     </div>
     <div className="option">
       <span className="radio-group-label">Font size</span>
