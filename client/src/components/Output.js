@@ -33,10 +33,6 @@ const Output = ({ dispatch, index, input, text, prevText, isError, isLast, optio
   const [diffOutput, setDiffOutput] = useState(null)
 
   useEffect(() => {
-    setCopied(false)
-  }, [text, setCopied])
-
-  useEffect(() => {
     showDiff ?
       sessionStorage.setItem(showDiffStorageKey, true) :
       sessionStorage.removeItem(showDiffStorageKey)
@@ -95,6 +91,7 @@ const Output = ({ dispatch, index, input, text, prevText, isError, isLast, optio
             setCopied(true)
             navigator.clipboard.writeText(text)
           }}
+          onBlur={() => setCopied(false)}
         >
           {copied ?
             <><img src={`/img/check-${iconVariant}.svg`} alt="" />Copied to Clipboard</> :

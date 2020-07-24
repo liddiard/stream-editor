@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
 import {
@@ -21,10 +21,6 @@ const Toolbar = ({ dispatch, operations, options }) => {
   const [expanded, setExpanded] = useState(false)
   const [copied, setCopied] = useState(false)
 
-  useEffect(() => {
-    setCopied(false)
-  }, [operations])
-
   return (<div className={`toolbar ${expanded ? 'expanded' : ''}`}>
     <Logo />
     <div className="buttons">
@@ -35,7 +31,9 @@ const Toolbar = ({ dispatch, operations, options }) => {
         onClick={() => {
           navigator.clipboard.writeText(getBashString(operations))
           setCopied(true)
-        }}>
+        }}
+        onBlur={() => setCopied(false)}
+      >
         {copied ?
           <><img src={`/img/check-${iconVariant}.svg`} alt="" />Commands Copied</> :
           <><img src={`/img/copy-${iconVariant}.svg`} alt="" />Copy Commands</>
