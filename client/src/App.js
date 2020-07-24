@@ -103,7 +103,6 @@ const App = () => {
   return (
     <OptionsContext.Provider value={options}>
       <>
-        {/* <Header /> */}
         <Toolbar
           dispatch={dispatch}
           operations={operations}
