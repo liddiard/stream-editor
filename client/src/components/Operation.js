@@ -18,6 +18,31 @@ const Operation = ({ dispatch, index, commands, operations, operation, error, op
   const { panesInViewport } = options
   const placeholder = index === operations.length ? '+ Add a command' : 'arguments'
 
+  // if the pasted args start with a supported command, update the operation's
+  // command accordingly and remove it from the args
+  // e.g. if your current command is `cat` and you paste "sed s/a/b/", update
+  // this operation's command dropdown to `sed` with the args to "s/a/b/"
+  // instead of leaving the command as `cat` with args "sed s/a/b/"
+  const handlePaste = (ev) => {
+    // get pasted text; supported in all major browsers
+    const value = ev.clipboardData.getData('Text')
+    const command = commands
+      .map(({ name }) => name)
+      .find(cmd => value.startsWith(`${cmd} `))
+    if (command) {
+      dispatch({ type: SET_OPERATION_COMMAND, index, command })
+      dispatch({
+        type: SET_OPERATION_ARGS,
+        index,
+        // remove matched command from the args set
+        args: value.replace(new RegExp(`^${command} `), '')
+      })
+      // prevent the `onChange` function from being called after this as we've
+      // already set the appropriate `args` value in state
+      ev.preventDefault()
+    }
+  }
+
   const removeButton = index !== operations.length && operations.length > 1 ? (
     <button
       className="remove-operation"
@@ -56,7 +81,9 @@ const Operation = ({ dispatch, index, commands, operations, operation, error, op
         onFocus={() =>
           index === operations.length ? dispatch({ type: PUSH_OPERATION }) : null}
         onChange={(ev) =>
-          dispatch({ type: SET_OPERATION_ARGS, index, args: ev.target.value })}
+          dispatch({ type: SET_OPERATION_ARGS, index, args: ev.target.value })
+        }
+        onPaste={handlePaste}
       />
       {removeButton}
     </div>
