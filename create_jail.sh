@@ -3,7 +3,7 @@
 # http://www.mattheakis.com/blog/view.php?name=setting_up_a_jail_to_safely_execute_code
 
 SUPPORTED_COMMANDS=( awk cat cut expand fold grep head sed sort tail tr tsort unexpand uniq wc )
-JAILED_USER_USERNAME='untrusted_internet_user'
+JAILED_USER_USERNAME=untrusted_internet_user
 JAIL_PATH=~/jail
 
 echo 'Creating jail directory...'
