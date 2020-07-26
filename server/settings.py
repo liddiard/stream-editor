@@ -19,7 +19,7 @@ if not IS_DEV:
     try:
         JAIL_PATH = os.environ['JAIL_PATH']
     except KeyError:
-        raise RuntimeError("Your FLASK_ENV environment variable is not set"
+        raise RuntimeError("Your FLASK_ENV environment variable is not set "
         "to 'development' (and it should not be for security reasons unless "
         "you are truly running on a local machine that is inaccessible from "
         "the public internet) and you don't have a JAIL_PATH environment "
