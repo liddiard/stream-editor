@@ -1,7 +1,7 @@
 import os
 import pathlib
 import shlex
-from subprocess import Popen, PIPE, STDOUT
+from subprocess import run, Popen, PIPE, STDOUT
 
 from .settings import (
     IS_DEV,
@@ -31,6 +31,15 @@ def format_output(text):
         return text[:-1]
     else:
         return text
+
+
+def get_man_page(command):
+    # check if the command is supported/allowed
+    # ⚠️ IMPORTANT: prevents system probing for installed programs
+    if command not in supported_command_names:
+        raise CommandDisallowedError(f"Command \"{command}\" is not "
+            "allowed.")
+    return str(run(['man', command], capture_output=True).stdout)
 
 
 def parse_execute_request(request):

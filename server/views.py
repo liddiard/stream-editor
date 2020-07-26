@@ -4,6 +4,7 @@ from flask import request, jsonify, current_app
 from . import app
 from .settings import SUPPORTED_COMMANDS, COMMAND_TIMEOUT
 from .command import (
+    get_man_page,
     CommandDisallowedError,
     parse_execute_request,
     execute_command
@@ -22,6 +23,15 @@ def request_error(message, index=0):
 def list_commands():
     """Return the list of supported Unix commands"""
     return jsonify(commands=SUPPORTED_COMMANDS)
+
+
+@app.route('/v1/man/<command>')
+def man_page(command):
+    """Return the list of supported Unix commands"""
+    try:
+        return jsonify(text=get_man_page(command))
+    except CommandDisallowedError as error:
+        return request_error(f"Error: {error}")
 
 
 @app.route('/v1/execute/', methods=['POST'])
