@@ -15,7 +15,7 @@ import '../styles/Toolbar.scss'
 
 
 const Toolbar = ({ dispatch, operations, options }) => {
-  const { syncScroll, darkMode, fontStyle, fontSize, panesInViewport } = options
+  const { syncScroll, darkMode, fontStyle, fontSize } = options
   const iconVariant = darkMode ? 'dark' : 'light'
 
   const [expanded, setExpanded] = useState(false)
@@ -74,24 +74,6 @@ const Toolbar = ({ dispatch, operations, options }) => {
       />
       Dark mode
     </label>
-    <div className="option" data-tip="Maximum number of panes to show in the viewport before horizontal scroll">
-      Max panes in view
-      <input
-        type="number"
-        min={1}
-        max={9}
-        value={panesInViewport}
-        onFocus={(ev) => ev.target.select()}
-        onChange={(ev) => {
-          dispatch({
-            type: SET_OPTION,
-            key: 'panesInViewport',
-            value: parseInt(ev.target.value) || panesInViewport
-          })
-          ev.target.select()
-        }}
-      />
-    </div>
     <div className="option">
       <span className="radio-group-label">Font size</span>
       {[10, 12, 14].map(size => (

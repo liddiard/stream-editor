@@ -34,7 +34,7 @@ $padding: 0.35em;
   }
 
   & > * {
-    margin: 0 0.4em;
+    margin: 0 0.5em;
   }
 
   button {
@@ -115,7 +115,7 @@ $padding: 0.35em;
   }
 }
 
-@media (max-width: 1275px) { // magic number, based on when toolbar items start wrapping to a second line
+@media (max-width: 1065px) { // magic number, based on when toolbar items start wrapping to a second line
   .toolbar {
     padding-right: 2em;
 
