@@ -1,21 +1,20 @@
-import React, { useRef } from 'react'
+import React, { useRef, useCallback } from 'react'
 import PropTypes from 'prop-types'
 
 import { OptionsConsumer } from '../context'
 import { MAX_INPUT_LENGTH, SET_INPUT } from '../context/constants'
 import { uploadFile } from '../context/actions'
-import { getMinWidth } from '../utils'
 
 import '../styles/Input.scss'
 
 
-const Input = ({ dispatch, text, onChange, maxLength, error, options }) => {
-  const { darkMode, panesInViewport, fontStyle, fontSize } = options
+const Input = ({ dispatch, text, maxLength, error, operation, options }) => {
+  const { darkMode, fontStyle, fontSize } = options
   const iconVariant = darkMode ? 'dark' : 'light'
 
   const fileInput = useRef()
 
-  const handleFileUploadChange = async (ev) => {
+  const handleFileUploadChange = useCallback(async (ev) => {
     const file = ev.target.files[0]
     if (!file) {
       return // user cancelled file upload dialog
@@ -27,43 +26,43 @@ const Input = ({ dispatch, text, onChange, maxLength, error, options }) => {
       }
     }
     uploadFile(dispatch, file)
-  }
+  }, [dispatch, text])
 
-  return (<div
-    className="input-container"
-    style={{ minWidth: getMinWidth(panesInViewport) }}
-  >
-    <div className="io actions">
-      {error.message ? (
-        <span className="upload error">
-          {error.message}
-        </span>
-      ) : null}
-      <button onClick={() => fileInput.current.click()}>
-        <img src={`/img/upload-${iconVariant}.svg`} alt="" />
-        Upload File
-      </button>
-      <input
-        type="file"
-        ref={fileInput}
-        onChange={handleFileUploadChange}
+  return (
+    <div className="input-container">
+      <div className="actions">
+        {error.message ? (
+          <span className="upload error">
+            {error.message}
+          </span>
+        ) : null}
+        <button onClick={() => fileInput.current.click()}>
+          <img src={`/img/upload-${iconVariant}.svg`} alt="" />
+          Upload File
+        </button>
+        <input
+          type="file"
+          ref={fileInput}
+          onChange={handleFileUploadChange}
+        />
+        <label className="input">Input</label>
+      </div>
+      <textarea
+        name="input"
+        value={text}
+        onChange={(ev) =>
+          dispatch({ type: SET_INPUT, input: ev.target.value })}
+        maxLength={maxLength}
+        placeholder="Enter input text"
+        className={fontStyle}
+        style={{ fontSize: `${fontSize}pt` }}
+        autoFocus
+        tabIndex={1}  
+        spellCheck={false}
       />
-      <label className="input">Input</label>
+      {operation}
     </div>
-    <textarea
-      name="input"
-      value={text}
-      onChange={(ev) =>
-        dispatch({ type: SET_INPUT, input: ev.target.value })}
-      maxLength={maxLength}
-      placeholder="Enter input text"
-      className={fontStyle}
-      style={{ fontSize: `${fontSize}pt` }}
-      autoFocus
-      tabIndex={1}
-      spellCheck={false}
-    />
-  </div>)
+  )
 }
 
 Input.propTypes = {
@@ -71,6 +70,7 @@ Input.propTypes = {
   text: PropTypes.string.isRequired,
   maxLength: PropTypes.number.isRequired,
   error: PropTypes.object.isRequired,
+  operation: PropTypes.element.isRequired,
   options: PropTypes.object.isRequired
 }
 

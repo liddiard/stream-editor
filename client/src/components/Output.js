@@ -2,18 +2,17 @@ import React, { useState, useEffect, useMemo } from 'react'
 import PropTypes from 'prop-types'
 
 import { OptionsConsumer } from '../context'
-import { INSERT_OPERATION } from '../context/constants'
 // eslint-disable-next-line import/no-webpack-loader-syntax
 import worker from 'workerize-loader!../context/worker'
-import { getMinWidth, downloadFile } from '../utils'
+import { downloadFile } from '../utils'
 
 import '../styles/Output.scss'
 
 
 const instance = worker()
 
-const Output = ({ dispatch, index, input, text, prevText, isError, isLast, options }) => {
-  const { fontSize, fontStyle, darkMode, panesInViewport } = options
+const Output = ({ index, input, text, prevText, isError, isLast, operation, options }) => {
+  const { fontSize, fontStyle, darkMode } = options
   const iconVariant = darkMode ? 'dark' : 'light'
   const inputFromSessionStorage = sessionStorage.getItem('input')
   // sessionStorage key to store the `showDiff` preference for this output
@@ -64,19 +63,8 @@ const Output = ({ dispatch, index, input, text, prevText, isError, isLast, optio
   }
 
   return (
-    <div
-      className={`output-container ${isError ? 'error' : ''}`}
-      style={{ minWidth: getMinWidth(panesInViewport) }}
-    >
-      <div className="insert-operation">
-        <button
-          data-tip="Add a command"
-          onClick={() => dispatch({ type: INSERT_OPERATION, index: index+1 })}
-        >
-          +
-      </button>
-      </div>
-      <div className="io actions">
+    <div className={`output-container ${isError ? 'error' : ''}`}>
+      <div className="actions">
         <label className="sans show-diff">
           <input
             type="checkbox"
@@ -111,6 +99,7 @@ const Output = ({ dispatch, index, input, text, prevText, isError, isLast, optio
       <output style={{ fontSize: `${fontSize}pt` }}>
         {output}
       </output>
+      {operation}
     </div>
   )
 }
@@ -123,7 +112,8 @@ Output.propTypes = {
   prevText: PropTypes.string.isRequired,
   isError: PropTypes.bool.isRequired,
   isLast: PropTypes.bool.isRequired,
-  options: PropTypes.object.isRequired
+  operation: PropTypes.element,
+  options: PropTypes.object.isRequired,
 }
 
 export default OptionsConsumer(Output)

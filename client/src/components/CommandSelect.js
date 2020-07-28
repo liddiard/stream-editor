@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 
 import '../styles/CommandSelect.scss'
 
@@ -6,10 +6,10 @@ import '../styles/CommandSelect.scss'
 const CommandSelect = ({ commands, command, index, onChange }) => {
   const [isOpen, setIsOpen] = useState(false)
 
-  const _onChange = (ev) => {
+  const _onChange = useCallback((ev) => {
     onChange(ev)
     setTimeout(() => setIsOpen(false), 250)
-  }
+  }, [onChange])
 
   return (
     <div className="command-select" onClick={() => setIsOpen(!isOpen)}>

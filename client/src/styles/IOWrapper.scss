@@ -1,0 +1,78 @@
+@import "constants";
+
+.io {
+  position: relative;
+  border-right: 2px solid;
+  @include theme-aware("border-color", "divider-primary");
+  flex: none;
+  width: 48%;
+
+  .actions {
+    $overlay-border-radius: 0.2em;
+
+    font-size: 0.85em;
+    position: absolute;
+    top: 0.75em;
+    right: 0.75em;
+    display: flex;
+    align-items: center;
+
+    & > * {
+      margin-left: 0.5em;
+    }
+
+    button {
+      white-space: nowrap;
+      padding: 0.25em 0.5em;
+      font-size: 0.9em;
+      cursor: pointer;
+      @include theme-aware("color", "link-default");
+      @include theme-aware("background-color", "background-primary");
+      border: 1px solid;
+      @include theme-aware("border-color", "link-default");
+      border-radius: 0.2em;
+      height: 2em;
+
+      img {
+        height: 14px;
+        vertical-align: text-bottom;
+        margin-right: 0.25em;
+      }
+    }
+
+    .input, .output {
+      display: inline-block;
+      text-transform: uppercase;
+      border: 1px solid;
+      @include theme-aware("border-color", "divider-secondary");
+      padding: 0.1em 0.2em;
+      @include theme-aware("background-color", "background-primary");
+      @include theme-aware("color", "foreground-secondary");
+      border-radius: $overlay-border-radius;
+      height: 1.5em;
+      margin-left: 0.75em;
+    }
+
+    .show-diff {
+      display: flex;
+      align-items: center;
+      padding: 0 0.25em;
+      @include theme-aware("background-color", "background-primary");
+      border-radius: 0.2em;
+
+      input[type=checkbox] {
+        margin-left: 0;
+      }
+    }
+
+    .upload.error {
+      @include theme-aware("color", "error-destructive");
+      @include theme-aware("background-color", "background-primary");
+      border-radius: $overlay-border-radius;
+      text-align: right;
+      margin-right: 0.5em;
+      font-size: 0.9em;
+      padding: 0.2em;
+    }
+  }
+}

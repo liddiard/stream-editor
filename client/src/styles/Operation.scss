@@ -2,14 +2,10 @@
 
 .operation {
   position: relative;
-  width: 50%;
   display: flex;
   border-top: 1px solid;
-  @include theme-aware("border-top-color", "divider-secondary");
   border-bottom: 1px solid;
-  @include theme-aware("border-bottom-color", "divider-secondary");
-  border-left: 2px solid;
-  @include theme-aware("border-left-color", "divider-primary");
+  @include theme-aware("border-color", "divider-secondary");
 
   &.error {
     @include theme-aware("color", "error-destructive");

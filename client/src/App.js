@@ -1,10 +1,7 @@
 import React, { useReducer, useRef, useEffect } from 'react'
 import ReactTooltip from 'react-tooltip';
 
-import {
-  INPUT_DELAY,
-  DEFAULT_OPERATION
-} from './context/constants'
+import { INPUT_DELAY, DEFAULT_OPERATION } from './context/constants'
 import { OptionsContext } from './context'
 import initialState from './context/initialState'
 import reducer from './context/reducer'
@@ -19,6 +16,7 @@ import {
   rebindSyncScrolling
 } from './utils'
 import Toolbar from './components/Toolbar'
+import IOWrapper from './components/IOWrapper'
 import Input from './components/Input'
 import Operation from './components/Operation'
 import Output from './components/Output'
@@ -86,60 +84,74 @@ const App = () => {
     writeOptionsToLocalStorage(options)
   }, [options])
 
-  const _outputs = outputs
-  .map((output, index) =>
-    <Output
+  const _operations = [...operations, DEFAULT_OPERATION]
+  .map((operation, index) =>
+    <Operation
       key={index}
-      index={index}
       dispatch={dispatch}
-      input={input}
-      text={output}
-      prevText={index === 0 ? apiInput : outputs[index-1]}
-      isError={!!errors.operation.message}
-      isLast={index === outputs.length - 1}
+      index={index}
+      commands={commands}
+      operations={operations}
+      operation={operation}
+      error={
+        errors.operation.index === index ?
+        errors.operation.message :
+        null
+      }
     />
   )
 
+  const _outputs = outputs
+  .map((output, index) => {
+    const isLast = index === outputs.length - 1
+    return (
+      <IOWrapper
+        key={index}
+        dispatch={dispatch}
+        index={index+1}
+        // the last pane has a wider minimum because it has more buttons at the top
+        minWidth={isLast ? 400 : 240}
+      >
+        <Output
+          index={index}
+          dispatch={dispatch}
+          input={input}
+          text={output}
+          prevText={index === 0 ? apiInput : outputs[index-1]}
+          isError={!!errors.operation.message}
+          isLast={isLast}
+          operation={_operations[index+1]}
+        />
+      </IOWrapper>
+    )
+  })
+
   return (
     <OptionsContext.Provider value={options}>
-      <>
-        <Toolbar
+      <Toolbar
+        dispatch={dispatch}
+        operations={operations}
+      />
+      <main>
+        <IOWrapper
           dispatch={dispatch}
-          operations={operations}
-        />
-        <main>
-          <div className="io-container">
-            <Input 
-              dispatch={dispatch}
-              text={input}
-              error={errors.upload}
-            />
-            {_outputs}
-          </div>
-          <div className="operations">
-            {[...operations, { ...DEFAULT_OPERATION }].map((operation, index) =>
-              <Operation
-                key={index}
-                dispatch={dispatch}
-                index={index}
-                commands={commands}
-                operations={operations}
-                operation={operation}
-                error={
-                  errors.operation.index === index ?
-                  errors.operation.message :
-                  null
-                }
-              />
-            )}
-          </div>
-        </main>
-        <ReactTooltip
-          effect="solid"
-          className="sans"
-          type={darkMode ? 'light' : 'dark'} 
-        />
-      </>
+          index={0}
+          minWidth={180}
+        >
+          <Input 
+            dispatch={dispatch}
+            text={input}
+            error={errors.upload}
+            operation={_operations[0]}
+          />
+        </IOWrapper>
+        {_outputs}
+      </main>
+      <ReactTooltip
+        effect="solid"
+        className="sans"
+        type={darkMode ? 'light' : 'dark'} 
+      />
     </OptionsContext.Provider>
   )
 }

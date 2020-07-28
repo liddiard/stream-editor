@@ -1,0 +1,54 @@
+@import "constants";
+
+.pane-divider {
+  position: absolute;
+  height: 100%;
+  width: 1em;
+  right: -0.5em;
+  z-index: 100;
+  cursor: col-resize;
+
+  &:hover {
+    button {
+      display: block;
+    }
+  }
+
+  button {
+    font-size: 1.5em;
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    display: none;
+    border-radius: 50%;
+    width: 1.5em;
+    height: 1.5em;
+    border: 2px solid;
+    @include theme-aware("border-color", "link-default");
+    @include theme-aware("background-color", "background-primary");
+    @include theme-aware("color", "link-default");
+    cursor: pointer;
+  }
+
+  .vertical-rule {
+    position: absolute;
+    height: 100%;
+    border: 1px solid;
+    border-color: $BLUE_COLOR;
+    display: none;
+    z-index: 1000;
+
+    &.visible {
+      display: block;
+    }
+  }
+}
+
+.dragging {
+  .pane-divider {
+    button {
+      display: none;
+    }
+  }
+}

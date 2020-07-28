@@ -1,10 +1,8 @@
 @import "constants";
 
 output {
-  @include theme-aware("background-color", "background-primary");
-  border-left: 2px solid;
-  @include theme-aware("border-color", "divider-primary");
   display: block;
+  @include theme-aware("background-color", "background-primary");
 
   pre {
     margin: 0;
@@ -36,36 +34,6 @@ del {
     &.copied {
       @include theme-aware("color", "success");
       @include theme-aware("border-color", "success");
-    }
-  }
-
-  .insert-operation {
-    position: absolute;
-    height: 100%;
-    width: 2em;
-    left: -1em;
-
-    &:hover {
-      button {
-        display: block;
-      }
-    }
-
-    button {
-      font-size: 1.5em;
-      top: 50%;
-      left: 50%;
-      position: absolute;
-      transform: translate(-50%, -50%);
-      display: none;
-      border-radius: 50%;
-      width: 1.5em;
-      height: 1.5em;
-      border: 2px solid;
-      @include theme-aware("border-color", "link-default");
-      @include theme-aware("background-color", "background-primary");
-      @include theme-aware("color", "link-default");
-      cursor: pointer;
     }
   }
 }

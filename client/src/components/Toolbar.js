@@ -125,7 +125,7 @@ const Toolbar = ({ dispatch, operations, options }) => {
       href="https://github.com/liddiard/stream-editor"
       target="_blank"
       rel="noopener noreferrer"
-      data-tip="GitHub repo"
+      data-tip="Stream Editor on GitHub"
     >
       <img src={`/img/github-${iconVariant}.svg`} alt="GitHub icon" />
     </a>

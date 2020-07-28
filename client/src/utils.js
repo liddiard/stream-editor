@@ -66,9 +66,6 @@ export const getOptionsFromLocalStorage = () => {
   }
 }
 
-// get the minimum width of a pane based on the `panesInViewport` setting
-export const getMinWidth = (panesInViewport) => `calc(${100/panesInViewport}% - 25px)`
-
 // get operations as a string of piped-together commands
 export const getBashString = (operations) =>
   operations.map(op =>

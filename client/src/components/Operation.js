@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import PropTypes from 'prop-types'
 
 import {
@@ -8,14 +8,12 @@ import {
   REMOVE_OPERATION
 } from '../context/constants'
 import { OptionsConsumer } from '../context'
-import { getMinWidth } from '../utils'
 import CommandSelect from './CommandSelect'
 
 import '../styles/Operation.scss'
 
 
 const Operation = ({ dispatch, index, commands, operations, operation, error, options }) => {
-  const { panesInViewport } = options
   const placeholder = index === operations.length ? '+ Add a command' : 'arguments'
 
   // if the pasted args start with a supported command, update the operation's
@@ -23,7 +21,7 @@ const Operation = ({ dispatch, index, commands, operations, operation, error, op
   // e.g. if your current command is `cat` and you paste "sed s/a/b/", update
   // this operation's command dropdown to `sed` with the args to "s/a/b/"
   // instead of leaving the command as `cat` with args "sed s/a/b/"
-  const handlePaste = (ev) => {
+  const handlePaste = useCallback((ev) => {
     // get pasted text; supported in all major browsers
     const value = ev.clipboardData.getData('Text')
     const command = commands
@@ -41,7 +39,7 @@ const Operation = ({ dispatch, index, commands, operations, operation, error, op
       // already set the appropriate `args` value in state
       ev.preventDefault()
     }
-  }
+  }, [dispatch, index, commands])
 
   const removeButton = index !== operations.length && operations.length > 1 ? (
     <button
@@ -60,10 +58,7 @@ const Operation = ({ dispatch, index, commands, operations, operation, error, op
   ) : null
 
   return (
-    <div
-      className={`operation ${error ? 'error' : ''}`}
-      style={{ minWidth: getMinWidth(panesInViewport) }}
-    >
+    <div className={`operation ${error ? 'error' : ''}`}>
       {_error}
       <CommandSelect
         commands={commands}
