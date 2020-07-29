@@ -1,22 +1,32 @@
-import React, { useState, useRef, useCallback } from 'react'
+import React, { useRef, useCallback } from 'react'
 import PropTypes from 'prop-types'
 
+import { SET_PANE_OPTIONS } from '../context/constants'
 import PaneDivider from './PaneDivider'
 
-import '../styles/IOWrapper.scss'
+import '../styles/Pane.scss'
 
 
-const IOWrapper = ({ dispatch, index, minWidth, children }) => {
+const Pane = ({ dispatch, index, isLast, width, minWidth, children }) => {
   const componentRef = useRef()
-  // `null` indiciates no user-defined width
-  const [width, setWidth] = useState(null)
+
+  const handleCommandAdd = useCallback(() => {
+    componentRef.current.scrollIntoView({
+      inline: 'start',
+      behavior: 'smooth'
+    })
+  }, [])
 
   const handleDragEnd = useCallback(dragDistance => {
     // actual width of this component: read from state if the width is
     // user-defined, else read from the DOM element itself
     const _width = width || componentRef.current.getBoundingClientRect().width
-    setWidth(Math.max(_width + dragDistance, minWidth))
-  }, [componentRef.current, minWidth])
+    dispatch({
+      type: SET_PANE_OPTIONS,
+      index,
+      options: { width: Math.max(_width + dragDistance, minWidth) }
+    })
+  }, [width, minWidth])
 
   return (
     <div
@@ -27,18 +37,27 @@ const IOWrapper = ({ dispatch, index, minWidth, children }) => {
       <PaneDivider
         dispatch={dispatch}
         index={index}
+        onCommandAdd={handleCommandAdd}
         onDragEnd={handleDragEnd}
+        showAddButton={isLast}
       />
       {children}
     </div>
   )
 }
 
-IOWrapper.propTypes = {
+Pane.propTypes = {
   dispatch: PropTypes.func.isRequired,
   index: PropTypes.number.isRequired,
+  isLast: PropTypes.bool,
+  width: PropTypes.number,
   minWidth: PropTypes.number.isRequired,
   children: PropTypes.node.isRequired
 }
 
-export default IOWrapper
+Pane.defaultProps = {
+  // `null` indiciates no user-defined width
+  width: null
+}
+
+export default Pane

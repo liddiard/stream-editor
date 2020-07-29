@@ -52,16 +52,30 @@ export const getOperationsFromQuerystring = () => {
   }
 }
 
-export const writeOptionsToLocalStorage = (options) =>
-  localStorage.setItem('options', JSON.stringify(options))
+export const writeJSONToLocalStorage = (key, value) =>
+  localStorage.setItem(key, JSON.stringify(value))
 
-export const getOptionsFromLocalStorage = () => {
-  const options = localStorage.getItem('options')
-  if (options) {
+export const getJSONFromLocalStorage = (key) => {
+  const value = localStorage.getItem(key)
+  if (value) {
     try {
-      return JSON.parse(options)
+      return JSON.parse(value)
     } catch (ex) {
-      console.warn(`Failed to parse options from local storage: ${options}\nError: ${ex}`)
+      console.warn(`Failed to parse ${key} from local storage: ${value}\nError: ${ex}`)
+    }
+  }
+}
+
+export const writeJSONToSessionStorage = (key, value) =>
+  sessionStorage.setItem(key, JSON.stringify(value))
+
+export const getJSONFromSessionStorage = (key) => {
+  const value = sessionStorage.getItem(key)
+  if (value) {
+    try {
+      return JSON.parse(value)
+    } catch (ex) {
+      console.warn(`Failed to parse ${key} from local storage: ${value}\nError: ${ex}`)
     }
   }
 }
@@ -82,3 +96,6 @@ export const downloadFile = (filename, text) => {
   el.click();
   document.body.removeChild(el);
 }
+
+// get a universally unique identifier
+export const uuid = () => Date.now() + Math.random()

@@ -1,11 +1,13 @@
 import {
   INITIAL_INPUT,
   INITIAL_OPERATION,
-  DEFAULT_OPERATION
+  DEFAULT_OPERATION,
+  DEFAULT_PANES
 } from './constants'
 import {
   getOperationsFromQuerystring,
-  getOptionsFromLocalStorage
+  getJSONFromLocalStorage,
+  getJSONFromSessionStorage
 } from '../utils'
 
 
@@ -23,7 +25,9 @@ export default {
   apiInput: '', // input from which the outputs were generated.
                 // needed for diff b/c there's a delay between input
                 // and receiving API resoponse.
-  outputs: [''], // list of output after each operation is performed
+  // list of outputs after each operation is performed
+  outputs: [],
+  panes: getJSONFromSessionStorage('panes') || DEFAULT_PANES,
   errors: {
     upload: {
       message: null
@@ -40,6 +44,6 @@ export default {
     // default to user's preference for dark mode
     // https://stackoverflow.com/a/57795495
     darkMode: window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches,
-    ...getOptionsFromLocalStorage()
+    ...getJSONFromLocalStorage('options')
   }
 }

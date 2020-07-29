@@ -13,9 +13,12 @@ import {
   SET_OPERATION_ARGS,
   SET_API_INPUT,
   SET_OUTPUTS,
-  SET_OPTIONS,
-  SET_OPTION,
+  SET_PANES,
+  SET_PANE_OPTIONS,
+  SET_OPTIONS
 } from './constants'
+
+import { uuid } from '../utils'
 
 
 export default (state, action) => {
@@ -30,8 +33,7 @@ export default (state, action) => {
     index,
     outputs,
     options,
-    key,
-    value
+    panes,
   } = action
   switch (action.type) {
     case SET_LOADING:
@@ -68,8 +70,9 @@ export default (state, action) => {
         operations: [
           ...state.operations, { ...DEFAULT_OPERATION }
         ],
-        outputs: [
-          ...state.outputs, ''
+        panes: [
+          ...state.panes,
+          { id: uuid() }
         ]
       }
     case INSERT_OPERATION:
@@ -80,10 +83,10 @@ export default (state, action) => {
           { ...DEFAULT_OPERATION },
           ...state.operations.slice(index)
         ],
-        outputs: [
-          ...state.outputs.slice(0, index-1),
-          state.outputs[index-1],
-          ...state.outputs.slice(index-1)
+        panes: [
+          ...state.panes.slice(0, index),
+          { id: uuid() },
+          ...state.panes.slice(index)
         ],
       }
     case REMOVE_OPERATION:
@@ -93,9 +96,9 @@ export default (state, action) => {
           ...state.operations.slice(0, index),
           ...state.operations.slice(index+1)
         ],
-        outputs: [
-          ...state.outputs.slice(0, Math.max(index-1, 0)),
-          ...state.outputs.slice(Math.max(index, 1))
+        panes: [
+          ...state.panes.slice(0, Math.max(index-1, 0)),
+          ...state.panes.slice(Math.max(index, 1))
         ]
       }
     case SET_OPERATION_COMMAND:
@@ -105,9 +108,6 @@ export default (state, action) => {
           ...state.operations.slice(0, index),
           { ...(state.operations[index] || DEFAULT_OPERATION), command },
           ...state.operations.slice(index+1)
-        ],
-        outputs: state.operations[index] ? state.outputs : [
-          ...state.outputs, ''
         ]
       }
     case SET_OPERATION_ARGS:
@@ -117,24 +117,27 @@ export default (state, action) => {
           ...state.operations.slice(0, index),
           { ...(state.operations[index] || DEFAULT_OPERATION), args },
           ...state.operations.slice(index+1)
-        ],
-        outputs: state.operations[index] ? state.outputs : [
-          ...state.outputs, ''
         ]
       }
     case SET_API_INPUT:
       return { ...state, apiInput: input }
     case SET_OUTPUTS:
       return { ...state, outputs }
+    case SET_PANES: 
+      return { ...state, panes }
+    case SET_PANE_OPTIONS:
+      return {
+        ...state,
+        panes: [
+          ...state.panes.slice(0, index),
+          { ...state.panes[index], ...options },
+          ...state.panes.slice(index+1)
+        ]
+      }
     case SET_OPTIONS:
       return {
         ...state,
         options: { ...state.options, ...options }
-      }
-    case SET_OPTION:
-      return {
-        ...state,
-        options: { ...state.options, [key]: value }
       }
     default:
       return state

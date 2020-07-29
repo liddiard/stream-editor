@@ -6,7 +6,7 @@ import { INSERT_OPERATION } from '../context/constants'
 import '../styles/PaneDivider.scss'
 
 
-const PaneDivider = ({ dispatch, index, onDragEnd }) => {
+const PaneDivider = ({ dispatch, index, showAddButton, onCommandAdd, onDragEnd }) => {
   const [dragDistance, setDragDistance] = useState(0)
   const [dragging, setDragging] = useState(false)
   const dragStartX = useRef()
@@ -43,7 +43,14 @@ const PaneDivider = ({ dispatch, index, onDragEnd }) => {
     >
       <button
         data-tip="Add a command"
-        onClick={() => dispatch({ type: INSERT_OPERATION, index })}
+        onMouseDown={() => {
+          // index + 1 to insert an operation AFTER the current element's index
+          dispatch({ type: INSERT_OPERATION, index: index + 1 })
+          if (onCommandAdd) {
+            onCommandAdd()
+          }
+        }}
+        className={showAddButton ? 'show' : ''}
       >
         +
       </button>
@@ -57,6 +64,9 @@ const PaneDivider = ({ dispatch, index, onDragEnd }) => {
 
 PaneDivider.propTypes = {
   dispatch: PropTypes.func.isRequired,
+  index: PropTypes.number.isRequired,
+  showAddButton: PropTypes.bool,
+  onCommandAdd: PropTypes.func,
   onDragEnd: PropTypes.func.isRequired
 }
 

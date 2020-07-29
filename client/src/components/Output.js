@@ -1,7 +1,8 @@
-import React, { useState, useEffect, useMemo } from 'react'
+import React, { useState, useMemo } from 'react'
 import PropTypes from 'prop-types'
 
 import { OptionsConsumer } from '../context'
+import { SET_PANE_OPTIONS } from '../context/constants'
 // eslint-disable-next-line import/no-webpack-loader-syntax
 import worker from 'workerize-loader!../context/worker'
 import { downloadFile } from '../utils'
@@ -11,12 +12,10 @@ import '../styles/Output.scss'
 
 const instance = worker()
 
-const Output = ({ index, input, text, prevText, isError, isLast, operation, options }) => {
+const Output = ({ dispatch, index, input, text, prevText, isError, isLast, operation, showDiff, options }) => {
   const { fontSize, fontStyle, darkMode } = options
   const iconVariant = darkMode ? 'dark' : 'light'
   const inputFromSessionStorage = sessionStorage.getItem('input')
-  // sessionStorage key to store the `showDiff` preference for this output
-  const showDiffStorageKey = `output.showDiff.${index}`
 
   const [copied, setCopied] = useState(false)
   // Show visual diff of changes if:
@@ -24,26 +23,17 @@ const Output = ({ index, input, text, prevText, isError, isLast, operation, opti
   // time the app has been opened this session and the "instructional" input
   // will be shown, which should be shown with a diff; OR the session storage
   // key from a previous load of this page is set to show diff.
-  const [showDiff, setShowDiff] = useState(
-    inputFromSessionStorage === null || 
-    !!sessionStorage.getItem(showDiffStorageKey)
-  )
+  const _showDiff = inputFromSessionStorage === null || showDiff
   // cached diff output
   const [diffOutput, setDiffOutput] = useState(null)
 
-  useEffect(() => {
-    showDiff ?
-      sessionStorage.setItem(showDiffStorageKey, true) :
-      sessionStorage.removeItem(showDiffStorageKey)
-  }, [showDiff, index, showDiffStorageKey])
-
   useMemo(async () => {
-    if (!showDiff) {
+    if (!_showDiff) {
       return
     }
     const html = await instance.generateDiff(prevText, text)
     setDiffOutput(html)
-  }, [prevText, text, showDiff]);
+  }, [prevText, text, _showDiff]);
 
   let output
   if (!input && !text && isLast) {
@@ -51,7 +41,7 @@ const Output = ({ index, input, text, prevText, isError, isLast, operation, opti
       Output will appear here
     </pre>
   }
-  else if (showDiff) {
+  else if (_showDiff) {
     const createMarkup = () => ({ __html: diffOutput })
     output = <pre
       className={fontStyle}
@@ -68,8 +58,17 @@ const Output = ({ index, input, text, prevText, isError, isLast, operation, opti
         <label className="sans show-diff">
           <input
             type="checkbox"
-            checked={showDiff}
-            onChange={() => setShowDiff(!showDiff)}
+            checked={_showDiff}
+            onChange={() =>
+              dispatch({
+                type: SET_PANE_OPTIONS,
+                // `index` here refers to this Output component's `index` prop
+                // output pane indexes, on the other hand, are relatively
+                // offset one ahead because of the input pane that precedes them
+                index: index + 1,
+                options: { showDiff: !_showDiff }
+              })
+            }
           />
           Show diff
         </label>
@@ -113,7 +112,14 @@ Output.propTypes = {
   isError: PropTypes.bool.isRequired,
   isLast: PropTypes.bool.isRequired,
   operation: PropTypes.element,
+  showDiff: PropTypes.bool.isRequired,
   options: PropTypes.object.isRequired,
+}
+
+Output.defaultProps = {
+  text: '',
+  prevText: '',
+  showDiff: false
 }
 
 export default OptionsConsumer(Output)

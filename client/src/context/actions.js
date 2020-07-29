@@ -12,7 +12,7 @@ import {
   SET_COMMANDS,
   SET_API_INPUT,
   SET_INPUT,
-  SET_OUTPUTS,
+  SET_OUTPUTS
 } from './constants'
 
 export const startLoading = (dispatch) =>

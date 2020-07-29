@@ -1,7 +1,7 @@
 import React, { useReducer, useRef, useEffect } from 'react'
 import ReactTooltip from 'react-tooltip';
 
-import { INPUT_DELAY, DEFAULT_OPERATION } from './context/constants'
+import { INPUT_DELAY } from './context/constants'
 import { OptionsContext } from './context'
 import initialState from './context/initialState'
 import reducer from './context/reducer'
@@ -11,12 +11,13 @@ import {
 } from './context/actions'
 import {
   writeOperationsToQuerystring,
-  writeOptionsToLocalStorage,
+  writeJSONToLocalStorage,
+  writeJSONToSessionStorage,
   toggleSyncScrolling,
   rebindSyncScrolling
 } from './utils'
 import Toolbar from './components/Toolbar'
-import IOWrapper from './components/IOWrapper'
+import Pane from './components/Pane'
 import Input from './components/Input'
 import Operation from './components/Operation'
 import Output from './components/Output'
@@ -33,6 +34,7 @@ const App = () => {
     commands,
     input,
     operations,
+    panes,
     outputs,
     apiInput,
     errors,
@@ -46,8 +48,11 @@ const App = () => {
 
   useEffect(() => {
     writeOperationsToQuerystring(operations)
-    ReactTooltip.rebuild()
   }, [operations])
+
+  useEffect(() => {
+    ReactTooltip.rebuild()
+  }, [operations, outputs])
 
   useEffect(() => {
     sessionStorage.setItem('input', input)
@@ -81,10 +86,17 @@ const App = () => {
   }, [loading])
 
   useEffect(() => {
-    writeOptionsToLocalStorage(options)
+    writeJSONToLocalStorage('options', options)
   }, [options])
 
-  const _operations = [...operations, DEFAULT_OPERATION]
+  useEffect(() => {
+    writeJSONToSessionStorage(
+      'panes',
+      panes.map(({ text, ...rest }) => rest)
+    )
+  }, [panes])
+
+  const _operations = operations
   .map((operation, index) =>
     <Operation
       key={index}
@@ -101,16 +113,19 @@ const App = () => {
     />
   )
 
-  const _outputs = outputs
-  .map((output, index) => {
+  const _outputs = panes.slice(1)
+  .map((pane, index) => {
+    const output = outputs[index]
     const isLast = index === outputs.length - 1
     return (
-      <IOWrapper
-        key={index}
+      <Pane
+        key={pane.id}
         dispatch={dispatch}
         index={index+1}
+        width={pane.width}
         // the last pane has a wider minimum because it has more buttons at the top
         minWidth={isLast ? 400 : 240}
+        isLast={isLast}
       >
         <Output
           index={index}
@@ -121,8 +136,9 @@ const App = () => {
           isError={!!errors.operation.message}
           isLast={isLast}
           operation={_operations[index+1]}
+          {...pane}
         />
-      </IOWrapper>
+      </Pane>
     )
   })
 
@@ -133,9 +149,10 @@ const App = () => {
         operations={operations}
       />
       <main>
-        <IOWrapper
+        <Pane
           dispatch={dispatch}
           index={0}
+          width={panes[0].width}
           minWidth={180}
         >
           <Input 
@@ -144,8 +161,9 @@ const App = () => {
             error={errors.upload}
             operation={_operations[0]}
           />
-        </IOWrapper>
+        </Pane>
         {_outputs}
+        <div className="output-spacer" />
       </main>
       <ReactTooltip
         effect="solid"

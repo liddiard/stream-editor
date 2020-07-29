@@ -4,7 +4,6 @@ import PropTypes from 'prop-types'
 import {
   SET_OPERATION_COMMAND,
   SET_OPERATION_ARGS,
-  PUSH_OPERATION,
   REMOVE_OPERATION
 } from '../context/constants'
 import { OptionsConsumer } from '../context'
@@ -13,9 +12,7 @@ import CommandSelect from './CommandSelect'
 import '../styles/Operation.scss'
 
 
-const Operation = ({ dispatch, index, commands, operations, operation, error, options }) => {
-  const placeholder = index === operations.length ? '+ Add a command' : 'arguments'
-
+const Operation = ({ dispatch, index, commands, operations, operation, error }) => {
   // if the pasted args start with a supported command, update the operation's
   // command accordingly and remove it from the args
   // e.g. if your current command is `cat` and you paste "sed s/a/b/", update
@@ -71,10 +68,8 @@ const Operation = ({ dispatch, index, commands, operations, operation, error, op
         type="text"
         name="args"
         value={operation.args}
-        placeholder={placeholder}
+        placeholder="arguments"
         tabIndex={(index*2) + 3}
-        onFocus={() =>
-          index === operations.length ? dispatch({ type: PUSH_OPERATION }) : null}
         onChange={(ev) =>
           dispatch({ type: SET_OPERATION_ARGS, index, args: ev.target.value })
         }

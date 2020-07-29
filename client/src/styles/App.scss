@@ -101,9 +101,7 @@ button {
   height: 100%;
 }
 
-.operations {
-  flex: 0 1 auto;
-  display: flex;
+.output-spacer {
+  width: 10em;
+  flex: none;
 }
-
-@import "responsive";

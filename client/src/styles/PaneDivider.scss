@@ -29,6 +29,10 @@
     @include theme-aware("background-color", "background-primary");
     @include theme-aware("color", "link-default");
     cursor: pointer;
+
+    &.show {
+      display: block;
+    }
   }
 
   .vertical-rule {

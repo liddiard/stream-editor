@@ -107,6 +107,10 @@ $padding: 0.35em;
     }
   }
 
+  .privacy-policy {
+    font-size: 0.9em;
+  }
+
   .expand-arrow {
     display: none;
     font-size: 1.4em;
@@ -116,7 +120,7 @@ $padding: 0.35em;
   }
 }
 
-@media (max-width: 1065px) { // magic number, based on when toolbar items start wrapping to a second line
+@media (max-width: 1155px) { // magic number, based on when toolbar items start wrapping to a second line
   .toolbar {
     padding-right: 2em;
 

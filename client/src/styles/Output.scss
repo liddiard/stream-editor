@@ -20,7 +20,9 @@ del {
 
 .output-container {
   &.error {
-    opacity: 0.5;
+    output {
+      opacity: 0.5;
+    }
   }
 
   .placeholder {

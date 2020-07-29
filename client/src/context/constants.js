@@ -1,3 +1,6 @@
+import { uuid } from '../utils'
+
+
 export const API_ROOT = process.env.NODE_ENV === 'development' ?
   'http://localhost:5000/v1/' :
   'https://api.streameditor.io/v1/'
@@ -20,6 +23,11 @@ export const DEFAULT_OPERATION = {
   command: 'cat',
   args: ''
 }
+
+export const DEFAULT_PANES = [
+  // one pane for input, one for output
+  { id: uuid() }, { id: uuid() }
+]
 
 export const ERROR_GENERIC = {
   message: 'Sorry, an unexpected error occurred.',
@@ -48,5 +56,7 @@ export const SET_OPERATION_ARGS = 'SET_OPERATION_ARGS'
 export const SET_API_INPUT = 'SET_API_INPUT'
 export const SET_OUTPUTS = 'SET_OUTPUTS'
 
+export const SET_PANES = 'SET_PANES'
+export const SET_PANE_OPTIONS = 'SET_PANE_OPTIONS'
+
 export const SET_OPTIONS = 'SET_OPTIONS'
-export const SET_OPTION = 'SET_OPTION'

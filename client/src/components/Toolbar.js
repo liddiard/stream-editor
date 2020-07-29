@@ -3,9 +3,11 @@ import PropTypes from 'prop-types'
 
 import {
   SET_INPUT,
-  SET_OPTION,
+  SET_OPTIONS,
   SET_OPERATIONS,
-  DEFAULT_OPERATION
+  SET_PANES,
+  DEFAULT_OPERATION,
+  DEFAULT_PANES
 } from '../context/constants'
 import { OptionsConsumer } from '../context'
 import { getBashString } from '../utils'
@@ -48,7 +50,8 @@ const Toolbar = ({ dispatch, operations, options }) => {
           const yes = window.confirm(`Clear input and commands (${commands})?`);
           if (yes) {
             dispatch({ type: SET_INPUT, input: '' })
-            dispatch({ type: SET_OPERATIONS, operations: [{ ...DEFAULT_OPERATION }] })
+            dispatch({ type: SET_OPERATIONS, operations: [DEFAULT_OPERATION] })
+            dispatch({ type: SET_PANES, panes: DEFAULT_PANES })
           }
         }}>
         ✕ Clear All
@@ -59,7 +62,10 @@ const Toolbar = ({ dispatch, operations, options }) => {
         type="checkbox"
         checked={syncScroll}
         onChange={(ev) =>
-          dispatch({ type: SET_OPTION, key: 'syncScroll', value: ev.target.checked })
+          dispatch({
+            type: SET_OPTIONS,
+            options: { syncScroll: ev.target.checked }
+          })
         }
       />
       Sync scrolling
@@ -69,7 +75,10 @@ const Toolbar = ({ dispatch, operations, options }) => {
         type="checkbox"
         checked={darkMode}
         onChange={(ev) =>
-          dispatch({ type: SET_OPTION, key: 'darkMode', value: ev.target.checked })
+          dispatch({
+            type: SET_OPTIONS,
+            options: { darkMode: ev.target.checked }
+          })
         }
       />
       Dark mode
@@ -83,7 +92,10 @@ const Toolbar = ({ dispatch, operations, options }) => {
             name="fontSize"
             checked={fontSize === size}
             onChange={() =>
-              dispatch({ type: SET_OPTION, key: 'fontSize', value: size })
+              dispatch({
+                type: SET_OPTIONS,
+                options: { fontSize: size }
+              })
             }
           />
           <img 
@@ -103,7 +115,10 @@ const Toolbar = ({ dispatch, operations, options }) => {
           name="fontStyle" 
           checked={fontStyle === 'mono'}
           onChange={() =>
-            dispatch({ type: SET_OPTION, key: 'fontStyle', value: 'mono' })
+            dispatch({
+              type: SET_OPTIONS,
+              options: { fontStyle: 'mono' }
+            })
           }
         />
         Monospace
@@ -114,7 +129,10 @@ const Toolbar = ({ dispatch, operations, options }) => {
           name="fontStyle"
           checked={fontStyle === 'sans'}
           onChange={() =>
-            dispatch({ type: SET_OPTION, key: 'fontStyle', value: 'sans' })
+            dispatch({
+              type: SET_OPTIONS,
+              options: { fontStyle: 'sans' }
+            })
           }
         />
         Sans-serif
@@ -128,6 +146,13 @@ const Toolbar = ({ dispatch, operations, options }) => {
       data-tip="Stream Editor on GitHub"
     >
       <img src={`/img/github-${iconVariant}.svg`} alt="GitHub icon" />
+    </a>
+    <a
+      className="privacy-policy"
+      href="/privacy-policy"
+      target="_blank"
+    >
+      Privacy Policy
     </a>
     <button
       className="expand-arrow"
