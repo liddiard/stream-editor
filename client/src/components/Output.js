@@ -15,25 +15,18 @@ const instance = worker()
 const Output = ({ dispatch, index, input, text, prevText, isError, isLast, operation, showDiff, options }) => {
   const { fontSize, fontStyle, darkMode } = options
   const iconVariant = darkMode ? 'dark' : 'light'
-  const inputFromSessionStorage = sessionStorage.getItem('input')
 
   const [copied, setCopied] = useState(false)
-  // Show visual diff of changes if:
-  // There is no input in session storage, indicating that this is the first
-  // time the app has been opened this session and the "instructional" input
-  // will be shown, which should be shown with a diff; OR the session storage
-  // key from a previous load of this page is set to show diff.
-  const _showDiff = inputFromSessionStorage === null || showDiff
   // cached diff output
   const [diffOutput, setDiffOutput] = useState(null)
 
   useMemo(async () => {
-    if (!_showDiff) {
+    if (!showDiff) {
       return
     }
     const html = await instance.generateDiff(prevText, text)
     setDiffOutput(html)
-  }, [prevText, text, _showDiff]);
+  }, [prevText, text, showDiff]);
 
   let output
   if (!input && !text && isLast) {
@@ -41,7 +34,7 @@ const Output = ({ dispatch, index, input, text, prevText, isError, isLast, opera
       Output will appear here
     </pre>
   }
-  else if (_showDiff) {
+  else if (showDiff) {
     const createMarkup = () => ({ __html: diffOutput })
     output = <pre
       className={fontStyle}
@@ -58,7 +51,7 @@ const Output = ({ dispatch, index, input, text, prevText, isError, isLast, opera
         <label className="sans show-diff">
           <input
             type="checkbox"
-            checked={_showDiff}
+            checked={showDiff}
             onChange={() =>
               dispatch({
                 type: SET_PANE_OPTIONS,
@@ -66,7 +59,7 @@ const Output = ({ dispatch, index, input, text, prevText, isError, isLast, opera
                 // output pane indexes, on the other hand, are relatively
                 // offset one ahead because of the input pane that precedes them
                 index: index + 1,
-                options: { showDiff: !_showDiff }
+                options: { showDiff: !showDiff }
               })
             }
           />
@@ -119,6 +112,10 @@ Output.propTypes = {
 Output.defaultProps = {
   text: '',
   prevText: '',
+  // Show visual diff of changes if there is no input in session storage,
+  // indicating that this is the first time the app has been opened this
+  // session and the "instructional" input will be shown, which should be
+  // shown with a diff
   showDiff: false
 }
 

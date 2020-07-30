@@ -11,11 +11,13 @@ export const MAX_OPERATIONS = 16 // should match server-side constant of the sam
 
 export const INITIAL_INPUT = `Welcome to Stream Editor, a tool for interactively writing and chaining command-line text manipulation utilities.
 
-This pane contains your input. Modify it with the command below, and see its output change to the right.`
+This pane contains your input. It's being modified by the \`sed\` command below ↓ into the output on the right →
+
+Chain another command by clicking the (+) sign to the right of the output pane.`
 
 export const INITIAL_OPERATION = {
   command: 'sed',
-  args: '\'s/input/output/; s/ it/& further/; s/change/appear/\''
+  args: 's/input.*/output./'
 }
 
 export const DEFAULT_OPERATION = {
@@ -26,7 +28,13 @@ export const DEFAULT_OPERATION = {
 
 export const DEFAULT_PANES = [
   // one pane for input, one for output
-  { id: uuid() }, { id: uuid() }
+  {
+    id: uuid()
+  },
+  {
+    id: uuid(),
+    showDiff: true // default first output pane to showing diff
+  }
 ]
 
 export const ERROR_GENERIC = {
