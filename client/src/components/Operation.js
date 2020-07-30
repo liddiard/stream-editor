@@ -10,6 +10,7 @@ import { OptionsConsumer } from '../context'
 import CommandSelect from './CommandSelect'
 
 import '../styles/Operation.scss'
+import ReactTooltip from 'react-tooltip'
 
 
 const Operation = ({ dispatch, index, commands, operations, operation, error }) => {
@@ -42,7 +43,11 @@ const Operation = ({ dispatch, index, commands, operations, operation, error }) 
     <button
       className="remove-operation"
       data-tip="Remove command"
-      onClick={() => dispatch({ type: REMOVE_OPERATION, index })}
+      onClick={() => {
+        dispatch({ type: REMOVE_OPERATION, index })
+        // hide the "Remove command" tooltip
+        ReactTooltip.hide()
+      }}
     >
       ✕
     </button>

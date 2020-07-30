@@ -1,6 +1,6 @@
 // get an array of the elements upon which synced scrolling should operate
 const getScrollElements = () =>
-  document.querySelectorAll('.io-container textarea, .io-container output')
+  document.querySelectorAll('.io textarea, .io output')
 
 // scroll all scrollElements to the scrollTop specified on event.target
 // with the exception of event.target (to prevent an infinite set/get)

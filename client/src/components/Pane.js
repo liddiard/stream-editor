@@ -26,7 +26,7 @@ const Pane = ({ dispatch, index, isLast, width, minWidth, children }) => {
       index,
       options: { width: Math.max(_width + dragDistance, minWidth) }
     })
-  }, [width, minWidth])
+  }, [dispatch, index, width, minWidth])
 
   return (
     <div

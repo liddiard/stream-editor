@@ -25,8 +25,7 @@ export default {
   apiInput: '', // input from which the outputs were generated.
                 // needed for diff b/c there's a delay between input
                 // and receiving API resoponse.
-  // list of outputs after each operation is performed
-  outputs: [],
+  outputs: [],  // list of outputs after each operation is performed
   panes: getJSONFromSessionStorage('panes') || DEFAULT_PANES,
   errors: {
     upload: {

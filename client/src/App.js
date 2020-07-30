@@ -71,7 +71,7 @@ const App = () => {
     toggleSyncScrolling(syncScroll)
   }, [syncScroll])
 
-  useEffect(() => rebindSyncScrolling, [outputs.length])
+  useEffect(() => rebindSyncScrolling, [panes.length])
 
   useEffect(() => {
     const { classList } = document.documentElement
@@ -121,6 +121,7 @@ const App = () => {
       <Pane
         key={pane.id}
         dispatch={dispatch}
+        // index + 1 because we're slicing off the first pane above (input pane)
         index={index+1}
         width={pane.width}
         // the last pane has a wider minimum because it has more buttons at the top
