@@ -157,7 +157,7 @@ const Toolbar = ({ dispatch, operations, options }) => {
     </a>
     <button
       className="expand-arrow"
-      data-tip={expanded ? 'Collapse toolbar' : 'More options'}
+      data-tip={expanded ? 'Collapse toolbar' : 'Expand toolbar'}
       onClick={() => setExpanded(!expanded)}
     >
       {expanded ? '«' : '»'}

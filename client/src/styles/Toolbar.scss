@@ -24,6 +24,7 @@ $padding: 0.35em;
   align-items: center;
   line-height: 1.5;
   height: $TOOLBAR_HEIGHT;
+  overflow: hidden;
 
   &.expanded {
     height: auto;
@@ -120,7 +121,7 @@ $padding: 0.35em;
   }
 }
 
-@media (max-width: 1155px) { // magic number, based on when toolbar items start wrapping to a second line
+@media (max-width: 1120px) { // magic number, based on when toolbar items start wrapping to a second line
   .toolbar {
     padding-right: 2em;
 
