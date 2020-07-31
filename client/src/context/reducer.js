@@ -93,12 +93,17 @@ export default (state, action) => {
       return { 
         ...state,
         operations: [
+          // removes the operation at `index`
           ...state.operations.slice(0, index),
           ...state.operations.slice(index+1)
         ],
         panes: [
-          ...state.panes.slice(0, Math.max(index-1, 0)),
-          ...state.panes.slice(Math.max(index, 1))
+          // Removes the pane at `index+1` because e.g. if we remove the
+          // operation at index 0, its output is in the pane at index 1.
+          // We never want to remove the pane at index 0 because that's the
+          // input pane.
+          ...state.panes.slice(0, index+1),
+          ...state.panes.slice(index+2)
         ]
       }
     case SET_OPERATION_COMMAND:

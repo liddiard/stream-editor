@@ -7,7 +7,7 @@ import PaneDivider from './PaneDivider'
 import '../styles/Pane.scss'
 
 
-const Pane = ({ dispatch, index, isLast, width, minWidth, children }) => {
+const Pane = ({ dispatch, index, isLast, pulseAddButton, width, minWidth, children }) => {
   const componentRef = useRef()
 
   const handleCommandAdd = useCallback(() => {
@@ -40,6 +40,7 @@ const Pane = ({ dispatch, index, isLast, width, minWidth, children }) => {
         onCommandAdd={handleCommandAdd}
         onDragEnd={handleDragEnd}
         showAddButton={isLast}
+        pulseAddButton={pulseAddButton}
       />
       {children}
     </div>
@@ -50,6 +51,7 @@ Pane.propTypes = {
   dispatch: PropTypes.func.isRequired,
   index: PropTypes.number.isRequired,
   isLast: PropTypes.bool,
+  pulseAddButton: PropTypes.bool,
   width: PropTypes.number,
   minWidth: PropTypes.number.isRequired,
   children: PropTypes.node.isRequired

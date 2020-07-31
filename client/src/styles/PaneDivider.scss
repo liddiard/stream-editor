@@ -1,5 +1,19 @@
 @import "constants";
 
+$button-translate: translate(-50%, -50%);
+
+@keyframes pulse {
+  from {
+    transform: $button-translate scale(1);
+  }
+  50% {
+    transform: $button-translate scale(1.2);
+  }
+  to {
+    transform: $button-translate scale(1);
+  }
+}
+
 .pane-divider {
   position: absolute;
   height: 100%;
@@ -19,7 +33,7 @@
     top: 50%;
     left: 50%;
     position: absolute;
-    transform: translate(-50%, -50%);
+    transform: $button-translate;
     display: none;
     border-radius: 50%;
     width: 1.5em;
@@ -32,6 +46,10 @@
 
     &.show {
       display: block;
+    }
+
+    &.pulsing {
+      animation: pulse 1s ease-in-out infinite;
     }
   }
 

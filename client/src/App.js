@@ -1,7 +1,8 @@
 import React, { useReducer, useRef, useEffect } from 'react'
 import ReactTooltip from 'react-tooltip';
+import isEqual from 'lodash/isEqual'
 
-import { INPUT_DELAY } from './context/constants'
+import { INPUT_DELAY, INITIAL_OPERATION } from './context/constants'
 import { OptionsContext } from './context'
 import initialState from './context/initialState'
 import reducer from './context/reducer'
@@ -117,6 +118,14 @@ const App = () => {
   .map((pane, index) => {
     const output = outputs[index]
     const isLast = index === outputs.length - 1
+    // pulse the add button, giving a visual indication of what we want the
+    // user to click, if this is the last output pane and the app is in a 
+    // state with its initial panes and operation
+    const pulseAddButton = (
+      isLast &&
+      panes.length === 2 &&
+      isEqual(operations[0], INITIAL_OPERATION)
+    )
     return (
       <Pane
         key={pane.id}
@@ -127,6 +136,7 @@ const App = () => {
         // the last pane has a wider minimum because it has more buttons at the top
         minWidth={isLast ? 400 : 240}
         isLast={isLast}
+        pulseAddButton={pulseAddButton}
       >
         <Output
           index={index}

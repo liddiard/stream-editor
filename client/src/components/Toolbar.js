@@ -150,9 +150,10 @@ const Toolbar = ({ dispatch, operations, options }) => {
     <a
       className="privacy-policy"
       href="/privacy-policy"
+      title="Privacy policy"
       target="_blank"
     >
-      Privacy Policy
+      Privacy
     </a>
     <button
       className="expand-arrow"
