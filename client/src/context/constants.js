@@ -13,7 +13,7 @@ export const INITIAL_INPUT = `Welcome to Stream Editor, a tool for interactively
 
 This pane contains your input. It's being modified by the \`sed\` command below ↓ into the output on the right →
 
-Chain another command by clicking the (+) sign to the right of the output pane.`
+Chain another command by clicking the (+) button to the right of the output pane.`
 
 export const INITIAL_OPERATION = {
   command: 'sed',

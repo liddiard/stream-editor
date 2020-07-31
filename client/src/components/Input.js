@@ -22,6 +22,9 @@ const Input = ({ dispatch, text, maxLength, error, operation, options }) => {
     if (text) { // if existing input, confirm before replacing
       const yes = window.confirm(`Replace current input with the contents of “${file.name}”?`)
       if (!yes) {
+        // reset the file input so if the user tries to upload the same file
+        // again, this onChange handler will still run again
+        fileInput.current.value = null
         return
       }
     }

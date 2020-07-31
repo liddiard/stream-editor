@@ -71,7 +71,7 @@ export const uploadFile = async (dispatch, file) => {
   if (file.size > MAX_INPUT_LENGTH) {
     return dispatch({
       type: SET_UPLOAD_ERROR,
-      error: 'File exceeds maximum allowed size of 1 MB.'
+      error: 'File exceeds max size of 1 MB.'
     })
   }
   startLoading(dispatch)
