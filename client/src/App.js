@@ -134,7 +134,7 @@ const App = () => {
         index={index+1}
         width={pane.width}
         // the last pane has a wider minimum because it has more buttons at the top
-        minWidth={isLast ? 400 : 240}
+        minWidth={isLast ? 410 : 250}
         isLast={isLast}
         pulseAddButton={pulseAddButton}
       >
