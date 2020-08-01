@@ -75,6 +75,8 @@ output {
 }
 
 button {  
+  font-family: $SANS;
+  
   &:hover {
     filter: brightness(110%) contrast(150%);
   }

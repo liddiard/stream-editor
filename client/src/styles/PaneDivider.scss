@@ -29,6 +29,10 @@ $button-translate: translate(-50%, -50%);
   }
 
   button {
+    // the sans-serif typeface the rest of the buttons use has vertical
+    // alignment issues for this button for some reason, so we'll stick with
+    // the system default
+    font-family: inherit;
     font-size: 1.5em;
     top: 50%;
     left: 50%;
