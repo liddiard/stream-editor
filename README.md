@@ -71,7 +71,7 @@ If your bug **does not** involve any security concerns, please report it on [Git
 These are primarily for my personal reference.
 
 ```shell
-JAIL_PATH='/root/jail' gunicorn --name stream-editor server:app
+JAIL_PATH=/root/jail gunicorn --name stream-editor server:app
 ```
 
 ```shell
