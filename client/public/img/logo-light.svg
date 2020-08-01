@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="128px" height="128px" viewBox="0 0 128 128" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="128px" height="100px" viewBox="0 0 128 100" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <!-- Generator: Sketch 52.6 (67491) - http://www.bohemiancoding.com/sketch -->
     <title>logo-light</title>
     <desc>Created with Sketch.</desc>
@@ -67,35 +67,37 @@
             <feColorMatrix values="0 0 0 0 0   0 0 0 0 0.458823529   0 0 0 0 1  0 0 0 0.4 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
         </filter>
     </defs>
-    <g id="logo-light" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="terminal-window">
-            <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"></use>
-            <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
-            <path stroke-opacity="0.67" stroke="#0075FF" stroke-width="4" d="M15.3833112,17 C10.8083409,17 8.9751953,17.3539967 7.0821235,18.3664226 C5.47510489,19.2258656 4.22586558,20.4751049 3.36642262,22.0821235 C2.35399674,23.9751953 2,25.8083409 2,30.3833112 L2,99.6166888 C2,104.191659 2.35399674,106.024805 3.36642262,107.917877 C4.22586558,109.524895 5.47510489,110.774134 7.0821235,111.633577 C8.9751953,112.646003 10.8083409,113 15.3833112,113 L111.616689,113 C116.191659,113 118.024805,112.646003 119.917877,111.633577 C121.524895,110.774134 122.774134,109.524895 123.633577,107.917877 C124.646003,106.024805 125,104.191659 125,99.6166888 L125,30.3833112 C125,25.8083409 124.646003,23.9751953 123.633577,22.0821235 C122.774134,20.4751049 121.524895,19.2258656 119.917877,18.3664226 C118.024805,17.3539967 116.191659,17 111.616689,17 L15.3833112,17 Z" stroke-linejoin="square"></path>
-        </g>
-        <g id="right-caret">
-            <use fill="black" fill-opacity="1" filter="url(#filter-4)" xlink:href="#path-3"></use>
-            <use fill-opacity="0.67" fill="#0075FF" fill-rule="evenodd" xlink:href="#path-3"></use>
-        </g>
-        <g id="underscore">
-            <use fill="black" fill-opacity="1" filter="url(#filter-6)" xlink:href="#path-5"></use>
-            <use fill="#0075FF" fill-rule="evenodd" xlink:href="#path-5"></use>
-        </g>
-        <g id="s">
-            <use fill="black" fill-opacity="1" filter="url(#filter-8)" xlink:href="#path-7"></use>
-            <use fill="#0075FF" fill-rule="evenodd" xlink:href="#path-7"></use>
-        </g>
-        <g id="slash-1">
-            <use fill="black" fill-opacity="1" filter="url(#filter-10)" xlink:href="#path-9"></use>
-            <use fill-opacity="0.67" fill="#0075FF" fill-rule="evenodd" xlink:href="#path-9"></use>
-        </g>
-        <g id="e">
-            <use fill="black" fill-opacity="1" filter="url(#filter-12)" xlink:href="#path-11"></use>
-            <use fill="#0075FF" fill-rule="evenodd" xlink:href="#path-11"></use>
-        </g>
-        <g id="slash-2">
-            <use fill="black" fill-opacity="1" filter="url(#filter-14)" xlink:href="#path-13"></use>
-            <use fill-opacity="0.67" fill="#0075FF" fill-rule="evenodd" xlink:href="#path-13"></use>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="logo-light" transform="translate(0.000000, -15.000000)">
+            <g id="terminal-window">
+                <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"></use>
+                <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                <path stroke-opacity="0.67" stroke="#0075FF" stroke-width="4" d="M15.3833112,17 C10.8083409,17 8.9751953,17.3539967 7.0821235,18.3664226 C5.47510489,19.2258656 4.22586558,20.4751049 3.36642262,22.0821235 C2.35399674,23.9751953 2,25.8083409 2,30.3833112 L2,99.6166888 C2,104.191659 2.35399674,106.024805 3.36642262,107.917877 C4.22586558,109.524895 5.47510489,110.774134 7.0821235,111.633577 C8.9751953,112.646003 10.8083409,113 15.3833112,113 L111.616689,113 C116.191659,113 118.024805,112.646003 119.917877,111.633577 C121.524895,110.774134 122.774134,109.524895 123.633577,107.917877 C124.646003,106.024805 125,104.191659 125,99.6166888 L125,30.3833112 C125,25.8083409 124.646003,23.9751953 123.633577,22.0821235 C122.774134,20.4751049 121.524895,19.2258656 119.917877,18.3664226 C118.024805,17.3539967 116.191659,17 111.616689,17 L15.3833112,17 Z" stroke-linejoin="square"></path>
+            </g>
+            <g id="right-caret">
+                <use fill="black" fill-opacity="1" filter="url(#filter-4)" xlink:href="#path-3"></use>
+                <use fill-opacity="0.67" fill="#0075FF" fill-rule="evenodd" xlink:href="#path-3"></use>
+            </g>
+            <g id="underscore">
+                <use fill="black" fill-opacity="1" filter="url(#filter-6)" xlink:href="#path-5"></use>
+                <use fill="#0075FF" fill-rule="evenodd" xlink:href="#path-5"></use>
+            </g>
+            <g id="s">
+                <use fill="black" fill-opacity="1" filter="url(#filter-8)" xlink:href="#path-7"></use>
+                <use fill="#0075FF" fill-rule="evenodd" xlink:href="#path-7"></use>
+            </g>
+            <g id="slash-1">
+                <use fill="black" fill-opacity="1" filter="url(#filter-10)" xlink:href="#path-9"></use>
+                <use fill-opacity="0.67" fill="#0075FF" fill-rule="evenodd" xlink:href="#path-9"></use>
+            </g>
+            <g id="e">
+                <use fill="black" fill-opacity="1" filter="url(#filter-12)" xlink:href="#path-11"></use>
+                <use fill="#0075FF" fill-rule="evenodd" xlink:href="#path-11"></use>
+            </g>
+            <g id="slash-2">
+                <use fill="black" fill-opacity="1" filter="url(#filter-14)" xlink:href="#path-13"></use>
+                <use fill-opacity="0.67" fill="#0075FF" fill-rule="evenodd" xlink:href="#path-13"></use>
+            </g>
         </g>
     </g>
 </svg>
