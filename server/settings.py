@@ -68,8 +68,13 @@ if IS_DEV:
 else:
     ALLOWED_ORIGIN = 'https://streameditor.io'
 
+## flask-compress options
+## https://github.com/colour-science/flask-compress#options
+COMPRESS_ALGORITHM = 'br' # Brotli compression is good for text
+
 # https://flask-limiter.readthedocs.io/
 RATELIMIT_RULES = ['1000 per day', '500 per hour']
+
 
 ## COMMAND EXECUTION
 

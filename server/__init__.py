@@ -3,10 +3,11 @@ from logging.config import dictConfig
 
 from flask import Flask, jsonify
 from flask_cors import CORS
+from flask_compress import Compress
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 
-from .settings import LOGGING_CONFIG, IS_DEV, ALLOWED_ORIGIN, RATELIMIT_RULES
+from .settings import LOGGING_CONFIG, IS_DEV, ALLOWED_ORIGIN, RATELIMIT_RULES, COMPRESS_ALGORITHM
 
 
 dictConfig(LOGGING_CONFIG)
@@ -20,6 +21,11 @@ if IS_DEV:
 
 # https://flask-cors.readthedocs.io/
 CORS(app, origins=ALLOWED_ORIGIN)
+
+# compress responses
+# https://github.com/colour-science/flask-compress
+app.config['COMPRESS_ALGORITHM'] = COMPRESS_ALGORITHM
+Compress(app)
 
 # https://flask-limiter.readthedocs.io/
 limiter = Limiter(
