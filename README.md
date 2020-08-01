@@ -64,12 +64,13 @@ If your bug **does not** involve any security concerns, please report it on [Git
 
 ### Instructions
 
-1. clone the repo
-2. (optional but recommended) [set up a virtual environment](https://docs.python.org/3/tutorial/venv.html) for the project, and activate it
-3. `pip3 install -r requirements.txt`
-4. `FLASK_ENV=development python3 dev_server.py`
-5. `cd client`
-6. `npm install && npm start`
+1. Clone the repo.
+2. (optional but recommended) [Set up a Python 3 virtual environment](https://docs.python.org/3/tutorial/venv.html) for the project, and activate it.
+3. Install the server dependencies: `pip3 install -r requirements.txt`
+4. Start the Flask development server: `FLASK_ENV=development python3 dev_server.py`
+5. Change to the client directory: `cd client`
+6. Install the client dependencies: `npm install`
+7. Start the client-side development server: `npm start`
 
 ## Notes for server deployment
 
