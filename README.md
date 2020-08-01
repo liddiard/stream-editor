@@ -56,8 +56,9 @@ If your bug **does not** involve any security concerns, please report it on [Git
 
 ### System requirements / prerequisites
 
-- MacOS or Linux (sorry, these commands are not all available on Windows)
-- Python 3.7+
+- MacOS or Linux (sorry, the text editing commands are not all available on Windows, though you *may* be able to get it to work with some effort in a Cygwin-type environment)
+- Python 3.7+ w/ pip 3+
+- Node.js 10+ w/ NPM 6+
 
 ### Instructions
 
