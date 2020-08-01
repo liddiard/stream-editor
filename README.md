@@ -36,7 +36,7 @@ security [at] streameditor [dot] io
 
 Please privately email me instead of posting about it publicy on GitHub Issues or elsewhere, and please include your steps to reproduce.
 
-The way Stream Editor is set up at [streameditor.io](https://streameditor.io) is intended to prevent:
+The way Stream Editor is set up at [streameditor.io](https://streameditor.io) is intended to **prevent**:
 
 - arbitrary command execution
 - writing files to the server
