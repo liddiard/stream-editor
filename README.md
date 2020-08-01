@@ -71,14 +71,23 @@ If your bug **does not** involve any security concerns, please report it on [Git
 5. `cd client`
 6. `npm install && npm start`
 
-## What to run on the deployed server
+## Notes for server deployment
 
-These are primarily for my personal reference.
+**Note:** This isn't a comprehensive guide; this section is intended mainly for my personal reference.
+
+- server is running with [gunicorn](https://gunicorn.org/):
 
 ```shell
 JAIL_PATH=/root/jail gunicorn --name stream-editor server:app
 ```
 
+- and with nginx (command to run on the server to see its logs):
+
 ```shell
 cd /var/log/nginx; tail -f access.log error.log
 ```
+
+- chroot jail is configured with [Jailkit](https://olivier.sessink.nl/jailkit/)
+- after Jailkit is installed (you have to build it from source), the script in `scripts/create_jail.sh` is supposed to do all the setup for the jail
+- the man pages generated in `client/public/manpages/` are specific to the versions running on whatever machine you're using
+- generate new man pages with the script in `scripts/generate_man_html.sh`. I did a lot of massaging of its output with regex find-and-replacing.
