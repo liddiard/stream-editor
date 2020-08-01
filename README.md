@@ -18,7 +18,7 @@ Stream Editor provides an accessible web interface that dynamicalaly updates out
 
 ![Stream Editor screenshot](screenshots/unicode.png)
 
-### Stream Editor being used to analyze its own logs, examining the effect of chaining multiple commands together at each step
+### Stream Editor being used to analyze its own logs, showing the effects of multiple commands chained together
 
 ![Stream Editor screenshot](screenshots/chain.png)
 
