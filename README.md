@@ -87,7 +87,7 @@ JAIL_PATH=/root/jail gunicorn --name stream-editor server:app
 cd /var/log/nginx; tail -f access.log error.log
 ```
 
-- chroot jail is configured with [Jailkit](https://olivier.sessink.nl/jailkit/)
+- chroot jail is configured with [Jailkit](https://olivier.sessink.nl/jailkit/); [this post](http://www.mattheakis.com/blog/view.php?name=setting_up_a_jail_to_safely_execute_code) was a useful reference
 - after Jailkit is installed (you have to build it from source), the script in `scripts/create_jail.sh` is supposed to do all the setup for the jail
 - the man pages generated in `client/public/manpages/` are specific to the versions running on whatever machine you're using
 - generate new man pages with the script in `scripts/generate_man_html.sh`. I did a lot of massaging of its output with regex find-and-replacing.
