@@ -1,4 +1,4 @@
-<strong><em>Found a bug? [See info below on reporting it.](#reporting-bugs)</em></strong>
+<strong><em>Found a bug? [See info below on how to report it.](#reporting-bugs)</em></strong>
 
 # <img src="https://github.com/liddiard/stream-editor/blob/master/client/public/img/logo-light.svg?raw=true" height="36" alt="Stream Editor logo" /> Stream Editor | [streameditor.io](https://streameditor.io/)
 
