@@ -1,0 +1,122 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML><HEAD><TITLE>Man page for UNIQ</TITLE>
+<link rel="stylesheet" type="text/css" href="style.css" /><script src="init.js"></script>
+</HEAD><BODY>
+<H1>UNIQ</H1>
+Section: User Commands (1)<BR>Updated: January 2018<BR><A HREF="#index">Index</A>
+<HR>
+
+
+<a name="lbAB">&nbsp;</a>
+<H2>NAME</H2>
+
+uniq - report or omit repeated lines
+<A NAME="lbAC">&nbsp;</A>
+<H2>SYNOPSIS</H2>
+
+<B>uniq</B>
+
+[<I>,OPTION/</I>]... [<I>,INPUT /</I>[<I>,OUTPUT/</I>]]
+<A NAME="lbAD">&nbsp;</A>
+<H2>DESCRIPTION</H2>
+
+
+<P>
+
+Filter adjacent matching lines from INPUT (or standard input),
+writing to OUTPUT (or standard output).
+<P>
+
+With no options, matching lines are merged to the first occurrence.
+<P>
+
+Mandatory arguments to long options are mandatory for short options too.
+<DL COMPACT>
+<DT><B>-c</B>, <B>--count</B><DD>
+prefix lines by the number of occurrences
+<DT><B>-d</B>, <B>--repeated</B><DD>
+only print duplicate lines, one for each group
+<DT><B>-D</B><DD>
+print all duplicate lines
+<DT><B>--all-repeated</B>[=<I>,METHOD/</I>]<DD>
+like <B>-D</B>, but allow separating groups
+with an empty line;
+METHOD={none(default),prepend,separate}
+<DT><B>-f</B>, <B>--skip-fields</B>=<I>,N/</I><DD>
+avoid comparing the first N fields
+<DT><B>--group</B>[=<I>,METHOD/</I>]<DD>
+show all items, separating groups with an empty line;
+METHOD={separate(default),prepend,append,both}
+<DT><B>-i</B>, <B>--ignore-case</B><DD>
+ignore differences in case when comparing
+<DT><B>-s</B>, <B>--skip-chars</B>=<I>,N/</I><DD>
+avoid comparing the first N characters
+<DT><B>-u</B>, <B>--unique</B><DD>
+only print unique lines
+<DT><B>-z</B>, <B>--zero-terminated</B><DD>
+line delimiter is NUL, not newline
+<DT><B>-w</B>, <B>--check-chars</B>=<I>,N/</I><DD>
+compare no more than N characters in lines
+<DT><B>--help</B><DD>
+display this help and exit
+<DT><B>--version</B><DD>
+output version information and exit
+</DL>
+<P>
+
+A field is a run of blanks (usually spaces and/or TABs), then non-blank
+characters.  Fields are skipped before chars.
+<P>
+
+Note: 'uniq' does not detect repeated lines unless they are adjacent.
+You may want to sort the input first, or use 'sort <B>-u</B>' without 'uniq'.
+Also, comparisons honor the rules specified by 'LC_COLLATE'.
+<A NAME="lbAE">&nbsp;</A>
+<H2>AUTHOR</H2>
+
+Written by Richard M. Stallman and David MacKenzie.
+<A NAME="lbAF">&nbsp;</A>
+<H2>REPORTING BUGS</H2>
+
+GNU coreutils online help: &lt;<A HREF="http://www.gnu.org/software/coreutils/">http://www.gnu.org/software/coreutils/</A>&gt;
+<BR>
+
+Report uniq translation bugs to &lt;<A HREF="http://translationproject.org/team/">http://translationproject.org/team/</A>&gt;
+<A NAME="lbAG">&nbsp;</A>
+<H2>COPYRIGHT</H2>
+
+Copyright &#169; 2017 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later &lt;<A HREF="http://gnu.org/licenses/gpl.html">http://gnu.org/licenses/gpl.html</A>&gt;.
+<BR>
+
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+<A NAME="lbAH">&nbsp;</A>
+<H2>SEE ALSO</H2>
+
+<A HREF="/cgi-bin/man/man2html?1+comm">comm</A>(1), <A HREF="/cgi-bin/man/man2html?1+join">join</A>(1), <A HREF="/cgi-bin/man/man2html?1+sort">sort</A>(1)
+<P>
+
+<BR>
+
+Full documentation at: &lt;<A HREF="http://www.gnu.org/software/coreutils/uniq">http://www.gnu.org/software/coreutils/uniq</A>&gt;
+<BR>
+
+or available locally via: info '(coreutils) uniq invocation'
+<P>
+
+<HR>
+<A NAME="index">&nbsp;</A><H2>Index</H2>
+<DL>
+<DT><A HREF="#lbAB">NAME</A><DD>
+<DT><A HREF="#lbAC">SYNOPSIS</A><DD>
+<DT><A HREF="#lbAD">DESCRIPTION</A><DD>
+<DT><A HREF="#lbAE">AUTHOR</A><DD>
+<DT><A HREF="#lbAF">REPORTING BUGS</A><DD>
+<DT><A HREF="#lbAG">COPYRIGHT</A><DD>
+<DT><A HREF="#lbAH">SEE ALSO</A><DD>
+</DL>
+<HR>
+
+</BODY>
+</HTML>

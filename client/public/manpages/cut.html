@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML><HEAD><TITLE>Man page for CUT</TITLE>
+<link rel="stylesheet" type="text/css" href="style.css" /><script src="init.js"></script>
+</HEAD><BODY>
+<H1>CUT</H1>
+Section: User Commands (1)<BR>Updated: January 2018<BR><A HREF="#index">Index</A>
+<HR>
+
+
+<a name="lbAB">&nbsp;</a>
+<H2>NAME</H2>
+
+cut - remove sections from each line of files
+<A NAME="lbAC">&nbsp;</A>
+<H2>SYNOPSIS</H2>
+
+<B>cut</B>
+
+<I>,OPTION/</I>... [<I>,FILE/</I>]...
+<A NAME="lbAD">&nbsp;</A>
+<H2>DESCRIPTION</H2>
+
+
+<P>
+
+Print selected parts of lines from each FILE to standard output.
+<P>
+
+With no FILE, or when FILE is -, read standard input.
+<P>
+
+Mandatory arguments to long options are mandatory for short options too.
+<DL COMPACT>
+<DT><B>-b</B>, <B>--bytes</B>=<I>,LIST/</I><DD>
+select only these bytes
+<DT><B>-c</B>, <B>--characters</B>=<I>,LIST/</I><DD>
+select only these characters
+<DT><B>-d</B>, <B>--delimiter</B>=<I>,DELIM/</I><DD>
+use DELIM instead of TAB for field delimiter
+<DT><B>-f</B>, <B>--fields</B>=<I>,LIST/</I><DD>
+select only these fields;  also print any line
+that contains no delimiter character, unless
+the <B>-s</B> option is specified
+<DT><B>-n</B><DD>
+(ignored)
+<DT><B>--complement</B><DD>
+complement the set of selected bytes, characters
+or fields
+<DT><B>-s</B>, <B>--only-delimited</B><DD>
+do not print lines not containing delimiters
+<DT><B>--output-delimiter</B>=<I>,STRING/</I><DD>
+use STRING as the output delimiter
+the default is to use the input delimiter
+<DT><B>-z</B>, <B>--zero-terminated</B><DD>
+line delimiter is NUL, not newline
+<DT><B>--help</B><DD>
+display this help and exit
+<DT><B>--version</B><DD>
+output version information and exit
+</DL>
+<P>
+
+Use one, and only one of <B>-b</B>, <B>-c</B> or <B>-f</B>.  Each LIST is made up of one
+range, or many ranges separated by commas.  Selected input is written
+in the same order that it is read, and is written exactly once.
+Each range is one of:
+<DL COMPACT>
+<DT>N<DD>
+N'th byte, character or field, counted from 1
+<DT>N-<DD>
+from N'th byte, character or field, to end of line
+<DT>N-M<DD>
+from N'th to M'th (included) byte, character or field
+<DT><B>-M</B><DD>
+from first to M'th (included) byte, character or field
+</DL>
+<A NAME="lbAE">&nbsp;</A>
+<H2>AUTHOR</H2>
+
+Written by David M. Ihnat, David MacKenzie, and Jim Meyering.
+<A NAME="lbAF">&nbsp;</A>
+<H2>REPORTING BUGS</H2>
+
+GNU coreutils online help: &lt;<A HREF="http://www.gnu.org/software/coreutils/">http://www.gnu.org/software/coreutils/</A>&gt;
+<BR>
+
+Report cut translation bugs to &lt;<A HREF="http://translationproject.org/team/">http://translationproject.org/team/</A>&gt;
+<A NAME="lbAG">&nbsp;</A>
+<H2>COPYRIGHT</H2>
+
+Copyright &#169; 2017 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later &lt;<A HREF="http://gnu.org/licenses/gpl.html">http://gnu.org/licenses/gpl.html</A>&gt;.
+<BR>
+
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+<A NAME="lbAH">&nbsp;</A>
+<H2>SEE ALSO</H2>
+
+Full documentation at: &lt;<A HREF="http://www.gnu.org/software/coreutils/cut">http://www.gnu.org/software/coreutils/cut</A>&gt;
+<BR>
+
+or available locally via: info '(coreutils) cut invocation'
+<P>
+
+<HR>
+<A NAME="index">&nbsp;</A><H2>Index</H2>
+<DL>
+<DT><A HREF="#lbAB">NAME</A><DD>
+<DT><A HREF="#lbAC">SYNOPSIS</A><DD>
+<DT><A HREF="#lbAD">DESCRIPTION</A><DD>
+<DT><A HREF="#lbAE">AUTHOR</A><DD>
+<DT><A HREF="#lbAF">REPORTING BUGS</A><DD>
+<DT><A HREF="#lbAG">COPYRIGHT</A><DD>
+<DT><A HREF="#lbAH">SEE ALSO</A><DD>
+</DL>
+<HR>
+
+</BODY>
+</HTML>

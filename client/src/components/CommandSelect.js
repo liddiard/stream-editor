@@ -1,9 +1,14 @@
 import React, { useState, useCallback } from 'react'
+import PropTypes from 'prop-types'
+
+import { OptionsConsumer } from '../context'
 
 import '../styles/CommandSelect.scss'
 
 
-const CommandSelect = ({ commands, command, index, onChange }) => {
+const CommandSelect = ({ commands, command, index, onChange, options }) => {
+  const { darkMode } = options
+
   const [isOpen, setIsOpen] = useState(false)
 
   const _onChange = useCallback((ev) => {
@@ -40,7 +45,7 @@ const CommandSelect = ({ commands, command, index, onChange }) => {
               <dd>
                 <span className="description">{_command.description} </span>
                 <a
-                  href={_command.docs}
+                  href={`/manpages/${_command.name}.html?theme=${darkMode ? 'dark' : 'light'}`}
                   rel="noopener noreferrer"
                   target="_blank"
                 >
@@ -63,4 +68,12 @@ const CommandSelect = ({ commands, command, index, onChange }) => {
   )
 }
 
-export default CommandSelect
+CommandSelect.propTypes = {
+  commands: PropTypes.array.isRequired,
+  command: PropTypes.string.isRequired,
+  index: PropTypes.number.isRequired,
+  onChange: PropTypes.func.isRequired,
+  options: PropTypes.object.isRequired
+}
+
+export default OptionsConsumer(CommandSelect)

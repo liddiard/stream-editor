@@ -1,0 +1,152 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML><HEAD><TITLE>Man page for TR</TITLE>
+<link rel="stylesheet" type="text/css" href="style.css" /><script src="init.js"></script>
+</HEAD><BODY>
+<H1>TR</H1>
+Section: User Commands (1)<BR>Updated: January 2018<BR><A HREF="#index">Index</A>
+<HR>
+
+
+<a name="lbAB">&nbsp;</a>
+<H2>NAME</H2>
+
+tr - translate or delete characters
+<A NAME="lbAC">&nbsp;</A>
+<H2>SYNOPSIS</H2>
+
+<B>tr</B>
+
+[<I>,OPTION/</I>]... <I>,SET1 /</I>[<I>,SET2/</I>]
+<A NAME="lbAD">&nbsp;</A>
+<H2>DESCRIPTION</H2>
+
+
+<P>
+
+Translate, squeeze, and/or delete characters from standard input,
+writing to standard output.
+<DL COMPACT>
+<DT><B>-c</B>, <B>-C</B>, <B>--complement</B><DD>
+use the complement of SET1
+<DT><B>-d</B>, <B>--delete</B><DD>
+delete characters in SET1, do not translate
+<DT><B>-s</B>, <B>--squeeze-repeats</B><DD>
+replace each sequence of a repeated character
+that is listed in the last specified SET,
+with a single occurrence of that character
+<DT><B>-t</B>, <B>--truncate-set1</B><DD>
+first truncate SET1 to length of SET2
+<DT><B>--help</B><DD>
+display this help and exit
+<DT><B>--version</B><DD>
+output version information and exit
+</DL>
+<P>
+
+SETs are specified as strings of characters.  Most represent themselves.
+Interpreted sequences are:
+<DL COMPACT>
+<DT>\NNN<DD>
+character with octal value NNN (1 to 3 octal digits)
+<DT>\\<DD>
+backslash
+<DT>\a<DD>
+audible BEL
+<DT>\b<DD>
+backspace
+<DT>\f<DD>
+form feed
+<DT>\n<DD>
+new line
+<DT>\r<DD>
+return
+<DT>\t<DD>
+horizontal tab
+<DT>\v<DD>
+vertical tab
+<DT>CHAR1-CHAR2<DD>
+all characters from CHAR1 to CHAR2 in ascending order
+<DT>[CHAR*]<DD>
+in SET2, copies of CHAR until length of SET1
+<DT>[CHAR*REPEAT]<DD>
+REPEAT copies of CHAR, REPEAT octal if starting with 0
+<DT>[:alnum:]<DD>
+all letters and digits
+<DT>[:alpha:]<DD>
+all letters
+<DT>[:blank:]<DD>
+all horizontal whitespace
+<DT>[:cntrl:]<DD>
+all control characters
+<DT>[:digit:]<DD>
+all digits
+<DT>[:graph:]<DD>
+all printable characters, not including space
+<DT>[:lower:]<DD>
+all lower case letters
+<DT>[:print:]<DD>
+all printable characters, including space
+<DT>[:punct:]<DD>
+all punctuation characters
+<DT>[:space:]<DD>
+all horizontal or vertical whitespace
+<DT>[:upper:]<DD>
+all upper case letters
+<DT>[:xdigit:]<DD>
+all hexadecimal digits
+<DT>[=CHAR=]<DD>
+all characters which are equivalent to CHAR
+</DL>
+<P>
+
+Translation occurs if <B>-d</B> is not given and both SET1 and SET2 appear.
+<B>-t</B> may be used only when translating.  SET2 is extended to length of
+SET1 by repeating its last character as necessary.  Excess characters
+of SET2 are ignored.  Only [:lower:] and [:upper:] are guaranteed to
+expand in ascending order; used in SET2 while translating, they may
+only be used in pairs to specify case conversion.  <B>-s</B> uses the last
+specified SET, and occurs after translation or deletion.
+<A NAME="lbAE">&nbsp;</A>
+<H2>AUTHOR</H2>
+
+Written by Jim Meyering.
+<A NAME="lbAF">&nbsp;</A>
+<H2>REPORTING BUGS</H2>
+
+GNU coreutils online help: &lt;<A HREF="http://www.gnu.org/software/coreutils/">http://www.gnu.org/software/coreutils/</A>&gt;
+<BR>
+
+Report tr translation bugs to &lt;<A HREF="http://translationproject.org/team/">http://translationproject.org/team/</A>&gt;
+<A NAME="lbAG">&nbsp;</A>
+<H2>COPYRIGHT</H2>
+
+Copyright &#169; 2017 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later &lt;<A HREF="http://gnu.org/licenses/gpl.html">http://gnu.org/licenses/gpl.html</A>&gt;.
+<BR>
+
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+<A NAME="lbAH">&nbsp;</A>
+<H2>SEE ALSO</H2>
+
+Full documentation at: &lt;<A HREF="http://www.gnu.org/software/coreutils/tr">http://www.gnu.org/software/coreutils/tr</A>&gt;
+<BR>
+
+or available locally via: info '(coreutils) tr invocation'
+<P>
+
+<HR>
+<A NAME="index">&nbsp;</A><H2>Index</H2>
+<DL>
+<DT><A HREF="#lbAB">NAME</A><DD>
+<DT><A HREF="#lbAC">SYNOPSIS</A><DD>
+<DT><A HREF="#lbAD">DESCRIPTION</A><DD>
+<DT><A HREF="#lbAE">AUTHOR</A><DD>
+<DT><A HREF="#lbAF">REPORTING BUGS</A><DD>
+<DT><A HREF="#lbAG">COPYRIGHT</A><DD>
+<DT><A HREF="#lbAH">SEE ALSO</A><DD>
+</DL>
+<HR>
+
+</BODY>
+</HTML>

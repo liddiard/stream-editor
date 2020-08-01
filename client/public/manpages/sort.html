@@ -1,0 +1,184 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML><HEAD><TITLE>Man page for SORT</TITLE>
+<link rel="stylesheet" type="text/css" href="style.css" /><script src="init.js"></script>
+</HEAD><BODY>
+<H1>SORT</H1>
+Section: User Commands (1)<BR>Updated: January 2018<BR><A HREF="#index">Index</A>
+<HR>
+
+
+<a name="lbAB">&nbsp;</a>
+<H2>NAME</H2>
+
+sort - sort lines of text files
+<A NAME="lbAC">&nbsp;</A>
+<H2>SYNOPSIS</H2>
+
+<B>sort</B>
+
+[<I>,OPTION/</I>]... [<I>,FILE/</I>]...
+<BR>
+
+<B>sort</B>
+
+[<I>,OPTION/</I>]... <I>,--files0-from=F/</I>
+<A NAME="lbAD">&nbsp;</A>
+<H2>DESCRIPTION</H2>
+
+
+<P>
+
+Write sorted concatenation of all FILE(s) to standard output.
+<P>
+
+With no FILE, or when FILE is -, read standard input.
+<P>
+
+Mandatory arguments to long options are mandatory for short options too.
+Ordering options:
+<DL COMPACT>
+<DT><B>-b</B>, <B>--ignore-leading-blanks</B><DD>
+ignore leading blanks
+<DT><B>-d</B>, <B>--dictionary-order</B><DD>
+consider only blanks and alphanumeric characters
+<DT><B>-f</B>, <B>--ignore-case</B><DD>
+fold lower case to upper case characters
+<DT><B>-g</B>, <B>--general-numeric-sort</B><DD>
+compare according to general numerical value
+<DT><B>-i</B>, <B>--ignore-nonprinting</B><DD>
+consider only printable characters
+<DT><B>-M</B>, <B>--month-sort</B><DD>
+compare (unknown) &lt; 'JAN' &lt; ... &lt; 'DEC'
+<DT><B>-h</B>, <B>--human-numeric-sort</B><DD>
+compare human readable numbers (e.g., 2K 1G)
+<DT><B>-n</B>, <B>--numeric-sort</B><DD>
+compare according to string numerical value
+<DT><B>-R</B>, <B>--random-sort</B><DD>
+shuffle, but group identical keys.  See <A HREF="/cgi-bin/man/man2html?1+shuf">shuf</A>(1)
+<DT><B>--random-source</B>=<I>,FILE/</I><DD>
+get random bytes from FILE
+<DT><B>-r</B>, <B>--reverse</B><DD>
+reverse the result of comparisons
+<DT><B>--sort</B>=<I>,WORD/</I><DD>
+sort according to WORD:
+general-numeric <B>-g</B>, human-numeric <B>-h</B>, month <B>-M</B>,
+numeric <B>-n</B>, random <B>-R</B>, version <B>-V</B>
+<DT><B>-V</B>, <B>--version-sort</B><DD>
+natural sort of (version) numbers within text
+</DL>
+<P>
+
+Other options:
+<DL COMPACT>
+<DT><B>--batch-size</B>=<I>,NMERGE/</I><DD>
+merge at most NMERGE inputs at once;
+for more use temp files
+<DT><B>-c</B>, <B>--check</B>, <B>--check</B>=<I>,diagnose-first/</I><DD>
+check for sorted input; do not sort
+<DT><B>-C</B>, <B>--check</B>=<I>,quiet/</I>, <B>--check</B>=<I>,silent/</I><DD>
+like <B>-c</B>, but do not report first bad line
+<DT><B>--compress-program</B>=<I>,PROG/</I><DD>
+compress temporaries with PROG;
+decompress them with PROG <B>-d</B>
+<DT><B>--debug</B><DD>
+annotate the part of the line used to sort,
+and warn about questionable usage to stderr
+<DT><B>--files0-from</B>=<I>,F/</I><DD>
+read input from the files specified by
+NUL-terminated names in file F;
+If F is - then read names from standard input
+<DT><B>-k</B>, <B>--key</B>=<I>,KEYDEF/</I><DD>
+sort via a key; KEYDEF gives location and type
+<DT><B>-m</B>, <B>--merge</B><DD>
+merge already sorted files; do not sort
+<DT><B>-o</B>, <B>--output</B>=<I>,FILE/</I><DD>
+write result to FILE instead of standard output
+<DT><B>-s</B>, <B>--stable</B><DD>
+stabilize sort by disabling last-resort comparison
+<DT><B>-S</B>, <B>--buffer-size</B>=<I>,SIZE/</I><DD>
+use SIZE for main memory buffer
+<DT><B>-t</B>, <B>--field-separator</B>=<I>,SEP/</I><DD>
+use SEP instead of non-blank to blank transition
+<DT><B>-T</B>, <B>--temporary-directory</B>=<I>,DIR/</I><DD>
+use DIR for temporaries, not $TMPDIR or <I>,/tmp/</I>;
+multiple options specify multiple directories
+<DT><B>--parallel</B>=<I>,N/</I><DD>
+change the number of sorts run concurrently to N
+<DT><B>-u</B>, <B>--unique</B><DD>
+with <B>-c</B>, check for strict ordering;
+without <B>-c</B>, output only the first of an equal run
+<DT><B>-z</B>, <B>--zero-terminated</B><DD>
+line delimiter is NUL, not newline
+<DT><B>--help</B><DD>
+display this help and exit
+<DT><B>--version</B><DD>
+output version information and exit
+</DL>
+<P>
+
+KEYDEF is F[.C][OPTS][,F[.C][OPTS]] for start and stop position, where F is a
+field number and C a character position in the field; both are origin 1, and
+the stop position defaults to the line's end.  If neither <B>-t</B> nor <B>-b</B> is in
+effect, characters in a field are counted from the beginning of the preceding
+whitespace.  OPTS is one or more single-letter ordering options [bdfgiMhnRrV],
+which override global ordering options for that key.  If no key is given, use
+the entire line as the key.  Use <B>--debug</B> to diagnose incorrect key usage.
+<P>
+
+SIZE may be followed by the following multiplicative suffixes:
+% 1% of memory, b 1, K 1024 (default), and so on for M, G, T, P, E, Z, Y.
+<P>
+
+*** WARNING ***
+The locale specified by the environment affects sort order.
+Set LC_ALL=C to get the traditional sort order that uses
+native byte values.
+<A NAME="lbAE">&nbsp;</A>
+<H2>AUTHOR</H2>
+
+Written by Mike Haertel and Paul Eggert.
+<A NAME="lbAF">&nbsp;</A>
+<H2>REPORTING BUGS</H2>
+
+GNU coreutils online help: &lt;<A HREF="http://www.gnu.org/software/coreutils/">http://www.gnu.org/software/coreutils/</A>&gt;
+<BR>
+
+Report sort translation bugs to &lt;<A HREF="http://translationproject.org/team/">http://translationproject.org/team/</A>&gt;
+<A NAME="lbAG">&nbsp;</A>
+<H2>COPYRIGHT</H2>
+
+Copyright &#169; 2017 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later &lt;<A HREF="http://gnu.org/licenses/gpl.html">http://gnu.org/licenses/gpl.html</A>&gt;.
+<BR>
+
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+<A NAME="lbAH">&nbsp;</A>
+<H2>SEE ALSO</H2>
+
+<A HREF="/cgi-bin/man/man2html?1+shuf">shuf</A>(1), <A HREF="/cgi-bin/man/man2html?1+uniq">uniq</A>(1)
+<P>
+
+<BR>
+
+Full documentation at: &lt;<A HREF="http://www.gnu.org/software/coreutils/sort">http://www.gnu.org/software/coreutils/sort</A>&gt;
+<BR>
+
+or available locally via: info '(coreutils) sort invocation'
+<P>
+
+<HR>
+<A NAME="index">&nbsp;</A><H2>Index</H2>
+<DL>
+<DT><A HREF="#lbAB">NAME</A><DD>
+<DT><A HREF="#lbAC">SYNOPSIS</A><DD>
+<DT><A HREF="#lbAD">DESCRIPTION</A><DD>
+<DT><A HREF="#lbAE">AUTHOR</A><DD>
+<DT><A HREF="#lbAF">REPORTING BUGS</A><DD>
+<DT><A HREF="#lbAG">COPYRIGHT</A><DD>
+<DT><A HREF="#lbAH">SEE ALSO</A><DD>
+</DL>
+<HR>
+
+</BODY>
+</HTML>

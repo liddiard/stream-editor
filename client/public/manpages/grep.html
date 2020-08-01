@@ -1,0 +1,1750 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML><HEAD><TITLE>Man page for GREP</TITLE>
+<link rel="stylesheet" type="text/css" href="style.css" /><script src="init.js"></script>
+</HEAD><BODY>
+<H1>GREP</H1>
+Section: User Commands (1)<BR>Updated: 2017-06-21<BR><A HREF="#index">Index</A>
+<HR>
+
+
+
+<a name="lbAB">&nbsp;</a>
+<H2>NAME</H2>
+
+grep, egrep, fgrep, rgrep - print lines matching a pattern
+<A NAME="lbAC">&nbsp;</A>
+<H2>SYNOPSIS</H2>
+
+<B>grep</B>
+
+[<I>OPTIONS</I>]
+
+<I>PATTERN</I>
+
+[<I>FILE</I>...]
+
+<BR>
+
+<B>grep</B>
+
+[<I>OPTIONS</I>]
+
+<B>-e</B>
+
+<I>PATTERN</I>
+
+...
+[<I>FILE</I>...]
+
+<BR>
+
+<B>grep</B>
+
+[<I>OPTIONS</I>]
+
+<B>-f</B>
+
+<I>FILE</I>
+
+...
+[<I>FILE</I>...]
+
+<A NAME="lbAD">&nbsp;</A>
+<H2>DESCRIPTION</H2>
+
+<B>grep</B>
+
+searches for
+<I>PATTERN</I>
+
+in each
+<I>FILE</I>.
+
+A
+<I>FILE</I>
+
+of
+``<B>-</B>''
+
+stands for standard input.
+If no
+<I>FILE</I>
+
+is given, recursive searches examine the working directory,
+and nonrecursive searches read standard input.
+By default,
+<B>grep</B>
+
+prints the matching lines.
+<P>
+
+In addition, the variant programs
+<B>egrep</B>,
+
+<B>fgrep</B>
+
+and
+<B>rgrep</B>
+
+are the same as
+<B>grep&nbsp;-E</B>,
+
+<B>grep&nbsp;-F</B>,
+
+and
+<B>grep&nbsp;-r</B>,
+
+respectively.
+These variants are deprecated, but are provided for backward compatibility.
+<A NAME="lbAE">&nbsp;</A>
+<H2>OPTIONS</H2>
+
+<A NAME="lbAF">&nbsp;</A>
+<H3>Generic Program Information</H3>
+
+<DL COMPACT>
+<DT><B>--help</B>
+
+<DD>
+Output a usage message and exit.
+<DT><B>-V</B>, <B>--version</B>
+
+<DD>
+Output the version number of
+<B>grep</B>
+
+and exit.
+</DL>
+<A NAME="lbAG">&nbsp;</A>
+<H3>Matcher Selection</H3>
+
+<DL COMPACT>
+<DT><B>-E</B>, <B>--extended-regexp</B>
+
+<DD>
+Interpret
+<I>PATTERN</I>
+
+as an extended regular expression (ERE, see below).
+<DT><B>-F</B>, <B>--fixed-strings</B>
+
+<DD>
+Interpret
+<I>PATTERN</I>
+
+as a list of fixed strings (instead of regular expressions),
+separated by newlines,
+any of which is to be matched.
+<DT><B>-G</B>, <B>--basic-regexp</B>
+
+<DD>
+Interpret
+<I>PATTERN</I>
+
+as a basic regular expression (BRE, see below).
+This is the default.
+<DT><B>-P</B>, <B>--perl-regexp</B>
+
+<DD>
+Interpret the pattern as a Perl-compatible regular expression (PCRE).
+This is experimental and
+<B>grep -P</B>
+
+may warn of unimplemented features.
+</DL>
+<A NAME="lbAH">&nbsp;</A>
+<H3>Matching Control</H3>
+
+<DL COMPACT>
+<DT><B>-e</B><I> PATTERN</I><B></B>, --regexp=<I>PATTERN</I>
+
+<DD>
+Use
+<I>PATTERN</I>
+
+as the pattern.
+If this option is used multiple times or is combined with the
+<B>-f</B>
+
+(<B>--file</B>)
+
+option, search for all patterns given.
+This option can be used to protect a pattern beginning with ``-''.
+<DT><B>-f</B><I> FILE</I><B></B>, --file=<I>FILE</I>
+
+<DD>
+Obtain patterns from
+<I>FILE</I>,
+
+one per line.
+If this option is used multiple times or is combined with the
+<B>-e</B>
+
+(<B>--regexp</B>)
+
+option, search for all patterns given.
+The empty file contains zero patterns, and therefore matches nothing.
+<DT><B>-i</B>, <B>--ignore-case</B>
+
+<DD>
+Ignore case distinctions, so that characters that differ only in case
+match each other.
+<DT><B>-v</B>, <B>--invert-match</B>
+
+<DD>
+Invert the sense of matching, to select non-matching lines.
+<DT><B>-w</B>, <B>--word-regexp</B>
+
+<DD>
+Select only those lines containing matches that form whole words.
+The test is that the matching substring must either be at the
+beginning of the line, or preceded by a non-word constituent
+character.
+Similarly, it must be either at the end of the line
+or followed by a non-word constituent character.
+Word-constituent characters are letters, digits, and the underscore.
+This option has no effect if
+<B>-x</B>
+
+is also specified.
+<DT><B>-x</B>, <B>--line-regexp</B>
+
+<DD>
+Select only those matches that exactly match the whole line.
+For a regular expression pattern, this is like parenthesizing the
+pattern and then surrounding it with
+<B>^</B>
+
+and
+<B>$</B>.
+
+<DT><B>-y</B>
+
+<DD>
+Obsolete synonym for
+<B>-i</B>.
+
+</DL>
+<A NAME="lbAI">&nbsp;</A>
+<H3>General Output Control</H3>
+
+<DL COMPACT>
+<DT><B>-c</B>, <B>--count</B>
+
+<DD>
+Suppress normal output; instead print a count of
+matching lines for each input file.
+With the
+<B>-v</B>, <B>--invert-match</B>
+
+option (see below), count non-matching lines.
+<DT><B>--color</B>[<B>=</B><I>WHEN</I>], <B>--colour</B>[<B>=</B><I>WHEN</I>]
+
+<DD>
+Surround the matched (non-empty) strings, matching lines, context lines,
+file names, line numbers, byte offsets, and separators (for fields and
+groups of context lines) with escape sequences to display them in color
+on the terminal.
+The colors are defined by the environment variable
+<B>GREP_COLORS</B>.
+
+The deprecated environment variable
+<B>GREP_COLOR</B>
+
+is still supported, but its setting does not have priority.
+<I>WHEN</I>
+
+is
+<B>never</B>, <B>always</B>, or <B>auto</B>.
+
+<DT><B>-L</B>, <B>--files-without-match</B>
+
+<DD>
+Suppress normal output; instead print the name
+of each input file from which no output would
+normally have been printed.
+The scanning will stop on the first match.
+<DT><B>-l</B>, <B>--files-with-matches</B>
+
+<DD>
+Suppress normal output; instead print
+the name of each input file from which output
+would normally have been printed.
+The scanning will stop on the first match.
+<DT><B>-m</B><I> NUM</I><B></B>, --max-count=<I>NUM</I>
+
+<DD>
+Stop reading a file after
+<I>NUM</I>
+
+matching lines.
+If the input is standard input from a regular file,
+and
+<I>NUM</I>
+
+matching lines are output,
+<B>grep</B>
+
+ensures that the standard input is positioned to just after the last
+matching line before exiting, regardless of the presence of trailing
+context lines.
+This enables a calling process to resume a search.
+When
+<B>grep</B>
+
+stops after
+<I>NUM</I>
+
+matching lines, it outputs any trailing context lines.
+When the
+<B>-c</B>
+
+or
+<B>--count</B>
+
+option is also used,
+<B>grep</B>
+
+does not output a count greater than
+<I>NUM</I>.
+
+When the
+<B>-v</B>
+
+or
+<B>--invert-match</B>
+
+option is also used,
+<B>grep</B>
+
+stops after outputting
+<I>NUM</I>
+
+non-matching lines.
+<DT><B>-o</B>, <B>--only-matching</B>
+
+<DD>
+Print only the matched (non-empty) parts of a matching line,
+with each such part on a separate output line.
+<DT><B>-q</B>, <B>--quiet</B>, <B>--silent</B>
+
+<DD>
+Quiet; do not write anything to standard output.
+Exit immediately with zero status if any match is found,
+even if an error was detected.
+Also see the
+<B>-s</B>
+
+or
+<B>--no-messages</B>
+
+option.
+<DT><B>-s</B>, <B>--no-messages</B>
+
+<DD>
+Suppress error messages about nonexistent or unreadable files.
+</DL>
+<A NAME="lbAJ">&nbsp;</A>
+<H3>Output Line Prefix Control</H3>
+
+<DL COMPACT>
+<DT><B>-b</B>, <B>--byte-offset</B>
+
+<DD>
+Print the 0-based byte offset within the input file
+before each line of output.
+If
+<B>-o</B>
+
+(<B>--only-matching</B>)
+
+is specified,
+print the offset of the matching part itself.
+<DT><B>-H</B>, <B>--with-filename</B>
+
+<DD>
+Print the file name for each match.
+This is the default when there is more than one file to search.
+<DT><B>-h</B>, <B>--no-filename</B>
+
+<DD>
+Suppress the prefixing of file names on output.
+This is the default when there is only one file
+(or only standard input) to search.
+<DT><B>--label=</B><I>LABEL</I>
+
+<DD>
+Display input actually coming from standard input as input coming from file
+<I>LABEL</I>.
+
+This is especially useful when implementing tools like
+<B>zgrep</B>,
+
+e.g.,
+<B>gzip -cd foo.gz | grep --label=foo -H something</B>.
+
+See also the
+<B>-H</B>
+
+option.
+<DT><B>-n</B>, <B>--line-number</B>
+
+<DD>
+Prefix each line of output with the 1-based line number
+within its input file.
+<DT><B>-T</B>, <B>--initial-tab</B>
+
+<DD>
+Make sure that the first character of actual line content lies on a
+tab stop, so that the alignment of tabs looks normal.
+This is useful with options that prefix their output to the actual content:
+<B>-H</B>,<B>-n</B>,
+
+and
+<B>-b</B>.
+
+In order to improve the probability that lines
+from a single file will all start at the same column,
+this also causes the line number and byte offset (if present)
+to be printed in a minimum size field width.
+<DT><B>-u</B>, <B>--unix-byte-offsets</B>
+
+<DD>
+Report Unix-style byte offsets.
+This switch causes
+<B>grep</B>
+
+to report byte offsets as if the file were a Unix-style text file,
+i.e., with CR characters stripped off.
+This will produce results identical to running
+<B>grep</B>
+
+on a Unix machine.
+This option has no effect unless
+<B>-b</B>
+
+option is also used;
+it has no effect on platforms other than MS-DOS and MS-Windows.
+<DT><B>-Z</B>, <B>--null</B>
+
+<DD>
+Output a zero byte (the ASCII
+<B>NUL</B>
+
+character) instead of the character that normally follows a file name.
+For example,
+<B>grep -lZ</B>
+
+outputs a zero byte after each file name instead of the usual newline.
+This option makes the output unambiguous, even in the presence of file
+names containing unusual characters like newlines.
+This option can be used with commands like
+<B>find -print0</B>,
+
+<B>perl -0</B>,
+
+<B>sort -z</B>,
+
+and
+<B>xargs -0</B>
+
+to process arbitrary file names,
+even those that contain newline characters.
+</DL>
+<A NAME="lbAK">&nbsp;</A>
+<H3>Context Line Control</H3>
+
+<DL COMPACT>
+<DT><B>-A</B><I> NUM</I><B></B>, --after-context=<I>NUM</I>
+
+<DD>
+Print
+<I>NUM</I>
+
+lines of trailing context after matching lines.
+Places a line containing a group separator
+(<B>--</B>)
+
+between contiguous groups of matches.
+With the
+<B>-o</B>
+
+or
+<B>--only-matching</B>
+
+option, this has no effect and a warning is given.
+<DT><B>-B</B><I> NUM</I><B></B>, --before-context=<I>NUM</I>
+
+<DD>
+Print
+<I>NUM</I>
+
+lines of leading context before matching lines.
+Places a line containing a group separator
+(<B>--</B>)
+
+between contiguous groups of matches.
+With the
+<B>-o</B>
+
+or
+<B>--only-matching</B>
+
+option, this has no effect and a warning is given.
+<DT><B>-C</B><I> NUM</I><B></B>, -<I>NUM</I><B></B>, --context=<I>NUM</I>
+
+<DD>
+Print
+<I>NUM</I>
+
+lines of output context.
+Places a line containing a group separator
+(<B>--</B>)
+
+between contiguous groups of matches.
+With the
+<B>-o</B>
+
+or
+<B>--only-matching</B>
+
+option, this has no effect and a warning is given.
+</DL>
+<A NAME="lbAL">&nbsp;</A>
+<H3>File and Directory Selection</H3>
+
+<DL COMPACT>
+<DT><B>-a</B>, <B>--text</B>
+
+<DD>
+Process a binary file as if it were text; this is equivalent to the
+<B>--binary-files=text</B>
+
+option.
+<DT><B>--binary-files=</B><I>TYPE</I>
+
+<DD>
+If a file's data or metadata
+indicate that the file contains binary data,
+assume that the file is of type
+<I>TYPE</I>.
+
+Non-text bytes indicate binary data; these are either output bytes that are
+improperly encoded for the current locale, or null input bytes when the
+<B>-z</B>
+
+option is not given.
+<DT><DD>
+By default,
+<I>TYPE</I>
+
+is
+<B>binary</B>,
+
+and when
+<B>grep</B>
+
+discovers that a file is binary it suppresses any further output, and
+instead outputs either a one-line message saying that a binary file
+matches, or no message if there is no match.
+<DT><DD>
+If
+<I>TYPE</I>
+
+is
+<B>without-match</B>,
+
+when
+<B>grep</B>
+
+discovers that a file is binary it assumes that the rest of the file
+does not match; this is equivalent to the
+<B>-I</B>
+
+option.
+<DT><DD>
+If
+<I>TYPE</I>
+
+is
+<B>text</B>,
+
+<B>grep</B>
+
+processes a binary file as if it were text; this is equivalent to the
+<B>-a</B>
+
+option.
+<DT><DD>
+When
+<I>type</I>
+
+is
+<B>binary</B>,
+
+<B>grep</B>
+
+may treat non-text bytes as line terminators even without the
+<B>-z</B>
+
+option.  This means choosing
+<B>binary</B>
+
+versus
+<B>text</B>
+
+can affect whether a pattern matches a file.  For
+example, when
+<I>type</I>
+
+is
+<B>binary</B>
+
+the pattern
+<B>q$ might</B>
+
+match
+<B>q</B>
+
+immediately followed by a null byte, even though this
+is not matched when
+<I>type</I>
+
+is
+<B>text</B>.
+
+Conversely, when
+<I>type</I>
+
+is
+<B>binary</B>
+
+the pattern
+<B>.</B>
+
+(period) might not match a null byte.
+<DT><DD>
+<I>Warning:</I>
+
+The
+<B>-a</B>
+
+option might output binary garbage,
+which can have nasty side effects if the output is a terminal and if the
+terminal driver interprets some of it as commands.
+On the other hand, when reading files whose text encodings are
+unknown, it can be helpful to use
+<B>-a</B>
+
+or to set
+<B>LC_ALL='C'</B>
+
+in the environment, in order to find more matches even if the matches
+are unsafe for direct display.
+<DT><B>-D</B><I> ACTION</I><B></B>, --devices=<I>ACTION</I>
+
+<DD>
+If an input file is a device, FIFO or socket, use
+<I>ACTION</I>
+
+to process it.
+By default,
+<I>ACTION</I>
+
+is
+<B>read</B>,
+
+which means that devices are read just as if they were ordinary files.
+If
+<I>ACTION</I>
+
+is
+<B>skip</B>,
+
+devices are silently skipped.
+<DT><B>-d</B><I> ACTION</I><B></B>, --directories=<I>ACTION</I>
+
+<DD>
+If an input file is a directory, use
+<I>ACTION</I>
+
+to process it.
+By default,
+<I>ACTION</I>
+
+is
+<B>read</B>,
+
+i.e., read directories just as if they were ordinary files.
+If
+<I>ACTION</I>
+
+is
+<B>skip</B>,
+
+silently skip directories.
+If
+<I>ACTION</I>
+
+is
+<B>recurse</B>,
+
+read all files under each directory, recursively,
+following symbolic links only if they are on the command line.
+This is equivalent to the
+<B>-r</B>
+
+option.
+<DT><B>--exclude=</B><I>GLOB</I>
+
+<DD>
+Skip any command-line file with a name suffix that matches the pattern
+<I>GLOB</I>,
+
+using wildcard matching; a name suffix is either the whole
+name, or any suffix starting after a
+<B>/</B>
+
+and before a +non-<B>/</B>.
+When searching recursively, skip any subfile whose base name matches
+<I>GLOB</I>;
+
+the base name is the part after the last
+<B>/</B>.
+
+A pattern can use
+<B>*</B>,
+
+<B>?</B>,
+
+and
+<B>[</B>...<B>]</B>
+
+as wildcards, and
+<B>\</B>
+
+to quote a wildcard or backslash character literally.
+<DT><B>--exclude-from=</B><I>FILE</I>
+
+<DD>
+Skip files whose base name matches any of the file-name globs read from
+<I>FILE</I>
+
+(using wildcard matching as described under
+<B>--exclude</B>).
+
+<DT><B>--exclude-dir=</B><I>GLOB</I>
+
+<DD>
+Skip any command-line directory with a name suffix that matches the
+pattern
+<I>GLOB</I>.
+
+When searching recursively, skip any subdirectory
+whose base name matches
+<I>GLOB</I>.
+
+Ignore any redundant trailing slashes in
+<I>GLOB</I>.
+
+<DT><B>-I</B>
+
+<DD>
+Process a binary file as if it did not contain matching data; this is
+equivalent to the
+<B>--binary-files=without-match</B>
+
+option.
+<DT><B>--include=</B><I>GLOB</I>
+
+<DD>
+Search only files whose base name matches
+<I>GLOB</I>
+
+(using wildcard matching as described under
+<B>--exclude</B>).
+
+<DT><B>-r</B>, <B>--recursive</B>
+
+<DD>
+Read all files under each directory, recursively,
+following symbolic links only if they are on the command line.
+Note that if no file operand is given, grep searches the working directory.
+This is equivalent to the
+<B>-d recurse</B>
+
+option.
+<DT><B>-R</B>, <B>--dereference-recursive</B>
+
+<DD>
+Read all files under each directory, recursively.
+Follow all symbolic links, unlike
+<B>-r</B>.
+
+</DL>
+<A NAME="lbAM">&nbsp;</A>
+<H3>Other Options</H3>
+
+<DL COMPACT>
+<DT><B>--line-buffered</B>
+
+<DD>
+Use line buffering on output.
+This can cause a performance penalty.
+<DT><B>-U</B>, <B>--binary</B>
+
+<DD>
+Treat the file(s) as binary.
+By default, under MS-DOS and MS-Windows,
+<B>grep</B>
+
+guesses whether a file is text or binary as described for the
+<B>--binary-files</B>
+
+option.
+If
+<B>grep</B>
+
+decides the file is a text file, it strips the CR characters from the
+original file contents (to make regular expressions with
+<B>^</B>
+
+and
+<B>$</B>
+
+work correctly).
+Specifying
+<B>-U</B>
+
+overrules this guesswork, causing all files to be read and passed to the
+matching mechanism verbatim; if the file is a text file with CR/LF
+pairs at the end of each line, this will cause some regular
+expressions to fail.
+This option has no effect on platforms
+other than MS-DOS and MS-Windows.
+<DT><B>-z</B>, <B>--null-data</B>
+
+<DD>
+Treat input and output data as sequences of lines, each terminated by
+a zero byte (the ASCII NUL character) instead of a newline.
+Like the
+<B>-Z</B>
+
+or
+<B>--null</B>
+
+option, this option can be used with commands like
+<B>sort -z</B>
+
+to process arbitrary file names.
+</DL>
+<A NAME="lbAN">&nbsp;</A>
+<H2>REGULAR EXPRESSIONS</H2>
+
+A regular expression is a pattern that describes a set of strings.
+Regular expressions are constructed analogously to arithmetic
+expressions, by using various operators to combine smaller expressions.
+<P>
+
+<B>grep</B>
+
+understands three different versions of regular expression syntax:
+``basic'' (BRE), ``extended'' (ERE) and ``perl'' (PCRE).
+In GNU
+<B>grep</B>
+
+there is no difference in available functionality between basic and
+extended syntaxes.
+In other implementations, basic regular expressions are less powerful.
+The following description applies to extended regular expressions;
+differences for basic regular expressions are summarized afterwards.
+Perl-compatible regular expressions give additional functionality, and are
+documented in <A HREF="/cgi-bin/man/man2html?3+pcresyntax">pcresyntax</A>(3) and <A HREF="/cgi-bin/man/man2html?3+pcrepattern">pcrepattern</A>(3), but work only if
+PCRE is available in the system.
+<P>
+
+The fundamental building blocks are the regular expressions
+that match a single character.
+Most characters, including all letters and digits,
+are regular expressions that match themselves.
+Any meta-character with special meaning
+may be quoted by preceding it with a backslash.
+<P>
+
+The period
+<B>.</B>
+
+matches any single character.
+<A NAME="lbAO">&nbsp;</A>
+<H3>Character Classes and Bracket Expressions</H3>
+
+A
+<I>bracket expression</I>
+
+is a list of characters enclosed by
+<B>[</B>
+
+and
+<B>]</B>.
+
+It matches any single
+character in that list; if the first character of the list
+is the caret
+<B>^</B>
+
+then it matches any character
+<I>not</I>
+
+in the list.
+For example, the regular expression
+<B>[0123456789]</B>
+
+matches any single digit.
+<P>
+
+Within a bracket expression, a
+<I>range expression</I>
+
+consists of two characters separated by a hyphen.
+It matches any single character that sorts between the two characters,
+inclusive, using the locale's collating sequence and character set.
+For example, in the default C locale,
+<B>[a-d]</B>
+
+is equivalent to
+<B>[abcd]</B>.
+
+Many locales sort characters in dictionary order, and in these locales
+<B>[a-d]</B>
+
+is typically not equivalent to
+<B>[abcd]</B>;
+
+it might be equivalent to
+<B>[aBbCcDd]</B>,
+
+for example.
+To obtain the traditional interpretation of bracket expressions,
+you can use the C locale by setting the
+<B>LC_ALL</B>
+
+environment variable to the value
+<B>C</B>.
+
+<P>
+
+Finally, certain named classes of characters are predefined within
+bracket expressions, as follows.
+Their names are self explanatory, and they are
+<B>[:alnum:]</B>,
+
+<B>[:alpha:]</B>,
+
+<B>[:cntrl:]</B>,
+
+<B>[:digit:]</B>,
+
+<B>[:graph:]</B>,
+
+<B>[:lower:]</B>,
+
+<B>[:print:]</B>,
+
+<B>[:punct:]</B>,
+
+<B>[:space:]</B>,
+
+<B>[:upper:]</B>,
+
+and
+<B>[:xdigit:].</B>
+
+For example,
+<B>[[:alnum:]]</B>
+
+means the character class of numbers and
+letters in the current locale.
+In the C locale and ASCII
+character set encoding, this is the same as
+<B>[0-9A-Za-z]</B>.
+
+(Note that the brackets in these class names are part of the symbolic
+names, and must be included in addition to the brackets delimiting
+the bracket expression.)
+Most meta-characters lose their special meaning inside bracket expressions.
+To include a literal
+<B>]</B>
+
+place it first in the list.
+Similarly, to include a literal
+<B>^</B>
+
+place it anywhere but first.
+Finally, to include a literal
+<B>-</B>
+
+place it last.
+<A NAME="lbAP">&nbsp;</A>
+<H3>Anchoring</H3>
+
+The caret
+<B>^</B>
+
+and the dollar sign
+<B>$</B>
+
+are meta-characters that respectively match the empty string at the
+beginning and end of a line.
+<A NAME="lbAQ">&nbsp;</A>
+<H3>The Backslash Character and Special Expressions</H3>
+
+The symbols
+<B>\&lt;</B>
+
+and
+<B>\&gt;</B>
+
+respectively match the empty string at the beginning and end of a word.
+The symbol
+<B>\b</B>
+
+matches the empty string at the edge of a word,
+and
+<B>\B</B>
+
+matches the empty string provided it's
+<I>not</I>
+
+at the edge of a word.
+The symbol
+<B>\w</B>
+
+is a synonym for
+<B>[_[:alnum:]]</B>
+
+and
+<B>\W</B>
+
+is a synonym for
+<B>[^_[:alnum:]]</B>.
+
+<A NAME="lbAR">&nbsp;</A>
+<H3>Repetition</H3>
+
+A regular expression may be followed by one of several repetition operators:
+
+<DL COMPACT>
+<DT><B>?</B>
+
+<DD>
+The preceding item is optional and matched at most once.
+<DT><B>*</B>
+
+<DD>
+The preceding item will be matched zero or more times.
+<DT><B>+</B>
+
+<DD>
+The preceding item will be matched one or more times.
+<DT><B>{</B><I>n</I><B>}</B>
+
+<DD>
+The preceding item is matched exactly
+<I>n</I>
+
+times.
+<DT><B>{</B><I>n</I><B>,}</B>
+
+<DD>
+The preceding item is matched
+<I>n</I>
+
+or more times.
+<DT><B>{,</B><I>m</I><B>}</B>
+
+<DD>
+The preceding item is matched at most
+<I>m</I>
+
+times.
+This is a GNU extension.
+<DT><B>{</B><I>n</I><B>,</B><I>m</I><B>}</B>
+
+<DD>
+The preceding item is matched at least
+<I>n</I>
+
+times, but not more than
+<I>m</I>
+
+times.
+
+</DL>
+<A NAME="lbAS">&nbsp;</A>
+<H3>Concatenation</H3>
+
+Two regular expressions may be concatenated; the resulting
+regular expression matches any string formed by concatenating
+two substrings that respectively match the concatenated
+expressions.
+<A NAME="lbAT">&nbsp;</A>
+<H3>Alternation</H3>
+
+Two regular expressions may be joined by the infix operator
+<B>|</B>;
+
+the resulting regular expression matches any string matching
+either alternate expression.
+<A NAME="lbAU">&nbsp;</A>
+<H3>Precedence</H3>
+
+Repetition takes precedence over concatenation, which in turn
+takes precedence over alternation.
+A whole expression may be enclosed in parentheses
+to override these precedence rules and form a subexpression.
+<A NAME="lbAV">&nbsp;</A>
+<H3>Back References and Subexpressions</H3>
+
+The back-reference
+<B>\</B><I>n</I>, where
+<I>n</I>
+
+is a single digit, matches the substring
+previously matched by the
+<I>n</I>th
+
+parenthesized subexpression of the regular expression.
+<A NAME="lbAW">&nbsp;</A>
+<H3>Basic vs Extended Regular Expressions</H3>
+
+In basic regular expressions the meta-characters
+<B>?</B>,
+
+<B>+</B>,
+
+<B>{</B>,
+
+<B>|</B>,
+
+<B>(</B>,
+
+and
+<B>)</B>
+
+lose their special meaning; instead use the backslashed
+versions
+<B>\?</B>,
+
+<B>\+</B>,
+
+<B>\{</B>,
+
+<B>\|</B>,
+
+<B>\(</B>,
+
+and
+<B>\)</B>.
+
+<A NAME="lbAX">&nbsp;</A>
+<H2>ENVIRONMENT VARIABLES</H2>
+
+The behavior of
+<B>grep</B>
+
+is affected by the following environment variables.
+<P>
+
+The locale for category
+<B>LC_</B><I>foo</I>
+
+is specified by examining the three environment variables
+<B>LC_ALL</B>,
+
+<B>LC_</B><I>foo</I>,
+
+<B>LANG</B>,
+
+in that order.
+The first of these variables that is set specifies the locale.
+For example, if
+<B>LC_ALL</B>
+
+is not set, but
+<B>LC_MESSAGES</B>
+
+is set to
+<B>pt_BR</B>,
+
+then the Brazilian Portuguese locale is used for the
+<B>LC_MESSAGES</B>
+
+category.
+The C locale is used if none of these environment variables are set,
+if the locale catalog is not installed, or if
+<B>grep</B>
+
+was not compiled with national language support (NLS).
+The shell command
+<B>locale -a</B>
+
+lists locales that are currently available.
+<DL COMPACT>
+<DT><B>GREP_OPTIONS</B>
+
+<DD>
+This variable specifies default options
+to be placed in front of any explicit options.
+As this causes problems when writing portable scripts,
+this feature will be removed in a future release of
+<B>grep</B>,
+
+and
+<B>grep</B>
+
+warns if it is used.
+Please use an alias or script instead.
+<DT><B>GREP_COLOR</B>
+
+<DD>
+This variable specifies the color used to highlight matched (non-empty) text.
+It is deprecated in favor of
+<B>GREP_COLORS</B>,
+
+but still supported.
+The
+<B>mt</B>,
+
+<B>ms</B>,
+
+and
+<B>mc</B>
+
+capabilities of
+<B>GREP_COLORS</B>
+
+have priority over it.
+It can only specify the color used to highlight
+the matching non-empty text in any matching line
+(a selected line when the
+<B>-v</B>
+
+command-line option is omitted,
+or a context line when
+<B>-v</B>
+
+is specified).
+The default is
+<B>01;31</B>,
+
+which means a bold red foreground text on the terminal's default background.
+<DT><B>GREP_COLORS</B>
+
+<DD>
+Specifies the colors and other attributes
+used to highlight various parts of the output.
+Its value is a colon-separated list of capabilities
+that defaults to
+<B>ms=01;31:mc=01;31:sl=:cx=:fn=35:ln=32:bn=32:se=36</B>
+
+with the
+<B>rv</B>
+
+and
+<B>ne</B>
+
+boolean capabilities omitted (i.e., false).
+Supported capabilities are as follows.
+<DL COMPACT><DT><DD>
+<DL COMPACT>
+<DT><B>sl=</B>
+
+<DD>
+SGR substring for whole selected lines
+(i.e.,
+matching lines when the
+<B>-v</B>
+
+command-line option is omitted,
+or non-matching lines when
+<B>-v</B>
+
+is specified).
+If however the boolean
+<B>rv</B>
+
+capability
+and the
+<B>-v</B>
+
+command-line option are both specified,
+it applies to context matching lines instead.
+The default is empty (i.e., the terminal's default color pair).
+<DT><B>cx=</B>
+
+<DD>
+SGR substring for whole context lines
+(i.e.,
+non-matching lines when the
+<B>-v</B>
+
+command-line option is omitted,
+or matching lines when
+<B>-v</B>
+
+is specified).
+If however the boolean
+<B>rv</B>
+
+capability
+and the
+<B>-v</B>
+
+command-line option are both specified,
+it applies to selected non-matching lines instead.
+The default is empty (i.e., the terminal's default color pair).
+<DT><B>rv</B>
+
+<DD>
+Boolean value that reverses (swaps) the meanings of
+the
+<B>sl=</B>
+
+and
+<B>cx=</B>
+
+capabilities
+when the
+<B>-v</B>
+
+command-line option is specified.
+The default is false (i.e., the capability is omitted).
+<DT><B>mt=01;31</B>
+
+<DD>
+SGR substring for matching non-empty text in any matching line
+(i.e.,
+a selected line when the
+<B>-v</B>
+
+command-line option is omitted,
+or a context line when
+<B>-v</B>
+
+is specified).
+Setting this is equivalent to setting both
+<B>ms=</B>
+
+and
+<B>mc=</B>
+
+at once to the same value.
+The default is a bold red text foreground over the current line background.
+<DT><B>ms=01;31</B>
+
+<DD>
+SGR substring for matching non-empty text in a selected line.
+(This is only used when the
+<B>-v</B>
+
+command-line option is omitted.)
+The effect of the
+<B>sl=</B>
+
+(or
+<B>cx=</B>
+
+if
+<B>rv</B>)
+
+capability remains active when this kicks in.
+The default is a bold red text foreground over the current line background.
+<DT><B>mc=01;31</B>
+
+<DD>
+SGR substring for matching non-empty text in a context line.
+(This is only used when the
+<B>-v</B>
+
+command-line option is specified.)
+The effect of the
+<B>cx=</B>
+
+(or
+<B>sl=</B>
+
+if
+<B>rv</B>)
+
+capability remains active when this kicks in.
+The default is a bold red text foreground over the current line background.
+<DT><B>fn=35</B>
+
+<DD>
+SGR substring for file names prefixing any content line.
+The default is a magenta text foreground over the terminal's default background.
+<DT><B>ln=32</B>
+
+<DD>
+SGR substring for line numbers prefixing any content line.
+The default is a green text foreground over the terminal's default background.
+<DT><B>bn=32</B>
+
+<DD>
+SGR substring for byte offsets prefixing any content line.
+The default is a green text foreground over the terminal's default background.
+<DT><B>se=36</B>
+
+<DD>
+SGR substring for separators that are inserted
+between selected line fields
+(<B>:</B>),
+
+between context line fields,
+(<B>-</B>),
+
+and between groups of adjacent lines when nonzero context is specified
+(<B>--</B>).
+
+The default is a cyan text foreground over the terminal's default background.
+<DT><B>ne</B>
+
+<DD>
+Boolean value that prevents clearing to the end of line
+using Erase in Line (EL) to Right
+(<B>\\\33[K</B>)
+
+each time a colorized item ends.
+This is needed on terminals on which EL is not supported.
+It is otherwise useful on terminals
+for which the
+<B>back_color_erase</B>
+
+(<B>bce</B>)
+
+boolean terminfo capability does not apply,
+when the chosen highlight colors do not affect the background,
+or when EL is too slow or causes too much flicker.
+The default is false (i.e., the capability is omitted).
+</DL>
+<P>
+
+Note that boolean capabilities have no
+<B>=</B>...
+
+part.
+They are omitted (i.e., false) by default and become true when specified.
+<P>
+
+See the Select Graphic Rendition (SGR) section
+in the documentation of the text terminal that is used
+for permitted values and their meaning as character attributes.
+These substring values are integers in decimal representation
+and can be concatenated with semicolons.
+<B>grep</B>
+
+takes care of assembling the result
+into a complete SGR sequence
+(<B>\\\33[</B>...<B>m</B>).
+
+Common values to concatenate include
+<B>1</B>
+
+for bold,
+<B>4</B>
+
+for underline,
+<B>5</B>
+
+for blink,
+<B>7</B>
+
+for inverse,
+<B>39</B>
+
+for default foreground color,
+<B>30</B>
+
+to
+<B>37</B>
+
+for foreground colors,
+<B>90</B>
+
+to
+<B>97</B>
+
+for 16-color mode foreground colors,
+<B>38;5;0</B>
+
+to
+<B>38;5;255</B>
+
+for 88-color and 256-color modes foreground colors,
+<B>49</B>
+
+for default background color,
+<B>40</B>
+
+to
+<B>47</B>
+
+for background colors,
+<B>100</B>
+
+to
+<B>107</B>
+
+for 16-color mode background colors, and
+<B>48;5;0</B>
+
+to
+<B>48;5;255</B>
+
+for 88-color and 256-color modes background colors.
+</DL>
+
+<DT><B>LC_ALL</B>, <B>LC_COLLATE</B>, <B>LANG</B><DD>
+These variables specify the locale for the
+<B>LC_COLLATE</B>
+
+category,
+which determines the collating sequence
+used to interpret range expressions like
+<B>[a-z]</B>.
+
+<DT><B>LC_ALL</B>, <B>LC_CTYPE</B>, <B>LANG</B><DD>
+These variables specify the locale for the
+<B>LC_CTYPE</B>
+
+category,
+which determines the type of characters,
+e.g., which characters are whitespace.
+This category also determines the character encoding, that is, whether
+text is encoded in UTF-8, ASCII, or some other encoding.  In the C or
+POSIX locale, all characters are encoded as a single byte and every
+byte is a valid character.
+<DT><B>LC_ALL</B>, <B>LC_MESSAGES</B>, <B>LANG</B><DD>
+These variables specify the locale for the
+<B>LC_MESSAGES</B>
+
+category,
+which determines the language that
+<B>grep</B>
+
+uses for messages.
+The default C locale uses American English messages.
+<DT><B>POSIXLY_CORRECT</B>
+
+<DD>
+If set,
+<B>grep</B>
+
+behaves as POSIX requires; otherwise,
+<B>grep</B>
+
+behaves more like other GNU programs.
+POSIX requires that options that follow file names must be
+treated as file names; by default, such options are permuted to the
+front of the operand list and are treated as options.
+Also, POSIX requires that unrecognized options be diagnosed as
+``illegal'', but since they are not really against the law the default
+is to diagnose them as ``invalid''.
+<B>POSIXLY_CORRECT</B>
+
+also disables <B>_</B><I>N</I><B>_GNU_nonoption_argv_flags_</B>,
+described below.
+<DT><B>_</B><I>N</I><B>_GNU_nonoption_argv_flags_</B><DD>
+(Here
+<I>N</I>
+
+is
+<B>grep</B>'s
+
+numeric process ID.)  If the
+<I>i</I>th
+
+character of this environment variable's value is
+<B>1</B>,
+
+do not consider the
+<I>i</I>th
+
+operand of
+<B>grep</B>
+
+to be an option, even if it appears to be one.
+A shell can put this variable in the environment for each command it runs,
+specifying which operands are the results of file name wildcard
+expansion and therefore should not be treated as options.
+This behavior is available only with the GNU C library, and only
+when
+<B>POSIXLY_CORRECT</B>
+
+is not set.
+</DL>
+<A NAME="lbAY">&nbsp;</A>
+<H2>EXIT STATUS</H2>
+
+Normally the exit status is 0 if a line is selected, 1 if no lines
+were selected, and 2 if an error occurred.  However, if the
+<B>-q</B>
+
+or
+<B>--quiet</B>
+
+or
+<B>--silent</B>
+
+is used and a line is selected, the exit status is 0 even if an error
+occurred.
+<A NAME="lbAZ">&nbsp;</A>
+<H2>COPYRIGHT</H2>
+
+Copyright 1998-2000, 2002, 2005-2017 Free Software Foundation, Inc.
+<P>
+
+This is free software;
+see the source for copying conditions.
+There is NO warranty;
+not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+<A NAME="lbBA">&nbsp;</A>
+<H2>BUGS</H2>
+
+<A NAME="lbBB">&nbsp;</A>
+<H3>Reporting Bugs</H3>
+
+Email bug reports to
+
+the bug-reporting address &lt;email: <A HREF="mailto:bug-grep@gnu.org">bug-grep@gnu.org</A> &gt;.
+
+An
+
+email archive &lt;URL: <A HREF="http://lists.gnu.org/mailman/listinfo/bug-grep">http://lists.gnu.org/mailman/listinfo/bug-grep</A> &gt;
+
+and a
+
+bug tracker &lt;URL: <A HREF="http://debbugs.gnu.org/cgi/pkgreport.cgi?package=grep">http://debbugs.gnu.org/cgi/pkgreport.cgi?package=grep</A> &gt;
+
+are available.
+<A NAME="lbBC">&nbsp;</A>
+<H3>Known Bugs</H3>
+
+Large repetition counts in the
+<B>{</B><I>n</I><B>,</B><I>m</I><B>}</B>
+
+construct may cause
+<B>grep</B>
+
+to use lots of memory.
+In addition,
+certain other obscure regular expressions require exponential time
+and space, and may cause
+<B>grep</B>
+
+to run out of memory.
+<P>
+
+Back-references are very slow, and may require exponential time.
+<A NAME="lbBD">&nbsp;</A>
+<H2>SEE ALSO</H2>
+
+<A NAME="lbBE">&nbsp;</A>
+<H3>Regular Manual Pages</H3>
+
+<A HREF="/cgi-bin/man/man2html?1+awk">awk</A>(1), <A HREF="/cgi-bin/man/man2html?1+cmp">cmp</A>(1), <A HREF="/cgi-bin/man/man2html?1+diff">diff</A>(1), <A HREF="/cgi-bin/man/man2html?1+find">find</A>(1), <A HREF="/cgi-bin/man/man2html?1+gzip">gzip</A>(1),
+<A HREF="/cgi-bin/man/man2html?1+perl">perl</A>(1), <A HREF="/cgi-bin/man/man2html?1+sed">sed</A>(1), <A HREF="/cgi-bin/man/man2html?1+sort">sort</A>(1), <A HREF="/cgi-bin/man/man2html?1+xargs">xargs</A>(1), <A HREF="/cgi-bin/man/man2html?1+zgrep">zgrep</A>(1),
+<A HREF="/cgi-bin/man/man2html?2+read">read</A>(2),
+<A HREF="/cgi-bin/man/man2html?3+pcre">pcre</A>(3), <A HREF="/cgi-bin/man/man2html?3+pcresyntax">pcresyntax</A>(3), <A HREF="/cgi-bin/man/man2html?3+pcrepattern">pcrepattern</A>(3),
+<A HREF="/cgi-bin/man/man2html?5+terminfo">terminfo</A>(5),
+<A HREF="/cgi-bin/man/man2html?7+glob">glob</A>(7), <A HREF="/cgi-bin/man/man2html?7+regex">regex</A>(7).
+<A NAME="lbBF">&nbsp;</A>
+<H3>POSIX Programmer's Manual Page</H3>
+
+<A HREF="/cgi-bin/man/man2html?1p+grep">grep</A>(1p).
+<A NAME="lbBG">&nbsp;</A>
+<H3>Full Documentation</H3>
+
+A
+
+complete manual &lt;URL: <A HREF="http://www.gnu.org/software/grep/manual/">http://www.gnu.org/software/grep/manual/</A> &gt;
+
+is available.
+If the
+<B>info</B>
+
+and
+<B>grep</B>
+
+programs are properly installed at your site, the command
+<DL COMPACT>
+<DT><DD>
+<B>info grep</B>
+
+</DL>
+<P>
+
+should give you access to the complete manual.
+<A NAME="lbBH">&nbsp;</A>
+<H2>NOTES</H2>
+
+This man page is maintained only fitfully;
+the full documentation is often more up-to-date.
+
+<BR>
+
+
+
+
+
+<P>
+
+<HR>
+<A NAME="index">&nbsp;</A><H2>Index</H2>
+<DL>
+<DT><A HREF="#lbAB">NAME</A><DD>
+<DT><A HREF="#lbAC">SYNOPSIS</A><DD>
+<DT><A HREF="#lbAD">DESCRIPTION</A><DD>
+<DT><A HREF="#lbAE">OPTIONS</A><DD>
+<DL>
+<DT><A HREF="#lbAF">Generic Program Information</A><DD>
+<DT><A HREF="#lbAG">Matcher Selection</A><DD>
+<DT><A HREF="#lbAH">Matching Control</A><DD>
+<DT><A HREF="#lbAI">General Output Control</A><DD>
+<DT><A HREF="#lbAJ">Output Line Prefix Control</A><DD>
+<DT><A HREF="#lbAK">Context Line Control</A><DD>
+<DT><A HREF="#lbAL">File and Directory Selection</A><DD>
+<DT><A HREF="#lbAM">Other Options</A><DD>
+</DL>
+<DT><A HREF="#lbAN">REGULAR EXPRESSIONS</A><DD>
+<DL>
+<DT><A HREF="#lbAO">Character Classes and Bracket Expressions</A><DD>
+<DT><A HREF="#lbAP">Anchoring</A><DD>
+<DT><A HREF="#lbAQ">The Backslash Character and Special Expressions</A><DD>
+<DT><A HREF="#lbAR">Repetition</A><DD>
+<DT><A HREF="#lbAS">Concatenation</A><DD>
+<DT><A HREF="#lbAT">Alternation</A><DD>
+<DT><A HREF="#lbAU">Precedence</A><DD>
+<DT><A HREF="#lbAV">Back References and Subexpressions</A><DD>
+<DT><A HREF="#lbAW">Basic vs Extended Regular Expressions</A><DD>
+</DL>
+<DT><A HREF="#lbAX">ENVIRONMENT VARIABLES</A><DD>
+<DT><A HREF="#lbAY">EXIT STATUS</A><DD>
+<DT><A HREF="#lbAZ">COPYRIGHT</A><DD>
+<DT><A HREF="#lbBA">BUGS</A><DD>
+<DL>
+<DT><A HREF="#lbBB">Reporting Bugs</A><DD>
+<DT><A HREF="#lbBC">Known Bugs</A><DD>
+</DL>
+<DT><A HREF="#lbBD">SEE ALSO</A><DD>
+<DL>
+<DT><A HREF="#lbBE">Regular Manual Pages</A><DD>
+<DT><A HREF="#lbBF">POSIX Programmer's Manual Page</A><DD>
+<DT><A HREF="#lbBG">Full Documentation</A><DD>
+</DL>
+<DT><A HREF="#lbBH">NOTES</A><DD>
+</DL>
+<HR>
+
+</BODY>
+</HTML>

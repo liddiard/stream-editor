@@ -1,0 +1,100 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML><HEAD><TITLE>Man page for UNEXPAND</TITLE>
+<link rel="stylesheet" type="text/css" href="style.css" /><script src="init.js"></script>
+</HEAD><BODY>
+<H1>UNEXPAND</H1>
+Section: User Commands (1)<BR>Updated: January 2018<BR><A HREF="#index">Index</A>
+<HR>
+
+
+<a name="lbAB">&nbsp;</a>
+<H2>NAME</H2>
+
+unexpand - convert spaces to tabs
+<A NAME="lbAC">&nbsp;</A>
+<H2>SYNOPSIS</H2>
+
+<B>unexpand</B>
+
+[<I>,OPTION/</I>]... [<I>,FILE/</I>]...
+<A NAME="lbAD">&nbsp;</A>
+<H2>DESCRIPTION</H2>
+
+
+<P>
+
+Convert blanks in each FILE to tabs, writing to standard output.
+<P>
+
+With no FILE, or when FILE is -, read standard input.
+<P>
+
+Mandatory arguments to long options are mandatory for short options too.
+<DL COMPACT>
+<DT><B>-a</B>, <B>--all</B><DD>
+convert all blanks, instead of just initial blanks
+<DT><B>--first-only</B><DD>
+convert only leading sequences of blanks (overrides <B>-a</B>)
+<DT><B>-t</B>, <B>--tabs</B>=<I>,N/</I><DD>
+have tabs N characters apart instead of 8 (enables <B>-a</B>)
+<DT><B>-t</B>, <B>--tabs</B>=<I>,LIST/</I><DD>
+use comma separated list of tab positions
+The last specified position can be prefixed with '/'
+to specify a tab size to use after the last
+explicitly specified tab stop.  Also a prefix of '+'
+can be used to align remaining tab stops relative to
+the last specified tab stop instead of the first column
+<DT><B>--help</B><DD>
+display this help and exit
+<DT><B>--version</B><DD>
+output version information and exit
+</DL>
+<A NAME="lbAE">&nbsp;</A>
+<H2>AUTHOR</H2>
+
+Written by David MacKenzie.
+<A NAME="lbAF">&nbsp;</A>
+<H2>REPORTING BUGS</H2>
+
+GNU coreutils online help: &lt;<A HREF="http://www.gnu.org/software/coreutils/">http://www.gnu.org/software/coreutils/</A>&gt;
+<BR>
+
+Report unexpand translation bugs to &lt;<A HREF="http://translationproject.org/team/">http://translationproject.org/team/</A>&gt;
+<A NAME="lbAG">&nbsp;</A>
+<H2>COPYRIGHT</H2>
+
+Copyright &#169; 2017 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later &lt;<A HREF="http://gnu.org/licenses/gpl.html">http://gnu.org/licenses/gpl.html</A>&gt;.
+<BR>
+
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+<A NAME="lbAH">&nbsp;</A>
+<H2>SEE ALSO</H2>
+
+<A HREF="/cgi-bin/man/man2html?1+expand">expand</A>(1)
+<P>
+
+<BR>
+
+Full documentation at: &lt;<A HREF="http://www.gnu.org/software/coreutils/unexpand">http://www.gnu.org/software/coreutils/unexpand</A>&gt;
+<BR>
+
+or available locally via: info '(coreutils) unexpand invocation'
+<P>
+
+<HR>
+<A NAME="index">&nbsp;</A><H2>Index</H2>
+<DL>
+<DT><A HREF="#lbAB">NAME</A><DD>
+<DT><A HREF="#lbAC">SYNOPSIS</A><DD>
+<DT><A HREF="#lbAD">DESCRIPTION</A><DD>
+<DT><A HREF="#lbAE">AUTHOR</A><DD>
+<DT><A HREF="#lbAF">REPORTING BUGS</A><DD>
+<DT><A HREF="#lbAG">COPYRIGHT</A><DD>
+<DT><A HREF="#lbAH">SEE ALSO</A><DD>
+</DL>
+<HR>
+
+</BODY>
+</HTML>

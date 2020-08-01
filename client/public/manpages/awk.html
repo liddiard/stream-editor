@@ -1,0 +1,5418 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML><HEAD><TITLE>Man page for GAWK</TITLE>
+<link rel="stylesheet" type="text/css" href="style.css" /><script src="init.js"></script>
+</HEAD><BODY>
+<H1>GAWK</H1>
+Section: Utility Commands (1)<BR>Updated: Mar 7 2016<BR><A HREF="#index">Index</A>
+<HR>
+
+<a name="lbAB">&nbsp;</a>
+<H2>NAME</H2>
+
+gawk - pattern scanning and processing language
+<A NAME="lbAC">&nbsp;</A>
+<H2>SYNOPSIS</H2>
+
+<B>gawk</B>
+
+[ <FONT SIZE="-1">POSIX</FONT> or <FONT SIZE="-1">GNU</FONT> style options ]
+<B>-f</B>
+
+<I>program-file</I>
+
+[
+<B>--</B>
+
+] file ...
+<BR>
+
+<B>gawk</B>
+
+[ <FONT SIZE="-1">POSIX</FONT> or <FONT SIZE="-1">GNU</FONT> style options ]
+[
+<B>--</B>
+
+]
+<I>program-text</I>
+
+file ...
+<A NAME="lbAD">&nbsp;</A>
+<H2>DESCRIPTION</H2>
+
+<I>Gawk</I>
+
+is the <FONT SIZE="-1">GNU</FONT> Project's implementation of the <FONT SIZE="-1">AWK</FONT> programming language.
+It conforms to the definition of the language in
+the <FONT SIZE="-1">POSIX</FONT> 1003.1 Standard.
+This version in turn is based on the description in
+<I>The AWK Programming Language</I>,
+
+by Aho, Kernighan, and Weinberger.
+<I>Gawk</I>
+
+provides the additional features found in the current version
+of Brian Kernighan's
+<I>awk</I>
+
+and a number of <FONT SIZE="-1">GNU</FONT>-specific extensions.
+<P>
+
+The command line consists of options to
+<I>gawk</I>
+
+itself, the <FONT SIZE="-1">AWK</FONT> program text (if not supplied via the
+<B>-f</B>
+
+or
+<B>--file</B>
+
+options), and values to be made
+available in the
+<B>ARGC</B>
+
+and
+<B>ARGV</B>
+
+pre-defined <FONT SIZE="-1">AWK</FONT> variables.
+<P>
+
+When
+<I>gawk</I>
+
+is invoked with the
+<B>--profile</B>
+
+option, it starts gathering profiling statistics
+from the execution of the program.
+<I>Gawk</I>
+
+runs more slowly in this mode, and automatically produces an execution
+profile in the file
+<B>awkprof.out</B>
+
+when done.
+See the
+<B>--profile</B>
+
+option, below.
+<P>
+
+<I>Gawk</I>
+
+also has an integrated debugger. An interactive debugging session can
+be started by supplying the
+<B>--debug</B>
+
+option to the command line. In this mode of execution,
+<I>gawk</I>
+
+loads the
+AWK source code and then prompts for debugging commands.
+<I>Gawk</I>
+
+can only debug AWK program source provided with the
+<B>-f</B>
+
+option.
+The debugger is documented in <I>GAWK: Effective AWK Programming</I>.
+<A NAME="lbAE">&nbsp;</A>
+<H2>OPTION FORMAT</H2>
+
+<P>
+
+<I>Gawk</I>
+
+options may be either traditional <FONT SIZE="-1">POSIX</FONT>-style one letter options,
+or <FONT SIZE="-1">GNU</FONT>-style long options.  <FONT SIZE="-1">POSIX</FONT> options start with a single ``-'',
+while long options start with ``--''.
+Long options are provided for both <FONT SIZE="-1">GNU</FONT>-specific features and
+for <FONT SIZE="-1">POSIX</FONT>-mandated features.
+<P>
+
+<I>Gawk</I>-specific
+
+options are typically used in long-option form.
+Arguments to long options are either joined with the option
+by an
+<B>=</B>
+
+sign, with no intervening spaces, or they may be provided in the
+next command line argument.
+Long options may be abbreviated, as long as the abbreviation
+remains unique.
+<P>
+
+Additionally, every long option has a corresponding short
+option, so that the option's functionality may be used from
+within
+<B>#!</B>
+
+executable scripts.
+<A NAME="lbAF">&nbsp;</A>
+<H2>OPTIONS</H2>
+
+<P>
+
+<I>Gawk</I>
+
+accepts the following options.
+Standard options are listed first, followed by options for
+<I>gawk</I>
+
+extensions, listed alphabetically by short option.
+<DL COMPACT>
+<DT>
+<DD>
+<B>-f</B><I> program-file</I>
+
+<DT>
+<DD>
+<B>--file</B><I> program-file</I>
+
+Read the <FONT SIZE="-1">AWK</FONT> program source from the file
+<I>program-file</I>,
+
+instead of from the first command line argument.
+Multiple
+<B>-f</B>
+
+(or
+<B>--file</B>)
+
+options may be used.
+<DT>
+<DD>
+<B>-F</B><I> fs</I>
+
+<DT>
+<DD>
+<B>--field-separator</B><I> fs</I>
+
+Use
+<I>fs</I>
+
+for the input field separator (the value of the
+<B>FS</B>
+
+predefined
+variable).
+<DT>
+<DD>
+<B>-v</B><I> var</I><B>=</B><I>val</I>
+<DT>
+<DD>
+<B>--assign </B><I>var</I><B>=</B><I>val</I>
+Assign the value
+<I>val</I>
+
+to the variable
+<I>var</I>,
+
+before execution of the program begins.
+Such variable values are available to the
+<B>BEGIN</B>
+
+rule of an <FONT SIZE="-1">AWK</FONT> program.
+<DT>
+<DD>
+<B>-b</B>
+
+<DT>
+<DD>
+<B>--characters-as-bytes</B>
+
+Treat all input data as single-byte characters. In other words,
+don't pay any attention to the locale information when attempting to
+process strings as multibyte characters.
+The
+<B>--posix</B>
+
+option overrides this one.
+
+<DT>
+<DD>
+<B>-c</B>
+
+<DT>
+<DD>
+<B>--traditional</B>
+
+Run in
+<I>compatibility</I>
+
+mode.  In compatibility mode,
+<I>gawk</I>
+
+behaves identically to Brian Kernighan's
+<I>awk</I>;
+
+none of the <FONT SIZE="-1">GNU</FONT>-specific extensions are recognized.
+
+
+
+See
+<B>GNU EXTENSIONS</B>,
+
+below, for more information.
+<DT>
+<DD>
+<B>-C</B>
+
+<DT>
+<DD>
+<B>--copyright</B>
+
+Print the short version of the <FONT SIZE="-1">GNU</FONT> copyright information message on
+the standard output and exit successfully.
+<DT>
+<DD>
+<B>-d</B>[<I>file</I>]
+<DT>
+<DD>
+<B>--dump-variables</B>[<B>=</B><I>file</I>]
+Print a sorted list of global variables, their types and final values to
+<I>file</I>.
+
+If no
+<I>file</I>
+
+is provided,
+<I>gawk</I>
+
+uses a file named
+<B>awkvars.out</B>
+
+in the current directory.
+<P>
+Having a list of all the global variables is a good way to look for
+typographical errors in your programs.
+You would also use this option if you have a large program with a lot of
+functions, and you want to be sure that your functions don't
+inadvertently use global variables that you meant to be local.
+(This is a particularly easy mistake to make with simple variable
+names like
+<B>i</B>,
+
+<B>j</B>,
+
+and so on.)
+<DT>
+<DD>
+<B>-D</B>[<I>file</I>]
+<DT>
+<DD>
+<B>--debug</B>[<B>=</B><I>file</I>]
+Enable debugging of <FONT SIZE="-1">AWK</FONT> programs.
+By default, the debugger reads commands interactively from the keyboard
+(standard input).
+The optional
+<I>file</I>
+
+argument specifies a file with a list
+of commands for the debugger to execute non-interactively.
+<DT>
+<DD>
+<B>-e </B><I>program-text</I>
+
+<DT>
+<DD>
+<B>--source</B><I> program-text</I>
+
+Use
+<I>program-text</I>
+
+as <FONT SIZE="-1">AWK</FONT> program source code.
+This option allows the easy intermixing of library functions (used via the
+<B>-f</B>
+
+and
+<B>--file</B>
+
+options) with source code entered on the command line.
+It is intended primarily for medium to large <FONT SIZE="-1">AWK</FONT> programs used
+in shell scripts.
+<DT>
+<DD>
+<B>-E </B><I>file</I>
+
+<DT>
+<DD>
+<B>--exec</B><I> file</I>
+
+Similar to
+<B>-f</B>,
+
+however, this is option is the last one processed.
+This should be used with
+<B>#!</B>
+
+scripts, particularly for CGI applications, to avoid
+passing in options or source code (!) on the command line
+from a URL.
+This option disables command-line variable assignments.
+<DT>
+<DD>
+<B>-g</B>
+
+<DT>
+<DD>
+<B>--gen-pot</B>
+
+Scan and parse the <FONT SIZE="-1">AWK</FONT> program, and generate a <FONT SIZE="-1">GNU</FONT>
+<B>.pot</B>
+
+(Portable Object Template)
+format file on standard output with entries for all localizable
+strings in the program.  The program itself is not executed.
+See the <FONT SIZE="-1">GNU</FONT>
+<I>gettext</I>
+
+distribution for more information on
+<B>.pot</B>
+
+files.
+<DT>
+<DD>
+<B>-h</B>
+
+<DT>
+<DD>
+<B>--help</B>
+
+Print a relatively short summary of the available options on
+the standard output.
+(Per the
+<I>GNU Coding Standards</I>,
+
+these options cause an immediate, successful exit.)
+<DT>
+<DD>
+<B>-i </B><I>include-file</I>
+
+<DT>
+<DD>
+<B>--include</B><I> include-file</I>
+
+Load an awk source library.
+This searches for the library using the
+<B>AWKPATH</B>
+
+environment variable.  If the initial search fails, another attempt will
+be made after appending the
+<B>.awk</B>
+
+suffix.  The file will be loaded only
+once (i.e., duplicates are eliminated), and the code does not constitute
+the main program source.
+<DT>
+<DD>
+<B>-l </B><I>lib</I>
+
+<DT>
+<DD>
+<B>--load</B><I> lib</I>
+
+Load a shared library
+<I>lib</I>.
+
+This searches for the library using the
+<B>AWKLIBPATH</B>
+
+environment variable.  If the initial search fails, another attempt will
+be made after appending the default shared library suffix for the platform.
+The library initialization routine is expected to be named
+<B>dl_load()</B>.
+
+<DT>
+<DD>
+<B>-L </B>[<B></B><I>value</I>]
+
+<DT>
+<DD>
+<B>--lint</B>[<B>=</B><I>value</I>]
+
+Provide warnings about constructs that are
+dubious or non-portable to other <FONT SIZE="-1">AWK</FONT> implementations.
+With an optional argument of
+<B>fatal</B>,
+
+lint warnings become fatal errors.
+This may be drastic, but its use will certainly encourage the
+development of cleaner <FONT SIZE="-1">AWK</FONT> programs.
+With an optional argument of
+<B>invalid</B>,
+
+only warnings about things that are
+actually invalid are issued. (This is not fully implemented yet.)
+<DT>
+<DD>
+<B>-M</B>
+
+<DT>
+<DD>
+<B>--bignum</B>
+
+Force arbitrary precision arithmetic on numbers. This option has
+no effect if
+<I>gawk</I>
+
+is not compiled to use the GNU MPFR and MP libraries.
+<DT>
+<DD>
+<B>-n</B>
+
+<DT>
+<DD>
+<B>--non-decimal-data</B>
+
+Recognize octal and hexadecimal values in input data.
+<I>Use this option with great caution!</I>
+
+<DT>
+<DD>
+<B>-N</B>
+
+<DT>
+<DD>
+<B>--use-lc-numeric</B>
+
+This forces
+<I>gawk</I>
+
+to use the locale's decimal point character when parsing input data.
+Although the POSIX standard requires this behavior, and
+<I>gawk</I>
+
+does so when
+<B>--posix</B>
+
+is in effect, the default is to follow traditional behavior and use a
+period as the decimal point, even in locales where the period is not the
+decimal point character.  This option overrides the default behavior,
+without the full draconian strictness of the
+<B>--posix</B>
+
+option.
+
+<DT>
+<DD>
+<B>-o</B>[<I>file</I>]
+<DT>
+<DD>
+<B>--pretty-print</B>[<B>=</B><I>file</I>]
+Output a pretty printed version of the program to
+<I>file</I>.
+
+If no
+<I>file</I>
+
+is provided,
+<I>gawk</I>
+
+uses a file named
+<B>awkprof.out</B>
+
+in the current directory.
+<DT>
+<DD>
+<B>-O</B>
+
+<DT>
+<DD>
+<B>--optimize</B>
+
+Enable optimizations upon the internal representation of the program.
+Currently, this includes simple constant-folding, and tail call
+elimination for recursive functions. The
+<I>gawk</I>
+
+maintainer hopes to add additional optimizations over time.
+<DT>
+<DD>
+<B>-p</B>[<I>prof-file</I>]
+<DT>
+<DD>
+<B>--profile</B>[<B>=</B><I>prof-file</I>]
+Start a profiling session, and send the profiling data to
+<I>prof-file</I>.
+
+The default is
+<B>awkprof.out</B>.
+
+The profile contains execution counts of each statement in the program
+in the left margin and function call counts for each user-defined function.
+<DT>
+<DD>
+<B>-P</B>
+
+<DT>
+<DD>
+<B>--posix</B>
+
+This turns on
+<I>compatibility</I>
+
+mode, with the following additional restrictions:
+<DL COMPACT><DT><DD>
+<DL COMPACT>
+<DT>&bull;<DD>
+<B>\x</B>
+
+escape sequences are not recognized.
+<DT>&bull;<DD>
+Only space and tab act as field separators when
+<B>FS</B>
+
+is set to a single space, newline does not.
+<DT>&bull;<DD>
+You cannot continue lines after
+<B>?</B>
+
+and
+<B>:</B>.
+
+<DT>&bull;<DD>
+The synonym
+<B>func</B>
+
+for the keyword
+<B>function</B>
+
+is not recognized.
+<DT>&bull;<DD>
+The operators
+<B>**</B>
+
+and
+<B>**=</B>
+
+cannot be used in place of
+<B>^</B>
+
+and
+<B>^=</B>.
+
+</DL>
+</DL>
+
+<DT>
+<DD>
+<B>-r</B>
+
+<DT>
+<DD>
+<B>--re-interval</B>
+
+Enable the use of
+<I>interval expressions</I>
+
+in regular expression matching
+(see
+<B>Regular Expressions</B>,
+
+below).
+Interval expressions were not traditionally available in the
+<FONT SIZE="-1">AWK</FONT> language.  The <FONT SIZE="-1">POSIX</FONT> standard added them, to make
+<I>awk</I>
+
+and
+<I>egrep</I>
+
+consistent with each other.
+They are enabled by default, but this option remains for use with
+<B>--traditional</B>.
+
+<DT>
+<DD>
+<B>-S</B>
+
+<DT>
+<DD>
+<B>--sandbox</B>
+
+Runs
+<I>gawk</I>
+
+in sandbox mode, disabling the
+<B>system()</B>
+
+function, input redirection with
+<B>getline</B>,
+
+output redirection with
+<B>print</B> and <B>printf</B>,
+
+and loading dynamic extensions.
+Command execution (through pipelines) is also disabled.
+This effectively blocks a script from accessing local resources
+(except for the files specified on the command line).
+<DT>
+<DD>
+<B>-t</B>
+
+<DT>
+<DD>
+<B>--lint-old</B>
+
+Provide warnings about constructs that are
+not portable to the original version of <FONT SIZE="-1">UNIX</FONT>
+<I>awk</I>.
+
+<DT>
+<DD>
+<B>-V</B>
+
+<DT>
+<DD>
+<B>--version</B>
+
+Print version information for this particular copy of
+<I>gawk</I>
+
+on the standard output.
+This is useful mainly for knowing if the current copy of
+<I>gawk</I>
+
+on your system
+is up to date with respect to whatever the Free Software Foundation
+is distributing.
+This is also useful when reporting bugs.
+(Per the
+<I>GNU Coding Standards</I>,
+
+these options cause an immediate, successful exit.)
+<DT><B>--</B>
+
+<DD>
+Signal the end of options. This is useful to allow further arguments to the
+<FONT SIZE="-1">AWK</FONT> program itself to start with a ``-''.
+This provides consistency with the argument parsing convention used
+by most other <FONT SIZE="-1">POSIX</FONT> programs.
+</DL>
+<P>
+
+In compatibility mode,
+any other options are flagged as invalid, but are otherwise ignored.
+In normal operation, as long as program text has been supplied, unknown
+options are passed on to the <FONT SIZE="-1">AWK</FONT> program in the
+<B>ARGV</B>
+
+array for processing.  This is particularly useful for running <FONT SIZE="-1">AWK</FONT>
+programs via the ``#!'' executable interpreter mechanism.
+<P>
+
+For <FONT SIZE="-1">POSIX</FONT> compatibility, the
+<B>-W</B>
+
+option may be used, followed by the name of a long option.
+<A NAME="lbAG">&nbsp;</A>
+<H2>AWK PROGRAM EXECUTION</H2>
+
+<P>
+
+An <FONT SIZE="-1">AWK</FONT> program consists of a sequence of pattern-action statements
+and optional function definitions.
+<DL COMPACT><DT><DD>
+<P>
+
+<B>@include &quot;</B><I>filename</I><B>&quot;
+<BR>
+
+@load &quot;</B><I>filename</I><B>&quot;
+<BR>
+
+</B><I>pattern</I><B><TT>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TT>{ </B><I>action statements</I><B> }</B><BR>
+<BR>
+
+<B>function </B><I>name</I><B>(</B><I>parameter list</I><B>) { </B><I>statements</I><B> }</B>
+</DL>
+
+<P>
+
+<I>Gawk</I>
+
+first reads the program source from the
+<I>program-file</I>(s)
+
+if specified,
+from arguments to
+<B>--source</B>,
+
+or from the first non-option argument on the command line.
+The
+<B>-f</B>
+
+and
+<B>--source</B>
+
+options may be used multiple times on the command line.
+<I>Gawk</I>
+
+reads the program text as if all the
+<I>program-file</I>s
+
+and command line source texts
+had been concatenated together.  This is useful for building libraries
+of <FONT SIZE="-1">AWK</FONT> functions, without having to include them in each new <FONT SIZE="-1">AWK</FONT>
+program that uses them.  It also provides the ability to mix library
+functions with command line programs.
+<P>
+
+In addition, lines beginning with
+<B>@include</B>
+
+may be used to include other source files into your program,
+making library use even easier.  This is equivalent
+to using the
+<B>-i</B>
+
+option.
+<P>
+
+Lines beginning with
+<B>@load</B>
+
+may be used to load shared libraries into your program.  This is equivalent
+to using the
+<B>-l</B>
+
+option.
+<P>
+
+The environment variable
+<B>AWKPATH</B>
+
+specifies a search path to use when finding source files named with
+the
+<B>-f</B>
+
+and
+<B>-i</B>
+
+options.  If this variable does not exist, the default path is
+<B>&quot;.:/usr/local/share/awk&quot;</B>.
+(The actual directory may vary, depending upon how
+<I>gawk</I>
+
+was built and installed.)
+If a file name given to the
+<B>-f</B>
+
+option contains a ``/'' character, no path search is performed.
+<P>
+
+The environment variable
+<B>AWKLIBPATH</B>
+
+specifies a search path to use when finding source files named with
+the
+<B>-l</B>
+
+option.  If this variable does not exist, the default path is
+<B>&quot;/usr/local/lib/gawk&quot;</B>.
+(The actual directory may vary, depending upon how
+<I>gawk</I>
+
+was built and installed.)
+<P>
+
+<I>Gawk</I>
+
+executes <FONT SIZE="-1">AWK</FONT> programs in the following order.
+First,
+all variable assignments specified via the
+<B>-v</B>
+
+option are performed.
+Next,
+<I>gawk</I>
+
+compiles the program into an internal form.
+Then,
+<I>gawk</I>
+
+executes the code in the
+<B>BEGIN</B>
+
+rule(s) (if any),
+and then proceeds to read
+each file named in the
+<B>ARGV</B>
+
+array (up to
+<B>ARGV[ARGC]</B>).
+
+If there are no files named on the command line,
+<I>gawk</I>
+
+reads the standard input.
+<P>
+
+If a filename on the command line has the form
+<I>var</I><B>=</B><I>val</I>
+
+it is treated as a variable assignment.  The variable
+<I>var</I>
+
+will be assigned the value
+<I>val</I>.
+
+(This happens after any
+<B>BEGIN</B>
+
+rule(s) have been run.)
+Command line variable assignment
+is most useful for dynamically assigning values to the variables
+<FONT SIZE="-1">AWK</FONT> uses to control how input is broken into fields and records.
+It is also useful for controlling state if multiple passes are needed over
+a single data file.
+<P>
+
+If the value of a particular element of
+<B>ARGV</B>
+
+is empty (<B>&quot;&quot;</B>),
+<I>gawk</I>
+
+skips over it.
+<P>
+
+For each input file,
+if a
+<B>BEGINFILE</B>
+
+rule exists,
+<I>gawk</I>
+
+executes the associated code
+before processing the contents of the file. Similarly,
+<I>gawk</I>
+
+executes
+the code associated with
+<B>ENDFILE</B>
+
+after processing the file.
+<P>
+
+For each record in the input,
+<I>gawk</I>
+
+tests to see if it matches any
+<I>pattern</I>
+
+in the <FONT SIZE="-1">AWK</FONT> program.
+For each pattern that the record matches,
+<I>gawk</I>
+
+executes the associated
+<I>action</I>.
+
+The patterns are tested in the order they occur in the program.
+<P>
+
+Finally, after all the input is exhausted,
+<I>gawk</I>
+
+executes the code in the
+<B>END</B>
+
+rule(s) (if any).
+<A NAME="lbAH">&nbsp;</A>
+<H3>Command Line Directories</H3>
+
+<P>
+
+According to POSIX, files named on the
+<I>awk</I>
+
+command line must be
+text files.  The behavior is ``undefined'' if they are not.  Most versions
+of
+<I>awk</I>
+
+treat a directory on the command line as a fatal error.
+<P>
+
+Starting with version 4.0 of
+<I>gawk</I>,
+
+a directory on the command line
+produces a warning, but is otherwise skipped.  If either of the
+<B>--posix</B>
+
+or
+<B>--traditional</B>
+
+options is given, then
+<I>gawk</I>
+
+reverts to
+treating directories on the command line as a fatal error.
+<A NAME="lbAI">&nbsp;</A>
+<H2>VARIABLES, RECORDS AND FIELDS</H2>
+
+<FONT SIZE="-1">AWK</FONT> variables are dynamic; they come into existence when they are
+first used.  Their values are either floating-point numbers or strings,
+or both,
+depending upon how they are used.  <FONT SIZE="-1">AWK</FONT> also has one dimensional
+arrays; arrays with multiple dimensions may be simulated.
+<I>Gawk</I>
+
+provides true arrays of arrays; see
+<B>Arrays</B>,
+
+below.
+Several pre-defined variables are set as a program
+runs; these are described as needed and summarized below.
+<A NAME="lbAJ">&nbsp;</A>
+<H3>Records</H3>
+
+Normally, records are separated by newline characters.  You can control how
+records are separated by assigning values to the built-in variable
+<B>RS</B>.
+
+If
+<B>RS</B>
+
+is any single character, that character separates records.
+Otherwise,
+<B>RS</B>
+
+is a regular expression.  Text in the input that matches this
+regular expression separates the record.
+However, in compatibility mode,
+only the first character of its string
+value is used for separating records.
+If
+<B>RS</B>
+
+is set to the null string, then records are separated by
+blank lines.
+When
+<B>RS</B>
+
+is set to the null string, the newline character always acts as
+a field separator, in addition to whatever value
+<B>FS</B>
+
+may have.
+<A NAME="lbAK">&nbsp;</A>
+<H3>Fields</H3>
+
+<P>
+
+As each input record is read,
+<I>gawk</I>
+
+splits the record into
+<I>fields</I>,
+
+using the value of the
+<B>FS</B>
+
+variable as the field separator.
+If
+<B>FS</B>
+
+is a single character, fields are separated by that character.
+If
+<B>FS</B>
+
+is the null string, then each individual character becomes a
+separate field.
+Otherwise,
+<B>FS</B>
+
+is expected to be a full regular expression.
+In the special case that
+<B>FS</B>
+
+is a single space, fields are separated
+by runs of spaces and/or tabs and/or newlines.
+(But see the section
+<B>POSIX COMPATIBILITY</B>,
+
+below).
+<B>NOTE</B>:
+
+The value of
+<B>IGNORECASE</B>
+
+(see below) also affects how fields are split when
+<B>FS</B>
+
+is a regular expression, and how records are separated when
+<B>RS</B>
+
+is a regular expression.
+<P>
+
+If the
+<B>FIELDWIDTHS</B>
+
+variable is set to a space separated list of numbers, each field is
+expected to have fixed width, and
+<I>gawk</I>
+
+splits up the record using the specified widths.  The value of
+<B>FS</B>
+
+is ignored.
+Assigning a new value to
+<B>FS</B>
+
+or
+<B>FPAT</B>
+
+overrides the use of
+<B>FIELDWIDTHS</B>.
+
+<P>
+
+Similarly, if the
+<B>FPAT</B>
+
+variable is set to a string representing a regular expression,
+each field is made up of text that matches that regular expression. In
+this case, the regular expression describes the fields themselves,
+instead of the text that separates the fields.
+Assigning a new value to
+<B>FS</B>
+
+or
+<B>FIELDWIDTHS</B>
+
+overrides the use of
+<B>FPAT</B>.
+
+<P>
+
+Each field in the input record may be referenced by its position:
+<B>$1</B>,
+
+<B>$2</B>,
+
+and so on.
+<B>$0</B>
+
+is the whole record.
+Fields need not be referenced by constants:
+<DL COMPACT><DT><DD>
+<P>
+
+<B>
+n = 5
+<BR>
+
+print $n
+</B>
+</DL>
+
+<P>
+
+prints the fifth field in the input record.
+<P>
+
+The variable
+<B>NF</B>
+
+is set to the total number of fields in the input record.
+<P>
+
+References to non-existent fields (i.e., fields after
+<B>$NF</B>)
+
+produce the null-string.  However, assigning to a non-existent field
+(e.g.,
+<B>$(NF+2) = 5</B>)
+
+increases the value of
+<B>NF</B>,
+
+creates any intervening fields with the null string as their values, and
+causes the value of
+<B>$0</B>
+
+to be recomputed, with the fields being separated by the value of
+<B>OFS</B>.
+
+References to negative numbered fields cause a fatal error.
+Decrementing
+<B>NF</B>
+
+causes the values of fields past the new value to be lost, and the value of
+<B>$0</B>
+
+to be recomputed, with the fields being separated by the value of
+<B>OFS</B>.
+
+<P>
+
+Assigning a value to an existing field
+causes the whole record to be rebuilt when
+<B>$0</B>
+
+is referenced.
+Similarly, assigning a value to
+<B>$0</B>
+
+causes the record to be resplit, creating new
+values for the fields.
+<A NAME="lbAL">&nbsp;</A>
+<H3>Built-in Variables</H3>
+
+<P>
+
+<I>Gawk</I>'s
+
+built-in variables are:
+<P>
+
+<DL COMPACT>
+<DT><B>ARGC</B>
+
+<DD>
+The number of command line arguments (does not include options to
+<I>gawk</I>,
+
+or the program source).
+<DT><B>ARGIND</B>
+
+<DD>
+The index in
+<B>ARGV</B>
+
+of the current file being processed.
+<DT><B>ARGV</B>
+
+<DD>
+Array of command line arguments.  The array is indexed from
+0 to
+<B>ARGC</B>
+
+- 1.
+Dynamically changing the contents of
+<B>ARGV</B>
+
+can control the files used for data.
+<DT><B>BINMODE</B>
+
+<DD>
+On non-POSIX systems, specifies use of ``binary'' mode for all file I/O.
+Numeric values of 1, 2, or 3, specify that input files, output files, or
+all files, respectively, should use binary I/O.
+String values of <B>&quot;r&quot;</B>, or <B>&quot;w&quot;</B> specify that input files, or output files,
+respectively, should use binary I/O.
+String values of <B>&quot;rw&quot;</B> or <B>&quot;wr&quot;</B> specify that all files
+should use binary I/O.
+Any other string value is treated as <B>&quot;rw&quot;</B>, but generates a warning message.
+<DT><B>CONVFMT</B>
+
+<DD>
+The conversion format for numbers, <B>&quot;%.6g&quot;</B>, by default.
+<DT><B>ENVIRON</B>
+
+<DD>
+An array containing the values of the current environment.
+The array is indexed by the environment variables, each element being
+the value of that variable (e.g., <B>ENVIRON[&quot;HOME&quot;]</B> might be
+<B>&quot;/home/arnold&quot;</B>).
+Changing this array does not affect the environment seen by programs which
+<I>gawk</I>
+
+spawns via redirection or the
+<B>system()</B>
+
+function.
+<DT><B>ERRNO</B>
+
+<DD>
+If a system error occurs either doing a redirection for
+<B>getline</B>,
+
+during a read for
+<B>getline</B>,
+
+or during a
+<B>close()</B>,
+
+then
+<B>ERRNO</B>
+
+will contain
+a string describing the error.
+The value is subject to translation in non-English locales.
+<DT><B>FIELDWIDTHS</B>
+
+<DD>
+A whitespace separated list of field widths.  When set,
+<I>gawk</I>
+
+parses the input into fields of fixed width, instead of using the
+value of the
+<B>FS</B>
+
+variable as the field separator.
+See
+<B>Fields</B>,
+
+above.
+<DT><B>FILENAME</B>
+
+<DD>
+The name of the current input file.
+If no files are specified on the command line, the value of
+<B>FILENAME</B>
+
+is ``-''.
+However,
+<B>FILENAME</B>
+
+is undefined inside the
+<B>BEGIN</B>
+
+rule
+(unless set by
+<B>getline</B>).
+
+<DT><B>FNR</B>
+
+<DD>
+The input record number in the current input file.
+<DT><B>FPAT</B>
+
+<DD>
+A regular expression describing the contents of the
+fields in a record.
+When set,
+<I>gawk</I>
+
+parses the input into fields, where the fields match the
+regular expression, instead of using the
+value of the
+<B>FS</B>
+
+variable as the field separator.
+See
+<B>Fields</B>,
+
+above.
+<DT><B>FS</B>
+
+<DD>
+The input field separator, a space by default.  See
+<B>Fields</B>,
+
+above.
+<DT><B>FUNCTAB</B>
+
+<DD>
+An array whose indices and corresponding values
+are the names of all the user-defined
+or extension functions in the program.
+<B>NOTE</B>:
+
+You may not use the
+<B>delete</B>
+
+statement with the
+<B>FUNCTAB</B>
+
+array.
+<DT><B>IGNORECASE</B>
+
+<DD>
+Controls the case-sensitivity of all regular expression
+and string operations.  If
+<B>IGNORECASE</B>
+
+has a non-zero value, then string comparisons and
+pattern matching in rules,
+field splitting with
+<B>FS</B>
+
+and
+<B>FPAT</B>,
+
+record separating with
+<B>RS</B>,
+
+regular expression
+matching with
+<B>~</B>
+
+and
+<B>!~</B>,
+
+and the
+<B>gensub()</B>,
+
+<B>gsub()</B>,
+
+<B>index()</B>,
+
+<B>match()</B>,
+
+<B>patsplit()</B>,
+
+<B>split()</B>,
+
+and
+<B>sub()</B>
+
+built-in functions all ignore case when doing regular expression
+operations.
+<B>NOTE</B>:
+
+Array subscripting is
+<I>not</I>
+
+affected.
+However, the
+<B>asort()</B>
+
+and
+<B>asorti()</B>
+
+functions are affected.
+<P>
+Thus, if
+<B>IGNORECASE</B>
+
+is not equal to zero,
+<B>/aB/</B>
+
+matches all of the strings <B>&quot;ab&quot;</B>, <B>&quot;aB&quot;</B>, <B>&quot;Ab&quot;</B>,
+and <B>&quot;AB&quot;</B>.
+As with all <FONT SIZE="-1">AWK</FONT> variables, the initial value of
+<B>IGNORECASE</B>
+
+is zero, so all regular expression and string
+operations are normally case-sensitive.
+<DT><B>LINT</B>
+
+<DD>
+Provides dynamic control of the
+<B>--lint</B>
+
+option from within an <FONT SIZE="-1">AWK</FONT> program.
+When true,
+<I>gawk</I>
+
+prints lint warnings. When false, it does not.
+When assigned the string value <B>&quot;fatal&quot;</B>,
+lint warnings become fatal errors, exactly like
+<B>--lint=fatal</B>.
+
+Any other true value just prints warnings.
+<DT><B>NF</B>
+
+<DD>
+The number of fields in the current input record.
+<DT><B>NR</B>
+
+<DD>
+The total number of input records seen so far.
+<DT><B>OFMT</B>
+
+<DD>
+The output format for numbers, <B>&quot;%.6g&quot;</B>, by default.
+<DT><B>OFS</B>
+
+<DD>
+The output field separator, a space by default.
+<DT><B>ORS</B>
+
+<DD>
+The output record separator, by default a newline.
+<DT><B>PREC</B>
+
+<DD>
+The working precision of arbitrary precision floating-point
+numbers, 53 by default.
+<DT><B>PROCINFO</B>
+
+<DD>
+The elements of this array provide access to information about the
+running <FONT SIZE="-1">AWK</FONT> program.
+On some systems,
+there may be elements in the array, <B>&quot;group1&quot;</B> through
+<B>&quot;group</B><I>n</I><B>&quot;</B> for some
+<I>n</I>,
+
+which is the number of supplementary groups that the process has.
+Use the
+<B>in</B>
+
+operator to test for these elements.
+The following elements are guaranteed to be available:
+<DL COMPACT><DT><DD>
+<DL COMPACT>
+<DT><B>PROCINFO[&quot;egid&quot;]</B><DD>
+The value of the
+<I><A HREF="/cgi-bin/man/man2html?2+getegid">getegid</A></I>(2)
+
+system call.
+<DT><B>PROCINFO[&quot;euid&quot;]</B><DD>
+The value of the
+<I><A HREF="/cgi-bin/man/man2html?2+geteuid">geteuid</A></I>(2)
+
+system call.
+<DT><B>PROCINFO[&quot;FS&quot;]</B><DD>
+<B>&quot;FS&quot;</B> if field splitting with
+<B>FS</B>
+
+is in effect,
+<B>&quot;FPAT&quot;</B> if field splitting with
+<B>FPAT</B>
+
+is in effect,
+or <B>&quot;FIELDWIDTHS&quot;</B> if field splitting with
+<B>FIELDWIDTHS</B>
+
+is in effect.
+<DT><B>PROCINFO[&quot;gid&quot;]</B><DD>
+The value of the
+<I><A HREF="/cgi-bin/man/man2html?2+getgid">getgid</A></I>(2)
+
+system call.
+<DT><B>PROCINFO[&quot;identifiers&quot;]</B><DD>
+A subarray, indexed by the names of all identifiers used in the
+text of the AWK program.
+The values indicate what
+<I>gawk</I>
+
+knows about the identifiers after it has finished parsing the program; they are
+<I>not</I>
+
+updated while the program runs.
+For each identifier, the value of the element is one of the following:
+<DL COMPACT><DT><DD>
+<DL COMPACT>
+<DT><B>&quot;array&quot;</B><DD>
+The identifier is an array.
+<DT><B>&quot;builtin&quot;</B><DD>
+The identifier is a built-in function.
+<DT><B>&quot;extension&quot;</B><DD>
+The identifier is an extension function loaded via
+<B>@load</B>
+
+or
+<B>-l</B>.
+
+<DT><B>&quot;scalar&quot;</B><DD>
+The identifier is a scalar.
+<DT><B>&quot;untyped&quot;</B><DD>
+The identifier is untyped (could be used as a scalar or array,
+<I>gawk</I>
+
+doesn't know yet).
+<DT><B>&quot;user&quot;</B><DD>
+The identifier is a user-defined function.
+</DL>
+</DL>
+
+<DT><B>PROCINFO[&quot;pgrpid&quot;]</B><DD>
+The process group ID of the current process.
+<DT><B>PROCINFO[&quot;pid&quot;]</B><DD>
+The process ID of the current process.
+<DT><B>PROCINFO[&quot;ppid&quot;]</B><DD>
+The parent process ID of the current process.
+<DT><B>PROCINFO[&quot;strftime&quot;]</B><DD>
+The default time format string for
+<B>strftime()</B>.
+
+<DT><B>PROCINFO[&quot;uid&quot;]</B><DD>
+The value of the
+<I><A HREF="/cgi-bin/man/man2html?2+getuid">getuid</A></I>(2)
+
+system call.
+<DT><B>PROCINFO[&quot;version&quot;]</B><DD>
+the version of
+<I>gawk</I>.
+
+</DL>
+<P>
+
+The following elements are present if loading dynamic
+extensions is available:
+<DL COMPACT>
+<DT><B>PROCINFO[&quot;api_major&quot;]</B><DD>
+The major version of the extension API.
+<DT><B>PROCINFO[&quot;api_minor&quot;]</B><DD>
+The minor version of the extension API.
+</DL>
+<P>
+
+The following elements are available if MPFR support is
+compiled into
+<I>gawk</I>:
+
+<DL COMPACT>
+<DT><B>PROCINFO[&quot;gmp_version&quot;]</B><DD>
+The version of the GNU MP library used for arbitrary precision
+number support in
+<I>gawk</I>.
+
+<DT><B>PROCINFO[&quot;mpfr_version&quot;]</B><DD>
+The version of the GNU MPFR library used for arbitrary precision
+number support in
+<I>gawk</I>.
+
+<DT><B>PROCINFO[&quot;prec_max&quot;]</B><DD>
+The maximum precision supported by the GNU MPFR library for
+arbitrary precision floating-point numbers.
+<DT><B>PROCINFO[&quot;prec_min&quot;]</B><DD>
+The minimum precision allowed by the GNU MPFR library for
+arbitrary precision floating-point numbers.
+</DL>
+<P>
+
+The following elements may set by a program to
+change
+<I>gawk</I>'s
+
+behavior:
+<DL COMPACT>
+<DT><B>PROCINFO[&quot;</B><I>command</I><B>&quot;, &quot;pty&quot;]</B><DD>
+Use a pseudo-tty for two-way communication with
+<I>command</I>
+
+instead of setting up two one-way pipes.
+<DT><B>PROCINFO[&quot;</B><I>input</I><B>&quot;, &quot;READ_TIMEOUT&quot;]</B><DD>
+The timeout in milliseconds for reading data from
+<I>input</I>,
+
+where
+<I>input</I>
+
+is a redirection string or a filename. A value of zero or
+less than zero means no timeout.
+<DT><B>PROCINFO[&quot;sorted_in&quot;]</B><DD>
+If this element exists in
+<B>PROCINFO</B>,
+
+then its value controls the order in which array elements
+are traversed in
+<B>for</B>
+
+loops.
+Supported values are
+<B>&quot;@ind_str_asc&quot;</B>,
+<B>&quot;@ind_num_asc&quot;</B>,
+<B>&quot;@val_type_asc&quot;</B>,
+<B>&quot;@val_str_asc&quot;</B>,
+<B>&quot;@val_num_asc&quot;</B>,
+<B>&quot;@ind_str_desc&quot;</B>,
+<B>&quot;@ind_num_desc&quot;</B>,
+<B>&quot;@val_type_desc&quot;</B>,
+<B>&quot;@val_str_desc&quot;</B>,
+<B>&quot;@val_num_desc&quot;</B>,
+and
+<B>&quot;@unsorted&quot;</B>.
+The value can also be the name of any comparison function defined
+as follows:
+<P>
+
+<B>function cmp_func(i1, v1, i2, v2)</B>
+
+<P>
+where
+<I>i1</I>
+
+and
+<I>i2</I>
+
+are the indices, and
+<I>v1</I>
+
+and
+<I>v2</I>
+
+are the
+corresponding values of the two elements being compared.
+It should return a number less than, equal to, or greater than 0,
+depending on how the elements of the array are to be ordered.
+</DL>
+</DL>
+
+<DT><B>ROUNDMODE</B>
+
+<DD>
+The rounding mode to use for arbitrary precision arithmetic on
+numbers, by default <B>&quot;N&quot;</B> (IEEE-754 roundTiesToEven mode).
+The accepted values are
+<B>&quot;N&quot;</B> or <B>&quot;n&quot;</B> for roundTiesToEven,
+<B>&quot;U&quot;</B> or <B>&quot;u&quot;</B> for roundTowardPositive,
+<B>&quot;D&quot;</B> or <B>&quot;d&quot;</B> for roundTowardNegative,
+<B>&quot;Z&quot;</B> or <B>&quot;z&quot;</B> for roundTowardZero,
+and if your version of GNU MPFR library supports it,
+<B>&quot;A&quot;</B> or <B>&quot;a&quot;</B> for roundTiesToAway.
+<DT><B>RS</B>
+
+<DD>
+The input record separator, by default a newline.
+<DT><B>RT</B>
+
+<DD>
+The record terminator.
+<I>Gawk</I>
+
+sets
+<B>RT</B>
+
+to the input text that matched the character or regular expression
+specified by
+<B>RS</B>.
+
+<DT><B>RSTART</B>
+
+<DD>
+The index of the first character matched by
+<B>match()</B>;
+
+0 if no match.
+(This implies that character indices start at one.)
+<DT><B>RLENGTH</B>
+
+<DD>
+The length of the string matched by
+<B>match()</B>;
+
+-1 if no match.
+<DT><B>SUBSEP</B>
+
+<DD>
+The character used to separate multiple subscripts in array
+elements, by default <B>&quot;\034&quot;</B>.
+<DT><B>SYMTAB</B>
+
+<DD>
+An array whose indices are the names of all currently defined
+global variables and arrays in the program.  The array may be used
+for indirect access to read or write the value of a variable:
+<P>
+<B>
+</B><PRE>
+foo = 5
+SYMTAB[&quot;foo&quot;] = 4
+print foo    # prints 4
+</PRE>
+
+
+
+<P>
+The
+<B>isarray()</B>
+
+function may be used to test if an element in
+<B>SYMTAB</B>
+
+is an array.
+You may not use the
+<B>delete</B>
+
+statement with the
+<B>SYMTAB</B>
+
+array.
+<DT><B>TEXTDOMAIN</B>
+
+<DD>
+The text domain of the <FONT SIZE="-1">AWK</FONT> program; used to find the localized
+translations for the program's strings.
+</DL>
+<A NAME="lbAM">&nbsp;</A>
+<H3>Arrays</H3>
+
+<P>
+
+Arrays are subscripted with an expression between square brackets
+(<B>[</B> and <B>]</B>).
+
+If the expression is an expression list
+(<I>expr</I>, <I>expr</I> ...)
+
+then the array subscript is a string consisting of the
+concatenation of the (string) value of each expression,
+separated by the value of the
+<B>SUBSEP</B>
+
+variable.
+This facility is used to simulate multiply dimensioned
+arrays.  For example:
+<P>
+
+<DL COMPACT><DT><DD>
+<B>
+i = &quot;A&quot;; j = &quot;B&quot;; k = &quot;C&quot;
+<BR>
+
+x[i, j, k] = &quot;hello, world\n&quot;
+</B>
+</DL>
+
+<P>
+
+assigns the string <B>&quot;hello, world\n&quot;</B> to the element of the array
+<B>x</B>
+
+which is indexed by the string <B>&quot;A\034B\034C&quot;</B>.  All arrays in <FONT SIZE="-1">AWK</FONT>
+are associative, i.e., indexed by string values.
+<P>
+
+The special operator
+<B>in</B>
+
+may be used to test if an array has an index consisting of a particular
+value:
+<P>
+
+<DL COMPACT><DT><DD>
+<B>
+</B><PRE>
+if (val in array)
+        print array[val]
+</PRE>
+
+
+</DL>
+
+<P>
+
+If the array has multiple subscripts, use
+<B>(i, j) in array</B>.
+
+<P>
+
+The
+<B>in</B>
+
+construct may also be used in a
+<B>for</B>
+
+loop to iterate over all the elements of an array.
+However, the
+<B>(i, j) in array</B>
+
+construct only works in tests, not in
+<B>for</B>
+
+loops.
+<P>
+
+An element may be deleted from an array using the
+<B>delete</B>
+
+statement.
+The
+<B>delete</B>
+
+statement may also be used to delete the entire contents of an array,
+just by specifying the array name without a subscript.
+<P>
+
+<I>gawk</I>
+
+supports true multidimensional arrays. It does not require that
+such arrays be ``rectangular'' as in C or C++.
+For example:
+<P>
+<DL COMPACT><DT><DD>
+<B>
+</B><PRE>
+a[1] = 5
+a[2][1] = 6
+a[2][2] = 7
+</PRE>
+
+
+</DL>
+
+<P>
+
+<B>NOTE</B>:
+
+You may need to tell
+<I>gawk</I>
+
+that an array element is really a subarray in order to use it where
+<I>gawk</I>
+
+expects an array (such as in the second argument to
+<B>split()</B>).
+
+You can do this by creating an element in the subarray and then
+deleting it with the
+<B>delete</B>
+
+statement.
+<A NAME="lbAN">&nbsp;</A>
+<H3>Variable Typing And Conversion</H3>
+
+<P>
+
+Variables and fields
+may be (floating point) numbers, or strings, or both.  How the
+value of a variable is interpreted depends upon its context.  If used in
+a numeric expression, it will be treated as a number; if used as a string
+it will be treated as a string.
+<P>
+
+To force a variable to be treated as a number, add 0 to it; to force it
+to be treated as a string, concatenate it with the null string.
+<P>
+
+Uninitialized variables have the numeric value 0 and the string value &quot;&quot;
+(the null, or empty, string).
+<P>
+
+When a string must be converted to a number, the conversion is accomplished
+using
+<I><A HREF="/cgi-bin/man/man2html?3+strtod">strtod</A></I>(3).
+
+A number is converted to a string by using the value of
+<B>CONVFMT</B>
+
+as a format string for
+<I><A HREF="/cgi-bin/man/man2html?3+sprintf">sprintf</A></I>(3),
+
+with the numeric value of the variable as the argument.
+However, even though all numbers in <FONT SIZE="-1">AWK</FONT> are floating-point,
+integral values are
+<I>always</I>
+
+converted as integers.  Thus, given
+<P>
+
+<DL COMPACT><DT><DD>
+<B>
+</B><PRE>
+CONVFMT = &quot;%2.2f&quot;
+a = 12
+b = a &quot;&quot;
+</PRE>
+
+
+</DL>
+
+<P>
+
+the variable
+<B>b</B>
+
+has a string value of <B>&quot;12&quot;</B> and not <B>&quot;12.00&quot;</B>.
+<P>
+
+<B>NOTE</B>:
+
+When operating in POSIX mode (such as with the
+<B>--posix</B>
+
+option),
+beware that locale settings may interfere with the way
+decimal numbers are treated: the decimal separator of the numbers you
+are feeding to
+<I>gawk</I>
+
+must conform to what your locale would expect, be it
+a comma (,) or a period (.).
+<P>
+
+<I>Gawk</I>
+
+performs comparisons as follows:
+If two variables are numeric, they are compared numerically.
+If one value is numeric and the other has a string value that is a
+``numeric string,'' then comparisons are also done numerically.
+Otherwise, the numeric value is converted to a string and a string
+comparison is performed.
+Two strings are compared, of course, as strings.
+<P>
+
+Note that string constants, such as <B>&quot;57&quot;</B>, are
+<I>not</I>
+
+numeric strings, they are string constants.
+The idea of ``numeric string''
+only applies to fields,
+<B>getline</B>
+
+input,
+<B>FILENAME</B>,
+
+<B>ARGV</B>
+
+elements,
+<B>ENVIRON</B>
+
+elements and the elements of an array created by
+<B>split()</B>
+
+or
+<B>patsplit()</B>
+
+that are numeric strings.
+The basic idea is that
+<I>user input</I>,
+
+and only user input, that looks numeric,
+should be treated that way.
+<A NAME="lbAO">&nbsp;</A>
+<H3>Octal and Hexadecimal Constants</H3>
+
+You may use C-style octal and hexadecimal constants in your AWK
+program source code.
+For example, the octal value
+<B>011</B>
+
+is equal to decimal
+<B>9</B>,
+
+and the hexadecimal value
+<B>0x11</B>
+
+is equal to decimal 17.
+<A NAME="lbAP">&nbsp;</A>
+<H3>String Constants</H3>
+
+<P>
+
+String constants in <FONT SIZE="-1">AWK</FONT> are sequences of characters enclosed
+between double quotes (like <B>&quot;value&quot;</B>).  Within strings, certain
+<I>escape sequences</I>
+
+are recognized, as in C.  These are:
+<P>
+
+<DL COMPACT>
+<DT><B>\\</B>
+
+<DD>
+A literal backslash.
+<DT><B>\a</B>
+
+<DD>
+The ``alert'' character; usually the <FONT SIZE="-1">ASCII</FONT> <FONT SIZE="-1">BEL</FONT> character.
+<DT><B>\b</B>
+
+<DD>
+Backspace.
+<DT><B>\f</B>
+
+<DD>
+Form-feed.
+<DT><B>\n</B>
+
+<DD>
+Newline.
+<DT><B>\r</B>
+
+<DD>
+Carriage return.
+<DT><B>\t</B>
+
+<DD>
+Horizontal tab.
+<DT><B>\v</B>
+
+<DD>
+Vertical tab.
+<DT><B>\x</B><I>hex digits</I>
+
+<DD>
+The character represented by the string of hexadecimal digits following
+the
+<B>\x</B>.
+
+As in ISO C, all following hexadecimal digits are considered part of
+the escape sequence.
+(This feature should tell us something about language design by committee.)
+E.g., <B>&quot;\x1B&quot;</B> is the <FONT SIZE="-1">ASCII</FONT> <FONT SIZE="-1">ESC</FONT> (escape) character.
+<DT><B>\</B><I>ddd</I>
+
+<DD>
+The character represented by the 1-, 2-, or 3-digit sequence of octal
+digits.
+E.g., <B>&quot;\033&quot;</B> is the <FONT SIZE="-1">ASCII</FONT> <FONT SIZE="-1">ESC</FONT> (escape) character.
+<DT><B>\</B><I>c</I>
+
+<DD>
+The literal character
+<I>c</I>.
+
+</DL>
+<P>
+
+The escape sequences may also be used inside constant regular expressions
+(e.g.,
+<B>/[&nbsp;\t\f\n\r\v]/</B>
+
+matches whitespace characters).
+<P>
+
+In compatibility mode, the characters represented by octal and
+hexadecimal escape sequences are treated literally when used in
+regular expression constants.  Thus,
+<B>/a\52b/</B>
+
+is equivalent to
+<B>/a\*b/</B>.
+
+<A NAME="lbAQ">&nbsp;</A>
+<H2>PATTERNS AND ACTIONS</H2>
+
+<FONT SIZE="-1">AWK</FONT> is a line-oriented language.  The pattern comes first, and then the
+action.  Action statements are enclosed in
+<B>{</B>
+
+and
+<B>}</B>.
+
+Either the pattern may be missing, or the action may be missing, but,
+of course, not both.  If the pattern is missing, the action is
+executed for every single record of input.
+A missing action is equivalent to
+<DL COMPACT><DT><DD>
+<P>
+
+<B>{ print }</B>
+
+</DL>
+
+<P>
+
+which prints the entire record.
+<P>
+
+Comments begin with the
+<B>#</B>
+
+character, and continue until the
+end of the line.
+Blank lines may be used to separate statements.
+Normally, a statement ends with a newline, however, this is not the
+case for lines ending in
+a comma,
+<B>{</B>,
+
+<B>?</B>,
+
+<B>:</B>,
+
+<B>&amp;&amp;</B>,
+
+or
+<B>||</B>.
+
+Lines ending in
+<B>do</B>
+
+or
+<B>else</B>
+
+also have their statements automatically continued on the following line.
+In other cases, a line can be continued by ending it with a ``\'',
+in which case the newline is ignored.
+<P>
+
+Multiple statements may
+be put on one line by separating them with a ``;''.
+This applies to both the statements within the action part of a
+pattern-action pair (the usual case),
+and to the pattern-action statements themselves.
+<A NAME="lbAR">&nbsp;</A>
+<H3>Patterns</H3>
+
+<FONT SIZE="-1">AWK</FONT> patterns may be one of the following:
+<P>
+
+<DL COMPACT><DT><DD>
+<PRE>
+<B>BEGIN</B>
+<B>END</B>
+<B>BEGINFILE</B>
+<B>ENDFILE</B>
+<B>/</B><I>regular expression</I><B>/</B>
+<I>relational expression</I>
+<I>pattern</I><B> &amp;&amp; </B><I>pattern</I>
+<I>pattern</I><B> || </B><I>pattern</I>
+<I>pattern</I><B> ? </B><I>pattern</I><B> : </B><I>pattern</I>
+<B>(</B><I>pattern</I><B>)</B>
+<B>!</B><I> pattern</I>
+<I>pattern1</I><B>, </B><I>pattern2</I>
+</PRE>
+
+</DL>
+
+<P>
+
+<B>BEGIN</B>
+
+and
+<B>END</B>
+
+are two special kinds of patterns which are not tested against
+the input.
+The action parts of all
+<B>BEGIN</B>
+
+patterns are merged as if all the statements had
+been written in a single
+<B>BEGIN</B>
+
+rule.  They are executed before any
+of the input is read.  Similarly, all the
+<B>END</B>
+
+rules are merged,
+and executed when all the input is exhausted (or when an
+<B>exit</B>
+
+statement is executed).
+<B>BEGIN</B>
+
+and
+<B>END</B>
+
+patterns cannot be combined with other patterns in pattern expressions.
+<B>BEGIN</B>
+
+and
+<B>END</B>
+
+patterns cannot have missing action parts.
+<P>
+
+<B>BEGINFILE</B>
+
+and
+<B>ENDFILE</B>
+
+are additional special patterns whose bodies are executed
+before reading the first record of each command line input file
+and after reading the last record of each file.
+Inside the
+<B>BEGINFILE</B>
+
+rule, the value of
+<B>ERRNO</B>
+
+will be the empty string if the file was opened successfully.
+Otherwise, there is some problem with the file and the code should
+use
+<B>nextfile</B>
+
+to skip it. If that is not done,
+<I>gawk</I>
+
+produces its usual fatal error for files that cannot be opened.
+<P>
+
+For
+<B>/</B><I>regular expression</I><B>/</B>
+
+patterns, the associated statement is executed for each input record that matches
+the regular expression.
+Regular expressions are the same as those in
+<I><A HREF="/cgi-bin/man/man2html?1+egrep">egrep</A></I>(1),
+
+and are summarized below.
+<P>
+
+A
+<I>relational expression</I>
+
+may use any of the operators defined below in the section on actions.
+These generally test whether certain fields match certain regular expressions.
+<P>
+
+The
+<B>&amp;&amp;</B>,
+
+<B>||</B>,
+
+and
+<B>!</B>
+
+operators are logical AND, logical OR, and logical NOT, respectively, as in C.
+They do short-circuit evaluation, also as in C, and are used for combining
+more primitive pattern expressions.  As in most languages, parentheses
+may be used to change the order of evaluation.
+<P>
+
+The
+<B>?:</B>
+
+operator is like the same operator in C.  If the first pattern is true
+then the pattern used for testing is the second pattern, otherwise it is
+the third.  Only one of the second and third patterns is evaluated.
+<P>
+
+The
+<I>pattern1</I><B>, </B><I>pattern2</I>
+
+form of an expression is called a
+<I>range pattern</I>.
+
+It matches all input records starting with a record that matches
+<I>pattern1</I>,
+
+and continuing until a record that matches
+<I>pattern2</I>,
+
+inclusive.  It does not combine with any other sort of pattern expression.
+<A NAME="lbAS">&nbsp;</A>
+<H3>Regular Expressions</H3>
+
+Regular expressions are the extended kind found in
+<I>egrep</I>.
+
+They are composed of characters as follows:
+<DL COMPACT>
+<DT><I>c</I>
+
+<DD>
+Matches the non-metacharacter
+<I>c</I>.
+
+<DT><I>\c</I>
+
+<DD>
+Matches the literal character
+<I>c</I>.
+
+<DT><B>.</B>
+
+<DD>
+Matches any character
+<I>including</I>
+
+newline.
+<DT><B>^</B>
+
+<DD>
+Matches the beginning of a string.
+<DT><B>$</B>
+
+<DD>
+Matches the end of a string.
+<DT><B>[</B><I>abc...</I><B>]</B>
+
+<DD>
+A character list: matches any of the characters
+<I>abc...</I>.
+
+You may include a range of characters by separating them with a dash.
+<DT><B>[^</B><I>abc...</I><B>]</B><DD>
+A negated character list: matches any character except
+<I>abc...</I>.
+
+<DT><I>r1</I><B>|</B><I>r2</I>
+
+<DD>
+Alternation: matches either
+<I>r1</I>
+
+or
+<I>r2</I>.
+
+<DT><I>r1r2</I>
+
+<DD>
+Concatenation: matches
+<I>r1</I>,
+
+and then
+<I>r2</I>.
+
+<DT><I>r</I><B>+</B>
+
+<DD>
+Matches one or more
+<I>r</I>'s.
+
+<DT><I>r</I><B>*</B>
+
+<DD>
+Matches zero or more
+<I>r</I>'s.
+
+<DT><I>r</I><B>?</B>
+
+<DD>
+Matches zero or one
+<I>r</I>'s.
+
+<DT><B>(</B><I>r</I><B>)</B>
+
+<DD>
+Grouping: matches
+<I>r</I>.
+
+<DT>
+<DD>
+<I>r</I><B>{</B><I>n</I><B>}</B>
+
+<DT>
+<DD>
+<I>r</I><B>{</B><I>n</I><B>,}</B>
+
+<DT>
+<DD>
+<I>r</I><B>{</B><I>n</I><B>,</B><I>m</I><B>}</B>
+
+One or two numbers inside braces denote an
+<I>interval expression</I>.
+
+If there is one number in the braces, the preceding regular expression
+<I>r</I>
+
+is repeated
+<I>n</I>
+
+times.  If there are two numbers separated by a comma,
+<I>r</I>
+
+is repeated
+<I>n</I>
+
+to
+<I>m</I>
+
+times.
+If there is one number followed by a comma, then
+<I>r</I>
+
+is repeated at least
+<I>n</I>
+
+times.
+<DT><B>\y</B>
+
+<DD>
+Matches the empty string at either the beginning or the
+end of a word.
+<DT><B>\B</B>
+
+<DD>
+Matches the empty string within a word.
+<DT><B>\&lt;</B>
+
+<DD>
+Matches the empty string at the beginning of a word.
+<DT><B>\&gt;</B>
+
+<DD>
+Matches the empty string at the end of a word.
+<DT><B>\s</B>
+
+<DD>
+Matches any whitespace character.
+<DT><B>\S</B>
+
+<DD>
+Matches any nonwhitespace character.
+<DT><B>\w</B>
+
+<DD>
+Matches any word-constituent character (letter, digit, or underscore).
+<DT><B>\W</B>
+
+<DD>
+Matches any character that is not word-constituent.
+<DT><B>\`</B>
+
+<DD>
+Matches the empty string at the beginning of a buffer (string).
+<DT><B>\'</B>
+
+<DD>
+Matches the empty string at the end of a buffer.
+</DL>
+<P>
+
+The escape sequences that are valid in string constants (see
+<B>String Constants</B>)
+
+are also valid in regular expressions.
+<P>
+
+<I>Character classes</I>
+
+are a feature introduced in the <FONT SIZE="-1">POSIX</FONT> standard.
+A character class is a special notation for describing
+lists of characters that have a specific attribute, but where the
+actual characters themselves can vary from country to country and/or
+from character set to character set.  For example, the notion of what
+is an alphabetic character differs in the USA and in France.
+<P>
+
+A character class is only valid in a regular expression
+<I>inside</I>
+
+the brackets of a character list.  Character classes consist of
+<B>[:</B>,
+
+a keyword denoting the class, and
+<B>:]</B>.
+
+The character
+classes defined by the <FONT SIZE="-1">POSIX</FONT> standard are:
+<DL COMPACT>
+<DT><B>[:alnum:]</B>
+
+<DD>
+Alphanumeric characters.
+<DT><B>[:alpha:]</B>
+
+<DD>
+Alphabetic characters.
+<DT><B>[:blank:]</B>
+
+<DD>
+Space or tab characters.
+<DT><B>[:cntrl:]</B>
+
+<DD>
+Control characters.
+<DT><B>[:digit:]</B>
+
+<DD>
+Numeric characters.
+<DT><B>[:graph:]</B>
+
+<DD>
+Characters that are both printable and visible.
+(A space is printable, but not visible, while an
+<B>a</B>
+
+is both.)
+<DT><B>[:lower:]</B>
+
+<DD>
+Lowercase alphabetic characters.
+<DT><B>[:print:]</B>
+
+<DD>
+Printable characters (characters that are not control characters.)
+<DT><B>[:punct:]</B>
+
+<DD>
+Punctuation characters (characters that are not letter, digits,
+control characters, or space characters).
+<DT><B>[:space:]</B>
+
+<DD>
+Space characters (such as space, tab, and formfeed, to name a few).
+<DT><B>[:upper:]</B>
+
+<DD>
+Uppercase alphabetic characters.
+<DT><B>[:xdigit:]</B>
+
+<DD>
+Characters that are hexadecimal digits.
+</DL>
+<P>
+
+For example, before the <FONT SIZE="-1">POSIX</FONT> standard, to match alphanumeric
+characters, you would have had to write
+<B>/[A-Za-z0-9]/</B>.
+
+If your character set had other alphabetic characters in it, this would not
+match them, and if your character set collated differently from
+<FONT SIZE="-1">ASCII</FONT>, this might not even match the
+<FONT SIZE="-1">ASCII</FONT> alphanumeric characters.
+With the <FONT SIZE="-1">POSIX</FONT> character classes, you can write
+<B>/[[:alnum:]]/</B>,
+
+and this matches
+the alphabetic and numeric characters in your character set,
+no matter what it is.
+<P>
+
+Two additional special sequences can appear in character lists.
+These apply to non-<FONT SIZE="-1">ASCII</FONT> character sets, which can have single symbols
+(called
+<I>collating elements</I>)
+
+that are represented with more than one
+character, as well as several characters that are equivalent for
+<I>collating</I>,
+
+or sorting, purposes.  (E.g., in French, a plain ``e''
+and a grave-accented ``e`'' are equivalent.)
+<DL COMPACT>
+<DT>Collating Symbols<DD>
+A collating symbol is a multi-character collating element enclosed in
+<B>[.</B>
+
+and
+<B>.]</B>.
+
+For example, if
+<B>ch</B>
+
+is a collating element, then
+<B>[[.ch.]]</B>
+
+is a regular expression that matches this collating element, while
+<B>[ch]</B>
+
+is a regular expression that matches either
+<B>c</B>
+
+or
+<B>h</B>.
+
+<DT>Equivalence Classes<DD>
+An equivalence class is a locale-specific name for a list of
+characters that are equivalent.  The name is enclosed in
+<B>[=</B>
+
+and
+<B>=]</B>.
+
+For example, the name
+<B>e</B>
+
+might be used to represent all of
+``e'', ``e''', and ``e`''.
+In this case,
+<B>[[=e=]]</B>
+
+is a regular expression
+that matches any of
+<B>e</B>,
+
+<B>e'</B>,
+
+or
+<B>e`</B>.
+
+</DL>
+<P>
+
+These features are very valuable in non-English speaking locales.
+The library functions that
+<I>gawk</I>
+
+uses for regular expression matching
+currently only recognize <FONT SIZE="-1">POSIX</FONT> character classes; they do not recognize
+collating symbols or equivalence classes.
+<P>
+
+The
+<B>\y</B>,
+
+<B>\B</B>,
+
+<B>\&lt;</B>,
+
+<B>\&gt;</B>,
+
+<B>\s</B>,
+
+<B>\S</B>,
+
+<B>\w</B>,
+
+<B>\W</B>,
+
+<B>\`</B>,
+
+and
+<B>\'</B>
+
+operators are specific to
+<I>gawk</I>;
+
+they are extensions based on facilities in the <FONT SIZE="-1">GNU</FONT> regular expression libraries.
+<P>
+
+The various command line options
+control how
+<I>gawk</I>
+
+interprets characters in regular expressions.
+<DL COMPACT>
+<DT>No options<DD>
+In the default case,
+<I>gawk</I>
+
+provides all the facilities of
+<FONT SIZE="-1">POSIX</FONT> regular expressions and the <FONT SIZE="-1">GNU</FONT> regular expression operators described above.
+<DT><B>--posix</B>
+
+<DD>
+Only <FONT SIZE="-1">POSIX</FONT> regular expressions are supported, the <FONT SIZE="-1">GNU</FONT> operators are not special.
+(E.g.,
+<B>\w</B>
+
+matches a literal
+<B>w</B>).
+
+<DT><B>--traditional</B>
+
+<DD>
+Traditional <FONT SIZE="-1">UNIX</FONT>
+<I>awk</I>
+
+regular expressions are matched.  The <FONT SIZE="-1">GNU</FONT> operators
+are not special, and interval expressions are not available.
+Characters described by octal and hexadecimal escape sequences are
+treated literally, even if they represent regular expression metacharacters.
+<DT><B>--re-interval</B>
+
+<DD>
+Allow interval expressions in regular expressions, even if
+<B>--traditional</B>
+
+has been provided.
+</DL>
+<A NAME="lbAT">&nbsp;</A>
+<H3>Actions</H3>
+
+Action statements are enclosed in braces,
+<B>{</B>
+
+and
+<B>}</B>.
+
+Action statements consist of the usual assignment, conditional, and looping
+statements found in most languages.  The operators, control statements,
+and input/output statements
+available are patterned after those in C.
+<A NAME="lbAU">&nbsp;</A>
+<H3>Operators</H3>
+
+<P>
+
+The operators in <FONT SIZE="-1">AWK</FONT>, in order of decreasing precedence, are:
+<P>
+
+<DL COMPACT>
+<DT><B>(</B>...<B>)</B>
+
+<DD>
+Grouping
+<DT><B>$</B>
+
+<DD>
+Field reference.
+<DT><B>++ --</B>
+
+<DD>
+Increment and decrement, both prefix and postfix.
+<DT><B>^</B>
+
+<DD>
+Exponentiation (<B>**</B> may also be used, and <B>**=</B> for
+the assignment operator).
+<DT><B>+ - !</B>
+
+<DD>
+Unary plus, unary minus, and logical negation.
+<DT><B>* / %</B>
+
+<DD>
+Multiplication, division, and modulus.
+<DT><B>+ -</B>
+
+<DD>
+Addition and subtraction.
+<DT><I>space</I>
+
+<DD>
+String concatenation.
+<DT><B>|   |&amp;</B>
+
+<DD>
+Piped I/O for
+<B>getline</B>,
+
+<B>print</B>,
+
+and
+<B>printf</B>.
+
+<DT><B>&lt; &gt; &lt;= &gt;= != ==</B>
+
+<DD>
+The regular relational operators.
+<DT><B>~ !~</B>
+
+<DD>
+Regular expression match, negated match.
+<B>NOTE</B>:
+
+Do not use a constant regular expression
+(<B>/foo/</B>)
+
+on the left-hand side of a
+<B>~</B>
+
+or
+<B>!~</B>.
+
+Only use one on the right-hand side.  The expression
+<B>/foo/ ~ </B><I>exp</I>
+
+has the same meaning as <B>(($0 ~ /foo/) ~ </B><I>exp</I><B>)</B>.
+This is usually
+<I>not</I>
+
+what you want.
+<DT><B>in</B>
+
+<DD>
+Array membership.
+<DT><B>&amp;&amp;</B>
+
+<DD>
+Logical AND.
+<DT><B>||</B>
+
+<DD>
+Logical OR.
+<DT><B>?:</B>
+
+<DD>
+The C conditional expression.  This has the form
+<I>expr1</I><B> ? </B><I>expr2</I><B> : </B><I>expr3</I>.
+If
+<I>expr1</I>
+
+is true, the value of the expression is
+<I>expr2</I>,
+
+otherwise it is
+<I>expr3</I>.
+
+Only one of
+<I>expr2</I>
+
+and
+<I>expr3</I>
+
+is evaluated.
+<DT><B>= += -= *= /= %= ^=</B>
+
+<DD>
+Assignment.  Both absolute assignment
+<B>(</B><I>var</I><B> = </B><I>value</I><B>)</B>
+
+and operator-assignment (the other forms) are supported.
+</DL>
+<A NAME="lbAV">&nbsp;</A>
+<H3>Control Statements</H3>
+
+<P>
+
+The control statements are
+as follows:
+<P>
+
+<DL COMPACT><DT><DD>
+<PRE>
+<B>if (</B><I>condition</I><B>) </B><I>statement</I> [ <B>else</B><I> statement </I>]
+<B>while (</B><I>condition</I><B>) </B><I>statement </I>
+<B>do </B><I>statement </I><B>while (</B><I>condition</I><B>)</B>
+<B>for (</B><I>expr1</I><B>; </B><I>expr2</I><B>; </B><I>expr3</I><B>) </B><I>statement</I>
+<B>for (</B><I>var </I><B>in</B><I> array</I><B>) </B><I>statement</I>
+<B>break</B>
+<B>continue</B>
+<B>delete </B><I>array</I><B>[</B><I>index</I><B>]</B>
+<B>delete </B><I>array</I>
+<B>exit</B> [ <I>expression</I> ]
+<B>{ </B><I>statements </I><B>}</B>
+<B>switch (</B><I>expression</I><B>) {
+case </B><I>value</I><B>|</B><I>regex</I><B> : </B><I>statement
+...
+</I>[ <B>default: </B><I>statement </I>]
+<B>}</B>
+</PRE>
+
+</DL>
+
+<A NAME="lbAW">&nbsp;</A>
+<H3>I/O Statements</H3>
+
+<P>
+
+The input/output statements are as follows:
+<P>
+
+<DL COMPACT>
+<DT><B>close(</B><I>file </I>[<B>, </B><I>how</I>]<B>)</B><DD>
+Close file, pipe or co-process.
+The optional
+<I>how</I>
+
+should only be used when closing one end of a
+two-way pipe to a co-process.
+It must be a string value, either
+<B>&quot;to&quot;</B> or <B>&quot;from&quot;</B>.
+<DT><B>getline</B>
+
+<DD>
+Set
+<B>$0</B>
+
+from next input record; set
+<B>NF</B>,
+
+<B>NR</B>,
+
+<B>FNR</B>,
+
+<B>RT</B>.
+
+<DT><B>getline &lt;</B><I>file</I>
+
+<DD>
+Set
+<B>$0</B>
+
+from next record of
+<I>file</I>;
+
+set
+<B>NF</B>,
+
+<B>RT</B>.
+
+<DT><B>getline</B><I> var</I>
+
+<DD>
+Set
+<I>var</I>
+
+from next input record; set
+<B>NR</B>,
+
+<B>FNR</B>,
+
+<B>RT</B>.
+
+<DT><B>getline</B><I> var</I><B> &lt;</B><I>file</I>
+
+<DD>
+Set
+<I>var</I>
+
+from next record of
+<I>file</I>,
+
+<B>RT</B>.
+
+<DT><I>command</I><B> | getline </B>[<I>var</I>]<DD>
+Run
+<I>command</I>
+
+piping the output either into
+<B>$0</B>
+
+or
+<I>var</I>,
+
+as above, and
+<B>RT</B>.
+
+<DT><I>command</I><B> |&amp; getline </B>[<I>var</I>]<DD>
+Run
+<I>command</I>
+
+as a co-process
+piping the output either into
+<B>$0</B>
+
+or
+<I>var</I>,
+
+as above, and
+<B>RT</B>.
+
+Co-processes are a
+<I>gawk</I>
+
+extension.
+(<I>command</I>
+
+can also be a socket.  See the subsection
+<B>Special File Names</B>,
+
+below.)
+<DT><B>next</B>
+
+<DD>
+Stop processing the current input record.  The next input record
+is read and processing starts over with the first pattern in the
+<FONT SIZE="-1">AWK</FONT> program.
+Upon reaching the end of the input data,
+<I>gawk</I>
+
+executes any
+<B>END</B>
+
+rule(s).
+<DT><B>nextfile</B>
+
+<DD>
+Stop processing the current input file.  The next input record read
+comes from the next input file.
+<B>FILENAME</B>
+
+and
+<B>ARGIND</B>
+
+are updated,
+<B>FNR</B>
+
+is reset to 1, and processing starts over with the first pattern in the
+<FONT SIZE="-1">AWK</FONT> program.
+Upon reaching the end of the input data,
+<I>gawk</I>
+
+executes any
+<B>END</B>
+
+rule(s).
+<DT><B>print</B>
+
+<DD>
+Print the current record.
+The output record is terminated with the value of
+<B>ORS</B>.
+
+<DT><B>print</B><I> expr-list</I>
+
+<DD>
+Print expressions.
+Each expression is separated by the value of
+<B>OFS</B>.
+
+The output record is terminated with the value of
+<B>ORS</B>.
+
+<DT><B>print</B><I> expr-list</I><B> &gt;</B><I>file</I>
+
+<DD>
+Print expressions on
+<I>file</I>.
+
+Each expression is separated by the value of
+<B>OFS</B>.
+
+The output record is terminated with the value of
+<B>ORS</B>.
+
+<DT><B>printf</B><I> fmt, expr-list</I>
+
+<DD>
+Format and print.
+See <B>The </B><I>printf </I><B>Statement</B>, below.
+<DT><B>printf</B><I> fmt, expr-list</I><B> &gt;</B><I>file</I>
+
+<DD>
+Format and print on
+<I>file</I>.
+
+<DT><B>system(</B><I>cmd-line</I><B>)</B>
+
+<DD>
+Execute the command
+<I>cmd-line</I>,
+
+and return the exit status.
+(This may not be available on non-<FONT SIZE="-1">POSIX</FONT> systems.)
+See the manual for the full details on the exit status.
+<DT><B>fflush(</B>[<I>file</I>]<B>)</B><DD>
+Flush any buffers associated with the open output file or pipe
+<I>file</I>.
+
+If
+<I>file</I>
+
+is missing or if it
+is the null string,
+then flush all open output files and pipes.
+</DL>
+<P>
+
+Additional output redirections are allowed for
+<B>print</B>
+
+and
+<B>printf</B>.
+
+<DL COMPACT>
+<DT><B>print ... &gt;&gt;</B><I> file</I>
+
+<DD>
+Appends output to the
+<I>file</I>.
+
+<DT><B>print ... |</B><I> command</I>
+
+<DD>
+Writes on a pipe.
+<DT><B>print ... |&amp;</B><I> command</I>
+
+<DD>
+Sends data to a co-process or socket.
+(See also the subsection
+<B>Special File Names</B>,
+
+below.)
+</DL>
+<P>
+
+The
+<B>getline</B>
+
+command returns 1 on success, 0 on end of file, and -1 on an error.
+Upon an error,
+<B>ERRNO</B>
+
+is set to a string describing the problem.
+<P>
+
+<B>NOTE</B>:
+
+Failure in opening a two-way socket results in a non-fatal error being
+returned to the calling function. If using a pipe, co-process, or socket to
+<B>getline</B>,
+
+or from
+<B>print</B>
+
+or
+<B>printf</B>
+
+within a loop, you
+<I>must</I>
+
+use
+<B>close()</B>
+
+to create new instances of the command or socket.
+<FONT SIZE="-1">AWK</FONT> does not automatically close pipes, sockets, or co-processes when
+they return EOF.
+<A NAME="lbAX">&nbsp;</A>
+<H3>The <I>printf</I> Statement</H3>
+
+<P>
+
+The <FONT SIZE="-1">AWK</FONT> versions of the
+<B>printf</B>
+
+statement and
+<B>sprintf()</B>
+
+function
+(see below)
+accept the following conversion specification formats:
+<DL COMPACT>
+<DT><B>%c</B>
+
+<DD>
+A single character.
+If the argument used for
+<B>%c</B>
+
+is numeric, it is treated as a character and printed.
+Otherwise, the argument is assumed to be a string, and the only first
+character of that string is printed.
+<DT><B>%d</B>,<B> %i</B>
+
+<DD>
+A decimal number (the integer part).
+<DT><B>%e</B>,<B> %E</B>
+
+<DD>
+A floating point number of the form
+[<B>-</B>]<I>d</I><B>.</B><I>dddddd</I><B>e</B>[<B>+-</B>]<I>dd</I>.
+The
+<B>%E</B>
+
+format uses
+<B>E</B>
+
+instead of
+<B>e</B>.
+
+<DT><B>%f</B>,<B> %F</B>
+
+<DD>
+A floating point number of the form
+[<B>-</B>]<I>ddd</I><B>.</B><I>dddddd</I>.
+If the system library supports it,
+<B>%F</B>
+
+is available as well. This is like
+<B>%f</B>,
+
+but uses capital letters for special ``not a number''
+and ``infinity'' values. If
+<B>%F</B>
+
+is not available,
+<I>gawk</I>
+
+uses
+<B>%f</B>.
+
+<DT><B>%g</B>,<B> %G</B>
+
+<DD>
+Use
+<B>%e</B>
+
+or
+<B>%f</B>
+
+conversion, whichever is shorter, with nonsignificant zeros suppressed.
+The
+<B>%G</B>
+
+format uses
+<B>%E</B>
+
+instead of
+<B>%e</B>.
+
+<DT><B>%o</B>
+
+<DD>
+An unsigned octal number (also an integer).
+<DT>
+<DD>
+<B>%u</B>
+
+An unsigned decimal number (again, an integer).
+<DT><B>%s</B>
+
+<DD>
+A character string.
+<DT><B>%x</B>,<B> %X</B>
+
+<DD>
+An unsigned hexadecimal number (an integer).
+The
+<B>%X</B>
+
+format uses
+<B>ABCDEF</B>
+
+instead of
+<B>abcdef</B>.
+
+<DT><B>%%</B>
+
+<DD>
+A single
+<B>%</B>
+
+character; no argument is converted.
+</DL>
+<P>
+
+Optional, additional parameters may lie between the
+<B>%</B>
+
+and the control letter:
+<DL COMPACT>
+<DT><I>count</I><B>$</B>
+
+<DD>
+Use the
+<I>count</I>'th
+
+argument at this point in the formatting.
+This is called a
+<I>positional specifier</I>
+
+and
+is intended primarily for use in translated versions of
+format strings, not in the original text of an AWK program.
+It is a
+<I>gawk</I>
+
+extension.
+<DT><B>-</B>
+
+<DD>
+The expression should be left-justified within its field.
+<DT><I>space</I>
+
+<DD>
+For numeric conversions, prefix positive values with a space, and
+negative values with a minus sign.
+<DT><B>+</B>
+
+<DD>
+The plus sign, used before the width modifier (see below),
+says to always supply a sign for numeric conversions, even if the data
+to be formatted is positive.  The
+<B>+</B>
+
+overrides the space modifier.
+<DT><B>#</B>
+
+<DD>
+Use an ``alternate form'' for certain control letters.
+For
+<B>%o</B>,
+
+supply a leading zero.
+For
+<B>%x</B>,
+
+and
+<B>%X</B>,
+
+supply a leading
+<B>0x</B>
+
+or
+<B>0X</B>
+
+for
+a nonzero result.
+For
+<B>%e</B>,
+
+<B>%E</B>,
+
+<B>%f</B>
+
+and
+<B>%F</B>,
+
+the result always contains a
+decimal point.
+For
+<B>%g</B>,
+
+and
+<B>%G</B>,
+
+trailing zeros are not removed from the result.
+<DT><B>0</B>
+
+<DD>
+A leading
+<B>0</B>
+
+(zero) acts as a flag, that indicates output should be
+padded with zeroes instead of spaces.
+This applies only to the numeric output formats.
+This flag only has an effect when the field width is wider than the
+value to be printed.
+<DT><B>'</B>
+
+<DD>
+A single quote character instructs
+<I>gawk</I>
+
+to insert the locale's thousands-separator character
+into decimal numbers, and to also use the locale's
+decimal point character with floating point formats.
+This requires correct locale support in the C library
+and in the definition of the current locale.
+<DT><I>width</I>
+
+<DD>
+The field should be padded to this width.  The field is normally padded
+with spaces.  With the
+<B>0</B>
+
+flag, it is padded with zeroes.
+<DT><B>.</B><I>prec</I>
+
+<DD>
+A number that specifies the precision to use when printing.
+For the
+<B>%e</B>,
+
+<B>%E</B>,
+
+<B>%f</B>
+
+and
+<B>%F</B>,
+
+formats, this specifies the
+number of digits you want printed to the right of the decimal point.
+For the
+<B>%g</B>,
+
+and
+<B>%G</B>
+
+formats, it specifies the maximum number
+of significant digits.  For the
+<B>%d</B>,
+
+<B>%i</B>,
+
+<B>%o</B>,
+
+<B>%u</B>,
+
+<B>%x</B>,
+
+and
+<B>%X</B>
+
+formats, it specifies the minimum number of
+digits to print.  For
+<B>%s</B>,
+
+it specifies the maximum number of
+characters from the string that should be printed.
+</DL>
+<P>
+
+The dynamic
+<I>width</I>
+
+and
+<I>prec</I>
+
+capabilities of the ISO C
+<B>printf()</B>
+
+routines are supported.
+A
+<B>*</B>
+
+in place of either the
+<I>width</I>
+
+or
+<I>prec</I>
+
+specifications causes their values to be taken from
+the argument list to
+<B>printf</B>
+
+or
+<B>sprintf()</B>.
+
+To use a positional specifier with a dynamic width or precision,
+supply the
+<I>count</I><B>$</B>
+
+after the
+<B>*</B>
+
+in the format string.
+For example, <B>&quot;%3$*2$.*1$s&quot;</B>.
+<A NAME="lbAY">&nbsp;</A>
+<H3>Special File Names</H3>
+
+<P>
+
+When doing I/O redirection from either
+<B>print</B>
+
+or
+<B>printf</B>
+
+into a file,
+or via
+<B>getline</B>
+
+from a file,
+<I>gawk</I>
+
+recognizes certain special filenames internally.  These filenames
+allow access to open file descriptors inherited from
+<I>gawk</I>'s
+
+parent process (usually the shell).
+These file names may also be used on the command line to name data files.
+The filenames are:
+<DL COMPACT>
+<DT><B>-</B>
+
+<DD>
+The standard input.
+<DT><B>/dev/stdin</B>
+
+<DD>
+The standard input.
+<DT><B>/dev/stdout</B>
+
+<DD>
+The standard output.
+<DT><B>/dev/stderr</B>
+
+<DD>
+The standard error output.
+<DT><B>/dev/fd/</B><I>n</I>
+
+<DD>
+The file associated with the open file descriptor
+<I>n</I>.
+
+</DL>
+<P>
+
+These are particularly useful for error messages.  For example:
+<P>
+
+<DL COMPACT><DT><DD>
+<B>
+print &quot;You blew it!&quot; &gt; &quot;/dev/stderr&quot;
+</B>
+</DL>
+
+<P>
+
+whereas you would otherwise have to use
+<P>
+
+<DL COMPACT><DT><DD>
+<B>
+print &quot;You blew it!&quot; | &quot;cat 1&gt;&amp;2&quot;
+</B>
+</DL>
+
+<P>
+
+The following special filenames may be used with the
+<B>|&amp;</B>
+
+co-process operator for creating TCP/IP network connections:
+<DL COMPACT>
+<DT>
+<DD>
+<B>/inet/tcp/</B><I>lport</I><B>/</B><I>rhost</I><B>/</B><I>rport</I>
+
+<DT>
+<DD>
+<B>/inet4/tcp/</B><I>lport</I><B>/</B><I>rhost</I><B>/</B><I>rport</I>
+
+<DT>
+<DD>
+<B>/inet6/tcp/</B><I>lport</I><B>/</B><I>rhost</I><B>/</B><I>rport</I>
+
+Files for a TCP/IP connection on local port
+<I>lport</I>
+
+to
+remote host
+<I>rhost</I>
+
+on remote port
+<I>rport</I>.
+
+Use a port of
+<B>0</B>
+
+to have the system pick a port.
+Use
+<B>/inet4</B>
+
+to force an IPv4 connection,
+and
+<B>/inet6</B>
+
+to force an IPv6 connection.
+Plain
+<B>/inet</B>
+
+uses the system default (most likely IPv4).
+<DT>
+<DD>
+<B>/inet/udp/</B><I>lport</I><B>/</B><I>rhost</I><B>/</B><I>rport</I>
+
+<DT>
+<DD>
+<B>/inet4/udp/</B><I>lport</I><B>/</B><I>rhost</I><B>/</B><I>rport</I>
+
+<DT>
+<DD>
+<B>/inet6/udp/</B><I>lport</I><B>/</B><I>rhost</I><B>/</B><I>rport</I>
+
+Similar, but use UDP/IP instead of TCP/IP.
+</DL>
+<A NAME="lbAZ">&nbsp;</A>
+<H3>Numeric Functions</H3>
+
+<P>
+
+<FONT SIZE="-1">AWK</FONT> has the following built-in arithmetic functions:
+<P>
+
+<DL COMPACT>
+<DT><B>atan2(</B><I>y</I><B>,</B><I> x</I><B>)</B>
+
+<DD>
+Return the arctangent of
+<I>y/x</I>
+
+in radians.
+<DT><B>cos(</B><I>expr</I><B>)</B>
+
+<DD>
+Return the cosine of
+<I>expr</I>,
+
+which is in radians.
+<DT><B>exp(</B><I>expr</I><B>)</B>
+
+<DD>
+The exponential function.
+<DT><B>int(</B><I>expr</I><B>)</B>
+
+<DD>
+Truncate to integer.
+<DT><B>log(</B><I>expr</I><B>)</B>
+
+<DD>
+The natural logarithm function.
+<DT><B>rand()</B>
+
+<DD>
+Return a random number
+<I>N</I>,
+
+between 0 and 1,
+such that 0 &le; <I>N</I> &lt; 1.
+<DT><B>sin(</B><I>expr</I><B>)</B>
+
+<DD>
+Return the sine of
+<I>expr</I>,
+
+which is in radians.
+<DT><B>sqrt(</B><I>expr</I><B>)</B>
+
+<DD>
+Return the square root of
+<I>expr</I>.
+
+<DT><B>srand(</B>[<I>expr</I>]<B>)</B><DD>
+Use
+<I>expr</I>
+
+as the new seed for the random number generator.  If no
+<I>expr</I>
+
+is provided, use the time of day.
+Return the previous seed for the random
+number generator.
+</DL>
+<A NAME="lbBA">&nbsp;</A>
+<H3>String Functions</H3>
+
+<P>
+
+<I>Gawk</I>
+
+has the following built-in string functions:
+<P>
+
+<DL COMPACT>
+<DT><B>asort(</B><I>s </I>[<B>, </B><I>d</I> [<B>, </B><I>how</I>] ]<B>)</B><DD>
+Return the number of elements in the source
+array
+<I>s</I>.
+
+Sort
+the contents of
+<I>s</I>
+
+using
+<I>gawk</I>'s
+
+normal rules for
+comparing values, and replace the indices of the
+sorted values
+<I>s</I>
+
+with sequential
+integers starting with 1. If the optional
+destination array
+<I>d</I>
+
+is specified,
+first duplicate
+<I>s</I>
+
+into
+<I>d</I>,
+
+and then sort
+<I>d</I>,
+
+leaving the indices of the
+source array
+<I>s</I>
+
+unchanged. The optional string
+<I>how</I>
+
+controls the direction and the comparison mode.
+Valid values for
+<I>how</I>
+
+are
+any of the strings valid for
+<B>PROCINFO[&quot;sorted_in&quot;]</B>.
+It can also be the name of a user-defined
+comparison function as described in
+<B>PROCINFO[&quot;sorted_in&quot;]</B>.
+<DT><B>asorti(</B><I>s </I>[<B>, </B><I>d</I> [<B>, </B><I>how</I>] ]<B>)</B><DD>
+Return the number of elements in the source
+array
+<I>s</I>.
+
+The behavior is the same as that of
+<B>asort()</B>,
+
+except that the array
+<I>indices</I>
+
+are used for sorting, not the array values.
+When done, the array is indexed numerically, and
+the values are those of the original indices.
+The original values are lost; thus provide
+a second array if you wish to preserve the original.
+The purpose of the optional string
+<I>how</I>
+
+is the same as described in
+<B>asort()</B>
+
+above.
+<DT><B>gensub(</B><I>r</I><B>, </B><I>s</I><B>, </B><I>h </I>[<B>, </B><I>t</I>]<B>)</B><DD>
+Search the target string
+<I>t</I>
+
+for matches of the regular expression
+<I>r</I>.
+
+If
+<I>h</I>
+
+is a string beginning with
+<B>g</B>
+
+or
+<B>G</B>,
+
+then replace all matches of
+<I>r</I>
+
+with
+<I>s</I>.
+
+Otherwise,
+<I>h</I>
+
+is a number indicating which match of
+<I>r</I>
+
+to replace.
+If
+<I>t</I>
+
+is not supplied, use
+<B>$0</B>
+
+instead.
+Within the replacement text
+<I>s</I>,
+
+the sequence
+<B>\</B><I>n</I>,
+
+where
+<I>n</I>
+
+is a digit from 1 to 9, may be used to indicate just the text that
+matched the
+<I>n</I>'th
+
+parenthesized subexpression.  The sequence
+<B>\0</B>
+
+represents the entire matched text, as does the character
+<B>&amp;</B>.
+
+Unlike
+<B>sub()</B>
+
+and
+<B>gsub()</B>,
+
+the modified string is returned as the result of the function,
+and the original target string is
+<I>not</I>
+
+changed.
+<DT><B>gsub(</B><I>r</I><B>, </B><I>s </I>[<B>, </B><I>t</I>]<B>)</B><DD>
+For each substring matching the regular expression
+<I>r</I>
+
+in the string
+<I>t</I>,
+
+substitute the string
+<I>s</I>,
+
+and return the number of substitutions.
+If
+<I>t</I>
+
+is not supplied, use
+<B>$0</B>.
+
+An
+<B>&amp;</B>
+
+in the replacement text is replaced with the text that was actually matched.
+Use
+<B>\&amp;</B>
+
+to get a literal
+<B>&amp;</B>.
+
+(This must be typed as <B>&quot;\\&amp;&quot;</B>;
+see <I>GAWK: Effective AWK Programming</I>
+for a fuller discussion of the rules for
+<B>&amp;</B>'s
+
+and backslashes in the replacement text of
+<B>sub()</B>,
+
+<B>gsub()</B>,
+
+and
+<B>gensub()</B>.)
+
+<DT><B>index(</B><I>s</I><B>,</B><I> t</I><B>)</B>
+
+<DD>
+Return the index of the string
+<I>t</I>
+
+in the string
+<I>s</I>,
+
+or 0 if
+<I>t</I>
+
+is not present.
+(This implies that character indices start at one.)
+It is a fatal error to use a regexp constant for
+<I>t</I>.
+
+<DT><B>length(</B>[<I>s</I>]<B>)<DD>
+Return the length of the string
+</B><I>s</I>,
+
+or the length of
+<B>$0</B>
+
+if
+<I>s</I>
+
+is not supplied.
+As a non-standard extension, with an array argument,
+<B>length()</B>
+
+returns the number of elements in the array.
+<DT><B>match(</B><I>s</I><B>, </B><I>r </I>[<B>, </B><I>a</I>]<B>)</B><DD>
+Return the position in
+<I>s</I>
+
+where the regular expression
+<I>r</I>
+
+occurs, or 0 if
+<I>r</I>
+
+is not present, and set the values of
+<B>RSTART</B>
+
+and
+<B>RLENGTH</B>.
+
+Note that the argument order is the same as for the
+<B>~</B>
+
+operator:
+<I>str</I><B> ~</B>
+
+<I>re</I>.
+
+
+If array
+<I>a</I>
+
+is provided,
+<I>a</I>
+
+is cleared and then elements 1 through
+<I>n</I>
+
+are filled with the portions of
+<I>s</I>
+
+that match the corresponding parenthesized
+subexpression in
+<I>r</I>.
+
+The 0'th element of
+<I>a</I>
+
+contains the portion
+of
+<I>s</I>
+
+matched by the entire regular expression
+<I>r</I>.
+
+Subscripts
+<B>a[</B><I>n</I><B>, &quot;start&quot;]</B>,
+and
+<B>a[</B><I>n</I><B>, &quot;length&quot;]</B>
+provide the starting index in the string and length
+respectively, of each matching substring.
+<DT><B>patsplit(</B><I>s</I><B>, </B><I>a </I>[<B>, </B><I>r</I> [<B>, </B><I>seps</I>] ]<B>)</B><DD>
+Split the string
+<I>s</I>
+
+into the array
+<I>a</I>
+
+and the separators array
+<I>seps</I>
+
+on the regular expression
+<I>r</I>,
+
+and return the number of fields.
+Element values are the portions of
+<I>s</I>
+
+that matched
+<I>r</I>.
+
+The value of
+<B>seps[</B><I>i</I><B>]</B>
+
+is the separator that appeared in
+front of
+<B>a[</B><I>i</I><B>+1]</B>.
+
+If
+<I>r</I>
+
+is omitted,
+<B>FPAT</B>
+
+is used instead.
+The arrays
+<I>a</I>
+
+and
+<I>seps</I>
+
+are cleared first.
+Splitting behaves identically to field splitting with
+<B>FPAT</B>,
+
+described above.
+<DT><B>split(</B><I>s</I><B>, </B><I>a </I>[<B>, </B><I>r</I> [<B>, </B><I>seps</I>] ]<B>)</B><DD>
+Split the string
+<I>s</I>
+
+into the array
+<I>a</I>
+
+and the separators array
+<I>seps</I>
+
+on the regular expression
+<I>r</I>,
+
+and return the number of fields.  If
+<I>r</I>
+
+is omitted,
+<B>FS</B>
+
+is used instead.
+The arrays
+<I>a</I>
+
+and
+<I>seps</I>
+
+are cleared first.
+<B>seps[</B><I>i</I><B>]</B>
+
+is the field separator matched by
+<I>r</I>
+
+between
+<B>a[</B><I>i</I><B>]</B>
+
+and
+<B>a[</B><I>i</I><B>+1]</B>.
+
+If
+<I>r</I>
+
+is a single space, then leading whitespace in
+<I>s</I>
+
+goes into the extra array element
+<B>seps[0]</B>
+
+and trailing whitespace goes into the extra array element
+<B>seps[</B><I>n</I><B>]</B>,
+
+where
+<I>n</I>
+
+is the return value of
+<B>split(</B><I>s</I><B>, </B><I>a</I><B>, </B><I>r</I><B>, </B><I>seps</I><B>)</B>.
+
+Splitting behaves identically to field splitting, described above.
+<DT><B>sprintf(</B><I>fmt</I><B>,</B><I> expr-list</I><B>)</B>
+
+<DD>
+Print
+<I>expr-list</I>
+
+according to
+<I>fmt</I>,
+
+and return the resulting string.
+<DT><B>strtonum(</B><I>str</I><B>)</B>
+
+<DD>
+Examine
+<I>str</I>,
+
+and return its numeric value.
+If
+<I>str</I>
+
+begins
+with a leading
+<B>0</B>,
+
+treat it
+as an octal number.
+If
+<I>str</I>
+
+begins
+with a leading
+<B>0x</B>
+
+or
+<B>0X</B>,
+
+treat it
+as a hexadecimal number.
+Otherwise, assume it is a decimal number.
+<DT><B>sub(</B><I>r</I><B>, </B><I>s </I>[<B>, </B><I>t</I>]<B>)</B><DD>
+Just like
+<B>gsub()</B>,
+
+but replace only the first matching substring.
+<DT><B>substr(</B><I>s</I><B>, </B><I>i </I>[<B>, </B><I>n</I>]<B>)</B><DD>
+Return the at most
+<I>n</I>-character
+
+substring of
+<I>s</I>
+
+starting at
+<I>i</I>.
+
+If
+<I>n</I>
+
+is omitted, use the rest of
+<I>s</I>.
+
+<DT><B>tolower(</B><I>str</I><B>)</B>
+
+<DD>
+Return a copy of the string
+<I>str</I>,
+
+with all the uppercase characters in
+<I>str</I>
+
+translated to their corresponding lowercase counterparts.
+Non-alphabetic characters are left unchanged.
+<DT><B>toupper(</B><I>str</I><B>)</B>
+
+<DD>
+Return a copy of the string
+<I>str</I>,
+
+with all the lowercase characters in
+<I>str</I>
+
+translated to their corresponding uppercase counterparts.
+Non-alphabetic characters are left unchanged.
+</DL>
+<P>
+
+<I>Gawk</I>
+
+is multibyte aware.  This means that
+<B>index()</B>,
+
+<B>length()</B>,
+
+<B>substr()</B>
+
+and
+<B>match()</B>
+
+all work in terms of characters, not bytes.
+<A NAME="lbBB">&nbsp;</A>
+<H3>Time Functions</H3>
+
+Since one of the primary uses of <FONT SIZE="-1">AWK</FONT> programs is processing log files
+that contain time stamp information,
+<I>gawk</I>
+
+provides the following functions for obtaining time stamps and
+formatting them.
+<P>
+
+<DL COMPACT>
+<DT><B>mktime(</B><I>datespec</I><B>)</B><DD>
+Turn
+<I>datespec</I>
+
+into a time stamp of the same form as returned by
+<B>systime()</B>,
+
+and return the result.
+The
+<I>datespec</I>
+
+is a string of the form
+<I>YYYY MM DD HH MM SS[ DST]</I>.
+
+The contents of the string are six or seven numbers representing respectively
+the full year including century,
+the month from 1 to 12,
+the day of the month from 1 to 31,
+the hour of the day from 0 to 23,
+the minute from 0 to 59,
+the second from 0 to 60,
+and an optional daylight saving flag.
+The values of these numbers need not be within the ranges specified;
+for example, an hour of -1 means 1 hour before midnight.
+The origin-zero Gregorian calendar is assumed,
+with year 0 preceding year 1 and year -1 preceding year 0.
+The time is assumed to be in the local timezone.
+If the daylight saving flag is positive,
+the time is assumed to be daylight saving time;
+if zero, the time is assumed to be standard time;
+and if negative (the default),
+<B>mktime()</B>
+
+attempts to determine whether daylight saving time is in effect
+for the specified time.
+If
+<I>datespec</I>
+
+does not contain enough elements or if the resulting time
+is out of range,
+<B>mktime()</B>
+
+returns -1.
+<DT><B>strftime(</B>[<I>format </I>[<B>, </B><I>timestamp</I>[<B>, </B><I>utc-flag</I>]]]<B>)</B><DD>
+Format
+<I>timestamp</I>
+
+according to the specification in
+<I>format</I>.
+
+If
+<I>utc-flag</I>
+
+is present and is non-zero or non-null, the result
+is in UTC, otherwise the result is in local time.
+The
+<I>timestamp</I>
+
+should be of the same form as returned by
+<B>systime()</B>.
+
+If
+<I>timestamp</I>
+
+is missing, the current time of day is used.
+If
+<I>format</I>
+
+is missing, a default format equivalent to the output of
+<I><A HREF="/cgi-bin/man/man2html?1+date">date</A></I>(1)
+
+is used.
+The default format is available in
+<B>PROCINFO[strftime]</B>.
+
+See the specification for the
+<B>strftime()</B>
+
+function in ISO C for the format conversions that are
+guaranteed to be available.
+<DT><B>systime()</B>
+
+<DD>
+Return the current time of day as the number of seconds since the Epoch
+(1970-01-01 00:00:00 UTC on <FONT SIZE="-1">POSIX</FONT> systems).
+</DL>
+<A NAME="lbBC">&nbsp;</A>
+<H3>Bit Manipulations Functions</H3>
+
+<I>Gawk</I>
+
+supplies the following bit manipulation functions.
+They work by converting double-precision floating point
+values to
+<B>uintmax_t</B>
+
+integers, doing the operation, and then converting the
+result back to floating point.
+The functions are:
+<DL COMPACT>
+<DT><B>and(</B><I>v1</I><B>, </B><I>v2 </I>[, ...]<B>)</B><DD>
+Return the bitwise AND of the values provided in the argument list.
+There must be at least two.
+<DT><B>compl(</B><I>val</I><B>)</B><DD>
+Return the bitwise complement of
+<I>val</I>.
+
+<DT><B>lshift(</B><I>val</I><B>, </B><I>count</I><B>)</B><DD>
+Return the value of
+<I>val</I>,
+
+shifted left by
+<I>count</I>
+
+bits.
+<DT><B>or(</B><I>v1</I><B>, </B><I>v2 </I>[, ...]<B>)</B><DD>
+Return the bitwise OR of the values provided in the argument list.
+There must be at least two.
+<DT><B>rshift(</B><I>val</I><B>, </B><I>count</I><B>)</B><DD>
+Return the value of
+<I>val</I>,
+
+shifted right by
+<I>count</I>
+
+bits.
+<DT><B>xor(</B><I>v1</I><B>, </B><I>v2 </I>[, ...]<B>)</B><DD>
+Return the bitwise XOR of the values provided in the argument list.
+There must be at least two.
+</DL>
+<P>
+
+<A NAME="lbBD">&nbsp;</A>
+<H3>Type Function</H3>
+
+The following function is for use with multidimensional arrays.
+<DL COMPACT>
+<DT><B>isarray(</B><I>x</I><B>)</B><DD>
+Return true if
+<I>x</I>
+
+is an array, false otherwise.
+</DL>
+<A NAME="lbBE">&nbsp;</A>
+<H3>Internationalization Functions</H3>
+
+The following functions may be used from within your AWK program for
+translating strings at run-time.
+For full details, see <I>GAWK: Effective AWK Programming</I>.
+<DL COMPACT>
+<DT><B>bindtextdomain(</B><I>directory </I>[<B>, </B><I>domain</I>]<B>)</B><DD>
+Specify the directory where
+<I>gawk</I>
+
+looks for the
+<B>.gmo</B>
+
+files, in case they
+will not or cannot be placed in the ``standard'' locations
+(e.g., during testing).
+It returns the directory where
+<I>domain</I>
+
+is ``bound.''
+<P>
+The default
+<I>domain</I>
+
+is the value of
+<B>TEXTDOMAIN</B>.
+
+If
+<I>directory</I>
+
+is the null string (<B>&quot;&quot;</B>), then
+<B>bindtextdomain()</B>
+
+returns the current binding for the
+given
+<I>domain</I>.
+
+<DT><B>dcgettext(</B><I>string </I>[<B>, </B><I>domain </I>[<B>, </B><I>category</I>]]<B>)</B><DD>
+Return the translation of
+<I>string</I>
+
+in text domain
+<I>domain</I>
+
+for locale category
+<I>category</I>.
+
+The default value for
+<I>domain</I>
+
+is the current value of
+<B>TEXTDOMAIN</B>.
+
+The default value for
+<I>category</I>
+
+is <B>&quot;LC_MESSAGES&quot;</B>.
+<P>
+If you supply a value for
+<I>category</I>,
+
+it must be a string equal to
+one of the known locale categories described
+in <I>GAWK: Effective AWK Programming</I>.
+You must also supply a text domain.  Use
+<B>TEXTDOMAIN</B>
+
+if you want to use the current domain.
+<DT><B>dcngettext(</B><I>string1</I><B>, </B><I>string2</I><B>, </B><I>number </I>[<B>, </B><I>domain </I>[<B>, </B><I>category</I>]]<B>)</B><DD>
+Return the plural form used for
+<I>number</I>
+
+of the translation of
+<I>string1</I>
+
+and
+<I>string2</I>
+
+in
+text domain
+<I>domain</I>
+
+for locale category
+<I>category</I>.
+
+The default value for
+<I>domain</I>
+
+is the current value of
+<B>TEXTDOMAIN</B>.
+
+The default value for
+<I>category</I>
+
+is <B>&quot;LC_MESSAGES&quot;</B>.
+<P>
+If you supply a value for
+<I>category</I>,
+
+it must be a string equal to
+one of the known locale categories described
+in <I>GAWK: Effective AWK Programming</I>.
+You must also supply a text domain.  Use
+<B>TEXTDOMAIN</B>
+
+if you want to use the current domain.
+</DL>
+<A NAME="lbBF">&nbsp;</A>
+<H2>USER-DEFINED FUNCTIONS</H2>
+
+Functions in <FONT SIZE="-1">AWK</FONT> are defined as follows:
+<P>
+
+<DL COMPACT><DT><DD>
+<B>function </B><I>name</I><B>(</B><I>parameter list</I><B>) { </B><I>statements </I><B>}</B>
+</DL>
+
+<P>
+
+Functions are executed when they are called from within expressions
+in either patterns or actions.  Actual parameters supplied in the function
+call are used to instantiate the formal parameters declared in the function.
+Arrays are passed by reference, other variables are passed by value.
+<P>
+
+Since functions were not originally part of the <FONT SIZE="-1">AWK</FONT> language, the provision
+for local variables is rather clumsy: They are declared as extra parameters
+in the parameter list.  The convention is to separate local variables from
+real parameters by extra spaces in the parameter list.  For example:
+<P>
+
+<DL COMPACT><DT><DD>
+<B>
+</B><PRE>
+function  f(p, q,     a, b)     # a and b are local
+{
+        ...
+}
+
+/abc/   { ... ; f(1, 2) ; ... }
+</PRE>
+
+
+</DL>
+
+<P>
+
+The left parenthesis in a function call is required
+to immediately follow the function name,
+without any intervening whitespace.
+This avoids a syntactic ambiguity with the concatenation operator.
+This restriction does not apply to the built-in functions listed above.
+<P>
+
+Functions may call each other and may be recursive.
+Function parameters used as local variables are initialized
+to the null string and the number zero upon function invocation.
+<P>
+
+Use
+<B>return</B><I> expr</I>
+
+to return a value from a function.  The return value is undefined if no
+value is provided, or if the function returns by ``falling off'' the
+end.
+<P>
+
+As a
+<I>gawk</I>
+
+extension, functions may be called indirectly. To do this, assign
+the name of the function to be called, as a string, to a variable.
+Then use the variable as if it were the name of a function, prefixed with an
+<B>@</B>
+
+sign, like so:
+<DL COMPACT><DT><DD>
+<B>
+</B><PRE>
+function myfunc()
+{
+        print &quot;myfunc called&quot;
+        ...
+}
+
+{       ...
+        the_func = &quot;myfunc&quot;
+        @the_func()     # call through the_func to myfunc
+        ...
+}
+</PRE>
+
+
+</DL>
+
+As of version 4.1.2, this works with user-defined functions,
+built-in functions, and extension functions.
+<P>
+
+If
+<B>--lint</B>
+
+has been provided,
+<I>gawk</I>
+
+warns about calls to undefined functions at parse time,
+instead of at run time.
+Calling an undefined function at run time is a fatal error.
+<P>
+
+The word
+<B>func</B>
+
+may be used in place of
+<B>function</B>,
+
+although this is deprecated.
+<A NAME="lbBG">&nbsp;</A>
+<H2>DYNAMICALLY LOADING NEW FUNCTIONS</H2>
+
+You can dynamically add new built-in functions to the running
+<I>gawk</I>
+
+interpreter with the
+<B>@load</B>
+
+statement.
+The full details are beyond the scope of this manual page;
+see <I>GAWK: Effective AWK Programming</I>.
+<A NAME="lbBH">&nbsp;</A>
+<H2>SIGNALS</H2>
+
+The
+<I>gawk</I>
+
+profiler accepts two signals.
+<B>SIGUSR1</B>
+
+causes it to dump a profile and function call stack to the
+profile file, which is either
+<B>awkprof.out</B>,
+
+or whatever file was named with the
+<B>--profile</B>
+
+option.  It then continues to run.
+<B>SIGHUP</B>
+
+causes
+<I>gawk</I>
+
+to dump the profile and function call stack and then exit.
+<A NAME="lbBI">&nbsp;</A>
+<H2>INTERNATIONALIZATION</H2>
+
+<P>
+
+String constants are sequences of characters enclosed in double
+quotes.  In non-English speaking environments, it is possible to mark
+strings in the <FONT SIZE="-1">AWK</FONT> program as requiring translation to the local
+natural language. Such strings are marked in the <FONT SIZE="-1">AWK</FONT> program with
+a leading underscore (``_'').  For example,
+<P>
+<DL COMPACT><DT><DD>
+<B>
+gawk 'BEGIN { print &quot;hello, world&quot; }'
+</DL>
+
+<P>
+</B>
+always prints
+<B>hello, world</B>.
+
+But,
+<P>
+<DL COMPACT><DT><DD>
+<B>
+gawk 'BEGIN { print _&quot;hello, world&quot; }'
+</DL>
+
+<P>
+</B>
+might print
+<B>bonjour, monde</B>
+
+in France.
+<P>
+
+There are several steps involved in producing and running a localizable
+<FONT SIZE="-1">AWK</FONT> program.
+<DL COMPACT>
+<DT>1.<DD>
+Add a
+<B>BEGIN</B>
+
+action to assign a value to the
+<B>TEXTDOMAIN</B>
+
+variable to set the text domain to a name associated with your program:
+<P>
+
+<B>
+BEGIN { TEXTDOMAIN = &quot;myprog&quot; }
+</B>
+
+<P>
+This allows
+<I>gawk</I>
+
+to find the
+<B>.gmo</B>
+
+file associated with your program.
+Without this step,
+<I>gawk</I>
+
+uses the
+<B>messages</B>
+
+text domain,
+which likely does not contain translations for your program.
+<DT>2.<DD>
+Mark all strings that should be translated with leading underscores.
+<DT>3.<DD>
+If necessary, use the
+<B>dcgettext()</B>
+
+and/or
+<B>bindtextdomain()</B>
+
+functions in your program, as appropriate.
+<DT>4.<DD>
+Run
+<B>gawk --gen-pot -f myprog.awk &gt; myprog.pot</B>
+
+to generate a
+<B>.pot</B>
+
+file for your program.
+<DT>5.<DD>
+Provide appropriate translations, and build and install the corresponding
+<B>.gmo</B>
+
+files.
+</DL>
+<P>
+
+The internationalization features are described in full detail in <I>GAWK: Effective AWK Programming</I>.
+<A NAME="lbBJ">&nbsp;</A>
+<H2>POSIX COMPATIBILITY</H2>
+
+A primary goal for
+<I>gawk</I>
+
+is compatibility with the <FONT SIZE="-1">POSIX</FONT> standard, as well as with the
+latest version of Brian Kernighan's
+<I>awk</I>.
+
+To this end,
+<I>gawk</I>
+
+incorporates the following user visible
+features which are not described in the <FONT SIZE="-1">AWK</FONT> book,
+but are part of the Brian Kernighan's version of
+<I>awk</I>,
+
+and are in the <FONT SIZE="-1">POSIX</FONT> standard.
+<P>
+
+The book indicates that command line variable assignment happens when
+<I>awk</I>
+
+would otherwise open the argument as a file, which is after the
+<B>BEGIN</B>
+
+rule is executed.  However, in earlier implementations, when such an
+assignment appeared before any file names, the assignment would happen
+<I>before</I>
+
+the
+<B>BEGIN</B>
+
+rule was run.  Applications came to depend on this ``feature.''
+When
+<I>awk</I>
+
+was changed to match its documentation, the
+<B>-v</B>
+
+option for assigning variables before program execution was added to
+accommodate applications that depended upon the old behavior.
+(This feature was agreed upon by both the Bell Laboratories
+and the <FONT SIZE="-1">GNU</FONT> developers.)
+<P>
+
+When processing arguments,
+<I>gawk</I>
+
+uses the special option ``--'' to signal the end of
+arguments.
+In compatibility mode, it warns about but otherwise ignores
+undefined options.
+In normal operation, such arguments are passed on to the <FONT SIZE="-1">AWK</FONT> program for
+it to process.
+<P>
+
+The <FONT SIZE="-1">AWK</FONT> book does not define the return value of
+<B>srand()</B>.
+
+The <FONT SIZE="-1">POSIX</FONT> standard
+has it return the seed it was using, to allow keeping track
+of random number sequences.  Therefore
+<B>srand()</B>
+
+in
+<I>gawk</I>
+
+also returns its current seed.
+<P>
+
+Other new features are:
+The use of multiple
+<B>-f</B>
+
+options (from MKS
+<I>awk</I>);
+
+the
+<B>ENVIRON</B>
+
+array; the
+<B>\a</B>,
+
+and
+<B>\v</B>
+
+escape sequences (done originally in
+<I>gawk</I>
+
+and fed back into the Bell Laboratories version); the
+<B>tolower()</B>
+
+and
+<B>toupper()</B>
+
+built-in functions (from the Bell Laboratories version); and the ISO C conversion specifications in
+<B>printf</B>
+
+(done first in the Bell Laboratories version).
+<A NAME="lbBK">&nbsp;</A>
+<H2>HISTORICAL FEATURES</H2>
+
+There is one feature of historical <FONT SIZE="-1">AWK</FONT> implementations that
+<I>gawk</I>
+
+supports:
+It is possible to call the
+<B>length()</B>
+
+built-in function not only with no argument, but even without parentheses!
+Thus,
+<DL COMPACT><DT><DD>
+<P>
+
+<B>
+a = length<TT>&nbsp;&nbsp;&nbsp;&nbsp;</TT># Holy Algol 60, Batman!<BR>
+</B>
+</DL>
+
+<P>
+
+is the same as either of
+<DL COMPACT><DT><DD>
+<P>
+
+<B>
+a = length()
+<BR>
+
+a = length($0)
+</B>
+</DL>
+
+<P>
+
+Using this feature is poor practice, and
+<I>gawk</I>
+
+issues a warning about its use if
+<B>--lint</B>
+
+is specified on the command line.
+<A NAME="lbBL">&nbsp;</A>
+<H2>GNU EXTENSIONS</H2>
+
+<I>Gawk</I>
+
+has a too-large number of extensions to <FONT SIZE="-1">POSIX</FONT>
+<I>awk</I>.
+
+They are described in this section.  All the extensions described here
+can be disabled by
+invoking
+<I>gawk</I>
+
+with the
+<B>--traditional</B>
+
+or
+<B>--posix</B>
+
+options.
+<P>
+
+The following features of
+<I>gawk</I>
+
+are not available in
+<FONT SIZE="-1">POSIX</FONT>
+<I>awk</I>.
+
+
+<DL COMPACT>
+<DT>&bull;<DD>
+No path search is performed for files named via the
+<B>-f</B>
+
+option.  Therefore the
+<B>AWKPATH</B>
+
+environment variable is not special.
+
+<DT>&bull;<DD>
+There is no facility for doing file inclusion
+(<I>gawk</I>'s
+
+<B>@include</B>
+
+mechanism).
+<DT>&bull;<DD>
+There is no facility for dynamically adding new functions
+written in C
+(<I>gawk</I>'s
+
+<B>@load</B>
+
+mechanism).
+<DT>&bull;<DD>
+The
+<B>\x</B>
+
+escape sequence.
+(Disabled with
+<B>--posix</B>.)
+
+<DT>&bull;<DD>
+The ability to continue lines after
+<B>?</B>
+
+and
+<B>:</B>.
+
+(Disabled with
+<B>--posix</B>.)
+
+<DT>&bull;<DD>
+Octal and hexadecimal constants in AWK programs.
+
+<DT>&bull;<DD>
+The
+<B>ARGIND</B>,
+
+<B>BINMODE</B>,
+
+<B>ERRNO</B>,
+
+<B>LINT</B>,
+
+<B>RT</B>
+
+and
+<B>TEXTDOMAIN</B>
+
+variables are not special.
+<DT>&bull;<DD>
+The
+<B>IGNORECASE</B>
+
+variable and its side-effects are not available.
+<DT>&bull;<DD>
+The
+<B>FIELDWIDTHS</B>
+
+variable and fixed-width field splitting.
+<DT>&bull;<DD>
+The
+<B>FPAT</B>
+
+variable and field splitting based on field values.
+<DT>&bull;<DD>
+The
+<B>PROCINFO</B>
+
+array is not available.
+
+<DT>&bull;<DD>
+The use of
+<B>RS</B>
+
+as a regular expression.
+<DT>&bull;<DD>
+The special file names available for I/O redirection are not recognized.
+<DT>&bull;<DD>
+The
+<B>|&amp;</B>
+
+operator for creating co-processes.
+<DT>&bull;<DD>
+The
+<B>BEGINFILE</B>
+
+and
+<B>ENDFILE</B>
+
+special patterns are not available.
+
+<DT>&bull;<DD>
+The ability to split out individual characters using the null string
+as the value of
+<B>FS</B>,
+
+and as the third argument to
+<B>split()</B>.
+
+<DT>&bull;<DD>
+An optional fourth argument to
+<B>split()</B>
+
+to receive the separator texts.
+<DT>&bull;<DD>
+The optional second argument to the
+<B>close()</B>
+
+function.
+<DT>&bull;<DD>
+The optional third argument to the
+<B>match()</B>
+
+function.
+<DT>&bull;<DD>
+The ability to use positional specifiers with
+<B>printf</B>
+
+and
+<B>sprintf()</B>.
+
+<DT>&bull;<DD>
+The ability to pass an array to
+<B>length()</B>.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<DT>&bull;<DD>
+The
+<B>and()</B>,
+
+<B>asort()</B>,
+
+<B>asorti()</B>,
+
+<B>bindtextdomain()</B>,
+
+<B>compl()</B>,
+
+<B>dcgettext()</B>,
+
+<B>dcngettext()</B>,
+
+<B>gensub()</B>,
+
+<B>lshift()</B>,
+
+<B>mktime()</B>,
+
+<B>or()</B>,
+
+<B>patsplit()</B>,
+
+<B>rshift()</B>,
+
+<B>strftime()</B>,
+
+<B>strtonum()</B>,
+
+<B>systime()</B>
+
+and
+<B>xor()</B>
+
+functions.
+
+<DT>&bull;<DD>
+Localizable strings.
+</DL>
+<P>
+
+The <FONT SIZE="-1">AWK</FONT> book does not define the return value of the
+<B>close()</B>
+
+function.
+<I>Gawk</I>'s
+
+<B>close()</B>
+
+returns the value from
+<I><A HREF="/cgi-bin/man/man2html?3+fclose">fclose</A></I>(3),
+
+or
+<I><A HREF="/cgi-bin/man/man2html?3+pclose">pclose</A></I>(3),
+
+when closing an output file or pipe, respectively.
+It returns the process's exit status when closing an input pipe.
+The return value is -1 if the named file, pipe
+or co-process was not opened with a redirection.
+<P>
+
+When
+<I>gawk</I>
+
+is invoked with the
+<B>--traditional</B>
+
+option,
+if the
+<I>fs</I>
+
+argument to the
+<B>-F</B>
+
+option is ``t'', then
+<B>FS</B>
+
+is set to the tab character.
+Note that typing
+<B>gawk -F\t ...</B>
+
+simply causes the shell to quote the ``t,'' and does not pass
+``\t'' to the
+<B>-F</B>
+
+option.
+Since this is a rather ugly special case, it is not the default behavior.
+This behavior also does not occur if
+<B>--posix</B>
+
+has been specified.
+To really get a tab character as the field separator, it is best to use
+single quotes:
+<B>gawk -F'\t' ...</B>.
+
+
+<A NAME="lbBM">&nbsp;</A>
+<H2>ENVIRONMENT VARIABLES</H2>
+
+The
+<B>AWKPATH</B>
+
+environment variable can be used to provide a list of directories that
+<I>gawk</I>
+
+searches when looking for files named via the
+<B>-f</B>,
+
+--file<B>,</B>
+
+<B>-i</B>
+
+and
+<B>--include</B>
+
+options.  If the initial search fails, the path is searched again after
+appending
+<B>.awk</B>
+
+to the filename.
+<P>
+
+The
+<B>AWKLIBPATH</B>
+
+environment variable can be used to provide a list of directories that
+<I>gawk</I>
+
+searches when looking for files named via the
+<B>-l</B>
+
+and
+<B>--load</B>
+
+options.
+<P>
+
+The
+<B>GAWK_READ_TIMEOUT</B>
+
+environment variable can be used to specify a timeout
+in milliseconds for reading input from a terminal, pipe
+or two-way communication including sockets.
+<P>
+
+For connection to a remote host via socket,
+<B>GAWK_SOCK_RETRIES</B>
+
+controls the number of retries, and
+<B>GAWK_MSEC_SLEEP</B>
+
+and the interval between retries.
+The interval is in milliseconds. On systems that do not support
+<I><A HREF="/cgi-bin/man/man2html?3+usleep">usleep</A></I>(3),
+
+the value is rounded up to an integral number of seconds.
+<P>
+
+If
+<B>POSIXLY_CORRECT</B>
+
+exists in the environment, then
+<I>gawk</I>
+
+behaves exactly as if
+<B>--posix</B>
+
+had been specified on the command line.
+If
+<B>--lint</B>
+
+has been specified,
+<I>gawk</I>
+
+issues a warning message to this effect.
+<A NAME="lbBN">&nbsp;</A>
+<H2>EXIT STATUS</H2>
+
+If the
+<B>exit</B>
+
+statement is used with a value,
+then
+<I>gawk</I>
+
+exits with
+the numeric value given to it.
+<P>
+
+Otherwise, if there were no problems during execution,
+<I>gawk</I>
+
+exits with the value of the C constant
+<B>EXIT_SUCCESS</B>.
+
+This is usually zero.
+<P>
+
+If an error occurs,
+<I>gawk</I>
+
+exits with the value of
+the C constant
+<B>EXIT_FAILURE</B>.
+
+This is usually one.
+<P>
+
+If
+<I>gawk</I>
+
+exits because of a fatal error, the exit
+status is 2.  On non-POSIX systems, this value may be mapped to
+<B>EXIT_FAILURE</B>.
+
+<A NAME="lbBO">&nbsp;</A>
+<H2>VERSION INFORMATION</H2>
+
+This man page documents
+<I>gawk</I>,
+
+version 4.1.
+<A NAME="lbBP">&nbsp;</A>
+<H2>AUTHORS</H2>
+
+The original version of <FONT SIZE="-1">UNIX</FONT>
+<I>awk</I>
+
+was designed and implemented by Alfred Aho,
+Peter Weinberger, and Brian Kernighan of Bell Laboratories.  Brian Kernighan
+continues to maintain and enhance it.
+<P>
+
+Paul Rubin and Jay Fenlason,
+of the Free Software Foundation, wrote
+<I>gawk</I>,
+
+to be compatible with the original version of
+<I>awk</I>
+
+distributed in Seventh Edition <FONT SIZE="-1">UNIX</FONT>.
+John Woods contributed a number of bug fixes.
+David Trueman, with contributions
+from Arnold Robbins, made
+<I>gawk</I>
+
+compatible with the new version of <FONT SIZE="-1">UNIX</FONT>
+<I>awk</I>.
+
+Arnold Robbins is the current maintainer.
+<P>
+
+See <I>GAWK: Effective AWK Programming</I> for a full list of the contributors to
+<I>gawk</I>
+
+and its documentation.
+<P>
+
+See the
+<B>README</B>
+
+file in the
+<I>gawk</I>
+
+distribution for up-to-date information about maintainers
+and which ports are currently supported.
+<A NAME="lbBQ">&nbsp;</A>
+<H2>BUG REPORTS</H2>
+
+If you find a bug in
+<I>gawk</I>,
+
+please send electronic mail to
+<B><A HREF="mailto:bug-gawk@gnu.org">bug-gawk@gnu.org</A></B>.
+
+Please include your operating system and its revision, the version of
+<I>gawk</I>
+
+(from
+<B>gawk --version</B>),
+
+which C compiler you used to compile it, and a test program
+and data that are as small as possible for reproducing the problem.
+<P>
+
+Before sending a bug report, please do the following things.  First, verify that
+you have the latest version of
+<I>gawk</I>.
+
+Many bugs (usually subtle ones) are fixed at each release, and if
+yours is out of date, the problem may already have been solved.
+Second, please see if setting the environment variable
+<B>LC_ALL</B>
+
+to
+<B>LC_ALL=C</B>
+
+causes things to behave as you expect. If so, it's a locale issue,
+and may or may not really be a bug.
+Finally, please read this man page and the reference manual carefully to
+be sure that what you think is a bug really is, instead of just a quirk
+in the language.
+<P>
+
+Whatever you do, do
+<B>NOT</B>
+
+post a bug report in
+<B>comp.lang.awk</B>.
+
+While the
+<I>gawk</I>
+
+developers occasionally read this newsgroup, posting bug reports there
+is an unreliable way to report bugs.  Instead, please use the electronic mail
+addresses given above.
+Really.
+<P>
+
+If you're using a GNU/Linux or BSD-based system,
+you may wish to submit a bug report to the vendor of your distribution.
+That's fine, but please send a copy to the official email address as well,
+since there's no guarantee that the bug report will be forwarded to the
+<I>gawk</I>
+
+maintainer.
+<A NAME="lbBR">&nbsp;</A>
+<H2>BUGS</H2>
+
+The
+<B>-F</B>
+
+option is not necessary given the command line variable assignment feature;
+it remains only for backwards compatibility.
+<A NAME="lbBS">&nbsp;</A>
+<H2>SEE ALSO</H2>
+
+<I><A HREF="/cgi-bin/man/man2html?1+egrep">egrep</A></I>(1),
+
+<I><A HREF="/cgi-bin/man/man2html?1+sed">sed</A></I>(1),
+
+<I><A HREF="/cgi-bin/man/man2html?2+getpid">getpid</A></I>(2),
+
+<I><A HREF="/cgi-bin/man/man2html?2+getppid">getppid</A></I>(2),
+
+<I><A HREF="/cgi-bin/man/man2html?2+getpgrp">getpgrp</A></I>(2),
+
+<I><A HREF="/cgi-bin/man/man2html?2+getuid">getuid</A></I>(2),
+
+<I><A HREF="/cgi-bin/man/man2html?2+geteuid">geteuid</A></I>(2),
+
+<I><A HREF="/cgi-bin/man/man2html?2+getgid">getgid</A></I>(2),
+
+<I><A HREF="/cgi-bin/man/man2html?2+getegid">getegid</A></I>(2),
+
+<I><A HREF="/cgi-bin/man/man2html?2+getgroups">getgroups</A></I>(2),
+
+<I><A HREF="/cgi-bin/man/man2html?3+usleep">usleep</A></I>(3)
+
+<P>
+
+<I>The AWK Programming Language</I>,
+
+Alfred V. Aho, Brian W. Kernighan, Peter J. Weinberger,
+Addison-Wesley, 1988.  ISBN 0-201-07981-X.
+<P>
+
+<I>GAWK: Effective AWK Programming</I>,
+Edition 4.1, shipped with the
+<I>gawk</I>
+
+source.
+The current version of this document is available online at
+<B><A HREF="http://www.gnu.org/software/gawk/manual">http://www.gnu.org/software/gawk/manual</A></B>.
+
+<A NAME="lbBT">&nbsp;</A>
+<H2>EXAMPLES</H2>
+
+<PRE>
+Print and sort the login names of all users:
+
+<B>        BEGIN   { FS = &quot;:&quot; }
+                { print $1 | &quot;sort&quot; }
+
+</B>Count lines in a file:
+
+<B>                { nlines++ }
+        END     { print nlines }
+
+</B>Precede each line by its number in the file:
+
+<B>        { print FNR, $0 }
+
+</B>Concatenate and line number (a variation on a theme):
+
+<B>        { print NR, $0 }
+
+</B>Run an external command for particular lines of data:
+
+<B>        tail -f access_log |
+        awk '/myhome.html/ { system(&quot;nmap &quot; $1 &quot;&gt;&gt; logdir/myhome.html&quot;) }'
+</B></PRE>
+
+<A NAME="lbBU">&nbsp;</A>
+<H2>ACKNOWLEDGEMENTS</H2>
+
+Brian Kernighan
+provided valuable assistance during testing and debugging.
+We thank him.
+<A NAME="lbBV">&nbsp;</A>
+<H2>COPYING PERMISSIONS</H2>
+
+Copyright &#169; 1989, 1991, 1992, 1993, 1994, 1995, 1996,
+1997, 1998, 1999, 2001, 2002, 2003, 2004, 2005, 2007, 2009,
+2010, 2011, 2012, 2013, 2014, 2016
+Free Software Foundation, Inc.
+<P>
+
+Permission is granted to make and distribute verbatim copies of
+this manual page provided the copyright notice and this permission
+notice are preserved on all copies.
+
+<P>
+
+Permission is granted to copy and distribute modified versions of this
+manual page under the conditions for verbatim copying, provided that
+the entire resulting derived work is distributed under the terms of a
+permission notice identical to this one.
+<P>
+
+Permission is granted to copy and distribute translations of this
+manual page into another language, under the above conditions for
+modified versions, except that this permission notice may be stated in
+a translation approved by the Foundation.
+<P>
+
+<HR>
+<A NAME="index">&nbsp;</A><H2>Index</H2>
+<DL>
+<DT><A HREF="#lbAB">NAME</A><DD>
+<DT><A HREF="#lbAC">SYNOPSIS</A><DD>
+<DT><A HREF="#lbAD">DESCRIPTION</A><DD>
+<DT><A HREF="#lbAE">OPTION FORMAT</A><DD>
+<DT><A HREF="#lbAF">OPTIONS</A><DD>
+<DT><A HREF="#lbAG">AWK PROGRAM EXECUTION</A><DD>
+<DL>
+<DT><A HREF="#lbAH">Command Line Directories</A><DD>
+</DL>
+<DT><A HREF="#lbAI">VARIABLES, RECORDS AND FIELDS</A><DD>
+<DL>
+<DT><A HREF="#lbAJ">Records</A><DD>
+<DT><A HREF="#lbAK">Fields</A><DD>
+<DT><A HREF="#lbAL">Built-in Variables</A><DD>
+<DT><A HREF="#lbAM">Arrays</A><DD>
+<DT><A HREF="#lbAN">Variable Typing And Conversion</A><DD>
+<DT><A HREF="#lbAO">Octal and Hexadecimal Constants</A><DD>
+<DT><A HREF="#lbAP">String Constants</A><DD>
+</DL>
+<DT><A HREF="#lbAQ">PATTERNS AND ACTIONS</A><DD>
+<DL>
+<DT><A HREF="#lbAR">Patterns</A><DD>
+<DT><A HREF="#lbAS">Regular Expressions</A><DD>
+<DT><A HREF="#lbAT">Actions</A><DD>
+<DT><A HREF="#lbAU">Operators</A><DD>
+<DT><A HREF="#lbAV">Control Statements</A><DD>
+<DT><A HREF="#lbAW">I/O Statements</A><DD>
+<DT><A HREF="#lbAX">The <I>printf</I> Statement</A><DD>
+<DT><A HREF="#lbAY">Special File Names</A><DD>
+<DT><A HREF="#lbAZ">Numeric Functions</A><DD>
+<DT><A HREF="#lbBA">String Functions</A><DD>
+<DT><A HREF="#lbBB">Time Functions</A><DD>
+<DT><A HREF="#lbBC">Bit Manipulations Functions</A><DD>
+<DT><A HREF="#lbBD">Type Function</A><DD>
+<DT><A HREF="#lbBE">Internationalization Functions</A><DD>
+</DL>
+<DT><A HREF="#lbBF">USER-DEFINED FUNCTIONS</A><DD>
+<DT><A HREF="#lbBG">DYNAMICALLY LOADING NEW FUNCTIONS</A><DD>
+<DT><A HREF="#lbBH">SIGNALS</A><DD>
+<DT><A HREF="#lbBI">INTERNATIONALIZATION</A><DD>
+<DT><A HREF="#lbBJ">POSIX COMPATIBILITY</A><DD>
+<DT><A HREF="#lbBK">HISTORICAL FEATURES</A><DD>
+<DT><A HREF="#lbBL">GNU EXTENSIONS</A><DD>
+<DT><A HREF="#lbBM">ENVIRONMENT VARIABLES</A><DD>
+<DT><A HREF="#lbBN">EXIT STATUS</A><DD>
+<DT><A HREF="#lbBO">VERSION INFORMATION</A><DD>
+<DT><A HREF="#lbBP">AUTHORS</A><DD>
+<DT><A HREF="#lbBQ">BUG REPORTS</A><DD>
+<DT><A HREF="#lbBR">BUGS</A><DD>
+<DT><A HREF="#lbBS">SEE ALSO</A><DD>
+<DT><A HREF="#lbBT">EXAMPLES</A><DD>
+<DT><A HREF="#lbBU">ACKNOWLEDGEMENTS</A><DD>
+<DT><A HREF="#lbBV">COPYING PERMISSIONS</A><DD>
+</DL>
+<HR>
+
+</BODY>
+</HTML>

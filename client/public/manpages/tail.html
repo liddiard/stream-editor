@@ -1,0 +1,136 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML><HEAD><TITLE>Man page for TAIL</TITLE>
+<link rel="stylesheet" type="text/css" href="style.css" /><script src="init.js"></script>
+</HEAD><BODY>
+<H1>TAIL</H1>
+Section: User Commands (1)<BR>Updated: January 2018<BR><A HREF="#index">Index</A>
+<HR>
+
+
+<a name="lbAB">&nbsp;</a>
+<H2>NAME</H2>
+
+tail - output the last part of files
+<A NAME="lbAC">&nbsp;</A>
+<H2>SYNOPSIS</H2>
+
+<B>tail</B>
+
+[<I>,OPTION/</I>]... [<I>,FILE/</I>]...
+<A NAME="lbAD">&nbsp;</A>
+<H2>DESCRIPTION</H2>
+
+
+<P>
+
+Print the last 10 lines of each FILE to standard output.
+With more than one FILE, precede each with a header giving the file name.
+<P>
+
+With no FILE, or when FILE is -, read standard input.
+<P>
+
+Mandatory arguments to long options are mandatory for short options too.
+<DL COMPACT>
+<DT><B>-c</B>, <B>--bytes</B>=<I>,[/</I>+]NUM<DD>
+output the last NUM bytes; or use <B>-c</B> +NUM to
+output starting with byte NUM of each file
+<DT><B>-f</B>, <B>--follow[=</B>{name|descriptor}]<DD>
+output appended data as the file grows;
+<DT><DD>
+an absent option argument means 'descriptor'
+<DT><B>-F</B><DD>
+same as <B>--follow</B>=<I>,name/</I> <B>--retry</B>
+<DT><B>-n</B>, <B>--lines</B>=<I>,[/</I>+]NUM<DD>
+output the last NUM lines, instead of the last 10;
+or use <B>-n</B> +NUM to output starting with line NUM
+<DT><B>--max-unchanged-stats</B>=<I>,N/</I><DD>
+with <B>--follow</B>=<I>,name/</I>, reopen a FILE which has not
+<DT><DD>
+changed size after N (default 5) iterations
+to see if it has been unlinked or renamed
+(this is the usual case of rotated log files);
+with inotify, this option is rarely useful
+<DT><B>--pid</B>=<I>,PID/</I><DD>
+with <B>-f</B>, terminate after process ID, PID dies
+<DT><B>-q</B>, <B>--quiet</B>, <B>--silent</B><DD>
+never output headers giving file names
+<DT><B>--retry</B><DD>
+keep trying to open a file if it is inaccessible
+<DT><B>-s</B>, <B>--sleep-interval</B>=<I>,N/</I><DD>
+with <B>-f</B>, sleep for approximately N seconds
+(default 1.0) between iterations;
+with inotify and <B>--pid</B>=<I>,P/</I>, check process P at
+least once every N seconds
+<DT><B>-v</B>, <B>--verbose</B><DD>
+always output headers giving file names
+<DT><B>-z</B>, <B>--zero-terminated</B><DD>
+line delimiter is NUL, not newline
+<DT><B>--help</B><DD>
+display this help and exit
+<DT><B>--version</B><DD>
+output version information and exit
+</DL>
+<P>
+
+NUM may have a multiplier suffix:
+b 512, kB 1000, K 1024, MB 1000*1000, M 1024*1024,
+GB 1000*1000*1000, G 1024*1024*1024, and so on for T, P, E, Z, Y.
+<P>
+
+With <B>--follow</B> (<B>-f</B>), tail defaults to following the file descriptor, which
+means that even if a tail'ed file is renamed, tail will continue to track
+its end.  This default behavior is not desirable when you really want to
+track the actual name of the file, not the file descriptor (e.g., log
+rotation).  Use <B>--follow</B>=<I>,name/</I> in that case.  That causes tail to track the
+named file in a way that accommodates renaming, removal and creation.
+<A NAME="lbAE">&nbsp;</A>
+<H2>AUTHOR</H2>
+
+Written by Paul Rubin, David MacKenzie, Ian Lance Taylor,
+and Jim Meyering.
+<A NAME="lbAF">&nbsp;</A>
+<H2>REPORTING BUGS</H2>
+
+GNU coreutils online help: &lt;<A HREF="http://www.gnu.org/software/coreutils/">http://www.gnu.org/software/coreutils/</A>&gt;
+<BR>
+
+Report tail translation bugs to &lt;<A HREF="http://translationproject.org/team/">http://translationproject.org/team/</A>&gt;
+<A NAME="lbAG">&nbsp;</A>
+<H2>COPYRIGHT</H2>
+
+Copyright &#169; 2017 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later &lt;<A HREF="http://gnu.org/licenses/gpl.html">http://gnu.org/licenses/gpl.html</A>&gt;.
+<BR>
+
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+<A NAME="lbAH">&nbsp;</A>
+<H2>SEE ALSO</H2>
+
+<A HREF="/cgi-bin/man/man2html?1+head">head</A>(1)
+<P>
+
+<BR>
+
+Full documentation at: &lt;<A HREF="http://www.gnu.org/software/coreutils/tail">http://www.gnu.org/software/coreutils/tail</A>&gt;
+<BR>
+
+or available locally via: info '(coreutils) tail invocation'
+<P>
+
+<HR>
+<A NAME="index">&nbsp;</A><H2>Index</H2>
+<DL>
+<DT><A HREF="#lbAB">NAME</A><DD>
+<DT><A HREF="#lbAC">SYNOPSIS</A><DD>
+<DT><A HREF="#lbAD">DESCRIPTION</A><DD>
+<DT><A HREF="#lbAE">AUTHOR</A><DD>
+<DT><A HREF="#lbAF">REPORTING BUGS</A><DD>
+<DT><A HREF="#lbAG">COPYRIGHT</A><DD>
+<DT><A HREF="#lbAH">SEE ALSO</A><DD>
+</DL>
+<HR>
+
+</BODY>
+</HTML>

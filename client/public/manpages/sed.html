@@ -1,0 +1,564 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML><HEAD><TITLE>Man page for SED</TITLE>
+<link rel="stylesheet" type="text/css" href="style.css" /><script src="init.js"></script>
+</HEAD><BODY>
+<H1>SED</H1>
+Section: User Commands (1)<BR>Updated: February 2017<BR><A HREF="#index">Index</A>
+<HR>
+
+
+<a name="lbAB">&nbsp;</a>
+<H2>NAME</H2>
+
+sed - stream editor for filtering and transforming text
+<A NAME="lbAC">&nbsp;</A>
+<H2>SYNOPSIS</H2>
+
+<B>sed</B>
+
+[<I>OPTION</I>]... <I>{script-only-if-no-other-script} </I>[<I>input-file</I>]...
+<A NAME="lbAD">&nbsp;</A>
+<H2>DESCRIPTION</H2>
+
+
+
+<I>Sed</I> is a stream editor.
+A stream editor is used to perform basic text
+transformations on an input stream
+(a file or input from a pipeline).
+While in some ways similar to an editor which
+permits scripted edits (such as <I>ed</I>),
+<I>sed</I> works by making only one pass over the
+input(s), and is consequently more efficient.
+But it is <I>sed</I>'s ability to filter text in a pipeline
+which particularly distinguishes it from other types of
+editors.
+<DL COMPACT>
+<DT>
+<B>-n</B>, <B>--quiet</B>, <B>--silent</B>
+<DT><DD>
+<DD>suppress automatic printing of pattern space
+<DT>
+<B>-e</B> script, <B>--expression</B>=<I>script</I>
+<DT><DD>
+<DD>add the script to the commands to be executed
+<DT>
+<B>-f</B> script-file, <B>--file</B>=<I>script-file</I>
+<DT><DD>
+<DD>add the contents of script-file to the commands to be executed
+<DT>
+<B>--follow-symlinks</B>
+<DT><DD>
+<DD>follow symlinks when processing in place
+<DT>
+<B>-i[SUFFIX]</B>, <B>--in-place</B>[=<I>SUFFIX</I>]
+<DT><DD>
+<DD>edit files in place (makes backup if SUFFIX supplied)
+<DT>
+<B>-l</B> N, <B>--line-length</B>=<I>N</I>
+<DT><DD>
+<DD>specify the desired line-wrap length for the `l' command
+<DT>
+<B>--posix</B>
+<DT><DD>
+<DD>disable all GNU extensions.
+<DT>
+<B>-E</B>, <B>-r</B>, <B>--regexp-extended</B>
+<DT><DD>
+<DD>use extended regular expressions in the script
+(for portability use POSIX <B>-E</B>).
+<DT>
+<B>-s</B>, <B>--separate</B>
+<DT><DD>
+<DD>consider files as separate rather than as a single,
+continuous long stream.
+<DT>
+<B>--sandbox</B>
+<DT><DD>
+<DD>operate in sandbox mode.
+<DT>
+<B>-u</B>, <B>--unbuffered</B>
+<DT><DD>
+<DD>load minimal amounts of data from the input files and flush
+the output buffers more often
+<DT>
+<B>-z</B>, <B>--null-data</B>
+<DT><DD>
+<DD>separate lines by NUL characters
+<DT><B>--help</B><DD>
+display this help and exit
+<DT><B>--version</B><DD>
+output version information and exit
+</DL>
+<P>
+
+If no <B>-e</B>, <B>--expression</B>, <B>-f</B>, or <B>--file</B> option is given, then the first
+non-option argument is taken as the sed script to interpret.  All
+remaining arguments are names of input files; if no input files are
+specified, then the standard input is read.
+<P>
+
+GNU sed home page: &lt;<A HREF="http://www.gnu.org/software/sed/">http://www.gnu.org/software/sed/</A>&gt;.
+General help using GNU software: &lt;<A HREF="http://www.gnu.org/gethelp/">http://www.gnu.org/gethelp/</A>&gt;.
+E-mail bug reports to: &lt;<A HREF="mailto:bug-sed@gnu.org">bug-sed@gnu.org</A>&gt;.
+<A NAME="lbAE">&nbsp;</A>
+<H2>COMMAND SYNOPSIS</H2>
+
+This is just a brief synopsis of <I>sed</I> commands to serve as
+a reminder to those who already know <I>sed</I>;
+other documentation (such as the texinfo document)
+must be consulted for fuller descriptions.
+<A NAME="lbAF">&nbsp;</A>
+<H3>Zero-address ``commands''</H3>
+
+<DL COMPACT>
+<DT>:&nbsp;<I>label</I>
+
+<DD>
+Label for
+<B>b</B>
+
+and
+<B>t</B>
+
+commands.
+<DT>#<I>comment</I>
+
+<DD>
+The comment extends until the next newline (or the end of a
+<B>-e</B>
+
+script fragment).
+<DT>}<DD>
+The closing bracket of a { } block.
+</DL>
+<A NAME="lbAG">&nbsp;</A>
+<H3>Zero- or One- address commands</H3>
+
+<DL COMPACT>
+<DT>=<DD>
+Print the current line number.
+<DT>a \<DD>
+<DT><I>text</I>
+
+<DD>
+Append
+<I>text</I>,
+
+which has each embedded newline preceded by a backslash.
+<DT>i \<DD>
+<DT><I>text</I>
+
+<DD>
+Insert
+<I>text</I>,
+
+which has each embedded newline preceded by a backslash.
+<DT>q [<I>exit-code</I>]<DD>
+Immediately quit the <I>sed</I> script without processing
+any more input, except that if auto-print is not disabled
+the current pattern space will be printed.  The exit code
+argument is a GNU extension.
+<DT>Q [<I>exit-code</I>]<DD>
+Immediately quit the <I>sed</I> script without processing
+any more input.  This is a GNU extension.
+<DT>r&nbsp;<I>filename</I>
+
+<DD>
+Append text read from
+<I>filename</I>.
+
+<DT>R&nbsp;<I>filename</I>
+
+<DD>
+Append a line read from
+<I>filename</I>.
+
+Each invocation of the command reads a line from the file.
+This is a GNU extension.
+</DL>
+<A NAME="lbAH">&nbsp;</A>
+<H3>Commands which accept address ranges</H3>
+
+<DL COMPACT>
+<DT>{<DD>
+Begin a block of commands (end with a }).
+<DT>b&nbsp;<I>label</I>
+
+<DD>
+Branch to
+<I>label</I>;
+
+if
+<I>label</I>
+
+is omitted, branch to end of script.
+<DT>c \<DD>
+<DT><I>text</I>
+
+<DD>
+Replace the selected lines with
+<I>text</I>,
+
+which has each embedded newline preceded by a backslash.
+<DT>d<DD>
+Delete pattern space.
+Start next cycle.
+<DT>D<DD>
+If pattern space contains no newline, start a normal new cycle as if
+the d command was issued.  Otherwise, delete text in the pattern
+space up to the first newline, and restart cycle with the resultant
+pattern space, without reading a new line of input.
+<DT>h H<DD>
+Copy/append pattern space to hold space.
+<DT>g G<DD>
+Copy/append hold space to pattern space.
+<DT>l<DD>
+List out the current line in a ``visually unambiguous'' form.
+<DT>l&nbsp;<I>width</I>
+
+<DD>
+List out the current line in a ``visually unambiguous'' form,
+breaking it at
+<I>width</I>
+
+characters.  This is a GNU extension.
+<DT>n N<DD>
+Read/append the next line of input into the pattern space.
+<DT>p<DD>
+Print the current pattern space.
+<DT>P<DD>
+Print up to the first embedded newline of the current pattern space.
+<DT>s/<I>regexp</I>/<I>replacement</I>/
+
+<DD>
+Attempt to match
+<I>regexp</I>
+
+against the pattern space.
+If successful, replace that portion matched
+with
+<I>replacement</I>.
+
+The
+<I>replacement</I>
+
+may contain the special character
+<B>&amp;</B>
+
+to refer to that portion of the pattern space which matched,
+and the special escapes \1 through \9 to refer to the
+corresponding matching sub-expressions in the
+<I>regexp</I>.
+
+<DT>t&nbsp;<I>label</I>
+
+<DD>
+If a s/// has done a successful substitution since the
+last input line was read and since the last t or T
+command, then branch to
+<I>label</I>;
+
+if
+<I>label</I>
+
+is omitted, branch to end of script.
+<DT>T&nbsp;<I>label</I>
+
+<DD>
+If no s/// has done a successful substitution since the
+last input line was read and since the last t or T
+command, then branch to
+<I>label</I>;
+
+if
+<I>label</I>
+
+is omitted, branch to end of script.  This is a GNU
+extension.
+<DT>w&nbsp;<I>filename</I>
+
+<DD>
+Write the current pattern space to
+<I>filename</I>.
+
+<DT>W&nbsp;<I>filename</I>
+
+<DD>
+Write the first line of the current pattern space to
+<I>filename</I>.
+
+This is a GNU extension.
+<DT>x<DD>
+Exchange the contents of the hold and pattern spaces.
+<DT>y/<I>source</I>/<I>dest</I>/
+
+<DD>
+Transliterate the characters in the pattern space which appear in
+<I>source</I>
+
+to the corresponding character in
+<I>dest</I>.
+
+</DL>
+<A NAME="lbAI">&nbsp;</A>
+<H2>Addresses</H2>
+
+<I>Sed</I> commands can be given with no addresses, in which
+case the command will be executed for all input lines;
+with one address, in which case the command will only be executed
+for input lines which match that address; or with two
+addresses, in which case the command will be executed
+for all input lines which match the inclusive range of
+lines starting from the first address and continuing to
+the second address.
+Three things to note about address ranges:
+the syntax is
+<I>addr1</I>,<I>addr2</I>
+
+(i.e., the addresses are separated by a comma);
+the line which
+<I>addr1</I>
+
+matched will always be accepted,
+even if
+<I>addr2</I>
+
+selects an earlier line;
+and if
+<I>addr2</I>
+
+is a
+<I>regexp</I>,
+
+it will not be tested against the line that
+<I>addr1</I>
+
+matched.
+<P>
+
+After the address (or address-range),
+and before the command, a
+<B>!</B>
+
+may be inserted,
+which specifies that the command shall only be
+executed if the address (or address-range) does
+<B>not</B>
+
+match.
+<P>
+
+The following address types are supported:
+<DL COMPACT>
+<DT><I>number</I>
+
+<DD>
+Match only the specified line
+<I>number</I>
+
+(which increments cumulatively across files, unless the
+<B>-s</B>
+
+option is specified on the command line).
+<DT><I>first</I>~<I>step</I>
+
+<DD>
+Match every
+<I>step</I>'th
+
+line starting with line
+<I>first</I>.
+
+For example, ``sed -n 1~2p'' will print all the odd-numbered lines in
+the input stream, and the address 2~5 will match every fifth line,
+starting with the second.
+<I>first</I>
+
+can be zero; in this case, <I>sed</I> operates as if it were equal to
+<I>step</I>.
+
+(This is an extension.)
+<DT>$<DD>
+Match the last line.
+<DT>/<I>regexp</I>/
+
+<DD>
+Match lines matching the regular expression
+<I>regexp</I>.
+
+<DT><B></B>\c<I>regexp</I><B>c</B>
+
+<DD>
+Match lines matching the regular expression
+<I>regexp</I>.
+
+The
+<B>c</B>
+
+may be any character.
+</DL>
+<P>
+
+GNU <I>sed</I> also supports some special 2-address forms:
+<DL COMPACT>
+<DT>0,<I>addr2</I>
+
+<DD>
+Start out in &quot;matched first address&quot; state, until
+<I>addr2</I>
+
+is found.
+This is similar to
+1,<I>addr2</I>,
+
+except that if
+<I>addr2</I>
+
+matches the very first line of input the
+0,<I>addr2</I>
+
+form will be at the end of its range, whereas the
+1,<I>addr2</I>
+
+form will still be at the beginning of its range.
+This works only when
+<I>addr2</I>
+
+is a regular expression.
+<DT><I>addr1</I>,+<I>N</I>
+
+<DD>
+Will match
+<I>addr1</I>
+
+and the
+<I>N</I>
+
+lines following
+<I>addr1</I>.
+
+<DT><I>addr1</I>,~<I>N</I>
+
+<DD>
+Will match
+<I>addr1</I>
+
+and the lines following
+<I>addr1</I>
+
+until the next line whose input line number is a multiple of
+<I>N</I>.
+
+</DL>
+<A NAME="lbAJ">&nbsp;</A>
+<H2>REGULAR EXPRESSIONS</H2>
+
+POSIX.2 BREs
+<I>should</I>
+
+be supported, but they aren't completely because of performance
+problems.
+The
+<B>\n</B>
+
+sequence in a regular expression matches the newline character,
+and similarly for
+<B>\a</B>,
+
+<B>\t</B>,
+
+and other sequences.
+The <I>-E</I> option switches to using extended regular expressions instead;
+the -E option has been supported for years by GNU sed, and is now
+included in POSIX.
+<A NAME="lbAK">&nbsp;</A>
+<H2>BUGS</H2>
+
+<P>
+
+E-mail bug reports to
+<B><A HREF="mailto:bug-sed@gnu.org">bug-sed@gnu.org</A></B>.
+
+Also, please include the output of ``sed --version'' in the body
+of your report if at all possible.
+<A NAME="lbAL">&nbsp;</A>
+<H2>AUTHOR</H2>
+
+Written by Jay Fenlason, Tom Lord, Ken Pizzini,
+and Paolo Bonzini.
+GNU sed home page: &lt;<A HREF="http://www.gnu.org/software/sed/">http://www.gnu.org/software/sed/</A>&gt;.
+General help using GNU software: &lt;<A HREF="http://www.gnu.org/gethelp/">http://www.gnu.org/gethelp/</A>&gt;.
+E-mail bug reports to: &lt;<A HREF="mailto:bug-sed@gnu.org">bug-sed@gnu.org</A>&gt;.
+<A NAME="lbAM">&nbsp;</A>
+<H2>COPYRIGHT</H2>
+
+Copyright &#169; 2017 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later &lt;<A HREF="http://gnu.org/licenses/gpl.html">http://gnu.org/licenses/gpl.html</A>&gt;.
+<BR>
+
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+<A NAME="lbAN">&nbsp;</A>
+<H2>SEE ALSO</H2>
+
+<B><A HREF="/cgi-bin/man/man2html?1+awk">awk</A></B>(1),
+
+<B><A HREF="/cgi-bin/man/man2html?1+ed">ed</A></B>(1),
+
+<B><A HREF="/cgi-bin/man/man2html?1+grep">grep</A></B>(1),
+
+<B><A HREF="/cgi-bin/man/man2html?1+tr">tr</A></B>(1),
+
+<B><A HREF="/cgi-bin/man/man2html?1+perlre">perlre</A></B>(1),
+
+sed.info,
+any of various books on <I>sed</I>,
+
+the <I>sed</I> FAQ (<A HREF="http://sed.sf.net/grabbag/tutorials/sedfaq.txt),">http://sed.sf.net/grabbag/tutorials/sedfaq.txt),</A>
+<A HREF="http://sed.sf.net/grabbag/.">http://sed.sf.net/grabbag/.</A>
+<P>
+
+The full documentation for
+<B>sed</B>
+
+is maintained as a Texinfo manual.  If the
+<B>info</B>
+
+and
+<B>sed</B>
+
+programs are properly installed at your site, the command
+<DL COMPACT>
+<DT><DD>
+<B>info sed</B>
+
+</DL>
+<P>
+
+should give you access to the complete manual.
+<P>
+
+<HR>
+<A NAME="index">&nbsp;</A><H2>Index</H2>
+<DL>
+<DT><A HREF="#lbAB">NAME</A><DD>
+<DT><A HREF="#lbAC">SYNOPSIS</A><DD>
+<DT><A HREF="#lbAD">DESCRIPTION</A><DD>
+<DT><A HREF="#lbAE">COMMAND SYNOPSIS</A><DD>
+<DL>
+<DT><A HREF="#lbAF">Zero-address ``commands''</A><DD>
+<DT><A HREF="#lbAG">Zero- or One- address commands</A><DD>
+<DT><A HREF="#lbAH">Commands which accept address ranges</A><DD>
+</DL>
+<DT><A HREF="#lbAI">Addresses</A><DD>
+<DT><A HREF="#lbAJ">REGULAR EXPRESSIONS</A><DD>
+<DT><A HREF="#lbAK">BUGS</A><DD>
+<DT><A HREF="#lbAL">AUTHOR</A><DD>
+<DT><A HREF="#lbAM">COPYRIGHT</A><DD>
+<DT><A HREF="#lbAN">SEE ALSO</A><DD>
+</DL>
+<HR>
+
+</BODY>
+</HTML>

@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # script to create chroot jail
 # assumes you already have jailkit installed by following the instructions at:
 # http://www.mattheakis.com/blog/view.php?name=setting_up_a_jail_to_safely_execute_code
