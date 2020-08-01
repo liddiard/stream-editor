@@ -36,7 +36,13 @@ security [at] streameditor [dot] io
 
 Please privately email me instead of posting about it publicy on GitHub Issues or elsewhere, and please include your steps to reproduce.
 
-The way Stream Editor is set up at [streameditor.io](https://streameditor.io) is intended to prevent arbitrary command execution, writing files to the server, and reading any *sensitive* data from the server. Valid security bugs are likely to include anything that allows you to do any of these. Note that reading certain *non-sensitive* files from the server is possible and expected.
+The way Stream Editor is set up at [streameditor.io](https://streameditor.io) is intended to prevent:
+
+- arbitrary command execution
+- writing files to the server
+- reading any *sensitive* data from the server
+
+Valid security bugs are likely to include anything that allows you to do any of these things. Note that reading certain *non-sensitive* files from the server is possible and expected.
 
 ### Non-security bugs
 
