@@ -1,3 +1,5 @@
+<strong><em>Found a bug? [See info below on reporting it](#reporting-bugs).</em></strong>
+
 # <img src="https://github.com/liddiard/stream-editor/blob/master/client/public/img/logo-light.svg?raw=true" height="36" alt="Stream Editor logo" /> Stream Editor | [streameditor.io](https://streameditor.io/)
 
 **Stream Editor** is an online tool for interactively writing and chaining command-line text manipulation utilities, such as `sed`, `grep`, and `awk`.
@@ -32,7 +34,7 @@ Found a security bug related to this codebase or how Stream Editor is deployed a
 security [at] streameditor [dot] io
 ```
 
-Please privately email instead of posting about it publicy on GitHub Issues or elsewhere, and please include your steps to reproduce.
+Please privately email me instead of posting about it publicy on GitHub Issues or elsewhere, and please include your steps to reproduce.
 
 The way Stream Editor is set up at [streameditor.io](https://streameditor.io) is intended to prevent arbitrary command execution, writing files to the server, and reading any *sensitive* data from the server. Valid security bugs are likely to include anything that allows you to do any of these. Note that reading certain *non-sensitive* files from the server is possible and expected.
 
