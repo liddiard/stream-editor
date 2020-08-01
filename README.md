@@ -63,3 +63,15 @@ If your bug **does not** involve any security concerns, please report it on [Git
 4. `FLASK_ENV=development python3 dev_server.py`
 5. `cd client`
 6. `npm install && npm start`
+
+## What to run on the deployed server
+
+This is primarily for my own reference.
+
+```shell
+JAIL_PATH='/root/jail' gunicorn --name stream-editor server:app
+```
+
+```shell
+cd /var/log/nginx; tail -f access.log error.log
+```
