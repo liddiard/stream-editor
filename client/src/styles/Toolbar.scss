@@ -24,6 +24,9 @@ $padding: 0.35em;
   align-items: center;
   line-height: 1.5;
   height: $TOOLBAR_HEIGHT;
+  // necessary to specify min-height in addition to height
+  // https://stackoverflow.com/a/33269282
+  min-height: $TOOLBAR_HEIGHT;
   overflow: hidden;
 
   &.expanded {
