@@ -3,16 +3,16 @@
 <link rel="stylesheet" type="text/css" href="style.css" /><script src="init.js"></script>
 </HEAD><BODY>
 <H1>GREP</H1>
-Section: User Commands (1)<BR>Updated: 2017-06-21<BR><A HREF="#index">Index</A>
+<A HREF="#index">Jump to index</A>
 <HR>
 
 
 
-<a name="lbAB">&nbsp;</a>
+<a name="lbAB"></a>
 <H2>NAME</H2>
 
 grep, egrep, fgrep, rgrep - print lines matching a pattern
-<A NAME="lbAC">&nbsp;</A>
+<A NAME="lbAC"></A>
 <H2>SYNOPSIS</H2>
 
 <B>grep</B>
@@ -49,7 +49,7 @@ grep, egrep, fgrep, rgrep - print lines matching a pattern
 ...
 [<I>FILE</I>...]
 
-<A NAME="lbAD">&nbsp;</A>
+<A NAME="lbAD"></A>
 <H2>DESCRIPTION</H2>
 
 <B>grep</B>
@@ -96,10 +96,10 @@ and
 
 respectively.
 These variants are deprecated, but are provided for backward compatibility.
-<A NAME="lbAE">&nbsp;</A>
+<A NAME="lbAE"></A>
 <H2>OPTIONS</H2>
 
-<A NAME="lbAF">&nbsp;</A>
+<A NAME="lbAF"></A>
 <H3>Generic Program Information</H3>
 
 <DL COMPACT>
@@ -115,7 +115,7 @@ Output the version number of
 
 and exit.
 </DL>
-<A NAME="lbAG">&nbsp;</A>
+<A NAME="lbAG"></A>
 <H3>Matcher Selection</H3>
 
 <DL COMPACT>
@@ -152,7 +152,7 @@ This is experimental and
 
 may warn of unimplemented features.
 </DL>
-<A NAME="lbAH">&nbsp;</A>
+<A NAME="lbAH"></A>
 <H3>Matching Control</H3>
 
 <DL COMPACT>
@@ -225,7 +225,7 @@ Obsolete synonym for
 <B>-i</B>.
 
 </DL>
-<A NAME="lbAI">&nbsp;</A>
+<A NAME="lbAI"></A>
 <H3>General Output Control</H3>
 
 <DL COMPACT>
@@ -344,7 +344,7 @@ option.
 <DD>
 Suppress error messages about nonexistent or unreadable files.
 </DL>
-<A NAME="lbAJ">&nbsp;</A>
+<A NAME="lbAJ"></A>
 <H3>Output Line Prefix Control</H3>
 
 <DL COMPACT>
@@ -451,7 +451,7 @@ and
 to process arbitrary file names,
 even those that contain newline characters.
 </DL>
-<A NAME="lbAK">&nbsp;</A>
+<A NAME="lbAK"></A>
 <H3>Context Line Control</H3>
 
 <DL COMPACT>
@@ -510,7 +510,7 @@ or
 
 option, this has no effect and a warning is given.
 </DL>
-<A NAME="lbAL">&nbsp;</A>
+<A NAME="lbAL"></A>
 <H3>File and Directory Selection</H3>
 
 <DL COMPACT>
@@ -782,7 +782,7 @@ Follow all symbolic links, unlike
 <B>-r</B>.
 
 </DL>
-<A NAME="lbAM">&nbsp;</A>
+<A NAME="lbAM"></A>
 <H3>Other Options</H3>
 
 <DL COMPACT>
@@ -838,7 +838,7 @@ option, this option can be used with commands like
 
 to process arbitrary file names.
 </DL>
-<A NAME="lbAN">&nbsp;</A>
+<A NAME="lbAN"></A>
 <H2>REGULAR EXPRESSIONS</H2>
 
 A regular expression is a pattern that describes a set of strings.
@@ -875,7 +875,7 @@ The period
 <B>.</B>
 
 matches any single character.
-<A NAME="lbAO">&nbsp;</A>
+<A NAME="lbAO"></A>
 <H3>Character Classes and Bracket Expressions</H3>
 
 A
@@ -984,7 +984,7 @@ Finally, to include a literal
 <B>-</B>
 
 place it last.
-<A NAME="lbAP">&nbsp;</A>
+<A NAME="lbAP"></A>
 <H3>Anchoring</H3>
 
 The caret
@@ -995,7 +995,7 @@ and the dollar sign
 
 are meta-characters that respectively match the empty string at the
 beginning and end of a line.
-<A NAME="lbAQ">&nbsp;</A>
+<A NAME="lbAQ"></A>
 <H3>The Backslash Character and Special Expressions</H3>
 
 The symbols
@@ -1028,7 +1028,7 @@ and
 is a synonym for
 <B>[^_[:alnum:]]</B>.
 
-<A NAME="lbAR">&nbsp;</A>
+<A NAME="lbAR"></A>
 <H3>Repetition</H3>
 
 A regular expression may be followed by one of several repetition operators:
@@ -1080,14 +1080,14 @@ times, but not more than
 times.
 
 </DL>
-<A NAME="lbAS">&nbsp;</A>
+<A NAME="lbAS"></A>
 <H3>Concatenation</H3>
 
 Two regular expressions may be concatenated; the resulting
 regular expression matches any string formed by concatenating
 two substrings that respectively match the concatenated
 expressions.
-<A NAME="lbAT">&nbsp;</A>
+<A NAME="lbAT"></A>
 <H3>Alternation</H3>
 
 Two regular expressions may be joined by the infix operator
@@ -1095,14 +1095,14 @@ Two regular expressions may be joined by the infix operator
 
 the resulting regular expression matches any string matching
 either alternate expression.
-<A NAME="lbAU">&nbsp;</A>
+<A NAME="lbAU"></A>
 <H3>Precedence</H3>
 
 Repetition takes precedence over concatenation, which in turn
 takes precedence over alternation.
 A whole expression may be enclosed in parentheses
 to override these precedence rules and form a subexpression.
-<A NAME="lbAV">&nbsp;</A>
+<A NAME="lbAV"></A>
 <H3>Back References and Subexpressions</H3>
 
 The back-reference
@@ -1114,7 +1114,7 @@ previously matched by the
 <I>n</I>th
 
 parenthesized subexpression of the regular expression.
-<A NAME="lbAW">&nbsp;</A>
+<A NAME="lbAW"></A>
 <H3>Basic vs Extended Regular Expressions</H3>
 
 In basic regular expressions the meta-characters
@@ -1146,7 +1146,7 @@ versions
 and
 <B>\)</B>.
 
-<A NAME="lbAX">&nbsp;</A>
+<A NAME="lbAX"></A>
 <H2>ENVIRONMENT VARIABLES</H2>
 
 The behavior of
@@ -1583,7 +1583,7 @@ when
 
 is not set.
 </DL>
-<A NAME="lbAY">&nbsp;</A>
+<A NAME="lbAY"></A>
 <H2>EXIT STATUS</H2>
 
 Normally the exit status is 0 if a line is selected, 1 if no lines
@@ -1598,7 +1598,7 @@ or
 
 is used and a line is selected, the exit status is 0 even if an error
 occurred.
-<A NAME="lbAZ">&nbsp;</A>
+<A NAME="lbAZ"></A>
 <H2>COPYRIGHT</H2>
 
 Copyright 1998-2000, 2002, 2005-2017 Free Software Foundation, Inc.
@@ -1608,10 +1608,10 @@ This is free software;
 see the source for copying conditions.
 There is NO warranty;
 not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-<A NAME="lbBA">&nbsp;</A>
+<A NAME="lbBA"></A>
 <H2>BUGS</H2>
 
-<A NAME="lbBB">&nbsp;</A>
+<A NAME="lbBB"></A>
 <H3>Reporting Bugs</H3>
 
 Email bug reports to
@@ -1627,7 +1627,7 @@ and a
 bug tracker &lt;URL: <A HREF="http://debbugs.gnu.org/cgi/pkgreport.cgi?package=grep">http://debbugs.gnu.org/cgi/pkgreport.cgi?package=grep</A> &gt;
 
 are available.
-<A NAME="lbBC">&nbsp;</A>
+<A NAME="lbBC"></A>
 <H3>Known Bugs</H3>
 
 Large repetition counts in the
@@ -1646,10 +1646,10 @@ to run out of memory.
 <P>
 
 Back-references are very slow, and may require exponential time.
-<A NAME="lbBD">&nbsp;</A>
+<A NAME="lbBD"></A>
 <H2>SEE ALSO</H2>
 
-<A NAME="lbBE">&nbsp;</A>
+<A NAME="lbBE"></A>
 <H3>Regular Manual Pages</H3>
 
 <A HREF="/cgi-bin/man/man2html?1+awk">awk</A>(1), <A HREF="/cgi-bin/man/man2html?1+cmp">cmp</A>(1), <A HREF="/cgi-bin/man/man2html?1+diff">diff</A>(1), <A HREF="/cgi-bin/man/man2html?1+find">find</A>(1), <A HREF="/cgi-bin/man/man2html?1+gzip">gzip</A>(1),
@@ -1658,11 +1658,11 @@ Back-references are very slow, and may require exponential time.
 <A HREF="/cgi-bin/man/man2html?3+pcre">pcre</A>(3), <A HREF="/cgi-bin/man/man2html?3+pcresyntax">pcresyntax</A>(3), <A HREF="/cgi-bin/man/man2html?3+pcrepattern">pcrepattern</A>(3),
 <A HREF="/cgi-bin/man/man2html?5+terminfo">terminfo</A>(5),
 <A HREF="/cgi-bin/man/man2html?7+glob">glob</A>(7), <A HREF="/cgi-bin/man/man2html?7+regex">regex</A>(7).
-<A NAME="lbBF">&nbsp;</A>
+<A NAME="lbBF"></A>
 <H3>POSIX Programmer's Manual Page</H3>
 
 <A HREF="/cgi-bin/man/man2html?1p+grep">grep</A>(1p).
-<A NAME="lbBG">&nbsp;</A>
+<A NAME="lbBG"></A>
 <H3>Full Documentation</H3>
 
 A
@@ -1685,7 +1685,7 @@ programs are properly installed at your site, the command
 <P>
 
 should give you access to the complete manual.
-<A NAME="lbBH">&nbsp;</A>
+<A NAME="lbBH"></A>
 <H2>NOTES</H2>
 
 This man page is maintained only fitfully;
@@ -1700,7 +1700,7 @@ the full documentation is often more up-to-date.
 <P>
 
 <HR>
-<A NAME="index">&nbsp;</A><H2>Index</H2>
+<A NAME="index"></A><H2>Index</H2>
 <DL>
 <DT><A HREF="#lbAB">NAME</A><DD>
 <DT><A HREF="#lbAC">SYNOPSIS</A><DD>

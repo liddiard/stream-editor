@@ -3,14 +3,14 @@
 <link rel="stylesheet" type="text/css" href="style.css" /><script src="init.js"></script>
 </HEAD><BODY>
 <H1>GAWK</H1>
-Section: Utility Commands (1)<BR>Updated: Mar 7 2016<BR><A HREF="#index">Index</A>
+<A HREF="#index">Jump to index</A>
 <HR>
 
-<a name="lbAB">&nbsp;</a>
+<a name="lbAB"></a>
 <H2>NAME</H2>
 
 gawk - pattern scanning and processing language
-<A NAME="lbAC">&nbsp;</A>
+<A NAME="lbAC"></A>
 <H2>SYNOPSIS</H2>
 
 <B>gawk</B>
@@ -36,7 +36,7 @@ gawk - pattern scanning and processing language
 <I>program-text</I>
 
 file ...
-<A NAME="lbAD">&nbsp;</A>
+<A NAME="lbAD"></A>
 <H2>DESCRIPTION</H2>
 
 <I>Gawk</I>
@@ -115,7 +115,7 @@ can only debug AWK program source provided with the
 
 option.
 The debugger is documented in <I>GAWK: Effective AWK Programming</I>.
-<A NAME="lbAE">&nbsp;</A>
+<A NAME="lbAE"></A>
 <H2>OPTION FORMAT</H2>
 
 <P>
@@ -148,7 +148,7 @@ within
 <B>#!</B>
 
 executable scripts.
-<A NAME="lbAF">&nbsp;</A>
+<A NAME="lbAF"></A>
 <H2>OPTIONS</H2>
 
 <P>
@@ -705,7 +705,7 @@ For <FONT SIZE="-1">POSIX</FONT> compatibility, the
 <B>-W</B>
 
 option may be used, followed by the name of a long option.
-<A NAME="lbAG">&nbsp;</A>
+<A NAME="lbAG"></A>
 <H2>AWK PROGRAM EXECUTION</H2>
 
 <P>
@@ -918,7 +918,7 @@ executes the code in the
 <B>END</B>
 
 rule(s) (if any).
-<A NAME="lbAH">&nbsp;</A>
+<A NAME="lbAH"></A>
 <H3>Command Line Directories</H3>
 
 <P>
@@ -949,7 +949,7 @@ options is given, then
 
 reverts to
 treating directories on the command line as a fatal error.
-<A NAME="lbAI">&nbsp;</A>
+<A NAME="lbAI"></A>
 <H2>VARIABLES, RECORDS AND FIELDS</H2>
 
 <FONT SIZE="-1">AWK</FONT> variables are dynamic; they come into existence when they are
@@ -965,7 +965,7 @@ provides true arrays of arrays; see
 below.
 Several pre-defined variables are set as a program
 runs; these are described as needed and summarized below.
-<A NAME="lbAJ">&nbsp;</A>
+<A NAME="lbAJ"></A>
 <H3>Records</H3>
 
 Normally, records are separated by newline characters.  You can control how
@@ -997,7 +997,7 @@ a field separator, in addition to whatever value
 <B>FS</B>
 
 may have.
-<A NAME="lbAK">&nbsp;</A>
+<A NAME="lbAK"></A>
 <H3>Fields</H3>
 
 <P>
@@ -1159,7 +1159,7 @@ Similarly, assigning a value to
 
 causes the record to be resplit, creating new
 values for the fields.
-<A NAME="lbAL">&nbsp;</A>
+<A NAME="lbAL"></A>
 <H3>Built-in Variables</H3>
 
 <P>
@@ -1723,7 +1723,7 @@ array.
 The text domain of the <FONT SIZE="-1">AWK</FONT> program; used to find the localized
 translations for the program's strings.
 </DL>
-<A NAME="lbAM">&nbsp;</A>
+<A NAME="lbAM"></A>
 <H3>Arrays</H3>
 
 <P>
@@ -1848,7 +1848,7 @@ deleting it with the
 <B>delete</B>
 
 statement.
-<A NAME="lbAN">&nbsp;</A>
+<A NAME="lbAN"></A>
 <H3>Variable Typing And Conversion</H3>
 
 <P>
@@ -1959,7 +1959,7 @@ The basic idea is that
 
 and only user input, that looks numeric,
 should be treated that way.
-<A NAME="lbAO">&nbsp;</A>
+<A NAME="lbAO"></A>
 <H3>Octal and Hexadecimal Constants</H3>
 
 You may use C-style octal and hexadecimal constants in your AWK
@@ -1974,7 +1974,7 @@ and the hexadecimal value
 <B>0x11</B>
 
 is equal to decimal 17.
-<A NAME="lbAP">&nbsp;</A>
+<A NAME="lbAP"></A>
 <H3>String Constants</H3>
 
 <P>
@@ -2060,7 +2060,7 @@ regular expression constants.  Thus,
 is equivalent to
 <B>/a\*b/</B>.
 
-<A NAME="lbAQ">&nbsp;</A>
+<A NAME="lbAQ"></A>
 <H2>PATTERNS AND ACTIONS</H2>
 
 <FONT SIZE="-1">AWK</FONT> is a line-oriented language.  The pattern comes first, and then the
@@ -2122,7 +2122,7 @@ be put on one line by separating them with a ``;''.
 This applies to both the statements within the action part of a
 pattern-action pair (the usual case),
 and to the pattern-action statements themselves.
-<A NAME="lbAR">&nbsp;</A>
+<A NAME="lbAR"></A>
 <H3>Patterns</H3>
 
 <FONT SIZE="-1">AWK</FONT> patterns may be one of the following:
@@ -2263,7 +2263,7 @@ and continuing until a record that matches
 <I>pattern2</I>,
 
 inclusive.  It does not combine with any other sort of pattern expression.
-<A NAME="lbAS">&nbsp;</A>
+<A NAME="lbAS"></A>
 <H3>Regular Expressions</H3>
 
 Regular expressions are the extended kind found in
@@ -2672,7 +2672,7 @@ Allow interval expressions in regular expressions, even if
 
 has been provided.
 </DL>
-<A NAME="lbAT">&nbsp;</A>
+<A NAME="lbAT"></A>
 <H3>Actions</H3>
 
 Action statements are enclosed in braces,
@@ -2685,7 +2685,7 @@ Action statements consist of the usual assignment, conditional, and looping
 statements found in most languages.  The operators, control statements,
 and input/output statements
 available are patterned after those in C.
-<A NAME="lbAU">&nbsp;</A>
+<A NAME="lbAU"></A>
 <H3>Operators</H3>
 
 <P>
@@ -2806,7 +2806,7 @@ Assignment.  Both absolute assignment
 
 and operator-assignment (the other forms) are supported.
 </DL>
-<A NAME="lbAV">&nbsp;</A>
+<A NAME="lbAV"></A>
 <H3>Control Statements</H3>
 
 <P>
@@ -2837,7 +2837,7 @@ case </B><I>value</I><B>|</B><I>regex</I><B> : </B><I>statement
 
 </DL>
 
-<A NAME="lbAW">&nbsp;</A>
+<A NAME="lbAW"></A>
 <H3>I/O Statements</H3>
 
 <P>
@@ -3101,7 +3101,7 @@ use
 to create new instances of the command or socket.
 <FONT SIZE="-1">AWK</FONT> does not automatically close pipes, sockets, or co-processes when
 they return EOF.
-<A NAME="lbAX">&nbsp;</A>
+<A NAME="lbAX"></A>
 <H3>The <I>printf</I> Statement</H3>
 
 <P>
@@ -3412,7 +3412,7 @@ after the
 
 in the format string.
 For example, <B>&quot;%3$*2$.*1$s&quot;</B>.
-<A NAME="lbAY">&nbsp;</A>
+<A NAME="lbAY"></A>
 <H3>Special File Names</H3>
 
 <P>
@@ -3542,7 +3542,7 @@ uses the system default (most likely IPv4).
 
 Similar, but use UDP/IP instead of TCP/IP.
 </DL>
-<A NAME="lbAZ">&nbsp;</A>
+<A NAME="lbAZ"></A>
 <H3>Numeric Functions</H3>
 
 <P>
@@ -3609,7 +3609,7 @@ is provided, use the time of day.
 Return the previous seed for the random
 number generator.
 </DL>
-<A NAME="lbBA">&nbsp;</A>
+<A NAME="lbBA"></A>
 <H3>String Functions</H3>
 
 <P>
@@ -4087,7 +4087,7 @@ and
 <B>match()</B>
 
 all work in terms of characters, not bytes.
-<A NAME="lbBB">&nbsp;</A>
+<A NAME="lbBB"></A>
 <H3>Time Functions</H3>
 
 Since one of the primary uses of <FONT SIZE="-1">AWK</FONT> programs is processing log files
@@ -4185,7 +4185,7 @@ guaranteed to be available.
 Return the current time of day as the number of seconds since the Epoch
 (1970-01-01 00:00:00 UTC on <FONT SIZE="-1">POSIX</FONT> systems).
 </DL>
-<A NAME="lbBC">&nbsp;</A>
+<A NAME="lbBC"></A>
 <H3>Bit Manipulations Functions</H3>
 
 <I>Gawk</I>
@@ -4231,7 +4231,7 @@ There must be at least two.
 </DL>
 <P>
 
-<A NAME="lbBD">&nbsp;</A>
+<A NAME="lbBD"></A>
 <H3>Type Function</H3>
 
 The following function is for use with multidimensional arrays.
@@ -4242,7 +4242,7 @@ Return true if
 
 is an array, false otherwise.
 </DL>
-<A NAME="lbBE">&nbsp;</A>
+<A NAME="lbBE"></A>
 <H3>Internationalization Functions</H3>
 
 The following functions may be used from within your AWK program for
@@ -4350,7 +4350,7 @@ You must also supply a text domain.  Use
 
 if you want to use the current domain.
 </DL>
-<A NAME="lbBF">&nbsp;</A>
+<A NAME="lbBF"></A>
 <H2>USER-DEFINED FUNCTIONS</H2>
 
 Functions in <FONT SIZE="-1">AWK</FONT> are defined as follows:
@@ -4460,7 +4460,7 @@ may be used in place of
 <B>function</B>,
 
 although this is deprecated.
-<A NAME="lbBG">&nbsp;</A>
+<A NAME="lbBG"></A>
 <H2>DYNAMICALLY LOADING NEW FUNCTIONS</H2>
 
 You can dynamically add new built-in functions to the running
@@ -4472,7 +4472,7 @@ interpreter with the
 statement.
 The full details are beyond the scope of this manual page;
 see <I>GAWK: Effective AWK Programming</I>.
-<A NAME="lbBH">&nbsp;</A>
+<A NAME="lbBH"></A>
 <H2>SIGNALS</H2>
 
 The
@@ -4495,7 +4495,7 @@ causes
 <I>gawk</I>
 
 to dump the profile and function call stack and then exit.
-<A NAME="lbBI">&nbsp;</A>
+<A NAME="lbBI"></A>
 <H2>INTERNATIONALIZATION</H2>
 
 <P>
@@ -4591,7 +4591,7 @@ files.
 <P>
 
 The internationalization features are described in full detail in <I>GAWK: Effective AWK Programming</I>.
-<A NAME="lbBJ">&nbsp;</A>
+<A NAME="lbBJ"></A>
 <H2>POSIX COMPATIBILITY</H2>
 
 A primary goal for
@@ -4692,7 +4692,7 @@ built-in functions (from the Bell Laboratories version); and the ISO C conversio
 <B>printf</B>
 
 (done first in the Bell Laboratories version).
-<A NAME="lbBK">&nbsp;</A>
+<A NAME="lbBK"></A>
 <H2>HISTORICAL FEATURES</H2>
 
 There is one feature of historical <FONT SIZE="-1">AWK</FONT> implementations that
@@ -4735,7 +4735,7 @@ issues a warning about its use if
 <B>--lint</B>
 
 is specified on the command line.
-<A NAME="lbBL">&nbsp;</A>
+<A NAME="lbBL"></A>
 <H2>GNU EXTENSIONS</H2>
 
 <I>Gawk</I>
@@ -5015,7 +5015,7 @@ single quotes:
 <B>gawk -F'\t' ...</B>.
 
 
-<A NAME="lbBM">&nbsp;</A>
+<A NAME="lbBM"></A>
 <H2>ENVIRONMENT VARIABLES</H2>
 
 The
@@ -5094,7 +5094,7 @@ has been specified,
 <I>gawk</I>
 
 issues a warning message to this effect.
-<A NAME="lbBN">&nbsp;</A>
+<A NAME="lbBN"></A>
 <H2>EXIT STATUS</H2>
 
 If the
@@ -5134,14 +5134,14 @@ exits because of a fatal error, the exit
 status is 2.  On non-POSIX systems, this value may be mapped to
 <B>EXIT_FAILURE</B>.
 
-<A NAME="lbBO">&nbsp;</A>
+<A NAME="lbBO"></A>
 <H2>VERSION INFORMATION</H2>
 
 This man page documents
 <I>gawk</I>,
 
 version 4.1.
-<A NAME="lbBP">&nbsp;</A>
+<A NAME="lbBP"></A>
 <H2>AUTHORS</H2>
 
 The original version of <FONT SIZE="-1">UNIX</FONT>
@@ -5185,7 +5185,7 @@ file in the
 
 distribution for up-to-date information about maintainers
 and which ports are currently supported.
-<A NAME="lbBQ">&nbsp;</A>
+<A NAME="lbBQ"></A>
 <H2>BUG REPORTS</H2>
 
 If you find a bug in
@@ -5245,7 +5245,7 @@ since there's no guarantee that the bug report will be forwarded to the
 <I>gawk</I>
 
 maintainer.
-<A NAME="lbBR">&nbsp;</A>
+<A NAME="lbBR"></A>
 <H2>BUGS</H2>
 
 The
@@ -5253,7 +5253,7 @@ The
 
 option is not necessary given the command line variable assignment feature;
 it remains only for backwards compatibility.
-<A NAME="lbBS">&nbsp;</A>
+<A NAME="lbBS"></A>
 <H2>SEE ALSO</H2>
 
 <I><A HREF="/cgi-bin/man/man2html?1+egrep">egrep</A></I>(1),
@@ -5294,7 +5294,7 @@ source.
 The current version of this document is available online at
 <B><A HREF="http://www.gnu.org/software/gawk/manual">http://www.gnu.org/software/gawk/manual</A></B>.
 
-<A NAME="lbBT">&nbsp;</A>
+<A NAME="lbBT"></A>
 <H2>EXAMPLES</H2>
 
 <PRE>
@@ -5322,13 +5322,13 @@ Print and sort the login names of all users:
         awk '/myhome.html/ { system(&quot;nmap &quot; $1 &quot;&gt;&gt; logdir/myhome.html&quot;) }'
 </B></PRE>
 
-<A NAME="lbBU">&nbsp;</A>
+<A NAME="lbBU"></A>
 <H2>ACKNOWLEDGEMENTS</H2>
 
 Brian Kernighan
 provided valuable assistance during testing and debugging.
 We thank him.
-<A NAME="lbBV">&nbsp;</A>
+<A NAME="lbBV"></A>
 <H2>COPYING PERMISSIONS</H2>
 
 Copyright &#169; 1989, 1991, 1992, 1993, 1994, 1995, 1996,
@@ -5356,7 +5356,7 @@ a translation approved by the Foundation.
 <P>
 
 <HR>
-<A NAME="index">&nbsp;</A><H2>Index</H2>
+<A NAME="index"></A><H2>Index</H2>
 <DL>
 <DT><A HREF="#lbAB">NAME</A><DD>
 <DT><A HREF="#lbAC">SYNOPSIS</A><DD>
