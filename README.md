@@ -22,14 +22,30 @@ Stream Editor provides an accessible web interface that dynamicalaly updates out
 
 ![Stream Editor screenshot](screenshots/chain.png)
 
+## Reporting bugs
 
+### Security bugs
 
-## Requirements
+Found a security bug related to this codebase or how Stream Editor is deployed at [streameditor.io](https://streameditor.io)? I highly encourage and request that you report it by emailing:
+
+```
+security [at] streameditor [dot] io
+```
+
+Please privately email instead of posting about it publicy on GitHub Issues, and include your steps to reproduce.
+
+The way Stream Editor is set up at streameditor.io is intended to prevent arbitrary command execution, writing files to the server, and reading any *sensitive* data from the server. Valid security bugs are likely to include anything that allows you to do any of these. Note that reading certain *non-sensitive* files from the server is possible and expected.
+
+### Non-security bugs
+
+If your bug **does not** involve any security concerns, please report it on [GitHub Issues](https://github.com/liddiard/stream-editor/issues).
+
+## Installation (Development)
+
+### Requirements
 
 - MacOS or Linux (sorry, these commands are not all available on Windows)
 - Python 3.7+
-
-## Installation (Development)
 
 1. clone the repo
 2. (optional but recommended) [set up a virtual environment](https://docs.python.org/3/tutorial/venv.html) for the project, and activate it
