@@ -46,7 +46,7 @@ The way Stream Editor is set up at [streameditor.io](https://streameditor.io) is
 
 Valid security bugs are likely to include anything that allows you to do these things. Note that reading certain *non-sensitive* files from the server is possible and expected.
 
-### Non-security bugs
+### Other bugs
 
 If your bug **does not** involve any security concerns, please report it on [GitHub Issues](https://github.com/liddiard/stream-editor/issues).
 
