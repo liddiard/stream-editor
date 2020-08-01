@@ -52,7 +52,7 @@ Valid security bugs are likely to include anything that allows you to do these t
 
 If your bug **does not** involve any security concerns, please report it on [GitHub Issues](https://github.com/liddiard/stream-editor/issues).
 
-## Installation (Development)
+## Installation (local development)
 
 ### Requirements
 
