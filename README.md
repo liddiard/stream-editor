@@ -54,10 +54,12 @@ If your bug **does not** involve any security concerns, please report it on [Git
 
 ## Installation (local development)
 
-### Requirements
+### System requirements / prerequisites
 
 - MacOS or Linux (sorry, these commands are not all available on Windows)
 - Python 3.7+
+
+### Instructions
 
 1. clone the repo
 2. (optional but recommended) [set up a virtual environment](https://docs.python.org/3/tutorial/venv.html) for the project, and activate it
