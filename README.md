@@ -42,7 +42,7 @@ The way Stream Editor is set up at [streameditor.io](https://streameditor.io) is
 - writing files to the server
 - reading any *sensitive* data from the server
 - otherwise gaining access to the server
-- adversely affecting others' ability to use Stream Editor
+- adversely affecting others' ability to use [streameditor.io](https://streameditor.io) in a significant way 
 
 Valid security bugs are likely to include anything that allows you to do these things. Note that reading certain *non-sensitive* files from the server is possible and expected.
 
