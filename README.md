@@ -44,7 +44,7 @@ The way Stream Editor is set up at [streameditor.io](https://streameditor.io) is
 - otherwise gaining access to the server
 - adversely affecting others' ability to use Stream Editor
 
-Valid security bugs are likely to include anything that allows you to do any of these things. Note that reading certain *non-sensitive* files from the server is possible and expected.
+Valid security bugs are likely to include anything that allows you to do these things. Note that reading certain *non-sensitive* files from the server is possible and expected.
 
 ### Non-security bugs
 
