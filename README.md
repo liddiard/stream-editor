@@ -12,7 +12,7 @@ Stream Editor provides an accessible web interface that dynamicalaly updates out
 
 ## Screenshots
 
-### Stream Editor default view
+### Stream Editor default view (dark theme)
 
 ![Stream Editor screenshot](screenshots/initial.png)
 
