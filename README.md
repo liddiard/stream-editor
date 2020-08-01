@@ -1,30 +1,28 @@
-# Stream Editor
-
-https://streameditor.io
+# <img src="https://github.com/liddiard/stream-editor/blob/master/client/public/img/logo-light.svg?raw=true" width="56" alt="Stream Editor logo" /> Stream Editor | https://streameditor.io
 
 Stream Editor is an online tool for interactively writing and chaining command-line text manipulation utilities, such as `sed`, `grep`, and `awk`.
 
 Text transformation tools provided by Unix operating systems are incredibly powerful for pattern extraction, formatting, and data manipulation, but a command line isn't always the best interface for using them when it comes to experimentation and debugging, especially if you want to chain several commands together with pipes.
 
-Stream Editor provides an accessible web interface that dynamicalaly updates output as you make changes to input text and the commands applied to it. It allows you to chain multiple commands together and observe the output after each step, optionally with a visual diff of deleted/added text with red/green highlights.
+Stream Editor provides an accessible web interface that dynamicalaly updates output as you make changes to input text and the commands applied to it. It allows you to chain multiple commands together and observe the output after each step, optionally with a visual diff of deleted/added text with red/green highlights. Once you've figured out the operations you want to use, you can export them as a series of command-line pipes with a single click, or share them with a unique URL.
 
-Once you've landed on the operations you want to use, you can export them as a series of command-line pipes with a single click, or share them with a unique URL.
-
-Read more [on my website](https://harrisonliddiard.com/project/stream-editor/).
+[Read more on my website](https://harrisonliddiard.com/project/stream-editor/).
 
 ## Screenshots
 
+### Stream Editor default view
+
 ![Stream Editor screenshot](screenshots/initial.png)
 
-Stream Editor default view.
+### Stream Editor light theme, showcasing its full Unicode support
 
 ![Stream Editor screenshot](screenshots/unicode.png)
 
-Stream Editor light theme, showcasing its full Unicode support.
+### Stream Editor being used to analyze its own logs. Examine the effect of chaining multiple commands together at each step.
 
 ![Stream Editor screenshot](screenshots/chain.png)
 
-Stream Editor being used to analyze its own logs. Examine the effect of chaining multiple commands together at each step.
+
 
 ## Requirements
 
