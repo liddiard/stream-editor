@@ -68,7 +68,7 @@ If your bug **does not** involve any security concerns, please report it on [Git
 
 ## What to run on the deployed server
 
-This is primarily for my own reference.
+These are primarily for my personal reference.
 
 ```shell
 JAIL_PATH='/root/jail' gunicorn --name stream-editor server:app
