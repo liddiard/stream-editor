@@ -26,15 +26,15 @@ Stream Editor provides an accessible web interface that dynamicalaly updates out
 
 ### Security bugs
 
-Found a security bug related to this codebase or how Stream Editor is deployed at [streameditor.io](https://streameditor.io)? I highly encourage and request that you report it by emailing:
+Found a security bug related to this codebase or how Stream Editor is deployed at [streameditor.io](https://streameditor.io)? I highly encourage and kindly request that you report it by emailing:
 
 ```
 security [at] streameditor [dot] io
 ```
 
-Please privately email instead of posting about it publicy on GitHub Issues, and include your steps to reproduce.
+Please privately email instead of posting about it publicy on GitHub Issues or elsewhere, and please include your steps to reproduce.
 
-The way Stream Editor is set up at streameditor.io is intended to prevent arbitrary command execution, writing files to the server, and reading any *sensitive* data from the server. Valid security bugs are likely to include anything that allows you to do any of these. Note that reading certain *non-sensitive* files from the server is possible and expected.
+The way Stream Editor is set up at [streameditor.io](https://streameditor.io) is intended to prevent arbitrary command execution, writing files to the server, and reading any *sensitive* data from the server. Valid security bugs are likely to include anything that allows you to do any of these. Note that reading certain *non-sensitive* files from the server is possible and expected.
 
 ### Non-security bugs
 
