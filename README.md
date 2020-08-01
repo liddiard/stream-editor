@@ -1,6 +1,6 @@
-# <img src="https://github.com/liddiard/stream-editor/blob/master/client/public/img/logo-light.svg?raw=true" width="56" alt="Stream Editor logo" /> Stream Editor | [streameditor.io](https://streameditor.io/)
+# <img src="https://github.com/liddiard/stream-editor/blob/master/client/public/img/logo-light.svg?raw=true" height="36" alt="Stream Editor logo" /> Stream Editor | [streameditor.io](https://streameditor.io/)
 
-Stream Editor is an online tool for interactively writing and chaining command-line text manipulation utilities, such as `sed`, `grep`, and `awk`.
+**Stream Editor** is an online tool for interactively writing and chaining command-line text manipulation utilities, such as `sed`, `grep`, and `awk`.
 
 Text transformation tools provided by Unix operating systems are incredibly powerful for pattern extraction, formatting, and data manipulation, but a command line isn't always the best interface for using them when it comes to experimentation and debugging, especially if you want to chain several commands together with pipes.
 
@@ -18,7 +18,7 @@ Stream Editor provides an accessible web interface that dynamicalaly updates out
 
 ![Stream Editor screenshot](screenshots/unicode.png)
 
-### Stream Editor being used to analyze its own logs, examining the effect of chaining multiple commands together at each step
+### Stream Editor being used to analyze its own logs, showing the effects of multiple commands chained together
 
 ![Stream Editor screenshot](screenshots/chain.png)
 
