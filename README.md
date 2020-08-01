@@ -6,9 +6,9 @@
 
 Text transformation tools provided by Unix operating systems are incredibly powerful for pattern extraction, formatting, and data manipulation, but a command line isn't always the best interface for using them when it comes to experimentation and debugging, especially if you want to chain several commands together with pipes and understand what each is doing.
 
-Stream Editor provides a user-friendly web interface for tinkering with these text editing commands that dynamically updates output as you type. It lets you chain multiple commands together and observe the output after each step, optionally with a diff of added/deleted text with green/red highlights. 
+Stream Editor provides a user-friendly web interface for tinkering with these text editing commands that dynamically updates output as you type. It enables you to chain multiple commands together and observe the output after each step, optionally seeing a diff of added/deleted text with green/red highlights. 
 
-Once you've finalized the operations you want to use, Stream Editor enables you to export them as a series of command-line pipes with a single click, or share them with a unique URL.
+Once you've finalized the operations you want to use, Stream Editor lets you to export them as a series of command-line pipes with a single click, or share them with a unique URL.
 
 [**Read more on my website.**](https://harrisonliddiard.com/project/stream-editor/)
 
