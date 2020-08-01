@@ -1,4 +1,4 @@
-# <img src="https://github.com/liddiard/stream-editor/blob/master/client/public/img/logo-light.svg?raw=true" width="56" alt="Stream Editor logo" /> Stream Editor | https://streameditor.io
+# <img src="https://github.com/liddiard/stream-editor/blob/master/client/public/img/logo-light.svg?raw=true" width="56" alt="Stream Editor logo" /> Stream Editor | [streameditor.io](https://streameditor.io/)
 
 Stream Editor is an online tool for interactively writing and chaining command-line text manipulation utilities, such as `sed`, `grep`, and `awk`.
 
@@ -18,7 +18,7 @@ Stream Editor provides an accessible web interface that dynamicalaly updates out
 
 ![Stream Editor screenshot](screenshots/unicode.png)
 
-### Stream Editor being used to analyze its own logs. Examine the effect of chaining multiple commands together at each step.
+### Stream Editor being used to analyze its own logs: Examine the effect of chaining multiple commands together at each step
 
 ![Stream Editor screenshot](screenshots/chain.png)
 
