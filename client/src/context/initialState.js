@@ -34,7 +34,7 @@ export default {
   // the number of operations from the querystring, if applicable, otherwise
   // show the default panes
   panes: panesFromSessionStorage ? panesFromSessionStorage.concat(
-    Array(querystringOperations.length - panesFromSessionStorage.length)
+    Array((querystringOperations.length + 1) - panesFromSessionStorage.length)
     .fill(null)
     .map(() => ({ id: uuid() }))
   ) : DEFAULT_PANES,

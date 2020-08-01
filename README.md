@@ -1,10 +1,12 @@
 # stream-editor
 
-An interactive web UI for building and debugging Linux text stream editing commands like sed, grep, and awk.
+Stream Editor is an online tool for interactively writing and chaining command-line text manipulation utilities, such as `sed`, `grep`, and `awk`.
 
-Idea: Linux text manipulations are really powerful for pattern extraction and data formatting, but the shell can be a diffcult interface for tinkering with them and inspecting the output as you pipe it from one command to another.
+Text transformation tools provided by Unix operating systems are incredibly powerful for pattern extraction, formatting, and data manipulation, but a command line isn't always the best interface for using them when it comes to experimentation and debugging, especially if you want to chain several commands together with pipes.
 
-Stream Editor tries to solve this with a pretty web UI that lets you inspect your input and output at each step of the way with an optional GitHub-style visual diff of changes after each command.
+Stream Editor provides an accessible web interface that dynamicalaly updates output as you make changes to input text and the commands applied to it. It allows you to chain multiple commands together and observe the output after each step, optionally with a visual diff of deleted/added text with red/green highlights.
+
+Once you've landed on the operations you want to use, you can export them as a series of command-line pipes with a single click, or share them with a unique URL.
 
 Read more [on my website](https://harrisonliddiard.com/project/stream-editor/).
 
