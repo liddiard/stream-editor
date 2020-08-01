@@ -8,7 +8,7 @@ Text transformation tools provided by Unix operating systems are incredibly powe
 
 Stream Editor provides an accessible web interface that dynamicalaly updates output as you make changes to input text and the commands applied to it. It allows you to chain multiple commands together and observe the output after each step, optionally with a visual diff of deleted/added text with red/green highlights. Once you've figured out the operations you want to use, you can export them as a series of command-line pipes with a single click, or share them with a unique URL.
 
-[Read more on my website](https://harrisonliddiard.com/project/stream-editor/).
+[**Read more on my website.**](https://harrisonliddiard.com/project/stream-editor/)
 
 ## Screenshots
 
