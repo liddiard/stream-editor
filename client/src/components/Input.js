@@ -62,6 +62,7 @@ const Input = ({ dispatch, text, maxLength, error, operation, options }) => {
         autoFocus
         tabIndex={1}  
         spellCheck={false}
+        aria-label="input"
       />
       {operation}
     </div>

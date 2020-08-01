@@ -79,6 +79,7 @@ const Operation = ({ dispatch, index, commands, operations, operation, error }) 
           dispatch({ type: SET_OPERATION_ARGS, index, args: ev.target.value })
         }
         onPaste={handlePaste}
+        aria-label="command arguments"
       />
       {removeButton}
     </div>
