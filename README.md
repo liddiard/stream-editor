@@ -1,4 +1,6 @@
-# stream-editor
+# Stream Editor
+
+https://streameditor.io
 
 Stream Editor is an online tool for interactively writing and chaining command-line text manipulation utilities, such as `sed`, `grep`, and `awk`.
 
@@ -12,28 +14,28 @@ Read more [on my website](https://harrisonliddiard.com/project/stream-editor/).
 
 ## Screenshots
 
-![Stream Editor screenshot](https://harrisonliddiard.com/media/stream-editor/2.png)
+![Stream Editor screenshot](screenshots/initial.png)
 
-Using sed to remove the citation notes from a Wikipedia article. Removals shown in red.
+Stream Editor default view.
 
-![Stream Editor screenshot](https://harrisonliddiard.com/media/stream-editor/3.png)
+![Stream Editor screenshot](screenshots/unicode.png)
 
-Full Unicode support. 很好。
+Stream Editor light theme, showcasing its full Unicode support.
 
-![Stream Editor screenshot](https://harrisonliddiard.com/media/stream-editor/5.png)
+![Stream Editor screenshot](screenshots/chain.png)
 
-Examine the effect of chaining multiple operations together at every step.
+Stream Editor being used to analyze its own logs. Examine the effect of chaining multiple commands together at each step.
 
 ## Requirements
 
 - MacOS or Linux (sorry, these commands are not all available on Windows)
 - Python 3.7+
 
-## Installation
+## Installation (Development)
 
 1. clone the repo
-2. (optional but recommended) [set up a virtual environment](http://docs.python-guide.org/en/latest/dev/virtualenvs/) for the project, and activate it
+2. (optional but recommended) [set up a virtual environment](https://docs.python.org/3/tutorial/venv.html) for the project, and activate it
 3. `pip3 install -r requirements.txt`
-4. `python3 runserver.py`
+4. `FLASK_ENV=development python3 dev_server.py`
 5. `cd client`
 6. `npm install && npm start`
