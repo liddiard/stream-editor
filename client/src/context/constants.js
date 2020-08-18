@@ -9,7 +9,7 @@ export const INPUT_DELAY = 250 // time to wait between keystrokes before sending
 export const MAX_INPUT_LENGTH = Math.pow(2, 20) // should match server-side constant of the same name
 export const MAX_OPERATIONS = 16 // should match server-side constant of the same name
 
-export const INITIAL_INPUT = `Welcome to Stream Editor, a tool for interactively using and chaining command-line text manipulation utilities.
+export const INITIAL_INPUT = `Welcome to Stream Editor, a tool for interactively chaining command-line text manipulation utilities.
 
 This pane contains your input. It's being modified by the \`sed\` command below ↓ into the output on the right →
 
