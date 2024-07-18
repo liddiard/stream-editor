@@ -94,8 +94,8 @@ User=root
 Group=www-data
 WorkingDirectory=/home/liddiard/stream-editor/repo
 Environment="JAIL_PATH=/root/jail"
-Environment="PATH=/home/liddiard/stream-editor/bin"
-ExecStart=/home/liddiard/stream-editor/bin/gunicorn --name stream-editor server:app
+# https://askubuntu.com/a/1014501
+ExecStart=/bin/bash -c "PATH=/home/liddiard/stream-editor/bin:$PATH exec /home/liddiard/stream-editor/bin/gunicorn --name stream-editor server:app"
 Restart=always
 RestartSec=5
 
