@@ -6,7 +6,14 @@ import { INSERT_OPERATION } from '../context/constants'
 import '../styles/PaneDivider.scss'
 
 
-const PaneDivider = ({ dispatch, index, showAddButton, pulseAddButton, onCommandAdd, onDragEnd }) => {
+const PaneDivider = ({
+  dispatch,
+  index,
+  showAddButton,
+  pulseAddButton,
+  onCommandAdd,
+  onDragEnd
+}) => {
   const [dragDistance, setDragDistance] = useState(0)
   const [dragging, setDragging] = useState(false)
   const dragStartX = useRef()

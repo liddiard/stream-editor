@@ -8,7 +8,14 @@ import { uploadFile } from '../context/actions'
 import '../styles/Input.scss'
 
 
-const Input = ({ dispatch, text, maxLength, error, operation, options }) => {
+const Input = ({
+  dispatch,
+  text,
+  maxLength = MAX_INPUT_LENGTH,
+  error,
+  operation,
+  options 
+}) => {
   const { darkMode, fontStyle, fontSize } = options
   const iconVariant = darkMode ? 'dark' : 'light'
 
@@ -72,14 +79,10 @@ const Input = ({ dispatch, text, maxLength, error, operation, options }) => {
 Input.propTypes = {
   dispatch: PropTypes.func.isRequired,
   text: PropTypes.string.isRequired,
-  maxLength: PropTypes.number.isRequired,
+  maxLength: PropTypes.number,
   error: PropTypes.object.isRequired,
   operation: PropTypes.element.isRequired,
   options: PropTypes.object.isRequired
-}
-
-Input.defaultProps = {
-  maxLength: MAX_INPUT_LENGTH
 }
 
 export default OptionsConsumer(Input)

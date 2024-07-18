@@ -6,7 +6,13 @@ import { OptionsConsumer } from '../context'
 import '../styles/CommandSelect.scss'
 
 
-const CommandSelect = ({ commands, command, index, onChange, options }) => {
+const CommandSelect = ({ 
+  commands, 
+  command, 
+  index, 
+  onChange, 
+  options 
+}) => {
   const { darkMode } = options
 
   const [isOpen, setIsOpen] = useState(false)

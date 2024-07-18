@@ -16,7 +16,11 @@ import Logo from './Logo'
 import '../styles/Toolbar.scss'
 
 
-const Toolbar = ({ dispatch, operations, options }) => {
+const Toolbar = ({
+  dispatch,
+  operations,
+  options
+}) => {
   const { syncScroll, darkMode, fontStyle, fontSize } = options
   const iconVariant = darkMode ? 'dark' : 'light'
 

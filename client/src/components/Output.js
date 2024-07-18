@@ -10,7 +10,22 @@ import '../styles/Output.scss'
 
 const diffWorker = new Worker(new URL('../context/worker.js', import.meta.url));
 
-const Output = ({ dispatch, index, input, text, prevText, isError, isLast, operation, showDiff, options }) => {
+const Output = ({
+  dispatch,
+  index,
+  input,
+  text = '',
+  prevText = '',
+  isError,
+  isLast,
+  operation,
+  // Show visual diff of changes if there is no input in session storage,
+  // indicating that this is the first time the app has been opened this
+  // session and the "instructional" input will be shown, which should be
+  // shown with a diff
+  showDiff = false,
+  options
+}) => {
   const { fontSize, fontStyle, darkMode } = options
   const iconVariant = darkMode ? 'dark' : 'light'
 
@@ -101,23 +116,13 @@ Output.propTypes = {
   dispatch: PropTypes.func.isRequired,
   index: PropTypes.number.isRequired,
   input: PropTypes.string.isRequired,
-  text: PropTypes.string.isRequired,
-  prevText: PropTypes.string.isRequired,
+  text: PropTypes.string,
+  prevText: PropTypes.string,
   isError: PropTypes.bool.isRequired,
   isLast: PropTypes.bool.isRequired,
   operation: PropTypes.element,
-  showDiff: PropTypes.bool.isRequired,
+  showDiff: PropTypes.bool,
   options: PropTypes.object.isRequired,
-}
-
-Output.defaultProps = {
-  text: '',
-  prevText: '',
-  // Show visual diff of changes if there is no input in session storage,
-  // indicating that this is the first time the app has been opened this
-  // session and the "instructional" input will be shown, which should be
-  // shown with a diff
-  showDiff: false
 }
 
 export default OptionsConsumer(Output)

@@ -13,7 +13,13 @@ import '../styles/Operation.scss'
 import { Tooltip as ReactTooltip } from 'react-tooltip'
 
 
-const Operation = ({ dispatch, index, commands, operations, operation, error }) => {
+const Operation = ({ dispatch,
+  index,
+  commands,
+  operations,
+  operation,
+  error,
+}) => {
   // if the pasted args start with a supported command, update the operation's
   // command accordingly and remove it from the args
   // e.g. if your current command is `cat` and you paste "sed s/a/b/", update

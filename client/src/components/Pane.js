@@ -7,7 +7,16 @@ import PaneDivider from './PaneDivider'
 import '../styles/Pane.scss'
 
 
-const Pane = ({ dispatch, index, isLast, pulseAddButton, width, minWidth, children }) => {
+const Pane = ({
+  dispatch,
+  index,
+  isLast,
+  pulseAddButton,
+  // `null` indiciates no user-defined width
+  width = null,
+  minWidth,
+  children
+}) => {
   const componentRef = useRef()
 
   const handleCommandAdd = useCallback(() => {
@@ -55,11 +64,6 @@ Pane.propTypes = {
   width: PropTypes.number,
   minWidth: PropTypes.number.isRequired,
   children: PropTypes.node.isRequired
-}
-
-Pane.defaultProps = {
-  // `null` indiciates no user-defined width
-  width: null
 }
 
 export default Pane
