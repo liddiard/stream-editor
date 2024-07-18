@@ -1,5 +1,6 @@
 import os
 from logging.config import dictConfig
+import logging
 
 from flask import Flask, jsonify
 from flask_cors import CORS
@@ -22,6 +23,8 @@ if IS_DEV:
 # https://flask-cors.readthedocs.io/
 CORS(app, origins=ALLOWED_ORIGIN)
 
+logging.getLogger('flask_cors').level = logging.DEBUG
+
 # compress responses
 # https://github.com/colour-science/flask-compress
 app.config['COMPRESS_ALGORITHM'] = COMPRESS_ALGORITHM
@@ -29,9 +32,10 @@ Compress(app)
 
 # https://flask-limiter.readthedocs.io/
 limiter = Limiter(
-    app,
-    key_func=get_remote_address,
-    default_limits=RATELIMIT_RULES
+    get_remote_address,
+    app=app,
+    default_limits=RATELIMIT_RULES,
+    storage_uri="memory://"
 )
 
 @app.errorhandler(429)
