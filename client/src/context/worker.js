@@ -1,9 +1,11 @@
 import Diff from 'text-diff'
 
 
-export const generateDiff = (prevText, text) => {
+onmessage = async (event) => {
+  const { prevText, text } = event.data
   const diff = new Diff()
   const diffText = diff.main(prevText, text)
   diff.cleanupSemantic(diffText)
-  return diff.prettyHtml(diffText)
+  const result = diff.prettyHtml(diffText)
+  postMessage(result)
 }

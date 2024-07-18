@@ -3,14 +3,12 @@ import PropTypes from 'prop-types'
 
 import { OptionsConsumer } from '../context'
 import { SET_PANE_OPTIONS } from '../context/constants'
-// eslint-disable-next-line import/no-webpack-loader-syntax
-import worker from 'workerize-loader!../context/worker'
 import { downloadFile } from '../utils'
 
 import '../styles/Output.scss'
 
 
-const instance = worker()
+const diffWorker = new Worker(new URL('../context/worker.js', import.meta.url));
 
 const Output = ({ dispatch, index, input, text, prevText, isError, isLast, operation, showDiff, options }) => {
   const { fontSize, fontStyle, darkMode } = options
@@ -24,8 +22,11 @@ const Output = ({ dispatch, index, input, text, prevText, isError, isLast, opera
     if (!showDiff) {
       return
     }
-    const html = await instance.generateDiff(prevText, text)
-    setDiffOutput(html)
+    // https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers#dedicated_workers
+    diffWorker.postMessage({ prevText, text })
+    diffWorker.onmessage = (e) => {
+      setDiffOutput(e.data)
+    }
   }, [prevText, text, showDiff]);
 
   let output
