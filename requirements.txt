@@ -2,3 +2,4 @@ Flask==3.0.3
 flask-cors==4.0.1
 Flask-Limiter==3.7.0
 flask-compress==1.15
+gunicorn

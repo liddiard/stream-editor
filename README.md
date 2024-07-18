@@ -57,8 +57,8 @@ If your bug **does not** involve any security concerns, please report it on [Git
 ### System requirements / prerequisites
 
 - MacOS or Linux*
-- Python 3.7+ w/ pip 3+
-- Node.js 10+ w/ npm 6+
+- Python 3.12 w/ pip 3
+- Node.js 20 w/ npm 10
 
 \* The Unix text editing commands that Stream Editor supports are not all available on Windows, though you *may* be able to get everything to work in a [Cygwin](https://www.cygwin.com/) kind of environment. It just hasn't been tested.
 
@@ -76,16 +76,58 @@ If your bug **does not** involve any security concerns, please report it on [Git
 
 **Note:** This isn't a comprehensive guide; this section is intended mainly for my personal reference.
 
-- server is running with [gunicorn](https://gunicorn.org/):
+Server is running with [gunicorn](https://gunicorn.org/):
 
 ```shell
 JAIL_PATH=/root/jail gunicorn --name stream-editor server:app
 ```
 
-- and with nginx (command to run on the server to see its logs):
+To auto-restart (recommended), it can be installed as a systemd service at `/etc/systemd/system/stream-editor.service`:
 
-```shell
-cd /var/log/nginx; tail -f access.log error.log
+```ini
+[Unit]
+Description=Stream Editor
+After=network.target
+
+[Service]
+User=liddiard
+Group=www-data
+WorkingDirectory=/home/liddiard/stream-editor/repo
+Environment="JAIL_PATH=/home/liddiard/jail"
+Environment="PATH=/home/liddiard/stream-editor/bin"
+ExecStart=/home/liddiard/stream-editor/bin/gunicorn --name stream-editor server:app
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
+```
+
+Enable the service by running the following:
+
+```bash
+sudo systemctl daemon-reload
+sudo systemctl start stream-editor.service
+sudo systemctl enable stream-editor.service
+sudo systemctl status stream-editor.service
+```
+
+It is also running behind a simple Nginx reverse proxy. Config:
+
+```Nginx
+server {
+
+    server_name api.streameditor.io;
+
+    location / {
+        proxy_pass http://localhost:8000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+}
 ```
 
 - chroot jail is configured with [Jailkit](https://olivier.sessink.nl/jailkit/); [this post](http://www.mattheakis.com/blog/view.php?name=setting_up_a_jail_to_safely_execute_code) was a useful reference

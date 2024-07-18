@@ -7,10 +7,10 @@
 
 SUPPORTED_COMMANDS=( awk cat cut expand fold grep head sed sort tail tr tsort unexpand uniq wc )
 JAILED_USER_USERNAME=untrusted_internet_user
-JAIL_PATH=~/jail
+JAIL_PATH=/home/liddiard/jail
 
 echo 'Creating jail directory...'
-mkdir -p JAIL_PATH
+mkdir -p $JAIL_PATH
 
 echo 'Initializing the jail...'
 jk_init -j $JAIL_PATH jk_lsh
