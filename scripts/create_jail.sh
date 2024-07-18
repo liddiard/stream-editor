@@ -3,11 +3,11 @@
 # script to create chroot jail
 # assumes you already have jailkit installed by following the instructions at:
 # http://www.mattheakis.com/blog/view.php?name=setting_up_a_jail_to_safely_execute_code
-# must be run as root
+# must be run as root, and jail must be owned by root
 
 SUPPORTED_COMMANDS=( awk cat cut expand fold grep head sed sort tail tr tsort unexpand uniq wc )
 JAILED_USER_USERNAME=untrusted_internet_user
-JAIL_PATH=/home/liddiard/jail
+JAIL_PATH=~/jail
 
 echo 'Creating jail directory...'
 mkdir -p $JAIL_PATH
