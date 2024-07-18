@@ -90,10 +90,10 @@ Description=Stream Editor
 After=network.target
 
 [Service]
-User=liddiard
+User=root
 Group=www-data
 WorkingDirectory=/home/liddiard/stream-editor/repo
-Environment="JAIL_PATH=/home/liddiard/jail"
+Environment="JAIL_PATH=/root/jail"
 Environment="PATH=/home/liddiard/stream-editor/bin"
 ExecStart=/home/liddiard/stream-editor/bin/gunicorn --name stream-editor server:app
 Restart=always
