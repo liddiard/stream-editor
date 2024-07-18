@@ -1,7 +1,6 @@
 import {
   INITIAL_INPUT,
   INITIAL_OPERATION,
-  DEFAULT_OPERATION,
   DEFAULT_PANES
 } from './constants'
 import {
@@ -16,15 +15,13 @@ const inputFromSessionStorage = sessionStorage.getItem('input')
 const panesFromSessionStorage = getJSONFromSessionStorage('panes')
 const querystringOperations = getOperationsFromQuerystring()
 
-export default {
+const initialState = {
   loading: false,
   commands: [], // supported commands and associated descriptions/resources
   input: inputFromSessionStorage !== null ? // user's text input
     inputFromSessionStorage :
     INITIAL_INPUT,
-  operations: inputFromSessionStorage !== null ? // user's commands + arguments
-    (querystringOperations || [DEFAULT_OPERATION]) :
-    [INITIAL_OPERATION],
+  operations: querystringOperations || [INITIAL_OPERATION], // user's commands + arguments
   apiInput: '', // input from which the outputs were generated.
                 // needed for diff b/c there's a delay between input
                 // and receiving API resoponse.
@@ -57,3 +54,5 @@ export default {
     ...getJSONFromLocalStorage('options')
   }
 }
+
+export default initialState

@@ -21,7 +21,7 @@ import {
 import { uuid } from '../utils'
 
 
-export default (state, action) => {
+const reducer = (state, action) => {
   const {
     loading,
     error,
@@ -148,3 +148,5 @@ export default (state, action) => {
       return state
   }
 }
+
+export default reducer
