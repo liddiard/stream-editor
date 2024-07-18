@@ -2,7 +2,7 @@ import { uuid } from '../utils'
 
 
 export const API_ROOT = process.env.NODE_ENV === 'development' ?
-  'http://localhost:5000/v1/' :
+  'http://localhost:8002/v1/' :
   'https://api.streameditor.io/v1/'
 
 export const INPUT_DELAY = 250 // time to wait between keystrokes before sending API request to execute commands

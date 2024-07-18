@@ -1,5 +1,5 @@
 import React, { useReducer, useRef, useEffect } from 'react'
-import ReactTooltip from 'react-tooltip';
+import { Tooltip as ReactTooltip } from 'react-tooltip'
 import isEqual from 'lodash/isEqual'
 
 import { INPUT_DELAY, INITIAL_OPERATION } from './context/constants'
@@ -50,10 +50,6 @@ const App = () => {
   useEffect(() => {
     writeOperationsToQuerystring(operations)
   }, [operations])
-
-  useEffect(() => {
-    ReactTooltip.rebuild()
-  }, [operations, outputs])
 
   useEffect(() => {
     sessionStorage.setItem('input', input)

@@ -10,7 +10,7 @@ import { OptionsConsumer } from '../context'
 import CommandSelect from './CommandSelect'
 
 import '../styles/Operation.scss'
-import ReactTooltip from 'react-tooltip'
+import { Tooltip as ReactTooltip } from 'react-tooltip'
 
 
 const Operation = ({ dispatch, index, commands, operations, operation, error }) => {
